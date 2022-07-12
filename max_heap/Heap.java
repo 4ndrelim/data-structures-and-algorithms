@@ -258,37 +258,5 @@ class Heap<T extends Comparable<T>> {
     }
     return ret.substring(0, ret.length() - 2) + "]";
   }
-  
-  /**
-   * Basic testing
-   */
-  public static void main(String[] args) {
-    Heap<Integer> heap = new Heap<>();
-    heap.offer(1);
-		heap.offer(2);
-		heap.offer(9);
-		heap.offer(4);
-		heap.offer(5);
-    System.out.println(heap);
 
-		System.out.println("Peek: " + heap.peek());
-		System.out.println("Poll: " + heap.poll());
-		System.out.println("Peek: " + heap.peek());
-
-		heap.offer(6);
-
-		System.out.println("Peek: " + heap.peek());
-		System.out.println("Poll: " + heap.poll());
-		System.out.println("Poll: " + heap.poll());
-    System.out.println(heap);
-
-    heap.heapify(new ArrayList<>(Arrays.asList(5,4,6,7,2,1,9,8,0,3)));
-    System.out.println(heap);
-
-    heap.heapify(5,6,7,9,2,3);
-    System.out.println(heap);
-    heap.remove(3);
-    heap.remove(1);
-    System.out.println(heap);
-  }
 }
