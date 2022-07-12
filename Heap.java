@@ -11,13 +11,17 @@ import java.util.*;
  * poll()
  * peek()
  * heapify(List<T> lst)
+ * heapify(T ...seq)
+ * remove(T obj)
  * @param <T> generic type for objects to be stored and queried
  */
 class Heap<T extends Comparable<T>> {
   private List<T> heap;
+  private Map<T, Integer> index;
 
   public Heap() {
     heap = new ArrayList<>();
+    index = new HashMap<>();
   }
 
   public int size() {
@@ -38,6 +42,10 @@ class Heap<T extends Comparable<T>> {
    * @param idx2 index of the second object
    */
   private void swap(int idx1, int idx2) {
+    // update the index of each value in the map
+    this.index.put(this.get(idx1), idx2);
+    this.index.put(this.get(idx2), idx1);
+
     T tmp = this.get(idx1); // Note internally implemented with an ArrayList
     this.heap.set(idx1, this.get(idx2));
     this.heap.set(idx2, tmp);
@@ -155,6 +163,7 @@ class Heap<T extends Comparable<T>> {
     // swap with last element in the heap
     this.swap(i, this.size() - 1); // O(1)
     this.heap.remove(this.size() - 1); // O(1)
+    this.index.remove(item); // remove from index map
     this.bubbleDown(i); // O(log n)
     return item;
   }
@@ -177,6 +186,7 @@ class Heap<T extends Comparable<T>> {
    */
   public void offer(T item) {
     this.heap.add(item); // add to the end of the arraylist
+    this.index.put(item, this.size() - 1); // add item into index map
     this.bubbleUp(this.size() - 1); // bubbleUp to rightful place
   }
 
@@ -198,6 +208,9 @@ class Heap<T extends Comparable<T>> {
    */
   public void heapify(List<T> lst) {
     this.heap = new ArrayList<>(lst);
+    for (int i = 0; i < this.size(); i++) {
+      this.index.put(this.get(i), i);
+    }
     for (int i = this.size() - 1; i >= 0; i--) {
       this.bubbleDown(i);
     }
@@ -210,12 +223,27 @@ class Heap<T extends Comparable<T>> {
   @SuppressWarnings("unchecked")
   public void heapify(T ...seq) {
     this.heap = new ArrayList<T>();
+    int j = 0;
     for (T obj : seq) {
       this.heap.add(obj);
+      this.index.put(obj, j);
+      j++;
     }
     for (int i = this.size() - 1; i >= 0; i--) {
       this.bubbleDown(i);
     }
+  }
+
+  /**
+   * Remove specified object from the heap.
+   * @param obj object to be removed
+   */
+  public void remove(T obj) {
+    if (!this.index.containsKey(obj)) {
+      System.out.println(String.format("%s does not exist!", obj));
+      return;
+    }
+    this.remove(this.index.get(obj));
   }
 
   /**
@@ -242,17 +270,25 @@ class Heap<T extends Comparable<T>> {
 		heap.offer(4);
 		heap.offer(5);
     System.out.println(heap);
+
 		System.out.println("Peek: " + heap.peek());
 		System.out.println("Poll: " + heap.poll());
 		System.out.println("Peek: " + heap.peek());
+
 		heap.offer(6);
+
 		System.out.println("Peek: " + heap.peek());
 		System.out.println("Poll: " + heap.poll());
 		System.out.println("Poll: " + heap.poll());
     System.out.println(heap);
+
     heap.heapify(new ArrayList<>(Arrays.asList(5,4,6,7,2,1,9,8,0,3)));
     System.out.println(heap);
+
     heap.heapify(5,6,7,9,2,3);
+    System.out.println(heap);
+    heap.remove(3);
+    heap.remove(1);
     System.out.println(heap);
   }
 }
