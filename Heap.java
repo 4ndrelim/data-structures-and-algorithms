@@ -5,10 +5,16 @@ import java.util.*;
  * using binary heap stored as an array.
  * Note that array is filled in in BFS/level-order.
  * Note implementation assumes a 0-based index.
+ * Callable methods are:
+ * size()
+ * offer(T item)
+ * poll()
+ * peek()
+ * heapify(List<T> lst)
  * @param <T> generic type for objects to be stored and queried
  */
 class Heap<T extends Comparable<T>> {
-  private ArrayList<T> heap;
+  private List<T> heap;
 
   public Heap() {
     heap = new ArrayList<>();
@@ -187,6 +193,32 @@ class Heap<T extends Comparable<T>> {
   }
 
   /**
+   * Takes in a list of objects and convert it into a heap structure; O(n).
+   * @param lst the list of objects
+   */
+  public void heapify(List<T> lst) {
+    this.heap = new ArrayList<>(lst);
+    for (int i = this.size() - 1; i >= 0; i--) {
+      this.bubbleDown(i);
+    }
+  }
+
+  /**
+   * Takes in a sequence of objects and insert into a heap; O(n).
+   * @param ...seq sequence of T objects
+   */
+  @SuppressWarnings("unchecked")
+  public void heapify(T ...seq) {
+    this.heap = new ArrayList<T>();
+    for (T obj : seq) {
+      this.heap.add(obj);
+    }
+    for (int i = this.size() - 1; i >= 0; i--) {
+      this.bubbleDown(i);
+    }
+  }
+
+  /**
    * @return the string representation of the heap
    */
   @Override
@@ -218,6 +250,9 @@ class Heap<T extends Comparable<T>> {
 		System.out.println("Poll: " + heap.poll());
 		System.out.println("Poll: " + heap.poll());
     System.out.println(heap);
-
+    heap.heapify(new ArrayList<>(Arrays.asList(5,4,6,7,2,1,9,8,0,3)));
+    System.out.println(heap);
+    heap.heapify(5,6,7,9,2,3);
+    System.out.println(heap);
   }
 }
