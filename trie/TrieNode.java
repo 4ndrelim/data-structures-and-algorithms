@@ -20,22 +20,43 @@ public class TrieNode {
     next = new TrieNode[CAPACITY];
   }
 
+  /**
+   * Checks if node has a character.
+   * @param c character to check for presence
+   * @return boolean representing if the character exists
+   */
   public boolean containsKey(char c) {
     return next[c-'a'] != null;
   }
 
+  /**
+   * Get the next node at the index represented by the character.
+   * @param c character whose index holds the desired next node
+   * @return the desired node at that index
+   */
   public TrieNode getNext(char c) {
     return next[c-'a'];
   }
 
+  /**
+   * Inserts a character to the current TrieNode.
+   * @param c character whose index represents where to insert the node
+   */
   public void insertKey(char c) {
     next[c-'a'] = new TrieNode();
   }
 
+  /**
+   * Checks if the current TrieNode is a terminating flag.
+   * @return boolean value
+   */
   public boolean isEnd() {
     return end;
   }
 
+  /**
+   * Make the current TrieNode a terminating flag/node.
+   */
   public void makeEnd() {
     end = true;
   }

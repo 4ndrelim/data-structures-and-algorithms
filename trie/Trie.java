@@ -14,6 +14,10 @@ public class Trie {
     root = new TrieNode();
   }
 
+  /**
+   * Insert a word into the trie.
+   * @param word the string to be inserted
+   */
   public void insert(String word) {
     System.out.println(String.format("~~~~~~~Inserting %s~~~~~~~", word));
     TrieNode node = root;
@@ -28,6 +32,11 @@ public class Trie {
     node.makeEnd();
   }
 
+  /**
+   * Search for a word in the trie.
+   * @param word the string to look for
+   * @return boolean representing whether the word was found
+   */
   public boolean search(String word) {
     System.out.println(String.format("~~~~~~~Searching %s~~~~~~~", word));
     TrieNode node = root;
@@ -42,6 +51,13 @@ public class Trie {
     return node.isEnd();
   }
 
+  /**
+   * Search for a prefix in the trie.
+   * Note: very similar in implementation to search method
+   *       except the search here does not need to look for end flag
+   * @param prefix the string to look for
+   * @return boolean representing whether the prefix exists
+   */
   public boolean startsWith(String prefix) {
     System.out.println(String.format("~~~~~~~Looking for prefix %s~~~~~~~", prefix));
     TrieNode node = root;
