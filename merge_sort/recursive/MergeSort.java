@@ -15,23 +15,23 @@ public class MergeSort {
 
   private static <T extends Comparable<T>> void merge(List<T> arr, int s, int m, int e, List<T> cpy) {
     int start = s;
-    int startRight = s;
-    int startLeft = m + 1;
+    int startLeft = s;
+    int startRight = m + 1;
 
-    while (startRight < m + 1 && startLeft < e + 1) {
-      if (cpy.get(startRight).compareTo(cpy.get(startLeft)) < 0) {
-        arr.set(start++, cpy.get(startRight++));
-      } else {
+    while (startLeft < m + 1 && startRight < e + 1) {
+      if (cpy.get(startLeft).compareTo(cpy.get(startRight)) < 0) {
         arr.set(start++, cpy.get(startLeft++));
+      } else {
+        arr.set(start++, cpy.get(startRight++));
       }
     }
 
-    while (startRight < m + 1) {
-      arr.set(start++, cpy.get(startRight++));
+    while (startLeft < m + 1) {
+      arr.set(start++, cpy.get(startLeft++));
     }
 
-    while (startLeft < e + 1) {
-      arr.set(start++, cpy.get(startLeft++));
+    while (startRight < e + 1) {
+      arr.set(start++, cpy.get(startRight++));
     }
   }
 
