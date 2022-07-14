@@ -16,6 +16,13 @@ public class Test {
     List<Integer> nums = new ArrayList<>(Arrays.asList(5,7,3,4,9,2,6,1,8));
     print(nums);
     MergeSort.sort(nums);
+    System.out.print("Sorted: ");
     print(nums);
+
+    List<Integer> nums2 = new ArrayList<>(Arrays.asList(3,4,65,47,86,6,45,69,52,23,99,91,42,22,15,7,78));
+    print(nums2);
+    MergeSort.sort(nums2);
+    System.out.print("Sorted: ");
+    print(nums2);
   }
 }
