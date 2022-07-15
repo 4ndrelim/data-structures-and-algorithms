@@ -1,8 +1,26 @@
 import java.util.*;
 
-// Sorts in ascending order
+/**
+ * Iterative implementation of Merge sort
+ * with O(nlogn) space (can be improved by
+ * adapting same idea as the recursive implementation)
+ */
 public class MergeSort {
 
+  /**
+   * Sorts a list from a specified start to end point.
+   *
+   * Note: starting with an interval size of 1 and iteratively *2,
+   * Merge two sub-lists of size interval together using merge routine.
+   * Invariant: Partitioning the main list into sub-lists of size interval,
+   * each of this sub-list is sorted within itself (the last sub-list may not be of
+   * size interval but it is still sorted since the size is necessarily less than interval.
+   *
+   * @param <T> generic type of object
+   * @param lst list of objects to be sorted
+   * @param start sorting starts at this index
+   * @param end sorting ends (inclusive) at this index
+   */
   private static <T extends Comparable<T>> void mergeSort(List<T> lst, int start, int end) {
     if (start == end) {
       return;
@@ -21,6 +39,14 @@ public class MergeSort {
     
   }
 
+  /**
+   * Merging algorithm that merges two sorted sub-lists into one final sorted list.
+   * @param <T> generic type of object
+   * @param lst at the end, elements from s1 to e (inclusive) of lst are sorted
+   * @param s1 start index of first sub-list
+   * @param s2 start index of second sub-list; note that end index of first sub-list is s2-1
+   * @param e end index of second sub-list
+   */
   private static <T extends Comparable<T>> void merge(List<T> lst, int s1, int s2, int e) {
     int startLeft = s1;
     int startRight = s2;
@@ -47,6 +73,11 @@ public class MergeSort {
     }
   }
 
+  /**
+   * Sorting algorithm that clients calls
+   * @param <T> generic type
+   * @param lst list to be sorted
+   */
   public static <T extends Comparable<T>> void sort(List<T> lst) {
     mergeSort(lst, 0, lst.size() - 1);
   }
