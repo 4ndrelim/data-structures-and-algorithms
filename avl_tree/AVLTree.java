@@ -92,9 +92,9 @@ public class AVLTree<T extends Comparable<T>> {
   /**
    * Insert a key which will be wrapped in a node, into the tree.
    * NOTE: ASSUMPTION THAT NO TWO NODES SHARE THE SAME KEY VALUE.
-   * @param node the tree rooted at node which the key will be inserted into
+   * @param node the (sub)tree rooted at node which the key will be inserted into
    * @param key the key to insert
-   * @return the new node which the tree is rooted at
+   * @return the (new) node which the tree is rooted at after rebalancing
    */
   public Node<T> insert(Node<T> node, T key) {
     if (node == null) {
@@ -107,5 +107,43 @@ public class AVLTree<T extends Comparable<T>> {
       throw new RuntimeException("Duplicate key not supported!");
     }
     return rebalance(node);
+  }
+
+  /**
+   * Delete a key from the avl tree.
+   * Find the node that holds the key and remove the node from the tree.
+   * @param node the (sub)tree rooted at node which the key will be deleted from
+   * @param key the key to remove
+   * @return the (new) root which the tree is rooted at after rebalancing
+   */
+  public Node<T> delete(Node<T> node, T key) {
+    if (node == null) {
+      return null;
+    } else if (node.key.compareTo(key) < 0) {
+      node.right = delete(node.right, key);
+    } else if (node.key.compareTo(key) > 0) {
+      node.left = delete(node.left, key);
+    } else {
+      if (node.left == null || node.right == null) { // case of 1 or 0 child
+        node = node.left == null ? node.right : node.left;
+      } else { // 2-children case
+        Node<T> successor = getMostLeft(node.right);
+        node.key = successor.key;
+        node.right = delete(node.right, successor.key);
+      }
+    }
+
+    if (node != null) { // make sure it isnt the 0-child case
+      rebalance(node);
+    }
+    return node;
+  }
+
+  private Node<T> getMostLeft(Node<T> n) {
+    if (n.left == null) {
+      return n;
+    } else {
+      return getMostLeft(n.left);
+    }
   }
 }
