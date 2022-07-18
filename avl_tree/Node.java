@@ -5,11 +5,13 @@ import java.util.*;
  * Note: Properties should rightfully be kept private 
  * and accessed/modified via public getters/setters.
  * But it was left as such to avoid clutter.
+ * @param <T> generic type of objects to be stored in the tree; must be comparable
  */
 public class Node <T extends Comparable<T>> {
   public T key;
   public Node<T> left;
   public Node<T> right;
+  public Node<T> parent;
   public int height;
   /*
    * Can insert more properties here.

@@ -1,5 +1,22 @@
 import java.util.*;
 
+/**
+ * Implementation of Adelson-Velsky, Landis (AVL) Tree.
+ * @param <T> generic type of object to be stored; must be comparable
+ * client methods:
+ *  height(Node<T> n)
+ *  height(T key)
+ *  root()
+ *  insert(T key)
+ *  delete(T key)
+ *  search(T key)
+ *  predecessor(T key)
+ *  successor(T key)
+ *  printInorder()
+ *  printPreorder()
+ *  printPostorder()
+ *  printLevelorder()
+ */
 public class AVLTree<T extends Comparable<T>> {
 
   private Node<T> root;
@@ -46,6 +63,10 @@ public class AVLTree<T extends Comparable<T>> {
     Node<T> newLeftSub = newRoot.right;
     newRoot.right = n;
     n.left = newLeftSub;
+
+    newRoot.parent = n.parent;
+    n.parent = newRoot;
+
     updateHeight(n);
     updateHeight(newRoot);
     return newRoot;
@@ -64,6 +85,10 @@ public class AVLTree<T extends Comparable<T>> {
     Node<T> newRightSub = newRoot.left;
     newRoot.left = n;
     n.right = newRightSub;
+
+    newRoot.parent = n.parent;
+    n.parent = newRoot;
+
     updateHeight(n);
     updateHeight(newRoot);
     return newRoot;
@@ -103,8 +128,11 @@ public class AVLTree<T extends Comparable<T>> {
       return new Node<>(key);
     } else if (node.key.compareTo(key) < 0) {
       node.right = insert(node.right, key);
+      node.right.parent = node; 
+      // note that insufficient to update parent in rotateLeft & rotateRight if still considered balanced
     } else if (node.key.compareTo(key) > 0) {
       node.left = insert(node.left, key);
+      node.left.parent = node;
     } else {
       throw new RuntimeException("Duplicate key not supported!");
     }
@@ -127,10 +155,21 @@ public class AVLTree<T extends Comparable<T>> {
       node.left = delete(node.left, key);
     } else {
       if (node.left == null || node.right == null) { // case of 1 or 0 child
-        node = node.left == null ? node.right : node.left;
+        // node = node.left == null ? node.right : node.left;
+        if (node.left == null && node.right == null) {
+          node = null; // 0-child case
+        } else if (node.right == null) {
+          node.left.parent = node.parent;
+          node = node.left;
+        } else {
+          node.right.parent = node.parent;
+          node = node.right;
+        }
       } else { // 2-children case
         Node<T> successor = getMostLeft(node.right);
         node.key = successor.key;
+        // since this is a 2-children case, successor of deleted node have
+        // at most one child; right-child (else it would continue going left)
         node.right = delete(node.right, successor.key);
       }
     }
@@ -152,6 +191,55 @@ public class AVLTree<T extends Comparable<T>> {
     } else {
       return getMostLeft(n.left);
     }
+  }
+
+  private Node<T> getMostRight(Node<T> n) {
+    if (n.right == null) {
+      return n;
+    } else {
+      return getMostRight(n.right);
+    }
+  }
+  
+  /**
+   * Find the key of the predecessor of a specified node that exists in the tree
+   * NOTE: the input node is assumed to be in the tree
+   * @param node node that exists in the tree
+   * @return key value; null if node has no predecessor
+   */
+  private T predecessor(Node<T> node) {
+    Node<T> curr = node;
+    if (curr.left != null) { // has left-child
+      return getMostRight(curr.left).key;
+    } else { // so pred must be an ancestor
+      while (curr != null) {
+        if (curr.key.compareTo(node.key) < 0) {
+          return curr.key;
+        } 
+        curr = curr.parent;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Find the key of the successor of a specified node that exists in the tree
+   * NOTE: the input node is assumed to be in the tree
+   * @param node node that exists in the tree
+   * @return key value; null if node has no successor
+   */
+  private T successor(Node<T> node) {
+    Node<T> curr = node;
+    if (curr.right != null) { // has right-child
+      return getMostLeft(curr.right).key;
+    }
+    while (curr != null) {
+      if (curr.key.compareTo(node.key) > 0) {
+        return curr.key;
+      } 
+      curr = curr.parent;
+    }
+    return null;
   }
 
   /**
@@ -257,9 +345,9 @@ public class AVLTree<T extends Comparable<T>> {
   public Node<T> search(T key) {
     Node<T> curr = root;
     while (curr != null) {
-      if (curr.key.compareTo(key) < -1) {
+      if (curr.key.compareTo(key) < 0) {
         curr = curr.right;
-      } else if (curr.key.compareTo(key) > 1) {
+      } else if (curr.key.compareTo(key) > 0) {
         curr = curr.left;
       } else {
         return curr;
@@ -275,6 +363,62 @@ public class AVLTree<T extends Comparable<T>> {
    */
   public int height(T key) {
     return height(search(key));
+  }
+
+  /**
+   * Search for the predecessor of a given key.
+   * @param key find predecessor of this key
+   * @return generic type value; null if key has no predecessor
+   */
+  public T predecessor(T key) {
+    Node<T> curr = root;
+    while (curr != null) {
+      if (curr.key.compareTo(key) == 0) {
+        break;
+      } else if (curr.key.compareTo(key) < 0) {
+        if (curr.right == null) {
+          break;
+        } 
+        curr = curr.right;
+      } else {
+        if (curr.left == null) {
+          break;
+        }
+        curr = curr.left;
+      }
+    }
+    if (curr.key.compareTo(key) < 0) { // we are done
+      return curr.key;
+    } 
+    return predecessor(curr); // pred could be an ancestor or child of curr node and hence handled separately
+  }
+
+  /**
+   * Search for the successor of a given key.
+   * @param key find successor of this key
+   * @return generic type value; null if key has no successor
+   */
+  public T successor(T key) {
+    Node<T> curr = root;
+    while (curr != null) {
+      if (curr.key.compareTo(key) == 0) {
+        break;
+      } else if (curr.key.compareTo(key) < 0) {
+        if (curr.right == null) {
+          break;
+        }
+        curr = curr.right;
+      } else {
+        if (curr.left == null) {
+          break;
+        }
+        curr = curr.left;
+      }
+    }
+    if (curr.key.compareTo(key) > 0) { // we are done
+      return curr.key;
+    }
+    return successor(curr); // same exp as in the pred fn
   }
 
   /**

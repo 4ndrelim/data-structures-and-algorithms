@@ -9,15 +9,8 @@
 
 public class Test {
   public static void main(String[] args) {
-    //              5
-    //          /       \
-    //        3           7
-    //      /   \       /   \
-    //    1      4     6     8
-    //                   
-    //                    
     AVLTree<Integer> tree = new AVLTree<>();
-    Node<Integer> root = tree.root();
+    System.out.println("Inserting...");
     tree.insert(5);
     tree.insert(4);
     tree.insert(8);
@@ -26,10 +19,49 @@ public class Test {
     tree.insert(3);
     tree.insert(1);
 
+    // tree:
+    //              5
+    //          /       \
+    //        3           7
+    //      /   \       /   \
+    //    1      4     6     8
+    //                  
+   
+    Integer x = 6;
+    System.out.println("parent of " + x.toString() + " is " + tree.search(x).parent.key.toString());
+
+    System.out.println("Deleting...");
     tree.delete(5);
     tree.delete(7);
     tree.printInorder();
     tree.printPreorder();
     tree.printLevelorder();
+
+    System.out.println("Inserting...");
+    tree.insert(9);
+    tree.insert(2);
+    tree.printInorder();
+    tree.printPreorder();
+    tree.printPostorder();
+
+    // updated tree:
+    //             6
+    //          /     \
+    //         3       8
+    //       /   \       \
+    //      1     4       9
+    //       \
+    //        2
+ 
+    x = 4;
+    System.out.println("parent of " + x.toString() + " is " + tree.search(x).parent.key.toString());
+
+    System.out.println("Testing successors & predecessors queries...");
+    System.out.println(tree.predecessor(1));
+    System.out.println(tree.predecessor(6));
+
+    System.out.println(tree.successor(1));
+    System.out.println(tree.successor(6));
+    System.out.println(tree.successor(9));
   }
 }
