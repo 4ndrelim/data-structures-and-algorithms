@@ -201,6 +201,29 @@ public class AVLTree<T extends Comparable<T>> {
     }
     System.out.print(node.toString() + " ");
   }
+  
+  /**
+   * Prints out level-order traversal of tree rooted at node
+   * @param node node which the tree is rooted at
+   */
+  private void printLevelorder(Node<T> node) {
+    if (node == null) {
+      return;
+    }
+    Queue<Node<T>> q = new LinkedList<>();
+    q.add(node);
+    while (!q.isEmpty()) {
+      Node<T> curr = q.poll();
+      System.out.print(curr.toString() + " ");
+      if (curr.left != null) {
+        q.add(curr.left);
+      }
+      if (curr.right != null) {
+        q.add(curr.right);
+      }
+    }
+    return;
+  }
 
   /**
    * Get root of tree.
@@ -278,6 +301,15 @@ public class AVLTree<T extends Comparable<T>> {
   public void printPostorder() {
     System.out.print("Post-order: ");
     printPostorder(root);
+    System.out.println();
+  }
+
+  /**
+   * prints level-order traversal of the entire tree
+   */
+  public void printLevelorder() {
+    System.out.print("Level-order: ");
+    printLevelorder(root);
     System.out.println();
   }
 }

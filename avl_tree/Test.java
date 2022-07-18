@@ -27,7 +27,9 @@ public class Test {
     tree.insert(1);
 
     tree.delete(5);
+    tree.delete(7);
     tree.printInorder();
     tree.printPreorder();
+    tree.printLevelorder();
   }
 }
