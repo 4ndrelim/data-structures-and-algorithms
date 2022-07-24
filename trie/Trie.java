@@ -23,8 +23,7 @@ public class Trie {
     TrieNode node = root;
     for (int i = 0; i < word.length(); i++) {
       char curr = word.charAt(i);
-      if (node.containsKey(curr)) {
-      } else {
+      if (!node.containsKey(curr)) {
         node.insertKey(curr);
       }
       node = node.getNext(curr); // go to the subsequent node!

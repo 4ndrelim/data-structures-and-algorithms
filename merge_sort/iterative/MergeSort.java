@@ -10,11 +10,11 @@ public class MergeSort {
   /**
    * Sorts a list from a specified start to end point.
    *
-   * Note: starting with an interval size of 1 and iteratively *2,
-   * Merge two sub-lists of size interval together using merge routine.
-   * Invariant: Partitioning the main list into sub-lists of size interval,
+   * Note: starting with an interval size (call this var <interval>) of 1 and iteratively *2,
+   * Merge two sub-lists of size <interval> together using merge routine.
+   * Invariant: Partitioning the main list into sub-lists of size <interval>,
    * each of this sub-list is sorted within itself (the last sub-list may not be of
-   * size interval but it is still sorted since the size is necessarily less than interval.
+   * size <interval> but it is still sorted since the size is necessarily less than <interval>.
    *
    * @param <T> generic type of object
    * @param lst list of objects to be sorted
