@@ -1,23 +1,22 @@
 import java.util.*;
 
 /**
- * Implementation of TrieNode for Trie structure (assumes chracters are lower-cased alphabets).
+ * Implementation of TrieNode for Trie structure (not restricited to alphabets)
  * Each TrieNode has the following attributes:
- * TrieNode Array: Indices of the array represent characters, with a starting from 0 and z ending at 26
- *                 NOTE: Presence of a node at a given index means that character represented by that 
- *                 index is present / is part of the trie structure 
- *                 (regardless whether the node has end flag toggled to True)
- * Capacity      : The size of the TrieNode array
- * end flag      : Tells us whether the current TrieNode is actually a terminating flag
+ * characters: HashMap whose keys represent the available characters and 
+ *             values represent the nodes to select the next characters
+ *             NOTE: Presence of a character in the hashmap means that this character 
+ *             is part of the trie structure and can be used to continue forming a searched word
+ *             or return the accumulation of letters as the word if the end flag is toggled to true
+ * end       : Tells us whether the current TrieNode is actually a terminating flag
  */
 
 public class TrieNode {
-  private TrieNode[] next;
-  private final int CAPACITY = 26; // implementation assumes lower-cased alphabets
+  private Map<Character, TrieNode> characters;
   private boolean end;
 
   public TrieNode() {
-    next = new TrieNode[CAPACITY];
+    characters = new HashMap<>();
   }
 
   /**
@@ -26,7 +25,7 @@ public class TrieNode {
    * @return boolean representing if the character exists
    */
   public boolean containsKey(char c) {
-    return next[c-'a'] != null;
+    return characters.containsKey(c);
   }
 
   /**
@@ -35,7 +34,15 @@ public class TrieNode {
    * @return the desired node at that index
    */
   public TrieNode getNext(char c) {
-    return next[c-'a'];
+    return characters.get(c);
+  }
+
+  /**
+   * Get the avaialble characters can be used as the next letter from the current node.
+   * @return hashmap of characters and next nodes
+   */
+  public Map<Character, TrieNode> getCharacters() {
+    return characters;
   }
 
   /**
@@ -43,7 +50,7 @@ public class TrieNode {
    * @param c character whose index represents where to insert the node
    */
   public void insertKey(char c) {
-    next[c-'a'] = new TrieNode();
+    characters.put(c, new TrieNode());
   }
 
   /**
@@ -59,5 +66,12 @@ public class TrieNode {
    */
   public void makeEnd() {
     end = true;
+  }
+
+  /**
+   * Remove terminating flag from current TrieNode.
+   */
+  public void removeEnd() {
+    end = false;
   }
 }
