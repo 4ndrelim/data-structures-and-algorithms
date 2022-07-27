@@ -6,10 +6,10 @@ import java.util.*;
  *       and hence the code below can be replicated with
  *       LinkedList.
  * Callable methods:
- *  push()
+ *  push(T item)
  *  pop()
  *  peek()
- *  empty()
+ *  isEmpty()
  * Note: Calling pop() or peek() on an empty stack returns null
  * @param <T> generic type of objects to be stored in the stack
  */
@@ -52,7 +52,7 @@ public class Stack<T> {
    * @return last element of the stack; null if the stack is empty
    */
   public T pop() {
-    if (this.empty()) {
+    if (this.isEmpty()) {
       return null;
     }
     // note that the operation below is O(1) when called on the last index
@@ -64,7 +64,7 @@ public class Stack<T> {
    * @return last element of the stack; null if the stack is empty
    */
   public T peek() {
-    if (this.empty()) {
+    if (this.isEmpty()) {
       return null;
     }
     // similarly, below is an O(1) operation
@@ -75,7 +75,7 @@ public class Stack<T> {
    * Checks if the stack is empty.
    * @return boolean value representing whether the stack is empty
    */
-  public boolean empty() {
+  public boolean isEmpty() {
     return stack.size() == 0;
   }
 } 
