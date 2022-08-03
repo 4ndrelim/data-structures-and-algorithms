@@ -1,12 +1,28 @@
 import java.util.*;
 
-public class LinkedList<T> {
-  Node<T> head;
-  int size;
+public class LinkedList<T extends Comparable<T>> {
+  private Node<T> head;
+  private int size;
   
   public LinkedList() {
     head = null;
     size = 0;
+  }
+
+  public LinkedList(Node<T> head) {
+    this.head = head;
+    Node<T> trav = head;
+    int count = 0;
+    while (trav != null) {
+      count++;
+      trav = trav.next;
+    }
+    size = count;
+  }
+
+  private LinkedList(Node<T> head, int size) {
+    this.head = head;
+    this.size = size;
   }
 
   public int size() {
@@ -85,6 +101,14 @@ public class LinkedList<T> {
     return false;
   }
 
+  public T pop() {
+    return remove(size() - 1);
+  }
+
+  public T poll() {
+    return remove(0);
+  }
+
   public int search(T object) {
     Node<T> trav = head;
     int idx = 0;
@@ -112,6 +136,67 @@ public class LinkedList<T> {
       return trav;
     }
     return null;
+  }
+
+  public void reverse() {
+    if (head == null || head.next == null) {
+      return;
+    }
+
+    Node<T> prev = head;
+    Node<T> curr = head.next;
+    Node<T> newHead = curr;
+    prev.next = null;
+    while (curr.next != null) {
+      newHead = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = newHead;
+    }
+    newHead.next = prev;
+    head = newHead;
+  }
+
+  public void sort() {
+    if (this.size <= 1) {
+      return;
+    }
+    int mid = (this.size - 1) / 2;
+    Node<T> middle = this.get(mid);
+    Node<T> nextHead = middle.next;
+    LinkedList<T> next = new LinkedList<>(nextHead, this.size - 1 - mid);
+    middle.next = null;
+    this.size = mid + 1; // update size of original LL after split
+
+    next.sort();
+    this.sort();
+    head = merge(this, next);
+  }
+
+  private Node<T> merge(LinkedList<T> first, LinkedList<T> second) {
+    Node<T> headFirst = first.head;
+    Node<T> headSecond = second.head;
+    Node<T> dummy = new Node<>(null);
+    Node<T> trav = dummy;
+
+    while (headFirst != null && headSecond != null) {
+      if (headFirst.val.compareTo(headSecond.val) < 0) {
+        trav.next = headFirst;
+        headFirst = headFirst.next;
+      } else {
+        trav.next = headSecond;
+        headSecond = headSecond.next;
+      }
+      trav = trav.next;
+    }
+
+    if (headFirst != null) {
+      trav.next = headFirst;
+    }
+    if (headSecond != null) {
+      trav.next = headSecond;
+    }
+    return dummy.next;
   }
 
   @Override
