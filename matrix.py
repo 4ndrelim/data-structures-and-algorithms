@@ -45,4 +45,19 @@ def transpose(A):
     return ret
 
 
-\
+"""
+Apply matrix vector multiplication on two (compatible) matrices
+Returns the new matrix that results from their product
+
+"""
+def vector_mult(A, B):
+    if len(A[0]) != len(B):
+        raise Exception('Incompatible dimensions for matrix vector multiplication')
+    ret = [[0 for j in range(len(A[0]))] for i in range(len(A))]
+
+    for i in range(len(A)):
+        for j in range(len(A[0])):
+            row = A[i][:]
+            col = [B[x][j] for x in range(len(B))]
+            ret[i][j] = sum(a * b for a, b in zip(row, col))
+    return ret
