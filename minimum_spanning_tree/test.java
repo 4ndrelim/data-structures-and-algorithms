@@ -38,5 +38,6 @@ public class test {
         adjM[4][3] = 2;
         prims primsAlgor = new prims();
         System.out.println(primsAlgor.minCostConnectPoints(adjM));
+        System.out.println(primsAlgor.minCostConnectPoints2(adjM));
     }
 }

@@ -20,17 +20,18 @@ import java.util.*;
 
 /**
  * Implementation 1: Using heap
- * Time: O(VlogE + ElogE) // node heap could possibly hold E number of items since 
+ * Time: O(V^2 + O(E-V) (since new weights are simply added, not update original)+ ElogE) // node heap could possibly hold E number of items since 
  * Space: O(V) (hashmap to decide on MST) + O(E) (heap) = O(V+E) = O(E) 
  */
 
 class prims {
+    /**
+     * points: Adjacency matrix that encapsulates the distance/weight between nodes
+     *         adjM[i][j] is the weight of the edge connecting points i and j; a value of 0 suggests there is no connection between i and j
+     * @param adjM Adjacency matrix that encapsulates the distance/weight between nodes
+     * @return minimum weight of the spanning tree
+     */
     public int minCostConnectPoints(int[][] adjM) {
-        /*
-        * points: Adjacency matrix that encapsulates the distance/weight between nodes
-        * NOTE: adjM[i][j] is the weight of the edge connecting points i and j
-        * A value of 0 suggests there is no connection between i and j
-        */
         int v = adjM.length;
         int minCost = 0;
         Set<Integer> mst = new HashSet<>();
@@ -62,6 +63,47 @@ class prims {
             }
         }
         return minCost;
+    }
+
+    /**
+     * Alternative implementation that simply uses array to hold weights rather than heap
+     * Time:
+     * Space:
+     * @param adjM Adjacency matrix that encapsulates the distance/weight between nodes
+     * @return minimum weight of the spanning tree
+     */
+    public int minCostConnectPoints2(int[][] adjM) {
+        int v = adjM.length;
+        int[] weights = new int[v];
+
+        for (int i = 0; i < v; i++) {
+            weights[i] = adjM[0][i];
+        }
+
+        Set<Integer> mst = new HashSet<>();
+        mst.add(0); // start from source 0
+        int ans = 0;
+        while (mst.size() < v) {
+            int next = v;
+            for (int i = 0; i < v; i++) {
+                if (!mst.contains(i)) {
+                    if (weights[i] != 0 && (next == v || weights[i] < weights[next])) { // first check for valid connection, then try to find min weight
+                        next = i;
+                    }
+                }
+            }
+            mst.add(next);
+            ans += weights[next];
+
+            for (int i = 0; i < v; i++) {
+                if (!mst.contains(i)) {
+                    if (weights[i] == 0 || adjM[next][i] < weights[i]) { // update shortest dist to nodes that are not added to mst yet
+                        weights[i] = adjM[next][i];
+                    }
+                }
+            }
+        }
+        return ans;
     }
 }
 
