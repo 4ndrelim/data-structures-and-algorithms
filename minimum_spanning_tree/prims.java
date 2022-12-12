@@ -20,7 +20,7 @@ import java.util.*;
 
 /**
  * Implementation 1: Using heap
- * Time: O(V^2 + O(E-V) (since new weights are simply added, not update original)+ ElogE) // node heap could possibly hold E number of items since 
+ * Time: O(V) + O(ElogE) node heap could possibly hold E number of items since + O(E-V) + O(V^2) (since new weights are simply added, not update original)
  * Space: O(V) (hashmap to decide on MST) + O(E) (heap) = O(V+E) = O(E) 
  */
 
@@ -67,8 +67,8 @@ class prims {
 
     /**
      * Alternative implementation that simply uses array to hold weights rather than heap
-     * Time:
-     * Space:
+     * Time: O(V) + O(V*2V)
+     * Space: O(V)
      * @param adjM Adjacency matrix that encapsulates the distance/weight between nodes
      * @return minimum weight of the spanning tree
      */
