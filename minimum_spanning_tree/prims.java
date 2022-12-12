@@ -20,7 +20,7 @@ import java.util.*;
 
 /**
  * Implementation 1: Using heap
- * Time: O(VlogE + ElogE)
+ * Time: O(VlogE + ElogE) // node heap could possibly hold E number of items since 
  * Space: O(V) (hashmap to decide on MST) + O(E) (heap) = O(V+E) = O(E) 
  */
 
@@ -28,6 +28,8 @@ class prims {
     public int minCostConnectPoints(int[][] adjM) {
         /*
         * points: Adjacency matrix that encapsulates the distance/weight between nodes
+        * NOTE: adjM[i][j] is the weight of the edge connecting points i and j
+        * A value of 0 suggests there is no connection between i and j
         */
         int v = adjM.length;
         int minCost = 0;
@@ -38,7 +40,9 @@ class prims {
         );
         for (int i = 0; i < v; i++) {
             if (!mst.contains(i)) {
-                pq.add(new Pair(adjM[0][i], i));
+                if (adjM[0][i] != 0) { // ensure valid edge
+                    pq.add(new Pair(adjM[0][i], i));
+                }
             }
         }
         while (mst.size() != v) {
@@ -52,7 +56,9 @@ class prims {
                 if (mst.contains(i)) {
                     continue;
                 }
-                pq.add(new Pair(adjM[popped.endNode][i], i));
+                if (adjM[popped.endNode][i] != 0) { // ensure valid edge
+                    pq.add(new Pair(adjM[popped.endNode][i], i));
+                }
             }
         }
         return minCost;
