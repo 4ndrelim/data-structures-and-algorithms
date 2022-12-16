@@ -30,7 +30,26 @@ import java.util.*;
 
     }
 
+    private int query(TreeNode root, int left, int right) {
+        if (root.start == root.end) {
+            return root.sum;
+        } else {
+            if (left <= root.start && root.end <= right) {
+                return root.sum;
+            }
+            int ans = 0;
+            int m = root.start + (root.end - root.start)/2;
+            if (left <= m) {
+                ans += query(root.left, left, Math.min(right, root.left.end));
+            }
+            if (m+1 <= right) {
+                ans += query(root.right, Math.max(left, root.right.start), right);
+            }
+            return ans;
+        }
+    }
+
     public int sumRange(int left, int right) {
-        return 0;
+        return query(this.tree, left, right);
     }
  }
