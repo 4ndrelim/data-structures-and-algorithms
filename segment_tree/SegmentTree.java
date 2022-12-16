@@ -27,8 +27,22 @@ public class SegmentTree {
         }
     }
 
+    private void update(int nodeIdx, int start, int end, int index, int val) {
+        if (start == end) {
+            this.tree[nodeIdx] = val;
+            return;
+        }
+        int mid = start + (end-start)/2;
+        if (index <= mid) {
+            update(nodeIdx * 2 + 1, start, mid, index, val);
+        } else {
+            update(nodeIdx * 2 + 2, mid + 1, end, index, val);
+        }
+        tree[nodeIdx] = tree[nodeIdx * 2 + 1] + tree[nodeIdx * 2 + 2];
+    }
+
     public void update(int index, int val){
-        return;
+        update(0, 0, this.n-1, index, val);
     }
 
     public int sumRange(int left, int right) {
