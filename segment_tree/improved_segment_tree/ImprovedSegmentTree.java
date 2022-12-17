@@ -26,8 +26,24 @@ import java.util.*;
         this.tree = buildTree(nums, 0, nums.length-1);
     }
 
-    public void update(int idx, int val) {
+    private void update(TreeNode root, int idx, int val) {
+        if (root.start == root.end) {
+            root.sum = val;
+        } else {
+            if (idx <= root.left.end) {
+                update(root.left, idx, val);
+            } else {
+                update(root.right, idx, val);
+            }
+            root.sum = root.left.sum + root.right.sum;
+        }
+    }
 
+    public void update(int idx, int val) {
+        if (idx > this.tree.end) {
+            return;
+        }
+        update(this.tree, idx, val);
     }
 
     private int query(TreeNode root, int left, int right) {
