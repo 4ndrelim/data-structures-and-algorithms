@@ -11,3 +11,7 @@ This repository contains my personal (primarily in Java save for some exceptions
     * Variation for specific context: [Monotonic Queue](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/stack_and_queue/monotonic_queue/MonotonicQueue.java)
 7. [Stack](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/stack_and_queue/stack/stack.java)
 8. [Matrix Operations](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/matrix_operations/matrix.py)
+9. [LRU Cache](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/lru_cache/LRU.java)
+10. [Segment Tree](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/segment_tree/SegmentTree.java)
+    * Improved version does not require O(2^n) space [here](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/segment_tree/improved_segment_tree/ImprovedSegmentTree.java)
+11. [Minimum Spanning Tree](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/minimum_spanning_tree)
