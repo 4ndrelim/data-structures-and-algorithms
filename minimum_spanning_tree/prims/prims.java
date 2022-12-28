@@ -3,7 +3,7 @@ import java.util.*;
 /** 
  * Implementation of Prim's Algorithm to find MSTs
  * Idea: 
- *  Starting from any source (first node to be in the MST), 
+ *  Starting from any source (this will be the first node to be in the MST), 
  *  pick the lighest outgoing edge, and include the node at the other end as part of MST
  *  Now repeatedly do the above by picking the lighest outgoing edge adjacent to any node in the MST
  *  (ensuring the other end of the node is not already in the MST)
@@ -66,7 +66,9 @@ class prims {
     }
 
     /**
-     * Alternative implementation that simply uses array to hold weights rather than heap
+     * Alternative implementation that simply uses array to hold weights rather than heap.
+     * Note: Starts from the node labelled 0 and repeatedly update <weights> 
+     * which stores the minimum weight from any node in the MST to other nodes.
      * Time: O(V) + O(V*2V)
      * Space: O(V)
      * @param adjM Adjacency matrix that encapsulates the distance/weight between nodes
