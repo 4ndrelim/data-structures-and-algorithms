@@ -20,7 +20,7 @@ import java.util.*;
 
 /**
  * Implementation 1: Using heap
- * Time: O(V) + O(ElogE) node heap could possibly hold E number of items since + O(E-V) + O(V^2) (since new weights are simply added, not update original)
+ * Time: O(V) + O(ElogE) (since heap could possibly hold E number of weights) + O(E-V) (nodes that have been 'seen' are still added to the heap, just not expanded) + O(V^2)
  * Space: O(V) (hashmap to decide on MST) + O(E) (heap) = O(V+E) = O(E) 
  */
 
