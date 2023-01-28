@@ -2,8 +2,7 @@ import java.util.*;
 
 /**
  * Iterative implementation of Merge sort
- * with O(nlogn) space (can be improved by
- * adapting same idea as the recursive implementation)
+ * with O(n) space
  */
 public class MergeSort {
 
@@ -27,12 +26,19 @@ public class MergeSort {
     }
     int size = lst.size();
     int interval = 1;
+    List<T> tmp = new ArrayList<>();
+    for (T item : lst) {
+      tmp.add(item);
+    }
     while (interval < lst.size()) {
       for (int i = 0; i + interval < size; i += 2*interval) {
         int start1 = i;
         int start2 = i + interval;
-        int e = i + 2 * interval - 1 < size ? i + 2 * interval - 1 : size - 1;
-        merge(lst, start1, start2, e);
+        int e = i + 2 * interval - 1;
+        if (e > size - 1) {
+          e = size - 1;
+        }
+        merge(lst, tmp, start1, start2, e);
       }
       interval *= 2;
     }
@@ -47,29 +53,29 @@ public class MergeSort {
    * @param s2 start index of second sub-list; note that end index of first sub-list is s2-1
    * @param e end index of second sub-list
    */
-  private static <T extends Comparable<T>> void merge(List<T> lst, int s1, int s2, int e) {
+  private static <T extends Comparable<T>> void merge(List<T> lst, List<T> tmp, int s1, int s2, int e) {
     int startLeft = s1;
     int startRight = s2;
-    List<T> tmp = new ArrayList<>();
-
+    int tmpIdx = s1;
     while (startLeft < s2 && startRight < e + 1) {
       if (lst.get(startLeft).compareTo(lst.get(startRight)) < 0) {
-        tmp.add(lst.get(startLeft++));
+        tmp.set(tmpIdx, lst.get(startLeft++));
       } else {
-        tmp.add(lst.get(startRight++));
+        tmp.set(tmpIdx, lst.get(startRight++));
       }
+      tmpIdx++;
     }
 
     while (startLeft < s2) {
-      tmp.add(lst.get(startLeft++));
+      tmp.set(tmpIdx++, lst.get(startLeft++));
     }
 
     while (startRight < e + 1) {
-      tmp.add(lst.get(startRight++));
+      tmp.set(tmpIdx++, lst.get(startRight++));
     }
 
-    for (int i = 0; i < e-s1+1; i++) {
-      lst.set(s1+i, tmp.get(i));
+    for (int i = s1; i < e+1; i++) {
+      lst.set(i, tmp.get(i));
     }
   }
 
