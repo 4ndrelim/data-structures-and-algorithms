@@ -1,5 +1,3 @@
-import java.util.*;
-
 /**
  * Implementation of a queue structure using LinkedList.
  * Node class to be used as nodes for the LinkedList

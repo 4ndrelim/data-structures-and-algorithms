@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Simple implementation of a stack using ArrayList.

@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Basic Testing
@@ -7,17 +9,17 @@ import java.util.*;
  */
 public class Test {
   public static void main(String[] args) {
-    List<Integer> toInsert = new ArrayList<>(Arrays.asList(new Integer[] {1,3,5,4,3,2}));
-    MonotonicQueue mq = new MonotonicQueue<>();
+    List<Integer> toInsert = new ArrayList<>(Arrays.asList(new Integer[] {2,7,1,3,7,5,4,3,2,5}));
+    MonotonicQueue<Integer> mq = new MonotonicQueue<>();
     for (int num : toInsert) {
+      System.out.println(String.format("Pushing %d", num));
       mq.push(num);
-      System.out.println(mq.max());
+      System.out.println(String.format("Max in queue now is %d", mq.max()));
     }
 
     System.out.println("\nPopping thrice: ");
-    for (int i = 0; i < 3; i++) {
-      mq.pop();
-      System.out.println(mq.max());
+    for (int i = 0; i < 7; i++) {
+      System.out.println(mq.pop());
     }
   }
 }

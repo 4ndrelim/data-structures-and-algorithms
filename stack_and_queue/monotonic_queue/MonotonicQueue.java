@@ -1,7 +1,9 @@
-import java.util.*;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 /**
- * Implementation of a non-increasing monotonic queue.
+ * Implementation of a non-increasing monotonic queue for certain (but common) use case:
+ * When larger objects pushed to the queue are able to replace and represent smaller objects that come before it.
  * Callable methods are:
  * isEmpty()
  * max()
@@ -21,18 +23,15 @@ class MonotonicQueue<T extends Comparable<T>> {
   }
 
   /**
-   * Push an object into the queue, maintaining the non-increasing property.
-   * Note that the object will be wrapped in a node and prior nodes whose 
-   * objects' values are less the object to be inserted will be popped from the queue.
-   * A count of the number of removed queues will be stored in the current node to track 
-   * number of replaced nodes.
+   * Push an object into the queue and maintain the non-increasing property.
    * @param T obj to be inserted
    */
   public void push(T obj) {
     Integer count = 0;
-    while (!dq.isEmpty() && obj.compareTo(dq.peekLast().value) > 0) {
+    while (!dq.isEmpty() && obj.compareTo(dq.peekLast().value) >= 0) {
       Pair<T> popped = dq.pollLast();
-      count += 1 + popped.countDeleted; // accumulate all objects that were deleted to accomodate this obj
+      // accumulate count of objects that were popped to maintain the non-increasing property
+      count += 1 + popped.countDeleted; 
     }
     dq.offerLast(new Pair<T>(obj, count));
   }
@@ -49,18 +48,17 @@ class MonotonicQueue<T extends Comparable<T>> {
   }
 
   /**
-   * Removes the node with the highest value in the queue; i.e the first node;
-   * but if the tracked deletion count is greater than 0; i.e there have been nodes
-   * which have been replaced, then the current node will not yet be removed and 
-   * its value will be returned until the queue is done processing all the replaced nodes.
+   * Returns the highest valued object in the queue; i.e the first object;
+   * Removal will only be done all representation of the object has been accounted for.
    */
-  public void pop() {
-    if (dq.peek().countDeleted > 0) {
-      dq.peek().countDeleted -= 1;
-      return;
+  public T pop() {
+    Pair<T> node = dq.peek();
+    if (node.countDeleted > 0) {
+      node.countDeleted -= 1;
+      return node.value;
     }
     dq.poll();
-    return;
+    return node.value;
   }
 
   /**
