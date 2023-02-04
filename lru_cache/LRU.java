@@ -17,6 +17,9 @@ public class LRU<K, V> {
     Node<K, V> left;  // dummy left node to point to the left end
     Node<K, V> right; // dummy right node to point to the right end
 
+    /**
+     * Helper node class that encapsulates key-value pair and act as linked list to neighbour nodes.
+     */
     private class Node<K, V> {
         K key;
         V val;
@@ -41,7 +44,7 @@ public class LRU<K, V> {
 
     /**
      * Helper method to remove the specified node from the doubly linked list
-     * @param node node (assume exists) to be removed from the linked list
+     * @param node to be removed from the linked list
      */
     private void remove(Node<K, V> node) {
         Node<K, V> prev = node.prev;
@@ -52,7 +55,7 @@ public class LRU<K, V> {
 
     /**
      * Helper method to insert a node to the right end of the double linked list (Most Recently Used)
-     * @param node
+     * @param node to be inserted
      */
     private void insert(Node<K, V> node) {
         Node<K, V> prev = this.right.prev;
@@ -64,7 +67,7 @@ public class LRU<K, V> {
 
     /**
      * return the value of the key if it exists; otherwise null
-     * @param key
+     * @param key whose value, if exists, to be obtained
      */
     public V get(K key) {
         if (this.map.containsKey(key)) {
@@ -104,7 +107,7 @@ public class LRU<K, V> {
 
     /**
      * Custom print for testing
-     * prints from LRU to MRU
+     * prints from LRU to MRU (Most recently used)
      */
     public void print() {
         Node<K, V> trav = this.left.next;
