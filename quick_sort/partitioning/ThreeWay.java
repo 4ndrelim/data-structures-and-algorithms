@@ -1,4 +1,6 @@
-
+/**
+ * Static class for 3-way in-place partitioning.
+ */
 public class ThreeWay {
     public static void partition(int[] arr) {
         // ___<___ ___=___ ___IP___ ___>___
