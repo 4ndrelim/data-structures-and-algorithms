@@ -3,6 +3,7 @@
  */
 
  public class CyclicSort {
+    // Infinite loop when there are duplicates
     public static void sort(int[] arr) {
         int start = 0;
         while (start < arr.length) {
