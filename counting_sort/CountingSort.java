@@ -1,5 +1,6 @@
 /**
- * Stable implementation of Counting Sort.
+ * Stable implementation of Counting Sort. 
+ * Below focuses on sorting integers but the idea is the same and can be generalised for other objects.
  * Time: O(k+n) where k is the value of the largest element and n is the number of elements.
  * Space: O(k)
  */
@@ -27,7 +28,8 @@ public class CountingSort {
         }
         // now sort the array by placing in output array
         int[] sorted = new int[n];
-        for (int num : arr) {
+        for (int i = arr.length-1; i >= 0; i--) {
+            int num = arr[i];
             sorted[freq[num]-1] = num;
             freq[num]--;
         }
