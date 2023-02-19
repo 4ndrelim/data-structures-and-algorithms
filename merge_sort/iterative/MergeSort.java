@@ -1,8 +1,7 @@
 import java.util.*;
 
 /**
- * Iterative implementation of Merge sort
- * with O(n) space
+ * Iterative implementation of Merge sort with O(n) space
  */
 public class MergeSort {
 
