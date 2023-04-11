@@ -56,9 +56,9 @@ public class kruskal {
         int ans = 0;
         while (heap.size() != 0) {
             Pair<Integer, Pair<Integer, Integer>> curr = heap.poll();
-            Pair edge = curr.getValue();
-            Node fr = nodesMapping[(Integer) edge.getKey()];
-            Node to = nodesMapping[(Integer) edge.getValue()];
+            Pair<Integer, Integer> edge = curr.getValue();
+            Node fr = nodesMapping[edge.getKey()];
+            Node to = nodesMapping[edge.getValue()];
             Node p1 = fr.findParent();
             Node p2 = to.findParent();
             if (p1 != p2) {
