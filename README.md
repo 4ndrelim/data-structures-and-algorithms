@@ -29,3 +29,8 @@ This repository contains my personal (primarily in Java save for some exceptions
 4. [Counting Sort](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/counting_sort)
 5. [Radix Sort](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/radix_sort)
 6. [Matrix Operations](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/matrix_operations/matrix.py)
+
+
+# Contributors
+Andre <...>
+..
