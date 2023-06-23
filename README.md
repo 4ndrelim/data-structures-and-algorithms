@@ -33,4 +33,5 @@ This repository contains my personal (primarily in Java save for some exceptions
 
 # Contributors
 Andre <...>
+Kai Ting
 ..
