@@ -1,4 +1,4 @@
-import java.util.*;
+package src.data_structures.linked_list;
 
 /**
  * There are many variations when it comes to implementing linked lists. Here's mine.

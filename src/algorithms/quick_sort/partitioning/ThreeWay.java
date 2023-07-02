@@ -1,3 +1,5 @@
+package src.algorithms.quick_sort.partitioning;
+
 /**
  * Static class for 3-way in-place partitioning.
  */

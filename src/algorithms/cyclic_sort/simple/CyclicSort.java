@@ -1,3 +1,5 @@
+package src.algorithms.cyclic_sort.simple;
+
 /**
  * Simple implementation of cylic sort that involves only integers 0-n-1.
  */

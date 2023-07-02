@@ -1,3 +1,4 @@
+package src.data_structures.union_find.quick_find.generalised;
 import java.util.ArrayList;
 import java.util.List;
 

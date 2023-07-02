@@ -1,3 +1,4 @@
+package src.data_structures.union_find.weighted_union;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;

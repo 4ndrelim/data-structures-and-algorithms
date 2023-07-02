@@ -1,3 +1,5 @@
+package src.algorithms.counting_sort;
+
 /**
  * Stable implementation of Counting Sort. 
  * Below focuses on sorting integers but the idea is the same and can be generalised for other objects.

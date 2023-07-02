@@ -1,4 +1,4 @@
-import java.util.*;
+package src.data_structures.segment_tree;
 
 /**
  * Data structure that is commonly used to solve range sum queries in O(logn)

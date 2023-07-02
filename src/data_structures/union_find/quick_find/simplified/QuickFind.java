@@ -1,3 +1,5 @@
+package src.data_structures.union_find.quick_find.simplified;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,7 +36,7 @@ public class QuickFind {
 
     /**
      * Retrieves all the elements in the component whose identity is the same as that of the given element.
-     * @param identity of the component
+     * @param element whose component we would lie to find.
      * @return all elements in the component
      */
     public List<Integer> retrieveComponent(int element) {

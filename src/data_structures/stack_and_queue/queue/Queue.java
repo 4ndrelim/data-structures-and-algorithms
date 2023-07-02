@@ -1,3 +1,5 @@
+package src.data_structures.stack_and_queue.queue;
+
 /**
  * Implementation of a queue structure using LinkedList.
  * Node class to be used as nodes for the LinkedList

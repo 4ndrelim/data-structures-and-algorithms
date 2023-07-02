@@ -1,3 +1,5 @@
+package src.data_structures.trie;
+
 import java.util.*;
 
 /**

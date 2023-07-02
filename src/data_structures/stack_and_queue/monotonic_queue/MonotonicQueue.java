@@ -1,3 +1,5 @@
+package src.data_structures.stack_and_queue.monotonic_queue;
+
 import java.util.Deque;
 import java.util.ArrayDeque;
 
@@ -11,7 +13,7 @@ import java.util.ArrayDeque;
  * push()
  * @param <T> generic type for objects to be stored or queried   
  */
-class MonotonicQueue<T extends Comparable<T>> {
+public class MonotonicQueue<T extends Comparable<T>> {
   private Deque<Pair<T>> dq = new ArrayDeque<>(); // or LinkedList
 
   /**

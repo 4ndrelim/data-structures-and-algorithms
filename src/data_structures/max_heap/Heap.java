@@ -1,3 +1,5 @@
+package src.data_structures.max_heap;
+
 import java.util.*;
 
 /**
@@ -15,7 +17,7 @@ import java.util.*;
  * remove(T obj)
  * @param <T> generic type for objects to be stored and queried
  */
-class Heap<T extends Comparable<T>> {
+public class Heap<T extends Comparable<T>> {
   private List<T> heap;
   private Map<T, Integer> index;
 

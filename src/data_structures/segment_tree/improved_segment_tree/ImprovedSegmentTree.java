@@ -1,4 +1,4 @@
-import java.util.*;
+package src.data_structures.segment_tree.improved_segment_tree;
 /**
  * Improved segment tree that does not require O(2^n) space complexity
  * Uses TreeNode to store relevant information for range sum queries

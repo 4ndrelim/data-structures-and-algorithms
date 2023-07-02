@@ -1,3 +1,5 @@
+package src.algorithms.merge_sort.recursive;
+
 import java.util.*;
 
 /**

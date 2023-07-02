@@ -1,4 +1,4 @@
-import java.util.*;
+package src.data_structures.segment_tree.improved_segment_tree;
 
 /**
  * helper TreeNode class to store relevant information

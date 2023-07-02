@@ -1,3 +1,5 @@
+package src.algorithms.minimum_spanning_tree.kruskals;
+
 public class Pair<K, V> {
     K key;
     V val;
