@@ -3,15 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/src/algorithms/algorithms.iml" filepath="$PROJECT_DIR$/src/algorithms/algorithms.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/algorithms/cyclic_sort/cyclic_sort.iml" filepath="$PROJECT_DIR$/src/algorithms/cyclic_sort/cyclic_sort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/algorithms/cyclicSort/cyclic_sort.iml" filepath="$PROJECT_DIR$/src/algorithms/cyclicSort/cyclic_sort.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/data-structures-and-algorithms.iml" filepath="$PROJECT_DIR$/.idea/data-structures-and-algorithms.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/data_structures/data_structures.iml" filepath="$PROJECT_DIR$/src/data_structures/data_structures.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/algorithms/merge_sort/merge_sort.iml" filepath="$PROJECT_DIR$/src/algorithms/merge_sort/merge_sort.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/algorithms/minimum_spanning_tree/minimum_spanning_tree.iml" filepath="$PROJECT_DIR$/src/algorithms/minimum_spanning_tree/minimum_spanning_tree.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/data_structures/union_find/quick_find/quick_find.iml" filepath="$PROJECT_DIR$/src/data_structures/union_find/quick_find/quick_find.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/dataStructures/data_structures.iml" filepath="$PROJECT_DIR$/src/dataStructures/data_structures.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/algorithms/mergeSort/merge_sort.iml" filepath="$PROJECT_DIR$/src/algorithms/mergeSort/merge_sort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/algorithms/minimumSpanningTree/minimum_spanning_tree.iml" filepath="$PROJECT_DIR$/src/algorithms/minimumSpanningTree/minimum_spanning_tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/dataStructures/disjointSet/quickFind/quick_find.iml" filepath="$PROJECT_DIR$/src/dataStructures/disjointSet/quickFind/quick_find.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/algorithms/quick_sort/quick_sort.iml" filepath="$PROJECT_DIR$/src/algorithms/quick_sort/quick_sort.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/data_structures/stack_and_queue/stack_and_queue.iml" filepath="$PROJECT_DIR$/src/data_structures/stack_and_queue/stack_and_queue.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/data_structures/union_find/union_find.iml" filepath="$PROJECT_DIR$/src/data_structures/union_find/union_find.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/dataStructures/stackAndQueue/stack_and_queue.iml" filepath="$PROJECT_DIR$/src/dataStructures/stackAndQueue/stack_and_queue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/dataStructures/disjointSet/union_find.iml" filepath="$PROJECT_DIR$/src/dataStructures/disjointSet/union_find.iml" />
     </modules>
   </component>
 </project>
