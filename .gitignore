@@ -1,13 +1,3 @@
-.DS_Store
+*.DS_Store
 *.class
-Trie.class TrieNode.class TrieTest.class
-Test.class
-MergeSort.class
-.MergeSort.java.swp
-.Test.java.swp
-../../max_heap/.Heap.java.swp
-AVLTree.class
-avl_tree/Node.class
-trie/.gitignore
-Stack.class
-stack_and_queue/stack/Stack.class
+*.swp
