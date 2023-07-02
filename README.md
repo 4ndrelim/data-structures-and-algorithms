@@ -1,38 +1,75 @@
 # data-structures-and-algorithms
-This repository contains my personal (primarily in Java save for some exceptions) implementation of some of the fundamental data structures in Computer Science, occassionally, algorithms practice, and can be freely used as a teaching resource!
+This repository contains implementation of some of the fundamental data structures and algorithms in Computer Science. It is primarily used as a teaching resource and is currently being developed by ex-2040s students.
 
+## Full List of Implementation (in alphabetical order):
 ## Structures
-1. [Linked List](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/linked_list/LinkedList.java) 
-2. [Adelson-Velskii and Landis (AVL) Binary Search Tree](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/avl_tree/AVLTree.java)
-3. [Heap](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/max_heap/Heap.java)
+- [Adelson-Velskii and Landis (AVL) Binary Search Tree]()
+- [Disjoint Set]()
+    * [Quick Find]()
+    * [Weighted Union]() with path compression
+- [Heap]()
     * Max heap implementation
-5. [Trie](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/trie/Trie.java)
-6. [Queue](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/stack_and_queue/queue/Queue.java)
-    * Variation for specific context: [Monotonic Queue](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/stack_and_queue/monotonic_queue/MonotonicQueue.java) for querying the maximum element in a fixed sliding window (assume 1) of size k.
-7. [Stack](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/stack_and_queue/stack/stack.java)
-8. [Union Find]
-    * [Quick Find](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/union_find/quick_find)
-    * [Weighted Union](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/union_find/weighted_union) with path compression
-9. [LRU Cache](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/lru_cache/LRU.java)
-10. [Segment Tree](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/segment_tree/SegmentTree.java)
-    * Improved version does not require O(2^n) space [here](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/segment_tree/improved_segment_tree/ImprovedSegmentTree.java)
-11. [Minimum Spanning Tree](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/minimum_spanning_tree)
+- [Linked List]()
+- [LRU Cache]()
+- [Minimum Spanning Tree]()
+- [Queue]()
+- [Segment Tree]()
+    * Improved version does not require O(2^n) space [here]()
+- [Stack]()
+- [Trie]()
 
 
 ## Algorithms
-1. [Merge Sort](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/merge_sort)
-    * [Recursive](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/merge_sort/recursive)
-    * [Bottom-up iterative](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/merge_sort/iterative)
-2. [Quick Sort]
-    * [3-way Partitioning](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/quick_sort/partitioning)
-3. [Cyclic Sort](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/cyclic_sort)
-4. [Counting Sort](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/counting_sort)
-5. [Radix Sort](https://github.com/4ndrelim/data-structures-and-algorithms/tree/main/radix_sort)
-6. [Matrix Operations](https://github.com/4ndrelim/data-structures-and-algorithms/blob/main/matrix_operations/matrix.py)
+- [Counting Sort]()
+- [Cyclic Sort]()
+- [Matrix Operations]()
+- [Merge Sort]() 
+    * [Recursive]()
+    * [Bottom-up iterative]()
+- [Radix Sort]()
+- [Quick Sort]()
+    * [3-way Partitioning]()
+
+
+## Short-cut to CS2040S Material
+1. Basic structures
+    * Linked-list
+    * Stack
+    * Queue
+2. Binary Search
+    * Peak Finding
+3. Sorting
+    * Bubble
+    * Insertion
+    * Selection
+    * Merge
+    * Quick
+4. Trees
+    * Binary search tree
+    * AVL-tree
+    * Kd-tree
+    * Interval tree
+    * Augmented tree for orthogonal range searching
+5. Heap
+6. Disjoint Set / Union Find
+7. Hashing
+    * Bloom filter
+8. Basic graphs
+    * Depth-first search
+    * Breadth-first search
+9. Graphs
+    * Bellman-ford
+    * Dijkstra
+    * Directed acyclic graphs
+10. Minimum spanning tree
+    * Prim's 
+    * Kruskal's
 
 
 # Contributors
-Andre <...>
+Andre 
+
 Kai Ting
+
 Owen 
-..
+
