@@ -1,8 +1,11 @@
 package test.algorithms;
 
+import org.junit.Test;
 import src.algorithms.countingSort.CountingSort;
 
 import java.util.Arrays;
+
+import static org.junit.Assert.assertArrayEquals;
 
 public class CountingSortTest {
 
@@ -23,8 +26,8 @@ public class CountingSortTest {
         Arrays.sort(secondArray);
         Arrays.sort(thirdArray);
 
-        assertEquals(firstArray, firstResult);
-        assertEquals(secondArray, secondResult);
-        assertEquals(thirdArray, thirdResult);
+        assertArrayEquals(firstResult, firstArray);
+        assertArrayEquals(secondResult, secondArray);
+        assertArrayEquals(thirdResult, thirdArray);
     }
 }
