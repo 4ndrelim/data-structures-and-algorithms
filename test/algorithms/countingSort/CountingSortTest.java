@@ -1,4 +1,4 @@
-package test.algorithms;
+package test.algorithms.countingSort;
 
 import org.junit.Test;
 import src.algorithms.countingSort.CountingSort;

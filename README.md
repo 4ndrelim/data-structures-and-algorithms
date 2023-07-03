@@ -33,7 +33,7 @@ This repository contains implementation of some of the fundamental data structur
 
 ## Short-cut to CS2040S Material
 1. Basic structures
-    * Linked-list
+    * [Linked-list]()
     * Stack
     * Queue
 2. Binary Search
