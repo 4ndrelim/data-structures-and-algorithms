@@ -26,7 +26,7 @@ public class MonotonicQueue<T extends Comparable<T>> {
 
   /**
    * Push an object into the queue and maintain the non-increasing property.
-   * @param T obj to be inserted
+   * @param obj to be inserted
    */
   public void push(T obj) {
     Integer count = 0;

@@ -220,7 +220,7 @@ public class Heap<T extends Comparable<T>> {
 
   /**
    * Takes in a sequence of objects and insert into a heap; O(n).
-   * @param ...seq sequence of T objects
+   * @param <...> seq sequence of T objects
    */
   @SuppressWarnings("unchecked")
   public void heapify(T ...seq) {

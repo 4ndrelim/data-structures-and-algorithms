@@ -14,7 +14,7 @@ package src.dataStructures.stackAndQueue.queue;
  *
  * Note: calling dequeue() or peek() on an eqmpty queue
  *       returns null
- * @param T generic type of object to be stored in the queue
+ * @param <T> generic type of object to be stored in the queue
  */
 public class Queue<T> {
   private Node<T> first;
@@ -89,7 +89,7 @@ public class Queue<T> {
 
   /**
    * Node class to wrap the object.
-   * @param T generic type of object to be stored in the queue
+   * @param <T> generic type of object to be stored in the queue
    */
   private static class Node<T> {
     T val;
