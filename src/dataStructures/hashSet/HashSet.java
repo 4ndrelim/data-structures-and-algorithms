@@ -11,7 +11,7 @@ import java.util.List;
  *           Object::equals and Object::hashCode for the methods add, remove, and contains to be well-defined.
  */
 public class HashSet<T extends Comparable<T>> {
-    private static final int CAPACITY = 256; // Arbitrary number for now. To implement resizing, etc.
+    private static final int NUMBER_OF_BUCKETS = 256; // Arbitrary number for now. To implement resizing, etc.
     private final LinkedList<T>[] buckets;
     private int size;
 
@@ -22,8 +22,8 @@ public class HashSet<T extends Comparable<T>> {
         // Safe cast because the only way to add elements is through HashSet::add, which only accepts elements of
         // type T.
         @SuppressWarnings("unchecked")
-        LinkedList<T>[] temp = (LinkedList<T>[]) new LinkedList<?>[CAPACITY];
-        for (int i = 0; i < CAPACITY; i++) {
+        LinkedList<T>[] temp = (LinkedList<T>[]) new LinkedList<?>[NUMBER_OF_BUCKETS];
+        for (int i = 0; i < NUMBER_OF_BUCKETS; i++) {
             temp[i] = new LinkedList<>();
         }
         this.buckets = temp;
@@ -57,7 +57,7 @@ public class HashSet<T extends Comparable<T>> {
      * @return the bucket to add the element to.
      */
     private int hashFunction(T element) {
-        return Math.abs(element.hashCode() % CAPACITY);
+        return Math.abs(element.hashCode() % NUMBER_OF_BUCKETS);
     }
 
     /**
