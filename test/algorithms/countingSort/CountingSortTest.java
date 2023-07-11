@@ -11,6 +11,13 @@ import static org.junit.Assert.assertArrayEquals;
 public class CountingSortTest {
 
     @Test
+    public void countingSort_emptyArray_shouldReturnEmptyArray() {
+        int[] emptyArray = new int[10];
+        int[] result = CountingSort.sort(emptyArray);
+        assertArrayEquals(emptyArray, result);
+    }
+
+    @Test
     public void test_countingSort_shouldReturnSortedArray() {
         int[] firstArray =
                 new int[] {2, 3, 4, 1, 2, 5, 6, 7, 10, 15, 20, 13, 15, 1, 2, 15, 12, 20, 21, 120, 11, 5, 7, 85, 30};
@@ -23,9 +30,9 @@ public class CountingSortTest {
         int[] thirdArray = new int[] {};
         int[] thirdResult = CountingSort.sort(thirdArray);
 
-        Arrays.sort(firstArray);
-        Arrays.sort(secondArray);
-        Arrays.sort(thirdArray);
+        Arrays.sort(firstArray);  // get expected result
+        Arrays.sort(secondArray); // get expected result
+        Arrays.sort(thirdArray);  // get expected result
 
         assertArrayEquals(firstResult, firstArray);
         assertArrayEquals(secondResult, secondArray);

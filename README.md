@@ -20,7 +20,7 @@ This repository contains implementation of some of the fundamental data structur
 
 
 ## Algorithms
-- [Counting Sort]()
+- [Counting Sort](src/algorithms/sorting/countingSort/)
 - [Cyclic Sort]()
 - [Matrix Operations]()
 - [Merge Sort]() 
