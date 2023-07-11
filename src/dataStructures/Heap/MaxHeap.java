@@ -1,4 +1,4 @@
-package src.dataStructures.maxHeap;
+package src.dataStructures.Heap;
 
 import java.util.*;
 
@@ -17,11 +17,11 @@ import java.util.*;
  * remove(T obj)
  * @param <T> generic type for objects to be stored and queried
  */
-public class Heap<T extends Comparable<T>> {
+public class MaxHeap<T extends Comparable<T>> {
   private List<T> heap;
   private Map<T, Integer> index;
 
-  public Heap() {
+  public MaxHeap() {
     heap = new ArrayList<>();
     index = new HashMap<>();
   }
