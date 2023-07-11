@@ -1,6 +1,6 @@
 package test.randomTests.andre.radixSort;
 
-import src.algorithms.radixSort.RadixSort;
+import src.algorithms.sorting.radixSort.RadixSort;
 
 public class Test {
     private static void print(int[] arr) {

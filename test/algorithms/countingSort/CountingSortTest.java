@@ -2,7 +2,7 @@ package test.algorithms.countingSort;
 
 import org.junit.Test;
 
-import src.algorithms.countingSort.CountingSort;
+import src.algorithms.sorting.countingSort.CountingSort;
 
 import java.util.Arrays;
 

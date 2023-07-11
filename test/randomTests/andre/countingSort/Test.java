@@ -1,6 +1,6 @@
 package test.randomTests.andre.countingSort;
 
-import src.algorithms.countingSort.CountingSort;
+import src.algorithms.sorting.countingSort.CountingSort;
 
 public class Test {
     private static void print(int[] arr) {

@@ -1,4 +1,4 @@
-package src.algorithms.cyclicSort.simple;
+package src.algorithms.sorting.cyclicSort.simple;
 
 /**
  * Simple implementation of cylic sort that involves only integers 0-n-1.
