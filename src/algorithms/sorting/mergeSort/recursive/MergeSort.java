@@ -1,4 +1,4 @@
-package src.algorithms.mergeSort.recursive;
+package src.algorithms.sorting.mergeSort.recursive;
 
 import java.util.*;
 
