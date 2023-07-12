@@ -1,6 +1,6 @@
 package test.randomTests.kaiting.quickSort.partitioning;
 
-import src.algorithms.quickSort.partitioning.ThreeWay;
+import src.algorithms.sorting.quickSort.partitioning.ThreeWay;
 
 /*
  * Basic testing for partitioning

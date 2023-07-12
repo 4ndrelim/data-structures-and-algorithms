@@ -1,4 +1,4 @@
-package src.algorithms.cyclicSort.generalised;
+package src.algorithms.sorting.cyclicSort.generalised;
 /**
  * Implementation of cyclic sort
  * Time: O(n^2) where n is the number of elements

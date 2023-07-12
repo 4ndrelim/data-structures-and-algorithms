@@ -2,13 +2,20 @@ package test.algorithms.countingSort;
 
 import org.junit.Test;
 
-import src.algorithms.countingSort.CountingSort;
+import src.algorithms.sorting.countingSort.CountingSort;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 
 public class CountingSortTest {
+
+    @Test
+    public void countingSort_emptyArray_shouldReturnEmptyArray() {
+        int[] emptyArray = new int[10];
+        int[] result = CountingSort.sort(emptyArray);
+        assertArrayEquals(emptyArray, result);
+    }
 
     @Test
     public void test_countingSort_shouldReturnSortedArray() {
@@ -23,9 +30,9 @@ public class CountingSortTest {
         int[] thirdArray = new int[] {};
         int[] thirdResult = CountingSort.sort(thirdArray);
 
-        Arrays.sort(firstArray);
-        Arrays.sort(secondArray);
-        Arrays.sort(thirdArray);
+        Arrays.sort(firstArray);  // get expected result
+        Arrays.sort(secondArray); // get expected result
+        Arrays.sort(thirdArray);  // get expected result
 
         assertArrayEquals(firstResult, firstArray);
         assertArrayEquals(secondResult, secondArray);

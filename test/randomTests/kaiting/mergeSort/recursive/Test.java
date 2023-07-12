@@ -1,6 +1,6 @@
 package test.randomTests.kaiting.mergeSort.recursive;
 
-import src.algorithms.mergeSort.recursive.MergeSort;
+import src.algorithms.sorting.mergeSort.recursive.MergeSort;
 
 import java.util.*;
 /*
