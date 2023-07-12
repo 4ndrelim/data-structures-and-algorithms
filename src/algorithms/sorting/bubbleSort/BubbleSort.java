@@ -1,6 +1,7 @@
 package src.algorithms.sorting.bubbleSort;
 
-/** Here, we are implementing BubbleSort where we sort the array in ascending order.
+/** Here, we are implementing BubbleSort where we sort the array in increasing (or more precisely, non-decreasing)
+ * order.
  *
  * Brief Description and Implementation Invariant:
  * BubbleSort relies on the outer loop variant that after the ith iteration, the biggest i items are correctly sorted
@@ -34,7 +35,7 @@ package src.algorithms.sorting.bubbleSort;
 
 public class BubbleSort {
     /**
-     * Sorts the given array in-place in increasing (or more precisely, non-decreasing) order.
+     * Sorts the given array in-place in non-decreasing order.
      * @param arr array to be sorted.
      * @return the same array arr that is sorted.
      */
