@@ -34,7 +34,7 @@ package src.algorithms.sorting.bubbleSort;
 
 public class BubbleSort {
     /**
-     * Sorts the given array in-place in ascending order.
+     * Sorts the given array in-place in increasing (or more precisely, non-decreasing) order.
      * @param arr array to be sorted.
      * @return the same array arr that is sorted.
      */
@@ -45,7 +45,7 @@ public class BubbleSort {
         for (int i = 0; i < n - 1; i++ ) { //outer loop which supports the invariant
             swapped = false;
             for (int j = 0; j < n - 1 - i; j++) { //inner loop that does the adjacent comparisons
-                if (arr[j] > arr[j + 1]) {
+                if (arr[j] > arr[j + 1]) { //if we changed this to <, we will sort the array in non-increasing order
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
