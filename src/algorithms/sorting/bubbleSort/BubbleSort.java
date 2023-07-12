@@ -13,7 +13,7 @@ package src.algorithms.sorting.bubbleSort;
  * correctly sorted at the final (n-1) positions of the array, leaving the last 1 element placed correctly in the
  * first position of the array. Therefore, (n-1) iterations of the outer loop is sufficient.
  *
- * At the ith iteration of the outer loop, we only require (n-k) adjacent comparisons to get the kth largest
+ * At the kth iteration of the outer loop, we only require (n-k) adjacent comparisons to get the kth largest
  * element to its correct position.
  *
  * Complexity Analysis:
