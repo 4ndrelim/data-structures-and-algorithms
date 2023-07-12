@@ -2,7 +2,7 @@ package test.algorithms.bubbleSort;
 
 import org.junit.Test;
 
-import src.algorithms.bubbleSort.BubbleSort;
+import src.algorithms.sorting.bubbleSort.BubbleSort;
 
 import java.util.Arrays;
 
@@ -22,17 +22,17 @@ public class BubbleSortTest {
         int[] thirdArray = new int[] {};
         int[] thirdResult = BubbleSort.sort(Arrays.copyOf(thirdArray, thirdArray.length));
 
-        int[] forthArray = new int[] {1};
-        int[] forthResult = BubbleSort.sort(Arrays.copyOf(forthArray, forthArray.length));
+        int[] fourthArray = new int[] {1};
+        int[] fourthResult = BubbleSort.sort(Arrays.copyOf(fourthArray, fourthArray.length));
 
         Arrays.sort(firstArray);
         Arrays.sort(secondArray);
         Arrays.sort(thirdArray);
-        Arrays.sort(forthArray);
+        Arrays.sort(fourthArray);
 
         assertArrayEquals(firstResult, firstArray);
         assertArrayEquals(secondResult, secondArray);
         assertArrayEquals(thirdResult, thirdArray);
-        assertArrayEquals(forthResult, forthArray);
+        assertArrayEquals(fourthResult, fourthArray);
     }
 }
