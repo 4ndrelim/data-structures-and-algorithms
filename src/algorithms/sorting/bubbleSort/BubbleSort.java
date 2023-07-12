@@ -4,17 +4,16 @@ package src.algorithms.sorting.bubbleSort;
  * order.
  *
  * Brief Description and Implementation Invariant:
- * BubbleSort relies on the outer loop variant that after the ith iteration, the biggest i items are correctly sorted
- * at the final i positions of the array. The job of the ith iteration of the outer loop is to bubble the (i + 1)th
- * largest element (because of 0-based indexing) to the ith position of the array from the right (i.e. its correct
- * position). This is done through repeatedly comparing adjacent elements and swapping them if they are in the wrong
- * order.
+ * BubbleSort relies on the outer loop variant that after the kth iteration, the biggest k items are correctly sorted
+ * at the final k positions of the array. The job of the kth iteration of the outer loop is to bubble the kth
+ * largest element to the kth position of the array from the right (i.e. its correct position). This is done through
+ * repeatedly comparing adjacent elements and swapping them if they are in the wrong order.
  *
  * At the end of the (n-1)th iteration of the outer loop, where n is the length of the array, the (n-1) elements are
  * correctly sorted at the final (n-1) positions of the array, leaving the last 1 element placed correctly in the
  * first position of the array. Therefore, (n-1) iterations of the outer loop is sufficient.
  *
- * At the ith iteration of the outer loop, we only require (n-1-i) adjacent comparisons to get the (i + 1)th largest
+ * At the ith iteration of the outer loop, we only require (n-k) adjacent comparisons to get the kth largest
  * element to its correct position.
  *
  * Complexity Analysis:
