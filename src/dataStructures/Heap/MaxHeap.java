@@ -6,27 +6,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Implementation of a conventional max heap structure
- * using binary heap stored as an array.
- * Note that array is filled in in BFS/level-order.
- * Note implementation assumes a 0-based index.
+ * Implementation of an array-based max heap structure derived from a binary heap.
+ *
  * Callable methods are:
- * size()
- * offer(T item)
- * poll()
- * peek()
- * heapify(List<T> lst)
- * heapify(T ...seq)
- * remove(T obj)
+ * size()               - O(1)
+ * peek()               - O(1)
+ * offer(T item)        - O(log(n))
+ * poll()               - O(log(n)); Often named as extractMax(), poll is the corresponding counterpart in PriorityQueue
+ * remove(T obj)        - O(log(n))
+ * decreaseKey(T obj)   - O(log(n))
+ * heapify(List<T> lst) - O(n)
+ * heapify(T ...seq)    - O(n)
+ * toString()
+ *
+ * Notes:
+ *        1. Array is essentially filled in level-order
+ *        2. 0-indexed implementation
  * @param <T> generic type for objects to be stored and queried
  */
 public class MaxHeap<T extends Comparable<T>> {
   private List<T> heap;
-  private Map<T, Integer> index;
+  private Map<T, Integer> indexOf; // Identify nodes given a key
 
   public MaxHeap() {
     heap = new ArrayList<>();
-    index = new HashMap<>();
+    indexOf = new HashMap<>();
   }
 
   public int size() {
@@ -34,11 +38,23 @@ public class MaxHeap<T extends Comparable<T>> {
   }
 
   /**
-   * Return element with highest priority
+   * Return, but does not remove, the element with the highest priority.
+   * @return head of heap
+   */
+  public T peek() {
+    if (size() > 0) {
+      return heap.get(0);
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * Return element with the highest priority.
    * @return head of heap
    */
   public T poll() {
-    if (this.size() > 0) {
+    if (size() > 0) {
       return remove(0);
     } else {
       return null;
@@ -46,57 +62,15 @@ public class MaxHeap<T extends Comparable<T>> {
   }
 
   /**
-   * Inserts item into heap; runs in O(log n).
+   * Inserts item into heap.
    * @param item item to be inserted
    */
   public void offer(T item) {
-    this.heap.add(item); // add to the end of the arraylist
-    this.index.put(item, this.size() - 1); // add item into index map
-    this.bubbleUp(this.size() - 1); // bubbleUp to rightful place
-  }
+    assert !indexOf.containsKey(item) : "Duplicate objects found!";
 
-  /**
-   * Return, but does not remove, the element with the highest priority
-   * @return head of heap
-   */
-  public T peek() {
-    if (this.size() > 0) {
-      return this.heap.get(0);
-    } else {
-      return null;
-    }
-  }
-
-  /**
-   * Takes in a list of objects and convert it into a heap structure; O(n).
-   * @param lst the list of objects
-   */
-  public void heapify(List<T> lst) {
-    this.heap = new ArrayList<>(lst);
-    for (int i = 0; i < this.size(); i++) {
-      this.index.put(this.get(i), i);
-    }
-    for (int i = this.size() - 1; i >= 0; i--) {
-      this.bubbleDown(i);
-    }
-  }
-
-  /**
-   * Takes in a sequence of objects and insert into a heap; O(n).
-   * @param <...> seq sequence of T objects
-   */
-  @SuppressWarnings("unchecked")
-  public void heapify(T ...seq) {
-    this.heap = new ArrayList<T>();
-    int j = 0;
-    for (T obj : seq) {
-      this.heap.add(obj);
-      this.index.put(obj, j);
-      j++;
-    }
-    for (int i = this.size() - 1; i >= 0; i--) {
-      this.bubbleDown(i);
-    }
+    heap.add(item); // add to the end of the arraylist
+    indexOf.put(item, size() - 1); // add item into index map; here becomes problematic if there are duplicates
+    bubbleUp(size() - 1); // bubbleUp to rightful place
   }
 
   /**
@@ -104,21 +78,82 @@ public class MaxHeap<T extends Comparable<T>> {
    * @param obj object to be removed
    */
   public void remove(T obj) {
-    if (!this.index.containsKey(obj)) {
+    if (!indexOf.containsKey(obj)) {
       System.out.println(String.format("%s does not exist!", obj));
       return;
     }
-    this.remove(this.index.get(obj));
+    this.remove(indexOf.get(obj));
   }
 
   /**
-   * @return prints the array representation of the heap
+   * Decrease the corresponding value of the object.
+   * @param obj old object
+   * @param updatedObj updated object
+   */
+  public void decreaseKey(T obj, T updatedObj) {
+    assert updatedObj.compareTo(obj) <= 0 : "Value should reduce or remain the same";
+
+    int idx = indexOf.get(obj); // get the index of the object in the array implementation
+    heap.set(idx, updatedObj); // simply replace
+    indexOf.remove(obj); // no longer exists
+    indexOf.put(updatedObj, idx);
+    bubbleDown(idx);
+  }
+
+  /**
+   * Increase the corresponding value of the object.
+   * @param obj old object
+   * @param updatedObj updated object
+   */
+  public void increaseKey(T obj, T updatedObj) {
+    assert updatedObj.compareTo(obj) >= 0 : "Value should reduce or remain the same";
+
+    int idx = indexOf.get(obj); // get the index of the object in the array implementation
+    heap.set(idx, updatedObj); // simply replace
+    indexOf.remove(obj); // no longer exists
+    indexOf.put(updatedObj, idx);
+    bubbleUp(idx);
+  }
+
+  /**
+   * Takes in a list of objects and convert it into a heap structure.
+   * @param lst the list of objects
+   */
+  public void heapify(List<T> lst) {
+    heap = new ArrayList<>(lst);
+    for (int i = 0; i < this.size(); i++) {
+      indexOf.put(this.get(i), i);
+    }
+    for (int i = this.size() - 1; i >= 0; i--) {
+      bubbleDown(i);
+    }
+  }
+
+  /**
+   * Takes in a sequence of objects and insert into a heap.
+   * @param <...> seq sequence of T objects
+   */
+  public void heapify(T ...seq) {
+    heap = new ArrayList<T>();
+    int j = 0;
+    for (T obj : seq) {
+      heap.add(obj);
+      indexOf.put(obj, j);
+      j++;
+    }
+    for (int i = this.size() - 1; i >= 0; i--) {
+      bubbleDown(i);
+    }
+  }
+
+  /**
+   * @return the array representation of the heap in string.
    */
   @Override
   public String toString() {
     StringBuilder ret = new StringBuilder("[");
     for (int i = 0; i < this.size(); i++) {
-      ret.append(this.heap.get(i));
+      ret.append(heap.get(i));
       ret.append(", ");
     }
     return ret.substring(0, ret.length() - 2) + "]";
@@ -129,22 +164,22 @@ public class MaxHeap<T extends Comparable<T>> {
    * @return element at index i
    */
   private T get(int i) {
-    return this.heap.get(i);
+    return heap.get(i);
   }
   
   /**
-   * Swaps two objects at the specifed indices in the heap.
+   * Swaps two objects at the specified indices in the heap.
    * @param idx1 index of the first object
    * @param idx2 index of the second object
    */
   private void swap(int idx1, int idx2) {
     // update the index of each value in the map
-    this.index.put(this.get(idx1), idx2);
-    this.index.put(this.get(idx2), idx1);
+    indexOf.put(this.get(idx1), idx2);
+    indexOf.put(this.get(idx2), idx1);
 
-    T tmp = this.get(idx1); // Recall internally implemented with an ArrayList
-    this.heap.set(idx1, this.get(idx2));
-    this.heap.set(idx2, tmp);
+    T tmp = get(idx1); // Recall internally implemented with an ArrayList
+    heap.set(idx1, this.get(idx2));
+    heap.set(idx2, tmp);
   }
 
   /**
@@ -160,7 +195,7 @@ public class MaxHeap<T extends Comparable<T>> {
    * @return parent of element at index i
    */
   private T getParent(int i) {
-    return this.get(this.getParentIndex(i));
+    return this.get(getParentIndex(i));
   }
   
   /**
@@ -176,7 +211,7 @@ public class MaxHeap<T extends Comparable<T>> {
    * @return left child of element at index i
    */
   private T getLeft(int i) {
-    return this.get(this.getLeftIndex(i));
+    return this.get(getLeftIndex(i));
   }
 
   /**
@@ -192,24 +227,24 @@ public class MaxHeap<T extends Comparable<T>> {
    * @return right child of element at index i
    */
   private T getRight(int i) {
-    return this.get(this.getRightIndex(i));
+    return this.get(getRightIndex(i));
   }
 
   /**
-   * Bubble up element at index i until heap property is achieved
-   * i.e its value is not larger than its parent; O(logn).
+   * Bubbles up element at index i until heap property is achieved
+   * i.e. its value is not larger than its parent
    * @param i given index
    */
   private void bubbleUp(int i) {
-    while (i > 0 && this.get(i).compareTo(this.getParent(i)) > 0) { // the furthest up you can go is the root
-      int parentIdx = this.getParentIndex(i);
+    while (i > 0 && this.get(i).compareTo(getParent(i)) > 0) { // the furthest up you can go is the root
+      int parentIdx = getParentIndex(i);
       this.swap(i, parentIdx);
       i = parentIdx;
     }
   }
 
   /**
-   * Checks if element at i is a leaf node in the binary tree representation
+   * Checks if element at index i is a leaf node in the binary tree representation
    * @param i given index
    * @return boolean value that determines is leaf or not
    */
@@ -219,7 +254,7 @@ public class MaxHeap<T extends Comparable<T>> {
 
   /**
    * Bubble down element at index i until heap property is achieved
-   * i.e its value is not smaller than any of its children; O(logn)
+   * i.e. its value is not smaller than any of its children
    * @param i given index
    */
   private void bubbleDown(int i) {
@@ -228,17 +263,17 @@ public class MaxHeap<T extends Comparable<T>> {
       int maxIndex = i; // index of max item
 
       // check if left child is greater in priority, if left exists
-      if (this.getLeftIndex(i) < this.size() && maxItem.compareTo(this.getLeft(i)) < 0) {
-        maxItem = this.getLeft(i);
-        maxIndex = this.getLeftIndex(i);
+      if (getLeftIndex(i) < this.size() && maxItem.compareTo(getLeft(i)) < 0) {
+        maxItem = getLeft(i);
+        maxIndex = getLeftIndex(i);
       }
       // check if right child is greater in priority, if right exists
-      if (this.getRightIndex(i) < this.size() && maxItem.compareTo(this.getRight(i)) < 0) {
-        maxIndex = this.getRightIndex(i);
+      if (getRightIndex(i) < this.size() && maxItem.compareTo(getRight(i)) < 0) {
+        maxIndex = getRightIndex(i);
       }
 
       if (maxIndex != i) {
-        this.swap(i, maxIndex);
+        swap(i, maxIndex);
         i = maxIndex;
       } else {
         break;
@@ -247,16 +282,16 @@ public class MaxHeap<T extends Comparable<T>> {
   }
 
   /**
-   * Remove item at index i; runs in O(log n).
+   * Remove item at index i
    * @param i given index
    * @return deleted element
    */
   private T remove(int i) {
     T item = this.get(i); // remember element to be removed
-    this.swap(i, this.size() - 1); // O(1) swap with last element in the heap
-    this.heap.remove(this.size() - 1); // O(1)
-    this.index.remove(item); // remove from index map
-    this.bubbleDown(i); // O(log n)
+    swap(i, this.size() - 1); // O(1) swap with last element in the heap
+    heap.remove(this.size() - 1); // O(1)
+    indexOf.remove(item); // remove from index map
+    bubbleDown(i); // O(log n)
     return item;
   }
 

@@ -22,6 +22,18 @@ That said, in practice, the array-based implementation of a heap often provides 
 former, in cache efficiency and memory locality. This is due to its contiguous memory layout. As such, 
 the implementation shown here is a 0-indexed array-based heap.
 
+## Relevance of increaseKey and decreaseKey operations
+The decision not to include explicit "decrease key" and "increase key" operations in the standard implementations of
+heaps in Python and Java is primarily due to design choices and considerations of the typical intended use cases.
+Further, this operation, without augmentation, would take O(n) due to having to search for the object to begin with
+(see under Notes).
+
+Still, one can circumvent the lack of such operations by simply removing and re-inserting (still O(n)).
+
+This is worth a mention. In cases like Dijkstra where the concern is having to maintain V nodes in the priority queue 
+by constantly updating rather than insertion of all edges, it is not really a big issue. After all, the log factor 
+in the order of growth will turn log(E) = log(V^2) in the worst case of a complete graph, to 2log(V) = O(log(V)).
+
 
 ## Notes
 1. Heaps are often presented as max-heaps (eg. in textbooks), hence the implementation follows a max-heap structure
@@ -31,4 +43,6 @@ the implementation shown here is a 0-indexed array-based heap.
       Note that this is not a typical operation introduced alongside the concept heap simply because the time complexity 
       would now be O(n), no longer log(n). And indeed, both Java's and Python's version have time complexities 
       of O(n) for this remove operation since their underlying implementation is not augmented.
+   - The trade-off would be that the heap does not support insertion of duplicate objects else the Map would not work
+     as intended.
 3. Rather than using Java arrays, where size mus tbe declared upon initializing, we use list here in the implementation.
