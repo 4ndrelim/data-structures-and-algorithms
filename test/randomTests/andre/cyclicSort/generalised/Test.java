@@ -1,6 +1,6 @@
 package test.randomTests.andre.cyclicSort.generalised;
 
-import src.algorithms.cyclicSort.generalised.CyclicSort;
+import src.algorithms.sorting.cyclicSort.generalised.CyclicSort;
 
 public class Test {
     private static void print(int[] arr) {

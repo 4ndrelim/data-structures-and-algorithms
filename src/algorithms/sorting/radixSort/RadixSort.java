@@ -1,4 +1,4 @@
-package src.algorithms.radixSort;
+package src.algorithms.sorting.radixSort;
 
 /**
  * Implementation of Radix sort.
