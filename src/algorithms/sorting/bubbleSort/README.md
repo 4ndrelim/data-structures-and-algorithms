@@ -1,1 +1,1 @@
-![Image Description](../../../../assets/BubbleSort.jpeg)
+![bubble sort img](../../../../assets/BubbleSort.jpeg)
