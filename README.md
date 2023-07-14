@@ -7,7 +7,7 @@ This repository contains implementation of some of the fundamental data structur
 - Disjoint Set
     * Quick Find
     * Weighted Union with path compression
-- [Heap]()
+- [Heap](src/dataStructures/heap/)
     * Max heap implementation
 - Linked List
 - LRU Cache
@@ -73,3 +73,4 @@ Kai Ting
 
 Owen 
 
+Chang Xian

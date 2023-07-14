@@ -23,6 +23,11 @@ import java.util.Map;
  * Notes:
  *        1. Array is essentially filled in level-order
  *        2. 0-indexed implementation
+ *        3. Actually it suffices to compare index of left child of a node and size of heap to check if it's a leaf node
+ *        4. Heapify deals with bubbling down all elements starting from the back,
+ *            what about bubbling-up all elements starting from the front instead?
+ *            No issue with correctness, problem lies with efficiency of operation.
+ *
  * @param <T> generic type for objects to be stored and queried
  */
 public class MaxHeap<T extends Comparable<T>> {
