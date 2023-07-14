@@ -1,6 +1,6 @@
 package src.dataStructures.priorityQueue;
 
-import src.dataStructures.Heap.MinHeap;
+import src.dataStructures.heap.MinHeap;
 
 import java.util.HashMap;
 

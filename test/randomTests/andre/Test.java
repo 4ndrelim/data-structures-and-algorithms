@@ -1,6 +1,6 @@
 package test.randomTests.andre;
 
-import src.dataStructures.Heap.MaxHeap;
+import src.dataStructures.heap.MaxHeap;
 import java.util.*;
 
 /**

@@ -45,4 +45,4 @@ in the order of growth will turn log(E) = log(V^2) in the worst case of a comple
       of O(n) for this remove operation since their underlying implementation is not augmented.
    - The trade-off would be that the heap does not support insertion of duplicate objects else the Map would not work
      as intended.
-3. Rather than using Java arrays, where size mus tbe declared upon initializing, we use list here in the implementation.
+3. Rather than using Java arrays, where size must be declared upon initializing, we use list here in the implementation.

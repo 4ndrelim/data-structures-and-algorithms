@@ -1,4 +1,4 @@
-package src.dataStructures.Heap;
+package src.dataStructures.heap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +15,7 @@ import java.util.Map;
  * poll()               - O(log(n)); Often named as extractMax(), poll is the corresponding counterpart in PriorityQueue
  * remove(T obj)        - O(log(n))
  * decreaseKey(T obj)   - O(log(n))
+ * increaseKey(T obj)   - O(log(n))
  * heapify(List<T> lst) - O(n)
  * heapify(T ...seq)    - O(n)
  * toString()
