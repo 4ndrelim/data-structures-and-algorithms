@@ -14,7 +14,7 @@ public class MatrixConverterTest {
         // empty matrix
         int[][] firstMatrix = new int[0][0];
         ArrayList<Integer>[] firstList = new ArrayList[0];
-        ArrayList<Integer>[] firstResult = matrixToListConverter.convert(firstMatrix);
+        List<Integer>[] firstResult = matrixToListConverter.convert(firstMatrix);
 
         // symmetric matrix (undirected graph)
         int[][] secondMatrix = {
@@ -27,7 +27,7 @@ public class MatrixConverterTest {
         Collections.addAll(secondList[0], 1, 2);
         Collections.addAll(secondList[1], 0, 2);
         Collections.addAll(secondList[2], 0, 1);
-        ArrayList<Integer>[] secondResult = matrixToListConverter.convert(secondMatrix);
+        List<Integer>[] secondResult = matrixToListConverter.convert(secondMatrix);
 
         //asymmetric matrix (directed graph)
         int[][] thirdMatrix = {
@@ -40,7 +40,7 @@ public class MatrixConverterTest {
         Collections.addAll(thirdList[0], 2);
         Collections.addAll(thirdList[1], 0);
         Collections.addAll(thirdList[2], 0, 1, 2);
-        ArrayList<Integer>[] thirdResult = matrixToListConverter.convert(thirdMatrix);
+        List<Integer>[] thirdResult = matrixToListConverter.convert(thirdMatrix);
 
         //invalid matrix (n x m graph, n != m)
         int[][] fourthMatrix = {
@@ -48,7 +48,7 @@ public class MatrixConverterTest {
                 {1, 0},
                 {1, 1},
         };
-        ArrayList<Integer>[] fourthList = new ArrayList[3];
+        List<Integer>[] fourthList = new ArrayList[3];
 
         assert Arrays.equals(firstList, firstResult);
         for (int i = 0; i < 1; i++) { assert secondList[i].equals(secondResult[i]); }
