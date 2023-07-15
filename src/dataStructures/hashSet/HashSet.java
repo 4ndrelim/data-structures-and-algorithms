@@ -28,13 +28,13 @@ import java.util.List;
  * bucket, which involves traversing the linked list in case of collisions. On average, these operations have a constant-time
  * complexity.
  *
- * <p>Public methods:
- * int size()
- * boolean isEmpty()
- * boolean add(T element)
- * boolean contains(T element)
- * boolean remove(T element)
- * List<T> toList()
+ * <p>Public methods (along with their time-complexity):
+ * int size()                   gets the number of elements (cardinality) in this HashSet. O(1).
+ * boolean isEmpty()            checks if the HashSet is empty. O(1).
+ * boolean add(T element)       adds the given element into the HashSet. Expected O(1) assuming SUHA.
+ * boolean contains(T element)  checks if the given element is present in the HashSet. Expected O(1) assuming SUHA.
+ * boolean remove(T element)    removes the given element in the HashSet. Expected O(1) assuming SUHA.
+ * List<T> toList()             returns a List representation of this HashSet. O(n).
  *
  * @param <T> the type of objects that are contained within this HashSet. T must override
  *           Object::equals and Object::hashCode for the methods add, remove, and contains to be well-defined.
