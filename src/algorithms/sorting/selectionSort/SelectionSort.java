@@ -34,7 +34,7 @@ public class SelectionSort {
     public static int[] sort(int[] arr) {
         int n = arr.length;
         for (int i = 0; i < n - 1; i++) { //loop which supports the invariant
-            int minElemIdx = minElem(i, n, arr);
+            int minElemIdx = minElemIdx(i, n, arr);
             int temp = arr[i];
             arr[i] = arr[minElemIdx];
             arr[minElemIdx] = temp;
@@ -50,8 +50,10 @@ public class SelectionSort {
      * @param end the ending index (exclusive) of the range to be considered.
      * @param arr the array to be sorted.
      * @return the index of the minimum element within the range.
+     *
+     * We can easily modify this method to find maxElemIdx instead to sort the array in non-increasing order.
      */
-    private static int minElem(int start, int end, int[] arr) {
+    private static int minElemIdx(int start, int end, int[] arr) {
         int min = Integer.MAX_VALUE;
         int idx = -1;
         for (int i = start; i < end; i++) {
