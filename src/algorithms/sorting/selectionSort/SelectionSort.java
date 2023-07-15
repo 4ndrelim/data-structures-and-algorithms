@@ -4,9 +4,9 @@ package src.algorithms.sorting.selectionSort;
  * order.
  *
  * Brief Description and Implementation Invariant:
- * SelectionSort works by finding the minimum element A[j] in A[i...n], then swapping A[i] with A[j], for i in
- * range (0, n-2). The loop invariant is: at the end of the kth iteration, the smallest k items are correctly sorted in
- * the first k positions of the array.
+ * Let the array to be sorted be A of length n. SelectionSort works by finding the minimum element A[j] in A[i...n],
+ * then swapping A[i] with A[j], for i in [0, n-1). The loop invariant is: at the end of the kth iteration, the
+ * smallest k items are correctly sorted in the first k positions of the array.
  *
  * At the end of the (n-1)th iteration of the loop, the smallest (n-1) items are correctly sorted in the first (n-1)
  * positions of the array, leaving the last item correctly positioned in the last index of the array. Therefore,
