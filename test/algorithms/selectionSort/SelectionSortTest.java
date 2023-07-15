@@ -26,14 +26,19 @@ public class SelectionSortTest {
         int[] fourthArray = new int[] {1};
         int[] fourthResult = SelectionSort.sort(Arrays.copyOf(fourthArray, fourthArray.length));
 
+        int[] fifthArray = new int[] {5,1,1,2,0,0};
+        int[] fifthResult = SelectionSort.sort(Arrays.copyOf(fifthArray, fifthArray.length));
+
         Arrays.sort(firstArray);  // get expected result
         Arrays.sort(secondArray); // get expected result
         Arrays.sort(thirdArray);  // get expected result
         Arrays.sort(fourthArray);  // get expected result
+        Arrays.sort(fifthArray);  // get expected result
 
         assertArrayEquals(firstResult, firstArray);
         assertArrayEquals(secondResult, secondArray);
         assertArrayEquals(thirdResult, thirdArray);
         assertArrayEquals(fourthResult, fourthArray);
+        assertArrayEquals(fifthResult, fifthArray);
     }
 }
