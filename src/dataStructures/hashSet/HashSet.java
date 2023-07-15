@@ -102,11 +102,12 @@ public class HashSet<T extends Comparable<T>> {
      */
     public boolean add(T element) {
         int bucket = this.hashFunction(element);
-        if (this.buckets[bucket].search(element) != -1) {
+        LinkedList<T> bucketLinkedList = this.buckets[bucket];
+        if (bucketLinkedList.search(element) != -1) {
             return false; // element is already in the set.
         }
-        ++this.size;
-        return this.buckets[bucket].insertFront(element);
+        ++this.size; // updates the cardinality of this hashset.
+        return bucketLinkedList.insertFront(element);
     }
 
     /**
@@ -117,7 +118,8 @@ public class HashSet<T extends Comparable<T>> {
      */
     public boolean contains(T element) {
         int bucket = this.hashFunction(element);
-        return this.buckets[bucket].search(element) != -1;
+        LinkedList<T> bucketLinkedList = this.buckets[bucket];
+        return bucketLinkedList.search(element) != -1;
     }
 
     /**
@@ -133,12 +135,13 @@ public class HashSet<T extends Comparable<T>> {
      */
     public boolean remove(T element) {
         int bucket = this.hashFunction(element);
-        int index = this.buckets[bucket].search(element);
+        LinkedList<T> bucketLinkedList = this.buckets[bucket];
+        int index = bucketLinkedList.search(element);
         if (index == -1) {
             return false; // If the element is not in the hashset.
         }
-        this.buckets[bucket].remove(index);
-        --this.size;
+        bucketLinkedList.remove(index);
+        --this.size; // updates the cardinality of the hash set.
         return true;
     }
 
