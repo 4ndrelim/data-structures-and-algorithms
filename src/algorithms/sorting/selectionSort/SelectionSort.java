@@ -26,4 +26,30 @@ package src.algorithms.sorting.selectionSort;
  */
 
 public class SelectionSort {
+    /**
+     * Sorts the given array in-place in non-decreasing order.
+     * @param arr array to be sorted.
+     * @return the same array arr that is sorted.
+     */
+    public static int[] sort(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            int minElemIdx = minElem(i, arr.length, arr);
+            int temp = arr[i];
+            arr[i] = arr[minElemIdx];
+            arr[minElemIdx] = temp;
+        }
+        return arr;
+    }
+
+    private static int minElem(int start, int end, int[] arr) {
+        int min = Integer.MAX_VALUE;
+        int idx = -1;
+        for (int i = start; i < end; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+                idx = i;
+            }
+        }
+        return idx;
+    }
 }
