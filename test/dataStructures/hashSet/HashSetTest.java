@@ -12,7 +12,13 @@ import static org.junit.Assert.*;
 
 public class HashSetTest {
     @Test
-    public void testAdd() {
+    public void testAdd_noDuplicates_shouldReturnTrue() {
+        HashSet<String> hashSet = new HashSet<>();
+        assertTrue(hashSet.add("Hello"));
+        assertTrue(hashSet.add("World"));
+    }
+    @Test
+    public void testAdd_withDuplicates_shouldReturnFalse() {
         HashSet<String> hashSet = new HashSet<>();
         assertTrue(hashSet.add("Hello"));
         assertTrue(hashSet.add("World"));
