@@ -18,8 +18,8 @@ package src.algorithms.sorting.selectionSort;
  * - Average case: O(n^2)
  * - Best case: O(n^2)
  * Regardless of how sorted the input array is, selectionSort will run the minimum element finding algorithm (n-1)
- * times. Since finding the minimum element necessarily takes O(n) time, the time complexity of selectionSort is
- * upper-bounded by (n-1) * n ≈ n^2.
+ * times. For an input array of length m, finding the minimum element necessarily takes O(m) time. Therefore, the
+ * time complexity of selectionSort is n + (n-1) + (n-2) + ... + 2 = O(n^2)
  *
  * Space:
  * - O(1) since sorting is done in-place
@@ -32,8 +32,9 @@ public class SelectionSort {
      * @return the same array arr that is sorted.
      */
     public static int[] sort(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            int minElemIdx = minElem(i, arr.length, arr);
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) { //loop which supports the invariant
+            int minElemIdx = minElem(i, n, arr);
             int temp = arr[i];
             arr[i] = arr[minElemIdx];
             arr[minElemIdx] = temp;
@@ -41,6 +42,15 @@ public class SelectionSort {
         return arr;
     }
 
+    /**
+     * Finds the index of the minimum element within the specified range of the array.
+     * The range is from 'start' (inclusive) to 'end' (exclusive).
+     *
+     * @param start the starting index (inclusive) of the range to be considered.
+     * @param end the ending index (exclusive) of the range to be considered.
+     * @param arr the array to be sorted.
+     * @return the index of the minimum element within the range.
+     */
     private static int minElem(int start, int end, int[] arr) {
         int min = Integer.MAX_VALUE;
         int idx = -1;
