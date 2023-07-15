@@ -7,16 +7,45 @@ import java.util.List;
 
 /**
  * Implementation of a HashSet that uses chaining to resolve collisions.
+ *
+ * <p>A HashSet is a data structure that provides expected constant-time complexity for basic operations such as add, remove, and contains.
+ * It achieves this performance by leveraging the Simple Uniform Hashing Assumption (SUHA), where elements are uniformly distributed across
+ * the available hash buckets. The hash function maps elements to their respective buckets, allowing efficient insertion, retrieval,
+ * and removal of elements from the set.
+ *
+ * <p>This approach is inspired by the need to efficiently store and retrieve elements from a large universe of possible keys,
+ * where the number of actual keys is relatively small.
+ * Chaining is used to handle collisions, where multiple elements are mapped to the same bucket, by maintaining a linked list
+ * of elements within each bucket.
+ *
+ * <p>The expected load, or load factor, for this approach is an important consideration. The load factor is defined as the ratio
+ * of the number of elements in the set to the number of buckets (n/m). A higher load factor increases the likelihood of collisions,
+ * leading to longer linked lists and potentially degrading performance. To maintain optimal time complexity, the hash function
+ * should aim for an equal distribution of elements across the buckets, avoiding clustering and ensuring efficient access to elements.
+ *
+ * <p>The time complexity of operations in this HashSet implementation consists of two components. Firstly, there is the time to
+ * compute the hash value, which is typically a constant-time operation. Secondly, there is the time to access the corresponding
+ * bucket, which involves traversing the linked list in case of collisions. On average, these operations have a constant-time
+ * complexity.
+ *
+ * <p>Public methods:
+ * int size()
+ * boolean isEmpty()
+ * boolean add(T element)
+ * boolean contains(T element)
+ * boolean remove(T element)
+ * List<T> toList()
+ *
  * @param <T> the type of objects that are contained within this HashSet. T must override
  *           Object::equals and Object::hashCode for the methods add, remove, and contains to be well-defined.
  */
 public class HashSet<T extends Comparable<T>> {
-    private static final int NUMBER_OF_BUCKETS = 256; // Arbitrary number for now. To implement resizing, etc.
+    private static final int NUMBER_OF_BUCKETS = 256; // Arbitrary number of buckets.
     private final LinkedList<T>[] buckets;
     private int size;
 
     /**
-     * Creates a HashSet with an initial capacity of 256.
+     * Creates a HashSet with 256 number of buckets.
      */
     public HashSet() {
         // Safe cast because the only way to add elements is through HashSet::add, which only accepts elements of
