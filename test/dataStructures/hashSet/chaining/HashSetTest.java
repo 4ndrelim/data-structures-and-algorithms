@@ -1,4 +1,4 @@
-package test.dataStructures.hashSet;
+package test.dataStructures.hashSet.chaining;
 
 import org.junit.Test;
 <<<<<<< HEAD
