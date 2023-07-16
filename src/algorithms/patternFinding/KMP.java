@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Implementation of KMP.
  *
- * Illustration of getPrefixIndices:
+ * Illustration of getPrefixIndices: with pattern ABCABCNOABCABCA
  * Here we make a distinction between position and index. The position is basically 1-indexed.
  * Note the return indices are still 0-indexed of the pattern string.
  *  Position:  0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15
@@ -16,14 +16,29 @@ import java.util.List;
  *                 ^ 'A' is the first character of the pattern string,
  *                 there is no prefix ending before its index, 0, that can be matched with
  *                     ^   ^ 'B' and 'C' cannot be matched with any prefix which are just 'A' and 'AB'
- *                             ^ Can be matched with an earlier 'A'. So we store 1. Which can also be interpreted as the
- *                             index of the next character to match against!
+ *                             ^ Can be matched with an earlier 'A'. So we store 1.
+ *                             Prefix being substring from idx 0 to 1 (exclusive)
+ *                             Which can also be interpreted as the index of the next character to match against!
  *                                 ^   ^ Similarly, continue matching
  *                                          ^  ^ No matches, so 0
  *                                                 ^   ^   ^   ^   ^   ^ Match with prefix until index 6!
  *                                                                         ^ where the magic happens, we know ABC of
  *                                                                         index 0-2 exists and can 'restart' from there
  *
+ *
+ *
+ * Illustration of main logic:
+ * Pattern: ABABAB
+ * String : ABABCABABABAB
+ *
+ *          A  B  A  B  C  A  B  A  B  A  B  A  B
+ *          ^    to  ^ Continue matching until with Pattern[0:4]
+ *                ^ try ^ Unable to match Pattern[4]. But since last two characters form a sub-pattern
+ *                      try matching until Pattern[0:3] by checking if Pattern[2] == 'C'.
+ *                      Turns out no. No previously identified sub-pattern with 'C'. Restart.
+ *                         ^      to      ^ Found complete match! But rather than restart, notice that last 4 characters
+ *                         form a prefix sub-pattern of Pattern, so,
+ *                               ^               ^ Start matching from Pattern[4] and finally Pattern[5]
  */
 public class KMP {
     /**
@@ -59,12 +74,14 @@ public class KMP {
 
     /**
      * Main logic of KMP. Iterate the sequence, looking for patterns. If a difference is found, resume matching from
-     * a previously identified sub-pattern, if possible.
+     * a previously identified sub-pattern, if possible. Length of pattern should be at least one.
      * @param sequence to search against
      * @param pattern to search for
      * @return start indices of all occurrences of pattern found
      */
     public static List<Integer> findOccurrences(String sequence, String pattern) {
+        assert pattern.length() >= 1 : "Pattern length cannot be 0!";
+
         int sLen = sequence.length();
         int pLen = pattern.length();
         int[] prefixIndices = getPrefixIndices(pattern);
