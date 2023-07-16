@@ -1,4 +1,4 @@
-package src.dataStructures.hashSet;
+package src.dataStructures.hashSet.chaining;
 
 import src.dataStructures.linkedList.LinkedList;
 
