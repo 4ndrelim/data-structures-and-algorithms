@@ -1,14 +1,14 @@
 package test.randomTests.andre;
 
-import src.dataStructures.maxHeap.Heap;
+import src.dataStructures.heap.MaxHeap;
 import java.util.*;
 
 /**
- * Basic testing of Heap structure
+ * Basic testing of MaxHeap structure
  */
 public class Test {
     public static void main(String[] args) {
-        Heap<Integer> heap = new Heap<>();
+        MaxHeap<Integer> heap = new MaxHeap<>();
         heap.offer(1);
         heap.offer(2);
         heap.offer(9);
