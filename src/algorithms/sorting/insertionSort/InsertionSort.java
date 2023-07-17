@@ -6,14 +6,13 @@ package src.algorithms.sorting.insertionSort;
  * Brief Description:
  * InsertionSort is a simple comparison-based sorting algorithm that builds the final sorted array one element at a
  * time. It works by repeatedly taking an element from the unsorted portion of the array and inserting it into its
- * correct position within the sorted portion. At the kth iteration, we take the element arr[k+1] and insert
- * it into arr[0, k] following sorted order, returning us arr[0, k+1] in sorted order.
+ * correct position within the sorted portion. At the kth iteration, we take the element arr[k] and insert
+ * it into arr[0, k-1] following sorted order, returning us arr[0, k] in sorted order.
  *
  * Implementation Invariant:
  * The loop invariant is: at the end of kth iteration, the first (k+1) items in the array are in sorted order.
  * At the end of the (n-1)th iteration, all n items in the array will be in sorted order.
- * before 1 item in sorted order
- * 1st iteration 2 item in sorted order
+ * (Note: the loop invariant here slightly differs from the lecture slides as we are using 0-based indexing.)
  *
  * Complexity Analysis:
  * Time:
@@ -47,17 +46,18 @@ public class InsertionSort {
         return arr;
     }
 
-    /** Inserts the val within the sorted portion of the array. The sorted portion of the array is arr[0, idx - 1].
+    /** Inserts val within the sorted portion of the array. The sorted portion of the array is arr[0, idx - 1].
      *
      * @param arr the array to be sorted (of length idx)
      * @param idx index of the element to be inserted into the sorted portion of the array
      * @param val value of the element to be inserted into the sorted portion of the array
-     * @return sorted array with the element inserted (of length idx + 1)
+     * @return returns arr with arr[0, idx] in sorted order
      */
     private static int[] insert(int[] arr, int idx, int val) {
         int pointer = idx - 1;
 
-        while (pointer >= 0 && arr[pointer] > val) {
+        while (pointer >= 0 && arr[pointer] > val) { //if we change this to arr[pointer] < val,
+            // we can sort the array in non-increasing order
             arr[pointer + 1] = arr[pointer];
             pointer -= 1;
         }
