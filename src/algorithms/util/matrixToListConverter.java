@@ -31,7 +31,7 @@ import java.util.*;
 
 public class matrixToListConverter {
 
-    public static ArrayList<Integer>[] convert(int[][] adjM) throws InvalidMatrixException {
+    public static List<Integer>[] convert(int[][] adjM) throws InvalidMatrixException {
 
         int numOfVertices = adjM.length;
         // Handling empty matrix case so no index out of bounds error
