@@ -14,7 +14,8 @@ This repository contains implementation of some of the fundamental data structur
 - Minimum Spanning Tree
 - Queue
 - Segment Tree
-    * Improved version does not require O(2^n) space here
+    * Array implementation
+    * TreeNode implementation 
 - Stack
 - Trie
 
@@ -22,13 +23,14 @@ This repository contains implementation of some of the fundamental data structur
 ## Algorithms
 - [Counting Sort](src/algorithms/sorting/countingSort/)
 - Cyclic Sort
+- [Knuth-Morris-Pratt](src/algorithms/patternFinding/) aka KMP algorithm
 - [Matrix Operations](others/matrix_operations/)
 - Merge Sort
     * Recursive
     * Bottom-up iterative
-- Radix Sort
 - Quick Sort
     * 3-way Partitioning
+- Radix Sort
 
 
 ## Short-cut to CS2040S Material

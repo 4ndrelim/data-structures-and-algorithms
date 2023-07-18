@@ -1,7 +1,6 @@
 package test.dataStructures.hashSet;
 
 import org.junit.Test;
-import src.algorithms.countingSort.CountingSort;
 import src.dataStructures.hashSet.HashSet;
 
 import java.util.*;
