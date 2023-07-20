@@ -12,18 +12,20 @@ import java.util.List;
  *  Position:  0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15
  *   Pattern:      A   B   C   A   B   C   N   O   A   B   C   A   B   C   A ...
  *    Return: -1   0   0   0   1   2   3   0   0   1   2   3   4   5   6   4 ...
- *             ^  an indexing trick; consider 1-indexed characters for clarity and simplicity in the main algor
- *                 ^ 'A' is the first character of the pattern string,
- *                 there is no prefix ending before its index, 0, that can be matched with
- *                     ^   ^ 'B' and 'C' cannot be matched with any prefix which are just 'A' and 'AB'
- *                             ^ Can be matched with an earlier 'A'. So we store 1.
- *                             Prefix being substring from idx 0 to 1 (exclusive)
+ *      Read:  ^  an indexing trick; consider 1-indexed characters for clarity and simplicity in the main algor
+ *      Read:      ^ 'A' is the first character of the pattern string,
+ *                 there is no prefix ending before its index, 0, that can be matched with.
+ *      Read:          ^   ^ 'B' and 'C' cannot be matched with any prefix which are just 'A' and 'AB' respectively.
+ *      Read:                  ^ Can be matched with an earlier 'A'. So we store 1.
+ *                             Prefix is the substring from idx 0 to 1 (exclusive).
  *                             Which can also be interpreted as the index of the next character to match against!
- *                                 ^   ^ Similarly, continue matching
- *                                          ^  ^ No matches, so 0
- *                                                 ^   ^   ^   ^   ^   ^ Match with prefix until index 6!
- *                                                                         ^ where the magic happens, we know ABC of
- *                                                                         index 0-2 exists and can 'restart' from there
+ *      Read:                      ^   ^ Similarly, continue matching
+ *      Read:                               ^  ^ No matches, so 0
+ *      Read:                                      ^   ^   ^   ^   ^   ^ Match with prefix until position 6!
+ *      Read:                                                              ^ where the magic happens, we can't match 'N'
+ *                                                                         at position 7 with 'A' at position 15, but
+ *                                                                         we know ABC of position 1-3 (or index 0-2)
+ *                                                                         exists and can 'restart' from there.
  *
  *
  *
@@ -32,13 +34,13 @@ import java.util.List;
  * String : ABABCABABABAB
  *
  *          A  B  A  B  C  A  B  A  B  A  B  A  B
- *          ^    to  ^ Continue matching until with Pattern[0:4]
- *                ^ try ^ Unable to match Pattern[4]. But since last two characters form a sub-pattern
- *                      try matching until Pattern[0:3] by checking if Pattern[2] == 'C'.
- *                      Turns out no. No previously identified sub-pattern with 'C'. Restart.
- *                         ^      to      ^ Found complete match! But rather than restart, notice that last 4 characters
- *                         form a prefix sub-pattern of Pattern, so,
- *                               ^               ^ Start matching from Pattern[4] and finally Pattern[5]
+ *   Read:  ^    to  ^ Continue matching until with Pattern[0:4]
+ *   Read:        ^ try ^ Unable to match Pattern[4]. But since last two characters form a sub-pattern
+ *   Read:              try matching until Pattern[0:3] by checking if Pattern[2] == 'C'.
+ *   Read:              Turns out no. No previously identified sub-pattern with 'C'. Restart.
+ *   Read:                 ^      to      ^ Found complete match! But rather than restart, notice that last 4 characters
+ *   Read:                 form a prefix sub-pattern of Pattern, so,
+ *   Read:                       ^               ^ Start matching from Pattern[4] and finally Pattern[5]
  */
 public class KMP {
     /**
