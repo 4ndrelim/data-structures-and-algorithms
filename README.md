@@ -1,6 +1,8 @@
 # data-structures-and-algorithms
 This repository contains implementation of some of the fundamental data structures and algorithms in Computer Science. It is primarily used as a teaching resource and is currently being developed by ex-2040s students.
 
+**Note**: This is still being developed! Those below with links mean that they are complete (alongside testing). We project to complete CS2040s course content by November and along the way, add interesting algorithms/problems. If you wish to contribute, do drop me an email at andre_lin@u.nus.edu.
+
 ## Full List of Implementation (in alphabetical order):
 ## Structures
 - Adelson-Velskii and Landis (AVL) Binary Search Tree
