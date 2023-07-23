@@ -36,7 +36,7 @@ package src.algorithms.sorting.cyclicSort.simple;
             assert ele >= 0 && ele < arr.length : "Input array should only have integers from 0 to n-1 (inclusive)";
             if (ele != curr) { // verified that it is indeed not the correct element to be placed at this ith position
                 int tmp = arr[ele]; // go to the correct position of ele
-                arr[ele] = arr[curr]; // do a swap
+                arr[ele] = ele; // do a swap
                 arr[curr] = tmp; // note that curr isn't incremented because we haven't yet place the correct element
             } else {
                 curr += 1; // we found the correct element to be placed pos curr, which in this example, is itself
