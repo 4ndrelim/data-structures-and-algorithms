@@ -2,10 +2,7 @@ package test.algorithms.cyclicSort;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.bubbleSort.BubbleSort;
 import src.algorithms.sorting.cyclicSort.simple.CyclicSort;
-
-import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 

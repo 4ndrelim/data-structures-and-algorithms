@@ -30,16 +30,16 @@ package src.algorithms.sorting.cyclicSort.simple;
      * @param arr the array to be sorted.
      */
     public static void sort(int[] arr) {
-        int start = 0; // can be easily modified to work on n numbers starting at some other number
-        while (start < arr.length) { // iterate until the end of the array
-            int curr = arr[start]; // encounter an element that may not be in its correct position
-            assert curr >= 0 && curr < arr.length : "Input array should only have integers from 0 to n-1 (inclusive)";
-            if (curr != start) { // verified that it is indeed not the correct element to be placed at this ith position
-                int tmp = arr[curr]; // go to the correct position of curr
-                arr[curr] = arr[start]; // do a swap
-                arr[start] = tmp; // note that start isn't incremented because we haven't yet place the correct element
+        int curr = 0; // can be easily modified to work on n numbers starting at some other number
+        while (curr < arr.length) { // iterate until the end of the array
+            int ele = arr[curr]; // encounter an element that may not be in its correct position
+            assert ele >= 0 && ele < arr.length : "Input array should only have integers from 0 to n-1 (inclusive)";
+            if (ele != curr) { // verified that it is indeed not the correct element to be placed at this ith position
+                int tmp = arr[ele]; // go to the correct position of ele
+                arr[ele] = arr[curr]; // do a swap
+                arr[curr] = tmp; // note that curr isn't incremented because we haven't yet place the correct element
             } else {
-                start += 1; // we found the correct element to be placed pos start, which in this example, is itself
+                curr += 1; // we found the correct element to be placed pos curr, which in this example, is itself
             }
         }
     }
