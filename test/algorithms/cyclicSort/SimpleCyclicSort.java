@@ -8,7 +8,7 @@ import static org.junit.Assert.assertArrayEquals;
 
 public class SimpleCyclicSort {
     @Test
-    public void test_bubbleSort_shouldReturnSortedArray() {
+    public void test_cyclicSort_shouldReturnSortedArray() {
         // unsorted array of 16 integers, from 0 to 15
         int[] firstArray =
                 new int[] {2, 5, 6, 4, 8, 15, 3, 1, 7, 12, 14, 0, 9, 13, 11, 10};

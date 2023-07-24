@@ -26,7 +26,9 @@ This repository contains implementation of some of the fundamental data structur
 
 ## Algorithms
 - [Counting Sort](src/algorithms/sorting/countingSort/)
-- Cyclic Sort
+- [Cyclic Sort](src/algorithms/sorting/cyclicSort/)
+    * [Special case](src/algorithms/sorting/cyclicSort/simple) of O(n) time complexity
+    * [Generalized case](src/algorithms/sorting/cyclicSort/generalised) of O(n^2) time complexity
 - [Knuth-Morris-Pratt](src/algorithms/patternFinding/) aka KMP algorithm
 - [Matrix Operations](others/matrix_operations/)
 - Merge Sort

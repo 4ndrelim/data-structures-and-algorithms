@@ -9,7 +9,7 @@ package src.algorithms.sorting.cyclicSort.simple;
  *              Best: O(n) since the array has to be traversed <br>
  *              Worst: O(n) since each element is at most seen twice <br>
  *              Average: O(n), it's bounded by the above two <br>
- *          Space: O(1), this is an in-place algorithm <p></p>
+ *          Space: O(1) auxiliary space, this is an in-place algorithm <p></p>
  *
  * Invariant: <br>
  *          At the end of the ith iteration, the ith element is correctly positioned
@@ -23,6 +23,10 @@ package src.algorithms.sorting.cyclicSort.simple;
  * NOTE: <br>
  *      In this implementation, the algorithm is not comparison-based! (unlike the general case) <br>
  *      It makes use of the known inherent ordering of the numbers. <br>
+ *
+ *      It may seem quite trivial to sort integers from 0 to n-1 when one could simply generate such a sequence. But
+ *      this algorithm proves its use in cases where the integers to be sorted are keys to associated values and sorting
+ *      to be done in O(1) auxiliary space.
  */
  public class CyclicSort {
     /**
