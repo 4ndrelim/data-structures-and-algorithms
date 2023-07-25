@@ -295,6 +295,7 @@ public class HashSet<T>{
         @SuppressWarnings("unchecked")
         T[] newBuckets = (T[]) new Object[newCapacity];
         this.buckets = newBuckets;
+        this.size = 0;
 
         // re-hashes every element and re-insert into the newly created buckets.
         Arrays.stream(temp)
