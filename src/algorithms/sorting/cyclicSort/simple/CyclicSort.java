@@ -38,12 +38,12 @@ package src.algorithms.sorting.cyclicSort.simple;
         while (curr < arr.length) { // iterate until the end of the array
             int ele = arr[curr]; // encounter an element that may not be in its correct position
             assert ele >= 0 && ele < arr.length : "Input array should only have integers from 0 to n-1 (inclusive)";
-            if (ele != curr) { // verified that it is indeed not the correct element to be placed at this ith position
+            if (ele != curr) { // verified that it is indeed not the correct element to be placed at this curr position
                 int tmp = arr[ele]; // go to the correct position of ele
                 arr[ele] = ele; // do a swap
-                arr[curr] = tmp; // note that curr isn't incremented because we haven't yet place the correct element
+                arr[curr] = tmp; // note that curr isn't incremented because we haven't yet placed the correct element
             } else {
-                curr += 1; // we found the correct element to be placed pos curr, which in this example, is itself
+                curr += 1; // we found the correct element to be placed at pos curr, which in this example, is itself
             }
         }
     }
