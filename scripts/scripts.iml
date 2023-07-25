@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/algorithms" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/algorithms/sorting" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/algorithms/patternFinding" isTestSource="false" />
       <excludePattern pattern="*README.md" />
     </content>
     <orderEntry type="inheritedJdk" />
