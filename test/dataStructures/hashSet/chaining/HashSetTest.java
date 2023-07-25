@@ -1,11 +1,7 @@
 package test.dataStructures.hashSet.chaining;
 
 import org.junit.Test;
-<<<<<<< HEAD
-import src.dataStructures.hashSet.HashSet;
-=======
 import src.dataStructures.hashSet.chaining.HashSet;
->>>>>>> 2a89d1c (Move existing implementation of HashSet with chaining to separate folder in preparation for open addressing implementation)
 
 import java.util.*;
 import java.util.stream.Collectors;
