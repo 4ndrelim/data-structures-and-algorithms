@@ -31,9 +31,12 @@ This repository contains implementation of some of the fundamental data structur
     * [Generalized case](src/algorithms/sorting/cyclicSort/generalised) of O(n^2) time complexity
 - [Knuth-Morris-Pratt](src/algorithms/patternFinding/) aka KMP algorithm
 - [Matrix Operations](others/matrix_operations/)
+- [Bubble Sort](src/algorithms/sorting/bubbleSort)
+- [Insertion Sort](src/algorithms/sorting/insertionSort)
+- [Selection Sort](src/algorithms/sorting/selectionSort)
 - Merge Sort
-    * Recursive
-    * Bottom-up iterative
+    * [Recursive](src/algorithms/sorting/mergeSort/recursive)
+    * [Bottom-up iterative](src/algorithms/sorting/mergeSort/iterative)
 - Quick Sort
     * 3-way Partitioning
 - Radix Sort
@@ -47,10 +50,10 @@ This repository contains implementation of some of the fundamental data structur
 2. Binary Search
     * Peak Finding
 3. Sorting
-    * Bubble
-    * Insertion
-    * Selection
-    * Merge
+    * [Bubble](src/algorithms/sorting/bubbleSort)
+    * [Insertion](src/algorithms/sorting/insertionSort)
+    * [Selection](src/algorithms/sorting/selectionSort)
+    * [Merge](src/algorithms/sorting/mergeSort)
     * Quick
 4. Trees
     * Binary search tree
