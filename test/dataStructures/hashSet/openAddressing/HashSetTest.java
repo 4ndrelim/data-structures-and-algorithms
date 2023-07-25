@@ -77,4 +77,36 @@ public class HashSetTest {
 
         assertTrue(hashSet.contains(25)); // contains should still find 25.
     }
+    @Test
+    public void testResize() {
+        // Create a HashSet with an initial capacity of 16 and load factor of 0.75 for testing.
+        HashSet<Integer> set = new HashSet<>();
+        for (int i = 1; i <= 12; i++) {
+            set.add(i);
+        }
+
+        // Verify that the HashSet has the initial capacity of 16.
+        assertEquals(16, set.capacity());
+
+        // Adding one more element should trigger a resize operation to double the capacity to 32.
+        set.add(13);
+
+        // Verify that the HashSet has resized and doubled its capacity to 32.
+        assertEquals(32, set.capacity());
+
+        // Removing elements until it triggers a resize operation to shrink the capacity.
+        // Currently size is 13. Therefore, remove 5 elements.
+        for (int i = 1; i <= 5; i++) {
+            set.remove(i);
+        }
+
+        // Verify that the HashSet has not resized.
+        assertEquals(32, set.capacity());
+
+        // Removing one more element should trigger a resize operation to halve the capacity back to 16.
+        set.remove(10);
+
+        // Verify that the HashSet has resized and halved its capacity back to 16.
+        assertEquals(16, set.capacity());
+    }
 }
