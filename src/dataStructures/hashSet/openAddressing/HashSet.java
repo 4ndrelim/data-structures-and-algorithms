@@ -51,6 +51,7 @@ public class HashSet<T>{
     /**
      * Adds the specified element to this set if it is not already present
      * If this set already contains the element, the call leaves the set unchanged and returns false.
+     * <p> If load factor (0.75) is exceeded, triggers a resize operation and double the current capacity.
      *
      * @param element the element to be added to this set
      * @return true if this set did not already contain the specified
@@ -77,11 +78,18 @@ public class HashSet<T>{
      *<p>
      *     Removed elements are replaced with a Tombstone instead of NULL. This is to prevent search from terminating earlier
      *     than expected when looking for an element.
+     * <p>
+     *     If load factor falls below 0.25, trigger a resize and halve the current capacity.
      *
      * @param element the element to be removed from this set, if present
      * @return true if this set contained the specified element
      */
     public boolean remove(T element) {
+        // If load factor falls below 0.25 and still above minimum size (16), shrink the hashset by half.
+        if (this.size() <= this.capacity() * 0.25 && this.capacity() / 2 >= INITIAL_CAPACITY) {
+            resize(this.capacity() / 2);
+        }
+
         int bucketIndex = this.search(element);
         if (bucketIndex == ELEMENT_NOT_FOUND) {
             return false; // If the index returned by the probe function contains an empty bucket, then the element is not present in the set.
