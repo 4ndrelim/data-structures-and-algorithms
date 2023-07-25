@@ -1,6 +1,10 @@
 # data-structures-and-algorithms
 This repository contains implementation of some of the fundamental data structures and algorithms in Computer Science. It is primarily used as a teaching resource and is currently being developed by ex-2040s students.
 
+**Also**, the structure of the codebase is optimised for IntelliJ IDEA since implementation are mostly written in Java.
+
+**Note**: This is still being developed! Those below with links mean that they are complete (alongside testing). We project to complete CS2040s course content by November and along the way, add interesting algorithms/problems. If you wish to contribute, do drop me an email at andre_lin@u.nus.edu.
+
 ## Full List of Implementation (in alphabetical order):
 ## Structures
 - Adelson-Velskii and Landis (AVL) Binary Search Tree
@@ -14,21 +18,25 @@ This repository contains implementation of some of the fundamental data structur
 - Minimum Spanning Tree
 - Queue
 - Segment Tree
-    * Improved version does not require O(2^n) space here
+    * Array implementation
+    * TreeNode implementation 
 - Stack
 - Trie
 
 
 ## Algorithms
 - [Counting Sort](src/algorithms/sorting/countingSort/)
-- Cyclic Sort
+- [Cyclic Sort](src/algorithms/sorting/cyclicSort/)
+    * [Special case](src/algorithms/sorting/cyclicSort/simple) of O(n) time complexity
+    * [Generalized case](src/algorithms/sorting/cyclicSort/generalised) of O(n^2) time complexity
+- [Knuth-Morris-Pratt](src/algorithms/patternFinding/) aka KMP algorithm
 - [Matrix Operations](others/matrix_operations/)
 - Merge Sort
     * Recursive
     * Bottom-up iterative
-- Radix Sort
 - Quick Sort
     * 3-way Partitioning
+- Radix Sort
 
 
 ## Short-cut to CS2040S Material
