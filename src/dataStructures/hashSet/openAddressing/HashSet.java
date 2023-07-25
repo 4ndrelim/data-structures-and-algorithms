@@ -129,7 +129,7 @@ public class HashSet<T>{
      */
     public List<T> toList() {
         return Arrays.stream(this.buckets)
-                     .filter(element -> element != null || this.TOMBSTONE.equals(element))
+                     .filter(element -> element != null && !element.equals(this.TOMBSTONE))
                      .collect(Collectors.toList());
     }
 
@@ -158,8 +158,6 @@ public class HashSet<T>{
     /**
      * Given an element, returns the index of an empty (defined as null OR tombstone) bucket to insert the element at.
      * If the element is already present in the HashSet, return its index.
-     * TODO If the ratio of the number of elements to the number of buckets (n / m) exceeds the load factor,
-     * TODO trigger a resize. (currently throws a RunTimeException).
      *
      * @param element the given element to probe an empty bucket for.
      * @return the index of an empty bucket.
@@ -183,7 +181,6 @@ public class HashSet<T>{
             }
             currentBucketIndex = (currentBucketIndex + 1) % this.capacity();
         }
-        resize(); // TODO implement resize operation.
         return ELEMENT_NOT_FOUND; // placeholder return value for now. Will never reach this line.
     }
 
