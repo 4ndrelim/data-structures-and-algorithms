@@ -2,6 +2,7 @@ package src.dataStructures.hashSet.openAddressing;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -263,8 +264,21 @@ public class HashSet<T>{
      * or if the load factor falls below 1/4 (arbitrary) of the capacity (and the capacity is larger than the minimum capacity), the
      * capacity is decreased by halving it (possibly triggered after a remove operation).
      */
-    private void resize() {
-        throw new UnsupportedOperationException("Table is full");
+    private void resize(int newCapacity) {
+        // creates a temporary reference to the original bucket
+        T[] temp = this.buckets;
+
+        // Safe cast because the only way to add elements into this HashSet is through the add method, which
+        // only takes in elements of type T.
+        @SuppressWarnings("unchecked")
+        T[] newBuckets = (T[]) new Object[newCapacity];
+        this.buckets = newBuckets;
+
+        // re-hashes every element and re-insert into the newly created buckets.
+        Arrays.stream(temp)
+                .filter(Objects::nonNull)
+                .filter(element -> !element.equals(this.TOMBSTONE))
+                .forEach(this::add);
     }
 
     /**
