@@ -1,11 +1,12 @@
 package src.algorithms.sorting.mergeSort.recursive;
 
 /** Here, we are implementing MergeSort where we sort the array in increasing (or more precisely, non-decreasing)
- * order.
+ * order recursively.
  *
  * Brief Description:
- * MergeSort is a divide-and-conquer sorting algorithm that sorts an array by recursively dividing it into two halves,
- * sorting each half separately, and then merging the sorted halves to produce the final sorted output.
+ * MergeSort is a divide-and-conquer sorting algorithm. The recursive implementation takes a top-down approach by
+ * recursively dividing the array into two halves, sorting each half separately, and then merging the sorted halves
+ * to produce the final sorted output.
  *
  * Implementation Invariant (for the merging subroutine):
  * The sub-array temp[start, (k-1)] consists of the (𝑘−start) smallest elements of arr[start, mid] and
@@ -31,7 +32,7 @@ package src.algorithms.sorting.mergeSort.recursive;
 public class MergeSort {
 
     /**
-     * Sorts the sub-array arr[start, end] using the Merge Sort algorithm.
+     * Sorts the sub-array arr[start, end] using the MergeSort algorithm.
      *
      * @param arr The given array to be sorted.
      * @param start The starting index of the sub-array to be sorted.
@@ -49,13 +50,12 @@ public class MergeSort {
     }
 
     /**
-     * Merges two sorted sub-arrays within the given array using the Merge Sort algorithm. The two sub-arrays are
-     * arr[start, mid] and arr[mid + 1, end]. Upon completion of this function, arr[start, end] will be in sorted
-     * order.
+     * Merges two sorted sub-arrays within the given array. The two sub-arrays are arr[start, mid] and
+     * arr[mid + 1, end]. Upon completion of this function, arr[start, end] will be in sorted order.
      *
      * @param arr The array containing the sub-arrays to be merged.
      * @param start The starting index of the first sub-array to be merged.
-     * @param end The ending index of the second sub-array to be merged.
+     * @param end The ending index (inclusive) of the second sub-array to be merged.
      * @param temp A temporary array used for merging intermediate results.
      */
     private static void merge(int[] arr, int start, int end, int[] temp) {
@@ -104,7 +104,7 @@ public class MergeSort {
     /**
      * Sorts the given array in non-decreasing order.
      *
-     * @param arr array to be sorted
+     * @param arr The given array to be sorted
      */
     public static void sort(int[] arr) {
         int n = arr.length;
