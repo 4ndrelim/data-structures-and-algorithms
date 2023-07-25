@@ -51,7 +51,10 @@ public class HashSet<T>{
     /**
      * Adds the specified element to this set if it is not already present
      * If this set already contains the element, the call leaves the set unchanged and returns false.
-     * <p> If load factor (0.75) is exceeded, triggers a resize operation and double the current capacity.
+     * <p>
+     *     If load factor (0.75) is exceeded, triggers a resize operation and double the current capacity.
+     *     It's important to note that resizing is not performed with every add operation but rather when the load
+     *     factor exceeds the threshold. Therefore, the amortized time complexity of adding elements remains O(1)
      *
      * @param element the element to be added to this set
      * @return true if this set did not already contain the specified
@@ -80,6 +83,9 @@ public class HashSet<T>{
      *     than expected when looking for an element.
      * <p>
      *     If load factor falls below 0.25, trigger a resize and halve the current capacity.
+     *     It's important to note that resizing is not performed with every remove operation but rather when the
+     *     load factor falls below a certain limit. Therefore, the amortized time complexity of removing elements
+     *     remains O(1)
      *
      * @param element the element to be removed from this set, if present
      * @return true if this set contained the specified element
@@ -275,6 +281,9 @@ public class HashSet<T>{
      * If the load factor is exceeded, the capacity is increased by doubling it (possibly triggered after an add operation),
      * or if the load factor falls below 1/4 (arbitrary) of the capacity (and the capacity is larger than the minimum capacity), the
      * capacity is decreased by halving it (possibly triggered after a remove operation).
+     * <p>
+     *     The resizing operation involves rehashing all existing elements into a new array with the updated capacity.
+     *     This process takes O(n) time, where n is the number of elements in the hash set.
      */
     private void resize(int newCapacity) {
         // creates a temporary reference to the original bucket
