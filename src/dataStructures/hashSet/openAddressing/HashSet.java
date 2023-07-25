@@ -57,6 +57,10 @@ public class HashSet<T>{
      * element
      */
     public boolean add(T element) {
+        if (isLoadFactorExceeded()) {
+            resize(this.capacity() * 2); // Resize to double the capacity.
+        }
+
         int bucketIndex = this.linearProbe(element);
         if (!this.isEmptyBucket(bucketIndex)) { // probe function returns the index of an empty bucket or the index containing the element.
             return false; // Duplicate elements are not added to the set.
