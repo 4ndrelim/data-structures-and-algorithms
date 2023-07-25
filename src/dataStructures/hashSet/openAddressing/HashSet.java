@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * List<T> toList()             returns a List representation of this HashSet. O(n).
  * int size()                   gets the number of elements (cardinality) in this HashSet. O(1).
  * boolean isEmpty()            checks if the HashSet is empty. O(1).
+ * int capacity()               returns the capacity of this HashSet. O(1).
  *
  * @param <T> the type of objects that are contained within this HashSet. T must override
  *           Object::equals and Object::hashCode for the methods add, remove, and contains to be well-defined.
@@ -153,6 +154,16 @@ public class HashSet<T>{
     }
 
     /**
+     * Returns the number of buckets of this HashSet. Equivalently, returns the maximum number of elements that can
+     * be stored in this HashSet.
+     *
+     * @return the number of buckets of this HashSet.
+     */
+    public int capacity() {
+        return this.buckets.length; // returns the number of buckets.
+    }
+
+    /**
      * Hashes the specified element to determine the bucket index for placement within the array.
      * The hash function calculates the index by performing the following steps:
      * <p>
@@ -265,16 +276,6 @@ public class HashSet<T>{
      */
     private boolean isTombstoneBucket(int bucketIndex) {
         return this.TOMBSTONE.equals(this.buckets[bucketIndex]);
-    }
-
-    /**
-     * Returns the number of buckets of this HashSet. Equivalently, returns the maximum number of elements that can
-     * be stored in this HashSet.
-     *
-     * @return the number of buckets of this HashSet.
-     */
-    private int capacity() {
-        return this.buckets.length; // returns the number of buckets.
     }
 
     /**
