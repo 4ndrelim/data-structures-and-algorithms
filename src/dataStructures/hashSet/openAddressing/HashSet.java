@@ -5,12 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Implementation of a HashSet that uses Open Addressing to resolve collisions.
+ * Implementation of a HashSet that uses Open Addressing and linear probing to resolve collisions.
  *
  * <p>The time complexity of operations in this HashSet implementation consists of two components. Firstly, there is the time to
  * compute the hash value, which is typically a constant-time operation. Secondly, there is the time to access the corresponding
- * bucket, which involves traversing the linked list in case of collisions. On average, these operations have a constant-time
- * complexity.
+ * bucket, which involves probing the buckets using linear probing.
  *
  * <p>Public methods (along with their time-complexity):
  * boolean add(T element)       adds the given element into the HashSet. Expected O(1) assuming SUHA.
@@ -29,6 +28,7 @@ public class HashSet<T>{
     private final int ELEMENT_NOT_FOUND = -1;
     private int size; // Number of elements present in the Set (its cardinality).
     private T[] buckets;
+    private final T TOMBSTONE;
 
     /**
      * Creates a HashSet with an initial capacity of 16.
@@ -40,6 +40,11 @@ public class HashSet<T>{
         T[] tempBuckets = (T[]) new Object[INITIAL_CAPACITY];
         this.buckets = tempBuckets;
         this.size = 0;
+
+        // There is no way to retrieve an instance of Tombstone. Therefore, it is safe to cast Tombstone to T.
+        @SuppressWarnings("unchecked")
+        T tempVar = (T) Tombstone.TOMBSTONE;
+        this.TOMBSTONE = tempVar;
     }
 
     /**
@@ -76,7 +81,7 @@ public class HashSet<T>{
         if (bucketIndex == ELEMENT_NOT_FOUND) {
             return false; // If the index returned by the probe function contains an empty bucket, then the element is not present in the set.
         }
-        this.buckets[bucketIndex] = this.tombstone(); // marks the current bucket with a TOMBSTONE.
+        this.buckets[bucketIndex] = this.TOMBSTONE; // marks the current bucket with a TOMBSTONE.
         this.size--;
         return true;
     }
@@ -124,7 +129,7 @@ public class HashSet<T>{
      */
     public List<T> toList() {
         return Arrays.stream(this.buckets)
-                     .filter(element -> element != null || this.tombstone().equals(element))
+                     .filter(element -> element != null || this.TOMBSTONE.equals(element))
                      .collect(Collectors.toList());
     }
 
@@ -208,14 +213,6 @@ public class HashSet<T>{
         return ELEMENT_NOT_FOUND; // element is not in the HashSet.
     }
 
-    // This method returns an instance of Tombstone, which is used to mark removed elements.
-    private T tombstone() {
-        // There is no way to retrieve an instance of Tombstone. Therefore, it is safe to cast Tombstone to T.
-        @SuppressWarnings("unchecked")
-        T deleted = (T) Tombstone.TOMBSTONE;
-        return deleted;
-    }
-
     /**
      * Returns true if the bucket at the given bucketIndex contains no elements (Either null or Tombstone).
      *
@@ -243,7 +240,7 @@ public class HashSet<T>{
      * @return true if the bucket contains a Tombstone at the given bucketIndex.
      */
     private boolean isTombstoneBucket(int bucketIndex) {
-        return this.tombstone().equals(this.buckets[bucketIndex]);
+        return this.TOMBSTONE.equals(this.buckets[bucketIndex]);
     }
 
     /**
