@@ -199,13 +199,21 @@ public class HashSet<T>{
 
         int currentBucketIndex = startingProbeIndex;
         for (int i = 0; i < this.capacity() - 1; i++) {
-            // if bucket contains null or Tombstone, skip checking for equality.
-            if (!this.isEmptyBucket(currentBucketIndex)) {
-                // Checks equality of elements using Object::equals and Object::hashCode.
-                if (this.buckets[currentBucketIndex].equals(element)
-                        && this.buckets[currentBucketIndex].hashCode() == element.hashCode()) {
-                    return currentBucketIndex;
-                }
+            // if bucket contains NULL, means element is not present because deleted elements are marked with TOMBSTONE.
+            // That is to say given an arbitrary probe sequence of index 1, 2, 3, ..., there can never be a case where
+            // there is a NULL bucket in the middle of the probe sequence; only TOMBSTONE markers.
+            if (this.isNullBucket(currentBucketIndex)) {
+                return ELEMENT_NOT_FOUND;
+            }
+            // if bucket contains TOMBSTONE, skip checking current bucket index for equality.
+            if (this.isTombstoneBucket(currentBucketIndex)) {
+                continue;
+            }
+
+            // Checks equality of elements using Object::equals and Object::hashCode.
+            if (this.buckets[currentBucketIndex].equals(element)
+                    && this.buckets[currentBucketIndex].hashCode() == element.hashCode()) {
+                return currentBucketIndex;
             }
             currentBucketIndex = (currentBucketIndex + 1) % this.capacity();
         }
