@@ -1,12 +1,12 @@
 package src.algorithms.graphs;
 
 import java.util.*;
-import src.algorithms.graphs.util.TreeNode;
+import src.algorithms.graphs.util.BinaryTreeNode;
 
 /**
  * Implementation of DFS
  *
- * Depth-First search is a graph traversal algorithm that utilizes a stack (FIFO) data structure
+ * Depth-First search is a graph traversal algorithm that utilizes a stack (LIFO) data structure
  * It is useful in finding a shortest-path solution (IN TREES), or a single solution in graphs
  * This method is also used to obtain order-traversals of trees.
  *
@@ -22,28 +22,32 @@ import src.algorithms.graphs.util.TreeNode;
  *              For each edge, we must check in O(1) time if we have visited the adjacent vertex to know
  *              whether to push it into the stack, hence O(E).
  *              Note that if the graph is a forest, DFS will likely terminate earlier, as fewer vertices are traversed
+ *
  * Space: O(V): We utilize a Hashset to store the vertices we have visited already. In the worst case we have a
- *              connected graph where all vertices are traversed, and our Hashset stores O(V) vertices.
+ *              connected graph where all vertices are traversed, and our Hashset stores all O(V) vertices.
  *              Further, we use a stack to hold the vertices to be traversed. In the worst case, the root will have all
  *              other vertices as neighbours, and our stack will contain O(V) vertices.
+ *
  * ** Note: The above description assumes an adjacency list in order to consider neighbours in an efficient manner
  *          If an adjacency matrix were used, it would cost O(V) to find neighbours for a single vertex, making our
  *          average case time complexity O(V^2) for a connected graph
  *
  * The implementation demonstrates the use of DFS in finding the pre-order (Root, Left, Right) traversal of a binary tree
- * The tree is represented using a custom TreeNode class
+ * The tree is represented using a custom BinaryTreeNode class
+ *
+ * TODO: Add new examples, and algo for all orderings
  */
 
 public class depthFirstSearch {
 
-    public static List<Integer> preOrder(TreeNode root) {
+    public static List<Integer> preOrder(BinaryTreeNode root) {
         if (root == null) { return new ArrayList<>(); }
         List<Integer> traversal = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
+        Stack<BinaryTreeNode> stack = new Stack<>();
         stack.push(root);
 
         while (!stack.empty()) {
-            TreeNode curr = stack.pop();
+            BinaryTreeNode curr = stack.pop();
             traversal.add(curr.getVal());
             if (curr.getRight() != null) { stack.push(curr.getRight()); }
             if (curr.getLeft() != null) { stack.push(curr.getLeft()); }
@@ -53,15 +57,15 @@ public class depthFirstSearch {
     }
 
     // call this for visualization of process
-    public static List<Integer> preOrderVisualize(TreeNode root) {
+    public static List<Integer> preOrderVisualize(BinaryTreeNode root) {
         if (root == null) { return new ArrayList<>(); }
         List<Integer> traversal = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
+        Stack<BinaryTreeNode> stack = new Stack<>();
         stack.push(root);
 
         while (!stack.empty()) {
             System.out.println("Current stack: " + stack.toString() + ", Current traversal: " + traversal.toString());
-            TreeNode curr = stack.pop();
+            BinaryTreeNode curr = stack.pop();
             System.out.println("Popped Node: " + Integer.toString(curr.getVal()));
             traversal.add(curr.getVal());
             System.out.println("Current stack: " + stack.toString() + ", Current traversal: " + traversal.toString());
