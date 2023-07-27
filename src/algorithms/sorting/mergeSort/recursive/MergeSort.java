@@ -1,73 +1,115 @@
 package src.algorithms.sorting.mergeSort.recursive;
 
-import java.util.*;
-
-/**
- * Recursive implementation of merge sort (in ascending order) 
- * with only additional O(n) space required.
+/** Here, we are implementing MergeSort where we sort the array in increasing (or more precisely, non-decreasing)
+ * order recursively.
+ *
+ * Brief Description:
+ * MergeSort is a divide-and-conquer sorting algorithm. The recursive implementation takes a top-down approach by
+ * recursively dividing the array into two halves, sorting each half separately, and then merging the sorted halves
+ * to produce the final sorted output.
+ *
+ * Implementation Invariant (for the merging subroutine):
+ * The sub-array temp[start, (k-1)] consists of the (𝑘−start) smallest elements of arr[start, mid] and
+ * arr[mid + 1, end], in sorted order.
+ *
+ * Complexity Analysis:
+ * Time:
+ * - Worst case: O(nlogn)
+ * - Average case: O(nlogn)
+ * - Best case: O(nlogn)
+ * Merging two sorted sub-arrays of size (n/2) requires O(n) time as we need to iterate through every element in both
+ * sub-arrays in order to merge the two sorted sub-arrays into one sorted array.
+ *
+ * Recursion expression: T(n) = 2T(n/2) + O(n) => O(nlogn)
+ *
+ * Regardless of how sorted the input array is, MergeSort carries out the same divide-and-conquer strategy, so the
+ * time complexity of MergeSort is O(nlogn) for all cases.
+ *
+ * Space:
+ * - O(n) since we require a temporary array to temporarily store the merged elements in sorted order
  */
+
 public class MergeSort {
 
-  /**
-   * Sorts a list from a specified start to end point, making use of 
-   * and additional copy list to store sorted elements.
-   * @param <T> generic type of object
-   * @param lst list of objects to be sorted from start to end 
-   * @param start sorting of elements starting from this index
-   * @param end sorting of elements up till and inclusive of this index
-   * @param copy copy of the list to store and extract elements in sorted position
-   */
-  private static <T extends Comparable<T>> void mergeSort(List<T> lst, int start, int end, List<T> copy) {
-    if (start == end) {
-      return;
-    }
-    int mid = start + (end - start) / 2;
-    mergeSort(copy, start, mid, lst);
-    mergeSort(copy, mid + 1, end, lst);
-    merge(lst, start, mid, end, copy);
-  }
-
-  /**
-   * Merging algorithm that merges two sorted sub-lists into one final sorted list.
-   * @param <T> generic type of object
-   * @param arr at the end, elements from s to e (inclusive) of arr are sorted
-   * @param s start of first sub-list
-   * @param m end (inclusive) of first sub-list; note start of second sub-list is m+1
-   * @param e end (inclusive) of second sub-list 
-   * @param cpy copy of the sorted sub-lists to extract and insert sorted final list into arr
-   */
-  private static <T extends Comparable<T>> void merge(List<T> arr, int s, int m, int e, List<T> cpy) {
-    int start = s;
-    int startLeft = s;
-    int startRight = m + 1;
-
-    while (startLeft < m + 1 && startRight < e + 1) {
-      if (cpy.get(startLeft).compareTo(cpy.get(startRight)) < 0) {
-        arr.set(start++, cpy.get(startLeft++));
-      } else {
-        arr.set(start++, cpy.get(startRight++));
-      }
+    /**
+     * Sorts the sub-array arr[start, end] using the MergeSort algorithm.
+     *
+     * @param arr The given array to be sorted.
+     * @param start The starting index of the sub-array to be sorted.
+     * @param end The ending index (inclusive) of the sub-array to be sorted.
+     * @param temp A temporary array used for merging.
+     */
+    private static void mergeSort(int[] arr, int start, int end, int[] temp) {
+        if (start >= end) {
+            return;
+        }
+        int mid = (start + end) / 2;
+        mergeSort(arr, start, mid, temp);
+        mergeSort(arr, mid + 1, end, temp);
+        merge(arr, start, end, temp);
     }
 
-    while (startLeft < m + 1) {
-      arr.set(start++, cpy.get(startLeft++));
+    /**
+     * Merges two sorted sub-arrays within the given array. The two sub-arrays are arr[start, mid] and
+     * arr[mid + 1, end]. Upon completion of this function, arr[start, end] will be in sorted order.
+     *
+     * @param arr The array containing the sub-arrays to be merged.
+     * @param start The starting index of the first sub-array to be merged.
+     * @param end The ending index (inclusive) of the second sub-array to be merged.
+     * @param temp A temporary array used for merging intermediate results.
+     */
+    private static void merge(int[] arr, int start, int end, int[] temp) {
+        int mid = (start + end) / 2;
+        int i = start;
+        int j = mid + 1;
+        int pointer = start;
+
+        // Merge the two sorted sub-arrays into the temp array
+        while (i <= mid && j <= end) {
+            if (arr[i] <= arr[j]) {
+                //we use <= here to maintain stability of MergeSort. If arr[i] == arr[j], the algorithm prefers the
+                //one from the left sub-array (arr[i]). This decision preserves the relative order of equal elements.
+
+                //if we change this to arr[i] >= arr[j], we can sort the array in non-increasing order.
+
+                temp[pointer] = arr[i];
+                i++;
+            } else {
+                temp[pointer] = arr[j];
+                j++;
+            }
+            pointer++;
+        }
+
+        // Copy any remaining elements from the left sub-array
+        while (i <= mid) {
+            temp[pointer] = arr[i];
+            i++;
+            pointer++;
+        }
+
+        // Copy any remaining elements from the right sub-array
+        while (j <= end) {
+            temp[pointer] = arr[j];
+            j++;
+            pointer++;
+        }
+
+        // Copy the merged elements back to the original array
+        for (int k = start; k <= end; k++) {
+            arr[k] = temp[k];
+        }
     }
 
-    while (startRight < e + 1) {
-      arr.set(start++, cpy.get(startRight++));
+    /**
+     * Sorts the given array in non-decreasing order.
+     *
+     * @param arr The given array to be sorted
+     */
+    public static void sort(int[] arr) {
+        int n = arr.length;
+        int[] temp = new int[n];
+        mergeSort(arr, 0, n-1, temp);
     }
-  }
 
-  /**
-   * Sorting algorithm to be called by client.
-   * @param <T> generic type
-   * @param lst list of elements to be sorted.
-   */
-  public static <T extends Comparable<T>> void sort(List<T> lst) {
-    List<T> copy = new ArrayList<>();
-    for (int i = 0; i < lst.size(); i++) {
-      copy.add(lst.get(i));
-    }
-    mergeSort(lst, 0, lst.size() - 1, copy);
-  }
 }

@@ -1,3 +1,3 @@
 ![InsertionSort](../../../../assets/InsertionSort.png)
 
-Image taken from: https://www.hackerrank.com/challenges/correctness-invariant/problem
+Image Source: https://www.hackerrank.com/challenges/correctness-invariant/problem

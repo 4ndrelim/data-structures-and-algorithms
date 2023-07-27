@@ -1,91 +1,116 @@
 package src.algorithms.sorting.mergeSort.iterative;
 
-import java.util.*;
-
-/**
- * Iterative implementation of Merge sort with O(n) space
+/** Here, we are implementing MergeSort where we sort the array in increasing (or more precisely, non-decreasing)
+ * order iteratively.
+ *
+ * Brief Description:
+ * The iterative implementation of MergeSort takes a bottom-up approach, where the sorting process starts by merging
+ * intervals of size 1. Intervals of size 1 are trivially in sorted order. The algorithm then proceeds to merge
+ * adjacent sorted intervals, doubling the interval size with each merge step, until the entire array is fully sorted.
+ *
+ * Implementation Invariant:
+ * At each iteration of the merging process, the main array is divided into sub-arrays of a certain interval
+ * size (<interval>). Each of these sub-arrays is sorted within itself. The last sub-array may not be of size
+ * <interval> but it is still sorted since its size is necessarily less than <interval>.
+ *
+ * Complexity Analysis:
+ * Time:
+ * - Worst case: O(nlogn)
+ * - Average case: O(nlogn)
+ * - Best case: O(nlogn)
+ *
+ * Given two sorted arrays of size p and q, we need O(p + q) time to merge the two arrays into one sorted array, since
+ * we have to iterate through every element in both arrays once.
+ *
+ * At the 1st level of the merge process, our merging subroutine involves n sub-arrays of size 1, taking O(n) time.
+ * At the 2nd level of the merge process, our merging subroutine involves (n/2) sub-arrays of size 2, taking O(n) time.
+ * At the kth level of the merge process, our merging subroutine involves (n/(2^(k-1))) sub-arrays of size (2^(k-1)),
+ * taking O(n) time.
+ *
+ * Since <interval> doubles at every iteration of the merge process, there are logn such levels. Every level takes
+ * O(n) time, hence overall time complexity is n * logn = O(nlogn)
+ *
+ * Regardless of how sorted the input array is, MergeSort carries out the partitioning and merging process, so the
+ * time complexity of MergeSort is O(nlogn) for all cases.
+ *
+ * Space:
+ * - O(n) since we require a temporary array to temporarily store the merged elements in sorted order
  */
+
 public class MergeSort {
 
-  /**
-   * Sorts a list from a specified start to end point.
-   *
-   * Note: starting with an interval size (call this var <interval>) of 1 and iteratively *2,
-   * Merge two sub-lists of size <interval> together using merge routine.
-   * Invariant: Partitioning the main list into sub-lists of size <interval>,
-   * each of this sub-list is sorted within itself (the last sub-list may not be of
-   * size <interval> but it is still sorted since the size is necessarily less than <interval>.
-   *
-   * @param <T> generic type of object
-   * @param lst list of objects to be sorted
-   * @param start sorting starts at this index
-   * @param end sorting ends (inclusive) at this index
-   */
-  private static <T extends Comparable<T>> void mergeSort(List<T> lst, int start, int end) {
-    if (start == end) {
-      return;
-    }
-    int size = lst.size();
-    int interval = 1;
-    List<T> tmp = new ArrayList<>();
-    for (T item : lst) {
-      tmp.add(item);
-    }
-    while (interval < lst.size()) {
-      for (int i = 0; i + interval < size; i += 2*interval) {
-        int start1 = i;
-        int start2 = i + interval;
-        int e = i + 2 * interval - 1;
-        if (e > size - 1) {
-          e = size - 1;
+    /**
+     * Sorts the given array in non-decreasing order.
+     *
+     * @param arr The given array to be sorted.
+     */
+    public static void sort(int[] arr) {
+        int interval = 1;
+        int n = arr.length;
+        int[] temp = new int[n];
+
+        while (interval < n) {
+            for (int i = 0; i < n - interval; i += 2 * interval) {
+                int end = Math.min(i + 2 * interval - 1, n - 1);
+                int mid = i + interval - 1;
+                merge(arr, i, mid, end, temp);
+            }
+            interval *= 2;
         }
-        merge(lst, tmp, start1, start2, e);
-      }
-      interval *= 2;
-    }
-    
-  }
-
-  /**
-   * Merging algorithm that merges two sorted sub-lists into one final sorted list.
-   * @param <T> generic type of object
-   * @param lst at the end, elements from s1 to e (inclusive) of lst are sorted
-   * @param s1 start index of first sub-list
-   * @param s2 start index of second sub-list; note that end index of first sub-list is s2-1
-   * @param e end index of second sub-list
-   */
-  private static <T extends Comparable<T>> void merge(List<T> lst, List<T> tmp, int s1, int s2, int e) {
-    int startLeft = s1;
-    int startRight = s2;
-    int tmpIdx = s1;
-    while (startLeft < s2 && startRight < e + 1) {
-      if (lst.get(startLeft).compareTo(lst.get(startRight)) < 0) {
-        tmp.set(tmpIdx, lst.get(startLeft++));
-      } else {
-        tmp.set(tmpIdx, lst.get(startRight++));
-      }
-      tmpIdx++;
     }
 
-    while (startLeft < s2) {
-      tmp.set(tmpIdx++, lst.get(startLeft++));
+    /**
+     * Merges two sorted sub-arrays within the given array. The two sub-arrays are arr[start, mid] and
+     * arr[mid + 1, end]. Upon completion of this function, arr[start, end] will be in sorted order.
+     *
+     * @param arr The array containing the sub-arrays to be merged.
+     * @param start The starting index of the first sub-array to be merged.
+     * @param mid The ending index (inclusive) of the first sub-array to be merged. In the iterative implementation,
+     *            the mid parameter is required in the merge function to determine the splitting point between the
+     *            sub-arrays to be merged.
+     * @param end The ending index (inclusive) of the second sub-array to be merged.
+     * @param temp A temporary array used for merging intermediate results.
+     */
+    private static void merge(int[] arr, int start, int mid, int end, int[] temp) {
+        int i = start;
+        int j = mid + 1;
+        int pointer = start;
+
+        // Merge the two sorted sub-arrays into the temp array
+        while (i <= mid && j <= end) {
+            if (arr[i] <= arr[j]) {
+                //we use <= here to maintain stability of MergeSort. If arr[i] == arr[j], the algorithm prefers the
+                //one from the left sub-array (arr[i]). This decision preserves the relative order of equal elements.
+
+                //if we change this to arr[i] >= arr[j], we can sort the array in non-increasing order.
+
+                temp[pointer] = arr[i];
+                i++;
+            } else {
+                temp[pointer] = arr[j];
+                j++;
+            }
+            pointer++;
+        }
+
+        // Copy any remaining elements from the left sub-array
+        while (i <= mid) {
+            temp[pointer] = arr[i];
+            i++;
+            pointer++;
+        }
+
+        // Copy any remaining elements from the right sub-array
+        while (j <= end) {
+            temp[pointer] = arr[j];
+            j++;
+            pointer++;
+        }
+
+        // Copy the merged elements back to the original array
+        for (int k = start; k <= end; k++) {
+            arr[k] = temp[k];
+        }
     }
 
-    while (startRight < e + 1) {
-      tmp.set(tmpIdx++, lst.get(startRight++));
-    }
-
-    for (int i = s1; i < e+1; i++) {
-      lst.set(i, tmp.get(i));
-    }
-  }
-
-  /**
-   * Sorting algorithm that clients calls
-   * @param <T> generic type
-   * @param lst list to be sorted
-   */
-  public static <T extends Comparable<T>> void sort(List<T> lst) {
-    mergeSort(lst, 0, lst.size() - 1);
-  }
 }
