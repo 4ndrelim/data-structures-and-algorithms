@@ -80,7 +80,7 @@ However, there are variants of linked lists designed to speed up lookup time.
 *Source: Brilliant*
 
 This is a variant of a linked list with additional pointer paths that does not lead to the next node 
-but allow you to skip a fixed amount of nodes. 
+but allow you to skip through nodes as you wish. 
 If we know which nodes each pointer path stops at, we would be able to conduct faster lookup.
 
 This could also be ideal in situations where we want to store a large amount
