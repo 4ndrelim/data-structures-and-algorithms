@@ -67,7 +67,8 @@ allowing us to allocate memory to store items dynamically, giving us more flexib
 **Generally, linked list is more memory efficient and flexible than arrays.**
 
 ### Conclusion
-You should aim to use linked list in unpredictable scenarios or if you require constant time insertions to the list.
+You should aim to use linked list in scenarios where you cannot predict how many elements you need to store
+or if you require constant time insertions to the list.
 
 However, arrays would be preferred if you already know the amount of elements you need to store ahead of time, 
 preventing memory wastage. It would also be preferred if you are conducting a lot of look up operations.
