@@ -70,8 +70,8 @@ allowing us to allocate memory to store items dynamically, giving us more flexib
 You should aim to use linked list in scenarios where you cannot predict how many elements you need to store
 or if you require constant time insertions to the list.
 
-However, arrays would be preferred if you already know the amount of elements you need to store ahead of time, 
-preventing memory wastage. It would also be preferred if you are conducting a lot of look up operations.
+However, arrays would be preferred if you already know the amount of elements you need to store ahead of time. 
+It would also be preferred if you are conducting a lot of look up operations.
 
 ## Linked List Variants
 The lookup time within a linked list is its biggest issue.
@@ -84,10 +84,10 @@ However, there are variants of linked lists designed to speed up lookup time.
 *Source: Brilliant*
 
 This is a variant of a linked list with additional pointer paths that does not lead to the next node 
-but allow you to skip through nodes as you wish. 
-If we know which nodes each pointer path stops at, we would be able to conduct faster lookup.
+but allow you to skip through nodes in a "express pointer path" which can be user configured. 
+If we know which nodes each express pointer path stops at, we would be able to conduct faster lookup.
 
-This could also be ideal in situations where we want to store a large amount
+This would also be ideal in situations where we want to store a large amount
 of data which we do not need to access regularly that we are not willing to delete.
 
 ### Unrolled Linked Lists
