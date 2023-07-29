@@ -303,7 +303,7 @@ public class LinkedList<T extends Comparable<T>> {
   /**
    * Node class for linked list
    */
-  private static class Node<T> {
+  public static class Node<T> {
     T val;
     Node<T> next;
 
