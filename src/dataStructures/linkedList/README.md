@@ -7,7 +7,7 @@ It consists of a collection of objects, used to store our data elements, known a
 
 ## Linked Lists vs Arrays
 Linked lists are similar to arrays in 
-terms of used and purpose, but there are differences to consider when deciding which to use. 
+terms of used and purpose, but there are considerations when deciding which structure to use. 
 
 Unlike arrays, which are stored in contiguous locations in memory,
 linked lists are stored across memory and are connected to each other via pointers.
