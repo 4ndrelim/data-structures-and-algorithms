@@ -3,6 +3,7 @@ Linked lists are a linear structure used to store data elements.
 It consists of a collection of objects, used to store our data elements, known as nodes.
 
 ![Linked list image](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230726162542/Linked-List-Data-Structure.png)
+
 *Source: GeeksForGeeks*
 
 ## Linked Lists vs Arrays
@@ -13,6 +14,7 @@ Unlike arrays, which are stored in contiguous locations in memory,
 linked lists are stored across memory and are connected to each other via pointers.
 
 ![Array image](https://beginnersbook.com/wp-content/uploads/2018/10/array.jpg)
+
 *Source: BeginnersBook*
 
 ### Search
@@ -77,6 +79,7 @@ However, there are variants of linked lists designed to speed up lookup time.
 ### Skip list
 
 ![Skip List](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Skip_list.svg/800px-Skip_list.svg.png)
+
 *Source: Brilliant*
 
 This is a variant of a linked list with additional pointer paths that does not lead to the next node 
@@ -89,6 +92,7 @@ of data which we do not need to access regularly that we are not willing to dele
 ### Unrolled Linked Lists
 
 ![Unrolled Linked List](https://ds055uzetaobb.cloudfront.net/brioche/uploads/5LFjevVjNy-ull-new-page.png?width=2400)
+
 *Source: Brilliant*
 
 Unrolled linked lists stores multiple consecutive elements into a single bucket node. 
