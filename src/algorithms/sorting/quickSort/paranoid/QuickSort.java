@@ -6,11 +6,11 @@ import java.lang.Math;
  * Here, we are implementing Paranoid QuickSort where we sort the array in increasing (or more precisely,
  * non-decreasing) order.
  *
- * This is basically Hoare's QuickSort, with an additional check to guarantee a good pivot.
+ * This is basically Lomuto's QuickSort, with an additional check to guarantee a good pivot.
  *
  * Complexity Analysis:
  * Time:
- * - Expected worst case: O(nlogn)
+ * - Worst case: does not terminate
  * - Average case: O(nlogn)
  * - Best case: O(nlogn)
  *
@@ -22,7 +22,11 @@ import java.lang.Math;
  * The number of iterations of pivot selection is expected to be <2 (more precisely, 1.25). This is because
  * P(good pivot) = 8/10. Expected number of tries to get a good pivot = 1 / P(good pivot) = 10/8 = 1.25.
  *
- * Therefore, the expected worst case time-complexity is: T(n) = T(n/10) + T(9n/10) + 1.25n => O(nlogn).
+ * Therefore, the average time-complexity is: T(n) = T(n/10) + T(9n/10) + 1.25n => O(nlogn).
+ *
+ * However, the presence of this additional check and repeating pivot selection means that if we have an array of
+ * length n >= 10 containing all duplicates of the same number, any pivot we pick will be a bad pivot and we will
+ * enter an infinite loop of repeating pivot selection.
  *
  * Space:
  * - O(1) since sorting is done in-place
@@ -114,10 +118,15 @@ public class QuickSort {
     }
 
     /**
-     * Checks if the given index is a good pivot index for the Paranoid QuickSort algorithm.
+     * Checks if the given pivot index is a good pivot for the QuickSort algorithm.
+     * A good pivot is defined as an index that helps avoid worst-case behavior in QuickSort.
      *
-     * A good pivot index is one that falls within the range (start - 1 + n/10) and (start + (9*n)/10),
-     * where n is the number of elements in the array (end - start + 1).
+     * For arrays of length greater than or equal to 10, a good pivot is an index that leaves at least
+     * 1/10th of the array on each side.
+     *  *
+     * If n < 10, such a pivot condition would be meaningless, therefore always return true. This would cause
+     * the worst case recurrence relation to be T(n) = T(n-1) + O(n) => O(n^2) for small subarrays, but the overall
+     * asymptotic time complexity of Paranoid QuickSort is still O(nlogn).
      *
      * @param pIdx  The index to be checked for being a good pivot.
      * @param start The starting index of the current sub-array.
@@ -125,8 +134,12 @@ public class QuickSort {
      * @return      True if the given index is a good pivot, false otherwise.
      */
     private static boolean isGoodPivot(int pIdx, int start, int end) {
-        double n = end - start + 1;
-        return pIdx > start - 1 + n / 10 && pIdx < start + (9 * n) / 10;
+        double n = end - start + 1; // express n as a double so n/10 will be calculated as a double
+        if (n >= 10) {
+            return pIdx - start >= n / 10 && end - pIdx >= n / 10;
+        } else {
+            return true;
+        }
     }
 
 }

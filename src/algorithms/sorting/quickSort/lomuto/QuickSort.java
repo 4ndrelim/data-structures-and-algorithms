@@ -1,9 +1,9 @@
-package src.algorithms.sorting.quickSort.hoares;
+package src.algorithms.sorting.quickSort.lomuto;
 
 import java.lang.Math;
 
 /**
- * Here, we are implementing Hoare's QuickSort where we sort the array in increasing (or more precisely,
+ * Here, we are implementing Lomuto's QuickSort where we sort the array in increasing (or more precisely,
  * non-decreasing) order.
  *
  * Basic Description:
@@ -15,6 +15,10 @@ import java.lang.Math;
  *
  * Implementation Invariant:
  * The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
+ *
+ * We are implementing Lomuto's partition scheme here due to ease of implementation and alignment with CS2040S lecture
+ * slides. This is opposed to Hoare's partition scheme, see more at
+ * https://www.geeksforgeeks.org/hoares-vs-lomuto-partition-scheme-quicksort/.
  *
  * Complexity Analysis:
  * Time:
@@ -32,7 +36,11 @@ import java.lang.Math;
  *
  * In the worst case where the pivot selected is consistently the smallest or biggest element in the array, the
  * partitioning of the array around the pivot will be extremely unbalanced, leading to a recurrence relation of:
- * T(n) = T(n-1) + O(n) => O(n^2).
+ * T(n) = T(n-1) + O(n) => O(n^2). We have reduced the likelihood of this happening by randomising pivot selection.
+ *
+ * However, if there are many duplicates in the array, e.g. {1, 1, 1, 1}, the 1st pivot will be placed in the 3rd idx,
+ * and 2nd pivot in 2nd idx, 3rd pivot in the 1st idx and 4th pivot in the 0th idx. As we observe, the presence of many
+ * duplicates in the array leads to extremely unbalanced partitioning, leading to a O(n^2) time complexity.
  *
  * Space:
  * - O(1) since sorting is done in-place

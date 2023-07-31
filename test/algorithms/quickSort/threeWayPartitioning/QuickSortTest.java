@@ -1,8 +1,8 @@
-package test.algorithms.quickSort.paranoid;
+package test.algorithms.quickSort.threeWayPartitioning;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.quickSort.paranoid.QuickSort;
+import src.algorithms.sorting.quickSort.threeWayPartitioning.QuickSort;
 
 import java.util.Arrays;
 
@@ -36,23 +36,20 @@ public class QuickSortTest {
 
         int[] sixthArray = new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,1};
         int[] sixthResult = Arrays.copyOf(sixthArray, sixthArray.length);
-        // testing for duplicate arrays of length >= 10, stack overflow is expected to happen
-        try {
-            QuickSort.sort(sixthResult);
-        } catch (StackOverflowError e) {
-            System.out.println("Stack overflow occurred for sixthResult");
-        }
+        QuickSort.sort(sixthResult);
 
         Arrays.sort(firstArray);  // get expected result
         Arrays.sort(secondArray); // get expected result
         Arrays.sort(thirdArray);  // get expected result
         Arrays.sort(fourthArray);  // get expected result
         Arrays.sort(fifthArray);  // get expected result
+        Arrays.sort(sixthArray);  // get expected result
 
         assertArrayEquals(firstResult, firstArray);
         assertArrayEquals(secondResult, secondArray);
         assertArrayEquals(thirdResult, thirdArray);
         assertArrayEquals(fourthResult, fourthArray);
         assertArrayEquals(fifthResult, fifthArray);
+        assertArrayEquals(sixthResult, sixthArray);
     }
 }

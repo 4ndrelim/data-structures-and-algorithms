@@ -1,8 +1,8 @@
-package test.algorithms.quickSort.hoares;
+package test.algorithms.quickSort.lomuto;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.quickSort.hoares.QuickSort;
+import src.algorithms.sorting.quickSort.lomuto.QuickSort;
 
 import java.util.Arrays;
 
@@ -34,16 +34,22 @@ public class QuickSortTest {
         int[] fifthResult = Arrays.copyOf(fifthArray, fifthArray.length);
         QuickSort.sort(fifthResult);
 
+        int[] sixthArray = new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        int[] sixthResult = Arrays.copyOf(sixthArray, sixthArray.length);
+        QuickSort.sort(sixthResult);
+
         Arrays.sort(firstArray);  // get expected result
         Arrays.sort(secondArray); // get expected result
         Arrays.sort(thirdArray);  // get expected result
         Arrays.sort(fourthArray);  // get expected result
         Arrays.sort(fifthArray);  // get expected result
+        Arrays.sort(sixthArray);  // get expected result
 
         assertArrayEquals(firstResult, firstArray);
         assertArrayEquals(secondResult, secondArray);
         assertArrayEquals(thirdResult, thirdArray);
         assertArrayEquals(fourthResult, fourthArray);
         assertArrayEquals(fifthResult, fifthArray);
+        assertArrayEquals(sixthResult, sixthArray);
     }
 }
