@@ -89,7 +89,7 @@ public class QuickSort {
         int pIdx = random(start, end);
         int pivot = arr[pIdx];
 
-        swap(arr, start, pIdx);
+        swap(arr, start, pIdx); // swap the pivot to the start of the array
 
         int less = start + 1;
 
@@ -100,7 +100,7 @@ public class QuickSort {
             }
         }
 
-        swap(arr, less - 1, start);
+        swap(arr, less - 1, start); // swap the pivot to its correct position
 
         return less - 1;
     }
