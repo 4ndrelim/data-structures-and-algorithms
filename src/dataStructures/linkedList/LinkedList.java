@@ -85,7 +85,7 @@ public class LinkedList<T extends Comparable<T>> {
     for (int i = 0; i < idx; i++) {
       prev = trav;
       trav = trav.next;
-    } // This iteration allows us to store a copy of nodes before and after idx.
+    }
 
     if (prev != null) { // Reset the pointer at the index.
       prev.next = newNode;
@@ -239,10 +239,12 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * sorts the linked list by their natural order.
+   * Sorts the linked list by the natural order of the elements.
    * Generally, merge sort is the most efficient sorting algorithm for linked lists.
-   * This is because of the nature of merge sort, which requires lesser lookups.
-   * (Looking up a linked list uses O(n) time complexity).
+   * Addressing a random node in the linked list incurrs O(n) time complexity.
+   * This makes sort algorithms like quicksort and heapsort inefficient since they rely
+   * on the O(1) lookup time of an array.
+   * 
    * A good video to visualise this algorithm can be found
    * <a = https://www.youtube.com/watch?v=JSceec-wEyw, href = "url">here</a>.
    */
@@ -257,9 +259,9 @@ public class LinkedList<T extends Comparable<T>> {
     middle.next = null;
     this.size = mid + 1; // update size of original list after split
 
-    next.sort(); // Recursively split the list.
+    next.sort(); // Recursively sort the list.
     this.sort();
-    head = merge(this, next); // Combine the split lists.
+    head = merge(this, next);
   }
 
   /**
