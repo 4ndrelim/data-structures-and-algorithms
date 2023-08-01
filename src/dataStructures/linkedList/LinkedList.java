@@ -1,30 +1,33 @@
 package src.dataStructures.linkedList;
 
 /**
- * There are many variations when it comes to implementing linked lists. Here's mine.
- * A linked list that tracks both head and tail may improve the complexity of some of the methods below
- * (e.g being able to branch off and create a new Linked List in O(1) rather than iterating to find size of branched off list)
- * 
- * Constructors:
- * LinkedList()                      -- Initialise a link list with a null head; size = 0
- * LinkedList(Node<T> head)          -- given a node, make this node the head of a new linked list; iterate to find the size
+ * <p></p>
+ * There are many variations when it comes to implementing linked lists. Here's ours. <br>
+ * A linked list that tracks both head and tail may improve the complexity of some methods below <br>
+ * (e.g being able to branch off and create a new Linked List in O(1)
+ * rather than iterating to find size of branched off list)
+ * <p></p>
+ * Constructors: <br>
+ * LinkedList()                      -- Initialise a link list with a null head; size = 0 <br>
+ * LinkedList(Node<T> head)          -- given a node, make node the head of a new linked list;
+ *                                      size is found by iterating to the end from this specified head <br>
  * LinkedList(Node<T>head, int size) -- given a head node and size of linked list specified; 
  *                                      made private to avoid client from constructing a linked list with invalid size
- * 
- * Callable methods are:
- * size()                    -- Gets the size of the linked list
- * insertFront(T object)     -- inserts the object at the front of the linked list
- * insertEnd(T object)       -- inserts the object at the end of the linked list
- * insert(T object, int idx) -- inserts the object at the specified index of the linked list
- * remove(int idx)           -- remove the node at the specified index
- * delete(T object)          -- delete the 1st encounter of the specified object from the linked list
- * pop()                     -- remove the last node from the linked list
- * poll()                    -- remove the first node from the linked list
- * search(T object)          -- search for the 1st encounter of the node that holds the specified object
- * get(int idx)              -- get the node at the specified index
- * reverse()                 -- reverse the linked list (head of linked list now starts from the back)
- * sort()                    -- sorts the linked list by their natural order
- * 
+ * <p></p>
+ * Callable methods are: <br>
+ * size()                    -- Gets the size of the linked list <br>
+ * insertFront(T object)     -- inserts the object at the front of the linked list <br>
+ * insertEnd(T object)       -- inserts the object at the end of the linked list <br>
+ * insert(T object, int idx) -- inserts the object at the specified index of the linked list <br>
+ * remove(int idx)           -- remove the node at the specified index <br>
+ * delete(T object)          -- delete the 1st encounter of the specified object from the linked list <br>
+ * pop()                     -- remove the last node from the linked list <br>
+ * poll()                    -- remove the first node from the linked list <br>
+ * search(T object)          -- search for the 1st encounter of the node that holds the specified object <br>
+ * get(int idx)              -- get the node at the specified index <br>
+ * reverse()                 -- reverse the linked list (head of linked list now starts from the back) <br>
+ * sort()                    -- sorts the linked list by their natural order <br>
+ *
  * @param <T> generic type for objects to be stored in the linked list
  */
 public class LinkedList<T extends Comparable<T>> {
@@ -241,9 +244,9 @@ public class LinkedList<T extends Comparable<T>> {
   /**
    * Sorts the linked list by the natural order of the elements.
    * Generally, merge sort is the most efficient sorting algorithm for linked lists.
-   * Addressing a random node in the linked list incurrs O(n) time complexity.
+   * Accessing a random node in the linked list incurs O(n) time complexity.
    * This makes sort algorithms like quicksort and heapsort inefficient since they rely
-   * on the O(1) lookup time of an array.
+   * on the O(1) lookup time, like in an array.
    * 
    * A good video to visualise this algorithm can be found
    * <a = https://www.youtube.com/watch?v=JSceec-wEyw, href = "url">here</a>.

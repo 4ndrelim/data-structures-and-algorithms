@@ -18,11 +18,16 @@ linked lists are stored across memory and are connected to each other via pointe
 *Source: BeginnersBook*
 
 ## Analysis
-Some common operations involved in a linked list includes looking up elements in a linked list and inserting elements into a linked list.
+Time Complexity: Depends on operations, O(n) in general for most operations.
 
-Searching a linked list requires O(n) time complexity whereas inserting into a linked list from a specified index requires O(n) time complexity.
+Most operations require iterating the linked list. For instance,
+searching for an element in a linked list requires iterating from the head to the tail, incurring O(n)
+time complexity in the worst and average case. The best case would be O(1), for instance, when the head is the desired
+element.
 
-## Notes / Further Details / Conclusion
+Space Complexity: O(n) where n is the size of the linked list.
+
+## Notes
 
 ### Memory Requirements & Flexibility
 As a contiguous block of memory must be allocated for an array, its size is fixed.
@@ -38,12 +43,6 @@ we end up needing to store more elements at run time.
 However, linked list gives us the option of adding new nodes at run time based on our requirements, 
 allowing us to allocate memory to store items dynamically, giving us more flexibility.
 
-### Conclusion
-You should aim to use linked list in scenarios where you cannot predict how many elements you need to store
-or if you require constant time insertions to the list.
-
-However, arrays would be preferred if you already know the amount of elements you need to store ahead of time. 
-It would also be preferred if you are conducting a lot of look up operations.
 
 ## Linked List Variants
 The lookup time within a linked list is its biggest issue.
