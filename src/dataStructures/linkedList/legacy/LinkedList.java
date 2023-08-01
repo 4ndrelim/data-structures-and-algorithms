@@ -1,4 +1,4 @@
-package src.dataStructures.linkedList;
+package src.dataStructures.linkedList.legacy;
 
 /**
  * There are many variations when it comes to implementing linked lists. Here's mine.
@@ -40,7 +40,7 @@ public class LinkedList<T extends Comparable<T>> {
     this.head = head;
     Node<T> trav = head;
     int count = 0;
-    while (trav != null) { // We count the size of our linked list through iteration.
+    while (trav != null) {
       count++;
       trav = trav.next;
     }
@@ -58,44 +58,6 @@ public class LinkedList<T extends Comparable<T>> {
    */
   public int size() {
     return this.size;
-  }
-
-  /**
-   * inserts the object at the specified index of the linked list
-   * @param object to be inserted
-   * @param idx index which the object is to be inserted into
-   * @return boolean representing whether insertion was successful
-   */
-  public boolean insert(T object, int idx) {
-    if (idx > size) {
-      System.out.println("Index out of bounds.");
-      return false;
-    }
-
-    Node<T> newNode = new Node<>(object);
-
-    if (head == null) { // Linked list empty; We just need to add the head;
-      head = newNode;
-      size++;
-      return true;
-    }
-
-    Node<T> prev = null;
-    Node<T> trav = head;
-    for (int i = 0; i < idx; i++) {
-      prev = trav;
-      trav = trav.next;
-    }
-
-    if (prev != null) { // Reset the pointer at the index.
-      prev.next = newNode;
-      newNode.next = trav;
-    } else { // case when inserting at index 0; need to update head
-      head = newNode;
-      newNode.next = trav;
-    }
-    size++;
-    return true;
   }
 
   /**
@@ -117,6 +79,44 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
+   * inserts the object at the specified index of the linked list
+   * @param object to be inserted
+   * @param idx index which the object is to be inserted into
+   * @return boolean representing whether insertion was successful
+   */
+  public boolean insert(T object, int idx) {
+    if (idx > size) {
+      System.out.println("Index out of bounds.");
+      return false;
+    }
+
+    Node<T> newNode = new Node<>(object);
+
+    if (head == null) {
+      head = newNode;
+      size++;
+      return true;
+    }
+
+    Node<T> prev = null;
+    Node<T> trav = head;
+    for (int i = 0; i < idx; i++) {
+      prev = trav;
+      trav = trav.next;
+    }
+
+    if (prev != null) {
+      prev.next = newNode;
+      newNode.next = trav;
+    } else { // case when inserting at index 0; need to update head
+      head = newNode;
+      newNode.next = trav;
+    }
+    size++;
+    return true;
+  }
+
+  /**
    * remove the node at the specified index
    * @param idx of the node to be removed
    * @return node's value
@@ -133,7 +133,7 @@ public class LinkedList<T extends Comparable<T>> {
     for (int i = 0; i < idx; i++) {
       prev = trav;
       trav = trav.next;
-    } // This iteration allows us to store a copy of nodes before and after idx.
+    }
 
     if (prev != null) {
       prev.next = trav.next;
@@ -145,37 +145,14 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * search for the 1st encounter of the node that holds the specified object
-   * @param object
-   * @return index of the node found
-   */
-  public int search(T object) {
-    Node<T> trav = head;
-    int idx = 0;
-    if (trav == null) { // Empty linked list.
-      return -1;
-    }
-
-    while (trav != null) {
-      if (trav.val.equals(object)) {
-        return idx;
-      }
-      idx++;
-      trav = trav.next;
-    }
-
-    return -1;
-  }
-
-  /**
    * delete the 1st encounter of the specified object from the linked list
    * @param object to search and delete
    * @return boolean whether the delete op was successful
    */
   public boolean delete(T object) {
-    int idx = search(object); // Get index of object to remove.
+    int idx = search(object);
     if (idx != -1) {
-      remove(idx); // Remove based on that index.
+      remove(idx);
       return true;
     }
     return false;
@@ -197,6 +174,28 @@ public class LinkedList<T extends Comparable<T>> {
     return remove(0);
   }
 
+  /**
+   * search for the 1st encounter of the node that holds the specified object
+   * @param object
+   * @return index of the node found
+   */
+  public int search(T object) {
+    Node<T> trav = head;
+    int idx = 0;
+    if (trav == null) {
+      return -1;
+    }
+
+    while (trav != null) {
+      if (trav.val.equals(object)) {
+        return idx;
+      }
+      idx++;
+      trav = trav.next;
+    }
+
+    return -1;
+  }
 
   /**
    * get the node at the specified index
@@ -205,7 +204,7 @@ public class LinkedList<T extends Comparable<T>> {
    */
   public Node<T> get(int idx) {
     Node<T> trav = head;
-    if (idx < this.size && trav != null) { // Check: idx is valid & linked list not empty.
+    if (idx < this.size && trav != null) {
       for (int i = 0; i < idx; i++) {
         trav = trav.next;
       }
@@ -215,38 +214,29 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * reverse the linked list.
-   * A good video to visualise this algorithm can be found
-   * <a = https://www.youtube.com/watch?v=D7y_hoT_YZI, href = "url">here</a>.
+   * reverse the linked list
    */
   public void reverse() {
-    if (head == null || head.next == null) { // No need to reverse if list is empty or only 1 element.
+    if (head == null || head.next == null) {
       return;
     }
 
     Node<T> prev = head;
     Node<T> curr = head.next;
-    Node<T> newHead = curr; // Store the next head.
-    prev.next = null; // Reset to null, representing end of list.
+    Node<T> newHead = curr;
+    prev.next = null;
     while (curr.next != null) {
-      newHead = curr.next; // We set the next element as the newHead.
-      curr.next = prev; // Replace our current node as the previous node.
+      newHead = curr.next;
+      curr.next = prev;
       prev = curr;
-      curr = newHead; // Set our current node as the next element (newHead) to look at.
+      curr = newHead;
     }
     newHead.next = prev;
-    head = newHead; // newHead is last ele from org. list -> First ele of our reversed list.
+    head = newHead;
   }
 
   /**
-   * Sorts the linked list by the natural order of the elements.
-   * Generally, merge sort is the most efficient sorting algorithm for linked lists.
-   * Addressing a random node in the linked list incurrs O(n) time complexity.
-   * This makes sort algorithms like quicksort and heapsort inefficient since they rely
-   * on the O(1) lookup time of an array.
-   * 
-   * A good video to visualise this algorithm can be found
-   * <a = https://www.youtube.com/watch?v=JSceec-wEyw, href = "url">here</a>.
+   * sorts the linked list by their natural order
    */
   public void sort() {
     if (this.size <= 1) {
@@ -255,11 +245,11 @@ public class LinkedList<T extends Comparable<T>> {
     int mid = (this.size - 1) / 2;
     Node<T> middle = this.get(mid);
     Node<T> nextHead = middle.next;
-    LinkedList<T> next = new LinkedList<>(nextHead, this.size - 1 - mid); // Split the list into 2.
+    LinkedList<T> next = new LinkedList<>(nextHead, this.size - 1 - mid);
     middle.next = null;
-    this.size = mid + 1; // update size of original list after split
+    this.size = mid + 1; // update size of original LL after split
 
-    next.sort(); // Recursively sort the list.
+    next.sort();
     this.sort();
     head = merge(this, next);
   }
@@ -278,7 +268,6 @@ public class LinkedList<T extends Comparable<T>> {
 
     while (headFirst != null && headSecond != null) {
       if (headFirst.val.compareTo(headSecond.val) < 0) {
-        // Note that first & second either only have 2 values or are already sorted.
         trav.next = headFirst;
         headFirst = headFirst.next;
       } else {
@@ -288,9 +277,10 @@ public class LinkedList<T extends Comparable<T>> {
       trav = trav.next;
     }
 
-    if (headFirst != null) { // Add any remaining nodes from first.
+    if (headFirst != null) {
       trav.next = headFirst;
-    } else { // We know loop terminated because of second; Add any remaining nodes from second.
+    }
+    if (headSecond != null) {
       trav.next = headSecond;
     }
     return dummy.next;
@@ -313,7 +303,7 @@ public class LinkedList<T extends Comparable<T>> {
   /**
    * Node class for linked list
    */
-  private static class Node<T> {
+  public static class Node<T> {
     T val;
     Node<T> next;
 
