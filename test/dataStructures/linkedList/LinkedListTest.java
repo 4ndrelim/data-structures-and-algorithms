@@ -3,6 +3,7 @@ package test.dataStructures.linkedList;
 import org.junit.Assert;
 import org.junit.Test;
 import src.dataStructures.linkedList.LinkedList;
+import src.dataStructures.linkedList.LinkedList.Node;
 
 public class LinkedListTest {
     @Test
@@ -35,11 +36,17 @@ public class LinkedListTest {
         ll.insert(7, 6);
         ll.insert(6, 6);
 
-        Integer test1 = ll.search(4);
+        Node<Integer> test1 = ll.get(4);
         Assert.assertEquals("4", test1.toString());
 
-        Integer test2 = ll.search(3);
+        Node<Integer> test2 = ll.get(3);
         Assert.assertEquals("3", test2.toString());
+
+        Integer test3 = ll.search(4);
+        Assert.assertEquals("4", test3.toString());
+
+        Integer test4 = ll.search(3);
+        Assert.assertEquals("3", test4.toString());
 
         Assert.assertEquals("0 1 2 3 4 5 6 7 ", ll.toString());
     }

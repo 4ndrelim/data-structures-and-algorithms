@@ -312,11 +312,11 @@ public class LinkedList<T extends Comparable<T>> {
     }
     return ret;
   }
-  
+
   /**
    * Node class for linked list
    */
-  private static class Node<T> {
+  public static class Node<T> {
     T val;
     Node<T> next;
 
@@ -328,5 +328,5 @@ public class LinkedList<T extends Comparable<T>> {
     public String toString() {
       return this.val.toString();
     }
-  } 
+  }
 }
