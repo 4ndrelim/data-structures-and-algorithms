@@ -6,7 +6,7 @@ It consists of a collection of objects, used to store our data elements, known a
 
 *Source: GeeksForGeeks*
 
-## Linked Lists vs Arrays
+### Linked Lists vs Arrays
 Linked lists are similar to arrays in 
 terms of used and purpose, but there are considerations when deciding which structure to use. 
 
@@ -17,38 +17,6 @@ linked lists are stored across memory and are connected to each other via pointe
 
 *Source: BeginnersBook*
 
-### Search
-
-Due to the contiguous nature of an array, we only need the memory address for the first element
-to calculate the address for any subsequent element, resulting in a *O(1)* lookup time.
-
-However, to look for a element in a linked list of size *n*, we would have to traverse through each node
-to get the pointer to the next node until we reached our required node. This creates a *O(n)* lookup time.
-
-There are also some unique methods to speed up your linked lists searches, which will be discussed in a later section.
-
-**Generally, searching a index in a array is faster than a linked list.**
-
-### Insert
-
-#### Front & End Insertion
-When we try to insert a element from the beginning and the end of array, to keep the contiguity in memory,
-we need to shift all other elements to the left (in the case of a end insertion)
-or right (in the case of a front insertion). This incurs a *O(n)* time complexity.
-
-However, we just need to update the pointer address in our new node (for a front insertion), or a 
-pointer address in our last node (for a end insertion) in a linked list, incurring a *O(1)* time complexity.
-
-#### Inserting into the *i-th* index
-To insert a element into the *i-th* position of an array, we need to navigate to that position and shift all element
-that have a index of more than *i + 1* back.
-
-For a linked list, we have to navigate to the *i - 1 th* node and change the pointer to reference our new node. 
-We can then reference the rest of the list by updating the pointer in our newly added node.
-
-In both cases, a *O(n)* time complexity is incurred.
-
-**Generally, inserting a element into a linked list is faster than an array.**
 
 ### Memory Requirements & Flexibility
 As a contiguous block of memory must be allocated for an array, its size is fixed.
@@ -76,6 +44,11 @@ It would also be preferred if you are conducting a lot of look up operations.
 ## Linked List Variants
 The lookup time within a linked list is its biggest issue.
 However, there are variants of linked lists designed to speed up lookup time.
+
+### Double Linked List
+
+
+This 
 
 ### Skip list
 
