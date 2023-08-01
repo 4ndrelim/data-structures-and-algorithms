@@ -44,9 +44,9 @@ public class breadthFirstSearchTest {
         List<Integer> thirdResult = breadthFirstSearch.levelOrder(root3);
 
         assert firstResult.equals(firstList);
-        System.out.println(secondResult.toString());
+//        System.out.println(secondResult.toString());
         assert secondResult.equals(secondList);
-        System.out.println(thirdResult.toString());
+//        System.out.println(thirdResult.toString());
         assert thirdResult.equals(thirdList);
     }
 

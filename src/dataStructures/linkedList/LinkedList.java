@@ -307,7 +307,7 @@ public class LinkedList<T extends Comparable<T>> {
       ret += trav + " ";
       trav = trav.next;
     }
-    return ret.substring(0, ret.length());
+    return ret;
   }
   
   /**

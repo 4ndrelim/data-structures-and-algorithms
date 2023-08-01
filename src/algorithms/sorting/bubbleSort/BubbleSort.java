@@ -31,7 +31,6 @@ package src.algorithms.sorting.bubbleSort;
  * Space:
  * - O(1) since sorting is done in-place
  */
-
 public class BubbleSort {
     /**
      * Sorts the given array in-place in non-decreasing order.
@@ -40,7 +39,7 @@ public class BubbleSort {
      */
     public static int[] sort(int[] arr) {
         int n = arr.length;
-        boolean swapped; //tracks of the presence of swaps within one iteration of the outer loop to
+        boolean swapped; // tracks of the presence of swaps within one iteration of the outer loop to
         // facilitate early termination
         for (int i = 0; i < n - 1; i++ ) { //outer loop which supports the invariant
             swapped = false;
