@@ -113,7 +113,7 @@ public class QuickSort {
                     ipEnd--;
                 }
             }
-            int[] result = {eqStart - 1, eqEnd}; //return
+            int[] result = {eqStart - 1, eqEnd + 1};
             return result;
         } else {
             return null;
