@@ -49,7 +49,7 @@ public class Union<T> {
 
     public boolean isSameComponent(T obj1, T obj2) {
         if (!items.containsKey(obj1) || !items.containsKey(obj2)) {
-            System.out.println("Duuhh.. one or both of the items are not tracked.");
+            System.out.println("One or both of the items are not tracked.");
             return false;
         }
         return items.get(obj1).findParent() == items.get(obj2).findParent();
