@@ -1,4 +1,4 @@
-package src.dataStructures.queue.monotonicQueue;
+package src.dataStructures.queue;
 
 /**
  * Implementation of a queue structure using LinkedList.
