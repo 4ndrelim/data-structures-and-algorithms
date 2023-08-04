@@ -1,6 +1,6 @@
 # Stack
-Stack is a data structure that restricts 
-the order in which operations can be performed.
+Stack is a linear data structure that restricts 
+the order in which operations can be performed on its elements.
 
 ![Stack data structure](https://cdn.programiz.com/sites/tutorial2program/files/stack.png)
 
