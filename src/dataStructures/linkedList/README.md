@@ -18,14 +18,14 @@ linked lists are stored across memory and are connected to each other via pointe
 *Source: BeginnersBook*
 
 ## Analysis
-Time Complexity: Depends on operations, O(n) in general for most operations.
+**Time Complexity**: Depends on operations, O(n) in general for most operations.
 
 Most operations require iterating the linked list. For instance,
 searching for an element in a linked list requires iterating from the head to the tail, incurring O(n)
 time complexity in the worst and average case. The best case would be O(1), for instance, when the head is the desired
 element.
 
-Space Complexity: O(n) where n is the size of the linked list.
+**Space Complexity**: O(n) where n is the size of the linked list.
 
 ## Notes
 
