@@ -11,7 +11,14 @@ import java.util.ArrayDeque;
  * max()
  * pop()
  * push()
- * @param <T> generic type for objects to be stored or queried   
+ * @param <T> generic type for objects to be stored or queried
+ *
+ *           index   v   Increasing queue        Decreasing queue
+ * 1       5   [5]                     [5]
+ * 2       3   [3] 3 kick out 5        [5, 3] #3->5
+ * 3       1   [1] 1 kick out 3        [5, 3, 1] #1->3
+ * 4       2   [1, 2] #2->1            [5, 3, 2] 2 kick out 1 #2->3
+ * 5       4   [1, 2, 4] #4->2         [5,4] 4 kick out 2, 3 #4->2
  */
 public class MonotonicQueue<T extends Comparable<T>> {
   private Deque<Pair<T>> dq = new ArrayDeque<>(); // or LinkedList
