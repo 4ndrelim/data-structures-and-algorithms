@@ -61,6 +61,9 @@ public class MonotonicQueue<T extends Comparable<T>> {
    * Removal will only be done all representation of the object has been accounted for.
    */
   public T pop() {
+    if (dq.isEmpty()) {
+      return null;
+    }
     Pair<T> node = dq.peek();
     if (node.countDeleted > 0) {
       node.countDeleted -= 1;
