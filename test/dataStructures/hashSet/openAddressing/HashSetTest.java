@@ -4,6 +4,7 @@ import org.junit.Test;
 import src.dataStructures.hashSet.openAddressing.HashSet;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
@@ -108,5 +109,26 @@ public class HashSetTest {
 
         // Verify that the HashSet has resized and halved its capacity back to 16.
         assertEquals(16, set.capacity());
+    }
+
+    @Test
+    public void testAdd_afterRemove() {
+        HashSet<Integer> hashSet = new HashSet<>();
+        // these elements all map to the same initial bucket, resulting in collisions.
+        hashSet.add(1);
+        hashSet.add(17);
+        hashSet.add(33);
+        // the hashSet will look like {1, 17, 33, ...} after the series of adds
+
+        hashSet.remove(17);
+        // hashSet now looks like {1, X, 33, ...} where X denotes a tombstone.
+
+        boolean isAdded = hashSet.add(33); // this should not be added into the hashSet.
+        assertFalse(isAdded);
+
+        List<Integer> expectedList = List.of(1, 33);
+        List<Integer> actualList = hashSet.toList();
+
+        assertEquals(expectedList, actualList);
     }
 }
