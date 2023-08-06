@@ -62,6 +62,10 @@ public class HashSet<T>{
      * element
      */
     public boolean add(T element) {
+        if (this.contains(element)) {
+            return false;
+        }
+
         if (isLoadFactorExceeded()) {
             resize(this.capacity() * 2); // Resize to double the capacity.
         }
@@ -231,10 +235,6 @@ public class HashSet<T>{
             // there is a NULL bucket in the middle of the probe sequence; only TOMBSTONE markers.
             if (this.isNullBucket(currentBucketIndex)) {
                 return ELEMENT_NOT_FOUND;
-            }
-            // if bucket contains TOMBSTONE, skip checking current bucket index for equality.
-            if (this.isTombstoneBucket(currentBucketIndex)) {
-                continue;
             }
 
             // Checks equality of elements using Object::equals and Object::hashCode.
