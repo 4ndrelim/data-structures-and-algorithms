@@ -1,7 +1,7 @@
-package test.dataStructures.hashSet;
+package test.dataStructures.hashSet.chaining;
 
 import org.junit.Test;
-import src.dataStructures.hashSet.HashSet;
+import src.dataStructures.hashSet.chaining.HashSet;
 
 import java.util.*;
 import java.util.stream.Collectors;
