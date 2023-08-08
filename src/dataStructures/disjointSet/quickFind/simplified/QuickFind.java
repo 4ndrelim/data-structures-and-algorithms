@@ -11,8 +11,7 @@ public class QuickFind {
     private int size;
 
     public QuickFind(int size) {
-        // we will ignore index 0. So index 1 corresponds to element 1, 
-        // index 2 corresponds with element 2 and so on..
+        // we will ignore index 0. So index 1 corresponds to element 1, index 2 corresponds with element 2 and so on.
         this.identity = new int[size + 1];
         this.size = size;
         for (int i = 0; i < size + 1; i++) {
@@ -26,10 +25,10 @@ public class QuickFind {
      * @param to identity of the second element
      */
     public void union(int fr, int to) {
-        int updateComp = this.identity[fr];
-        for (int i = 1; i < this.size + 1; i++) {
-            if (this.identity[i] == updateComp) {
-                this.identity[i] = this.identity[to]; // updates element i's identity to that of <to>
+        int updateComp = identity[fr];
+        for (int i = 1; i < size + 1; i++) {
+            if (identity[i] == updateComp) {
+                identity[i] = identity[to]; // updates element i's identity to that of <to>
             }
         }
     }
@@ -40,10 +39,10 @@ public class QuickFind {
      * @return all elements in the component
      */
     public List<Integer> retrieveComponent(int element) {
-        int id = this.identity[element];
+        int id = identity[element];
         List<Integer> ret = new ArrayList<>();
         for (int i = 1; i < this.size + 1; i++) {
-            if (this.identity[i] == id) {
+            if (identity[i] == id) {
                 ret.add(i);
             }
         }

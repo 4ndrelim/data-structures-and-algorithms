@@ -1,9 +1,10 @@
 package src.dataStructures.disjointSet.quickFind.generalised;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of quick-find algorithm; Turns a list of objects into a data structure that supports union operations
+ * Implementation of quick-find structure; Turns a list of objects into a data structure that supports union operations
  * @param <T> generic type of object to be stored
  */
 public class QuickFind<T> {
@@ -28,8 +29,8 @@ public class QuickFind<T> {
      * @param item to be added
      */
     public void add(T item) {
-        this.objects.add(item);
-        this.identity.add(this.identity.size()); // identity of the new item
+        objects.add(item);
+        identity.add(identity.size()); // identity of the new item
     }
 
     /**
@@ -38,19 +39,19 @@ public class QuickFind<T> {
      * @param objTwo object in another component
      */
     public void union(T objOne, T objTwo) {
-        if (!this.objects.contains(objOne) || !this.objects.contains(objTwo)) {
+        if (!objects.contains(objOne) || !objects.contains(objTwo)) {
             System.out.println("One or more of the objects do not exist!");
             return;
         }
-        int idxOne = this.objects.indexOf(objOne);
-        int compOne = this.identity.get(idxOne);
-        int idxTwo = this.objects.indexOf(objTwo);
-        int compTwo = this.identity.get(idxTwo);
+        int idxOne = objects.indexOf(objOne);
+        int compOne = identity.get(idxOne);
+        int idxTwo = objects.indexOf(objTwo);
+        int compTwo = identity.get(idxTwo);
 
         int size = this.objects.size();
         for (int i = 0; i < size; i++) {
-            if (this.identity.get(i) == compOne) {
-                this.identity.set(i, compTwo);
+            if (identity.get(i) == compOne) {
+                identity.set(i, compTwo);
             }
         }
     }
@@ -61,13 +62,12 @@ public class QuickFind<T> {
      * @return list of elements.
      */
     public List<T> retrieveComponent(T objOne) {
-        int idx = this.objects.indexOf(objOne);
-        int comp = this.identity.get(idx);
-        int size = this.objects.size();
+        int idx = objects.indexOf(objOne);
+        int comp = identity.get(idx);
         List<T> ret = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            if (this.identity.get(i) == comp) {
-                ret.add(this.objects.get(i));
+        for (int i = 0; i < objects.size(); i++) {
+            if (identity.get(i) == comp) {
+                ret.add(objects.get(i));
             }
         }
         return ret;
