@@ -24,7 +24,7 @@ import java.lang.Math;
  * Time:
  * - Expected worst case (poor choice of pivot): O(n^2)
  * - Expected average case: O(nlogn)
- * - Expected Best case (balanced pivot): O(nlogn)
+ * - Expected best case (balanced pivot): O(nlogn)
  *
  * In the best case of a balanced pivot, the partitioning process divides the array in half, which leads to log n
  * levels of recursion. Given a sub-array of length m, the time complexity of the partition subroutine is O(m) as we
