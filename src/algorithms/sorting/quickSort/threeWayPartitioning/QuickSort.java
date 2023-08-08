@@ -1,8 +1,8 @@
 package src.algorithms.sorting.quickSort.threeWayPartitioning;
 
 /**
- * Here, we are implementing QuickSort with three-way partitioning where we sort the array in increasing (or more
- * precisely, non-decreasing) order.
+ * Here, we are implementing Paranoid QuickSort with three-way partitioning where we sort the array in increasing (or
+ * more precisely, non-decreasing) order.
  *
  * Three-way partitioning is used in QuickSort to tackle the scenario where there are many duplicate elements in the
  * array being sorted.
@@ -17,18 +17,13 @@ package src.algorithms.sorting.quickSort.threeWayPartitioning;
  *
  * Complexity Analysis:
  * Time:
- * - Worst case (poor choice of pivot): O(n^2)
+ * - Worst case: O(nlogn)
  * - Average case: O(nlogn)
  * - Best case: O(nlogn)
  *
  * By isolating the elements equal to the pivot into their correct positions during the partitioning step, three-way
  * partitioning efficiently handles duplicates, preventing the presence of many duplicates in the array from causing
  * the time complexity of QuickSort to degrade to O(n^2).
- *
- * In the worst case where the pivot selected is consistently the smallest or biggest element in the array, the
- * partitioning of the array around the pivot will be extremely unbalanced, leading to a recurrence relation of:
- * T(n) = T(n-1) + O(n) => O(n^2). However, the likelihood of this happening is extremely low since pivot selection is
- * randomised.
  *
  * Space:
  * - O(1) since sorting is done in-place
@@ -56,9 +51,13 @@ public class QuickSort {
     public static void quickSort(int[] arr, int start, int end) {
         if (start < end) {
             int[] newIdx = partition(arr, start, end);
-            if (newIdx != null) {
-                quickSort(arr, start, newIdx[0]);
-                quickSort(arr, newIdx[1], end);
+            if (isGoodPivot(newIdx[0], newIdx[1], start, end)) {
+                if (newIdx != null) {
+                    quickSort(arr, start, newIdx[0]);
+                    quickSort(arr, newIdx[1], end);
+                }
+            } else {
+                quickSort(arr, start, end);
             }
         }
     }
@@ -142,6 +141,45 @@ public class QuickSort {
      */
     private static int random(int start, int end) {
         return (int) (Math.random() * (end - start + 1)) + start;
+    }
+
+    /**
+     * Checks if the pivot is a good pivot for the QuickSort algorithm.
+     * A good pivot helps avoid worst-case behavior in QuickSort.
+     *
+     * Since we have three-way partitioning, we cannot use 1/10, 9/10 split of the array as our good pivot condition.
+     * Note that our goal here is to ensure the sizes of the sub-arrays QuickSort is to recurse on are roughly the same
+     * to ensure that our partitioning is not too imbalanced. The pivot condition we chose is: the larger sub-array can
+     * be at most 9 times the size of the smaller sub-array.
+     *
+     * If n < 10, such a pivot condition would be meaningless, therefore always return true. This would cause
+     * the worst case recurrence relation to be T(n) = T(n-1) + O(n) => O(n^2) for small sub-arrays, but the overall
+     * asymptotic time complexity of Paranoid QuickSort is still O(nlogn).
+     *
+     * For an all-duplicates array, all pivots will be considered good pivots, therefore return true.
+     *
+     * @param firstPIdx   The ending index of the < portion of the sub-array.
+     * @param secondPIdx  The starting index of the > portion of the sub-array.
+     * @param start       The starting index of the current sub-array.
+     * @param end         The ending index of the current sub-array.
+     * @return            True if the given index is a good pivot, false otherwise.
+     */
+    public static boolean isGoodPivot(int firstPIdx, int secondPIdx, int start, int end) {
+        int n = end - start + 1;
+        if (firstPIdx >= start || secondPIdx <= end) {
+            if (end - secondPIdx + 1 > 0) { // avoid division by zero
+                double ratio = (double) (firstPIdx - start + 1) / (end - secondPIdx + 1);
+                if (n >= 10) {
+                    return ratio >= 1.0 / 9.0 && ratio <= 9;
+                } else {
+                    return true;
+                }
+            } else { // ratio is infinite, imbalanced partition => bad pivot
+                return false;
+            }
+        } else { // all duplicates array
+            return true;
+        }
     }
 
 }

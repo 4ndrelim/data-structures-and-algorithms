@@ -10,8 +10,8 @@ import java.lang.Math;
  * QuickSort is a divide-and-conquer sorting algorithm. The basic idea behind Quicksort is to choose a pivot element,
  * places it in its correct position in the sorted array, and then recursively sorts the sub-arrays on either side of
  * the pivot. When we introduce randomization in pivot selection, every element has equal probability of being
- * selected as the pivot. This means the chance of the smallest or largest element getting chosen as the pivot is
- * decreased, so we reduce the probability of encountering the worst-case scenario.
+ * selected as the pivot. This means the chance of an extreme element getting chosen as the pivot is decreased, so we
+ * reduce the probability of encountering the worst-case scenario of imbalanced partitioning.
  *
  * Implementation Invariant:
  * The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
@@ -22,9 +22,9 @@ import java.lang.Math;
  *
  * Complexity Analysis:
  * Time:
- * - Worst case (poor choice of pivot): O(n^2)
- * - Average case: O(nlogn)
- * - Best case (balanced pivot): O(nlogn)
+ * - Expected worst case (poor choice of pivot): O(n^2)
+ * - Expected average case: O(nlogn)
+ * - Expected Best case (balanced pivot): O(nlogn)
  *
  * In the best case of a balanced pivot, the partitioning process divides the array in half, which leads to log n
  * levels of recursion. Given a sub-array of length m, the time complexity of the partition subroutine is O(m) as we
@@ -33,10 +33,6 @@ import java.lang.Math;
  *
  * Even in the average case where the chosen pivot partitions the array by a fraction, there will still be log n levels
  * of recursion. (e.g. T(n) = T(n/10) + T(9n/10) + O(n) => O(nlogn))
- *
- * In the worst case where the pivot selected is consistently the smallest or biggest element in the array, the
- * partitioning of the array around the pivot will be extremely unbalanced, leading to a recurrence relation of:
- * T(n) = T(n-1) + O(n) => O(n^2). We have reduced the likelihood of this happening by randomising pivot selection.
  *
  * However, if there are many duplicates in the array, e.g. {1, 1, 1, 1}, the 1st pivot will be placed in the 3rd idx,
  * and 2nd pivot in 2nd idx, 3rd pivot in the 1st idx and 4th pivot in the 0th idx. As we observe, the presence of many

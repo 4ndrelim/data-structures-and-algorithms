@@ -6,7 +6,7 @@ import src.algorithms.sorting.quickSort.threeWayPartitioning.QuickSort;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
 public class QuickSortTest {
 
@@ -52,4 +52,5 @@ public class QuickSortTest {
         assertArrayEquals(fifthResult, fifthArray);
         assertArrayEquals(sixthResult, sixthArray);
     }
+
 }
