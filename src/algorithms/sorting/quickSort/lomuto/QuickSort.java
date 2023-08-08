@@ -16,8 +16,7 @@ import java.lang.Math;
  * Implementation Invariant:
  * The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
  *
- * We are implementing Lomuto's partition scheme here due to ease of implementation and alignment with CS2040S lecture
- * slides. This is opposed to Hoare's partition scheme, see more at
+ * We are implementing Lomuto's partition scheme here. This is opposed to Hoare's partition scheme, see more at
  * https://www.geeksforgeeks.org/hoares-vs-lomuto-partition-scheme-quicksort/.
  *
  * Complexity Analysis:
