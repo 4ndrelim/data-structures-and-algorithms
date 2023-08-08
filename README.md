@@ -38,6 +38,7 @@ This repository contains implementation of some of the fundamental data structur
     * [Recursive](src/algorithms/sorting/mergeSort/recursive)
     * [Bottom-up iterative](src/algorithms/sorting/mergeSort/iterative)
 - Quick Sort
+    * [Hoare's](src/algorithms/sorting/quickSort/hoares)
     * [Lomuto's](src/algorithms/sorting/quickSort/lomuto)
     * [Paranoid](src/algorithms/sorting/quickSort/paranoid)
     * [3-way Partitioning](src/algorithms/sorting/quickSort/threeWayPartitioning)
