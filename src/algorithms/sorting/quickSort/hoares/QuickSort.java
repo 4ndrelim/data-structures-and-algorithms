@@ -1,33 +1,15 @@
 package src.algorithms.sorting.quickSort.hoares;
 
-import java.lang.Math;
-
 /**
  * Here, we are implementing Hoares's QuickSort where we sort the array in increasing (or more precisely,
- * non-decreasing) order.
- *
- * Brief Description:
- * Hoare's QuickSort operates by selecting a pivot element from the input array and rearranging the elements such that
- * all elements in A[start, returnIdx] are <= pivot and all elements in A[returnIdx + 1, end] are >= pivot, where
- * returnIdx is the index returned by the sub-routine partition.
- *
- * After partitioning, the algorithm recursively applies the same process to the left and right sub-arrays, effectively
- * sorting the entire array.
- *
- * The Hoare's partition scheme works by initializing two pointers that start at two ends. The two pointers move toward
- * each other until an inversion is found. This inversion happens when the left pointer is at an element >= pivot, and
- * the right pointer is at an element <= pivot. When an inversion is found, the two values are swapped and the pointers
- * continue moving towards each other.
+ * non-decreasing) order. We will follow lecture implementation here, which differs slightly from the usual
+ * implementation of Hoare's. See more under notes in README.
  *
  * Implementation Invariant:
- * All elements in A[start, returnIdx] are <= pivot and all elements in A[returnIdx + 1, end] are >= pivot.
+ * The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
+ * (We edited the psuedocode a bit to keep the duplicates to the left of the pivot.)
  *
- * Note:
- * - Hoare's partition scheme does not necessarily put the pivot in its correct position. It merely partitions the
- *   array into <= pivot and >= pivot portions.
- * - This is in contrast to Lomuto's partition scheme. Hoare's uses two pointers, while Lomuto's uses one. Hoare's
- *   partition scheme is generally more efficient as it requires less swaps. See more at
- *   https://www.geeksforgeeks.org/hoares-vs-lomuto-partition-scheme-quicksort/.
+ * This implementation picks the element at the index 0 as the pivot.
  */
 
 public class QuickSort {
@@ -51,15 +33,15 @@ public class QuickSort {
     public static void quickSort(int[] arr, int start, int end) {
         if (start < end) {
             int pIdx = partition(arr, start, end);
-            quickSort(arr, start, pIdx);
+            quickSort(arr, start, pIdx - 1);
             quickSort(arr, pIdx + 1, end);
         }
     }
 
     /**
      * Partitions the sub-array from index 'start' to index 'end' around a randomly selected pivot element.
-     * After this sub-routine is complete, all elements in A[start, returnIdx] are <= pivot and all elements in
-     * A[returnIdx + 1, end] are >= pivot.
+     * The elements less than or equal to the pivot are placed on the left side, and the elements greater than
+     * the pivot are placed on the right side.
      *
      * Given a sub-array of length m, the time complexity of the partition subroutine is O(m) as we need to iterate
      * through every element in the sub-array once.
@@ -67,29 +49,30 @@ public class QuickSort {
      * @param arr   the array containing the sub-array to be partitioned.
      * @param start the starting index (inclusive) of the sub-array to be partitioned.
      * @param end   the ending index (inclusive) of the sub-array to be partitioned.
-     * @return the index at which the array is partitioned at
+     * @return the index of the pivot element in its correct position after partitioning.
      */
     private static int partition(int[] arr, int start, int end) {
-        int pIdx = random(start, end);
-        int pivot = arr[pIdx];
-        int i = start - 1;
-        int j = end + 1;
+        int pivot = arr[start];
+        int low = start + 1;
+        int high = end;
 
-        while (true) {
-            do {
-                i++;
-            } while (arr[i] < pivot);
-
-            do {
-                j--;
-            } while (arr[j] > pivot);
-
-            if (i >= j) {
-                return j;
+        while (low <= high) {
+            while (low <= high && arr[low] <= pivot) {// we use <= as opposed to < to pack duplicates to the left side
+                                                     // of the pivot
+                low++;
             }
-            swap(arr, i, j);
-        }
 
+            while (low <= high && arr[high] > pivot) {
+                high--;
+            }
+
+            if (low < high) {
+                swap(arr, low, high);
+            }
+        }
+        swap(arr, start, low - 1);
+
+        return low - 1;
     }
 
     /**
@@ -103,17 +86,6 @@ public class QuickSort {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
-    }
-
-    /**
-     * Generates a random integer within the range [start, end].
-     *
-     * @param start the lower bound of the random integer (inclusive).
-     * @param end   the upper bound of the random integer (inclusive).
-     * @return a random integer within the specified range.
-     */
-    private static int random(int start, int end) {
-        return (int) (Math.random() * (end - start + 1)) + start;
     }
 
 }
