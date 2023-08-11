@@ -59,7 +59,7 @@ public class QuickSort {
      * @param start the starting index (inclusive) of the sub-array to be sorted.
      * @param end   the ending index (inclusive) of the sub-array to be sorted.
      */
-    public static void quickSort(int[] arr, int start, int end) {
+    private static void quickSort(int[] arr, int start, int end) {
         if (start < end) {
             int pIdx = partition(arr, start, end);
             quickSort(arr, start, pIdx - 1);

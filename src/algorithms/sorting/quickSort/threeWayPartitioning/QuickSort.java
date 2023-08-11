@@ -48,7 +48,7 @@ public class QuickSort {
      * @param start the starting index (inclusive) of the sub-array to be sorted.
      * @param end   the ending index (inclusive) of the sub-array to be sorted.
      */
-    public static void quickSort(int[] arr, int start, int end) {
+    private static void quickSort(int[] arr, int start, int end) {
         if (start < end) {
             int[] newIdx = partition(arr, start, end);
             if (isGoodPivot(newIdx[0], newIdx[1], start, end)) {
@@ -164,7 +164,7 @@ public class QuickSort {
      * @param end         The ending index of the current sub-array.
      * @return            True if the given index is a good pivot, false otherwise.
      */
-    public static boolean isGoodPivot(int firstPIdx, int secondPIdx, int start, int end) {
+    private static boolean isGoodPivot(int firstPIdx, int secondPIdx, int start, int end) {
         int n = end - start + 1;
         if (firstPIdx >= start || secondPIdx <= end) {
             if (end - secondPIdx + 1 > 0) { // avoid division by zero
