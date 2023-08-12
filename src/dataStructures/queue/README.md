@@ -52,7 +52,7 @@ These are some variants of queue that are commonly used.
 Deque is a variant of queue where elements can be removed or added from the head and tail of the queue.
 Deque could come in handy when trying to solve sliding window problems.
 
-However, it is important to note that when implementing a deque, unlike a queue, you would require a doubly linked list.
+A deque can be implemented in multiple ways, using doubly linked lists, arrays or two stacks.
 
 #### Monotonic Queue
 
