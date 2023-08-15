@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.ArrayDeque;
 
 /**
- * Implementation of a non-increasing monotonic queue for certain (but common) use case:
+ * Implementation of a non-increasing (decreasing) monotonic queue for certain (but common) use case:
  * When larger objects pushed to the queue are able to replace and represent smaller objects that come before it.
  * Callable methods are:
  * isEmpty()
@@ -20,8 +20,9 @@ import java.util.ArrayDeque;
  * 4       2   [1, 2] #2->1            [5, 3, 2] 2 kick out 1 #2->3
  * 5       4   [1, 2, 4] #4->2         [5,4] 4 kick out 2, 3 #4->2
  */
+
 public class MonotonicQueue<T extends Comparable<T>> {
-  private Deque<Pair<T>> dq = new ArrayDeque<>(); // or LinkedList
+  private Deque<T> dq = new ArrayDeque<>(); // or LinkedList
 
   /**
    * Checks if queue is empty.
@@ -37,12 +38,10 @@ public class MonotonicQueue<T extends Comparable<T>> {
    */
   public void push(T obj) {
     Integer count = 0;
-    while (!dq.isEmpty() && obj.compareTo(dq.peekLast().value) >= 0) {
-      Pair<T> popped = dq.pollLast();
-      // accumulate count of objects that were popped to maintain the non-increasing property
-      count += 1 + popped.countDeleted; 
+    while (!dq.isEmpty() && obj.compareTo(dq.peekLast()) > 0) {
+      dq.pollLast(); // Removes elements that do not conform the non-increasing sequence.
     }
-    dq.offerLast(new Pair<T>(obj, count));
+    dq.offerLast(obj);
   }
 
   /**
@@ -53,7 +52,7 @@ public class MonotonicQueue<T extends Comparable<T>> {
     if (isEmpty()) {
       return null;
     }
-    return dq.peek().value;
+    return dq.peek();
   }
 
   /**
@@ -64,26 +63,6 @@ public class MonotonicQueue<T extends Comparable<T>> {
     if (dq.isEmpty()) {
       return null;
     }
-    Pair<T> node = dq.peek();
-    if (node.countDeleted > 0) {
-      node.countDeleted -= 1;
-      return node.value;
-    }
-    dq.poll();
-    return node.value;
-  }
-
-  /**
-   * Node class that is represented as a pair.
-   * Tracks the deleted count and the value to be wrapped.
-   */
-  private static class Pair<T> {
-    private T value;
-    private Integer countDeleted;
-
-    private Pair(T val, Integer count) {
-      this.value = val;
-      this.countDeleted = count;
-    }
+    return dq.poll(); // Returns & remove head of deque
   }
 }
