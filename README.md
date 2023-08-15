@@ -44,9 +44,9 @@ This repository contains implementation of some of the fundamental data structur
 
 ## Short-cut to CS2040S Material
 1. Basic structures
-    * Linked List
-    * Stack
-    * Queue
+    * [Linked List](src/dataStructures/linkedList)
+    * [Stack](src/dataStructures/stack)
+    * [Queue](src/dataStructures/queue)
 2. Binary Search
     * Peak Finding
 3. Sorting

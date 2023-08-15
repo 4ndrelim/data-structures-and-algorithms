@@ -1,6 +1,6 @@
 package test.randomTests.changxian.stackAndQueue.queue;
 
-import src.dataStructures.stackAndQueue.queue.Queue;
+import src.dataStructures.queue.Queue;
 
 /**
  * Basic Testing
