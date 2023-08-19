@@ -1,7 +1,7 @@
-package src.algorithms.graphs;
+package algorithms.graphs;
 
 import java.util.*;
-import src.algorithms.graphs.util.BinaryTreeNode;
+import algorithms.graphs.util.BinaryTreeNode;
 
 /**
  * Implementation of DFS

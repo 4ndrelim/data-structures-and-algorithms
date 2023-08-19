@@ -1,4 +1,4 @@
-package src.algorithms.util;
+package algorithms.util;
 import java.util.*;
 /**
  * Supports method to convert an Adjacency Matrix into an Adjacency list

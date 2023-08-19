@@ -1,10 +1,10 @@
-package test.algorithms.graphs;
+package algorithms.graphs;
 
 import org.junit.Test;
 
-import src.algorithms.graphs.breadthFirstSearch;
-import src.algorithms.graphs.util.BinaryTreeNode;
-import src.algorithms.graphs.util.GraphNode;
+import algorithms.graphs.breadthFirstSearch;
+import algorithms.graphs.util.BinaryTreeNode;
+import algorithms.graphs.util.GraphNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;

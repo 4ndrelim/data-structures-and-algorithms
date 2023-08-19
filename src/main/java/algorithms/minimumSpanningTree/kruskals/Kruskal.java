@@ -1,4 +1,4 @@
-package src.algorithms.minimumSpanningTree.kruskals;
+package algorithms.minimumSpanningTree.kruskals;
 
 import java.util.*;
 

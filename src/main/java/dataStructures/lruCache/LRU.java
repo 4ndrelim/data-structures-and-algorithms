@@ -1,4 +1,4 @@
-package src.dataStructures.lruCache;
+package dataStructures.lruCache;
 
 import java.util.*;
 

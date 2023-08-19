@@ -1,4 +1,4 @@
-package src.algorithms.minimumSpanningTree.prims;
+package algorithms.minimumSpanningTree.prims;
 
 import java.util.*;
 

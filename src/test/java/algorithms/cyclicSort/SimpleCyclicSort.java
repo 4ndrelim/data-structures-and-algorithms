@@ -1,8 +1,8 @@
-package test.algorithms.cyclicSort;
+package algorithms.cyclicSort;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.cyclicSort.simple.CyclicSort;
+import algorithms.sorting.cyclicSort.simple.CyclicSort;
 
 import static org.junit.Assert.assertArrayEquals;
 

@@ -1,4 +1,4 @@
-package src.algorithms.sorting.bubbleSort;
+package algorithms.sorting.bubbleSort;
 
 /** Here, we are implementing BubbleSort where we sort the array in increasing (or more precisely, non-decreasing)
  * order.

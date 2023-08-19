@@ -1,4 +1,4 @@
-package src.algorithms.sorting.mergeSort.legacy.iterative;
+package algorithms.sorting.mergeSort.legacy.iterative;
 
 import java.util.*;
 

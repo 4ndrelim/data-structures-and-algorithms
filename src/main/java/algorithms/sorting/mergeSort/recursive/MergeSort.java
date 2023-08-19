@@ -1,4 +1,4 @@
-package src.algorithms.sorting.mergeSort.recursive;
+package algorithms.sorting.mergeSort.recursive;
 
 /** Here, we are implementing MergeSort where we sort the array in increasing (or more precisely, non-decreasing)
  * order recursively.

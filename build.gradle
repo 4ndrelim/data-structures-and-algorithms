@@ -4,3 +4,37 @@
  * This is a general purpose Gradle build.
  * To learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.3/samples
  */
+plugins {
+    id 'java'
+    id "com.adarshr.test-logger" version "3.2.0"
+    id "checkstyle"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'scripts']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+checkstyle {
+    def archive = configurations.checkstyle.resolve().find { it.name.startsWith("checkstyle") }
+    config = resources.text.fromArchiveEntry(archive, "google_checks.xml")
+}
+

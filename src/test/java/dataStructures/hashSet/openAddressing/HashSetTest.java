@@ -1,7 +1,7 @@
-package test.dataStructures.hashSet.openAddressing;
+package dataStructures.hashSet.openAddressing;
 
 import org.junit.Test;
-import src.dataStructures.hashSet.openAddressing.HashSet;
+import dataStructures.hashSet.openAddressing.HashSet;
 
 import java.util.List;
 import java.util.stream.Collectors;

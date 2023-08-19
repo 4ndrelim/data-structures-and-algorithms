@@ -1,4 +1,4 @@
-package src.algorithms.sorting.countingSort;
+package algorithms.sorting.countingSort;
 
 /**
  * <p></p> Stable implementation of Counting Sort.

@@ -1,4 +1,4 @@
-package src.dataStructures.avlTree;
+package dataStructures.avlTree;
 
 /**
  * TreeNode implementation for AVL Tree.

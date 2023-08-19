@@ -1,6 +1,6 @@
-package test.randomTests.andre.lruCache;
+package randomTests.andre.lruCache;
 
-import src.dataStructures.lruCache.LRU;
+import dataStructures.lruCache.LRU;
 
 /**
  * Basic testing

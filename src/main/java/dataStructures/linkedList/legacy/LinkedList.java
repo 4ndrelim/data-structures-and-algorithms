@@ -1,4 +1,4 @@
-package src.dataStructures.linkedList.legacy;
+package dataStructures.linkedList.legacy;
 
 /**
  * There are many variations when it comes to implementing linked lists. Here's mine.

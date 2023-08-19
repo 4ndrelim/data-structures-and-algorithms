@@ -1,6 +1,6 @@
-package src.dataStructures.hashSet.chaining;
+package dataStructures.hashSet.chaining;
 
-import src.dataStructures.linkedList.LinkedList;
+import dataStructures.linkedList.LinkedList;
 
 import java.util.ArrayList;
 import java.util.List;

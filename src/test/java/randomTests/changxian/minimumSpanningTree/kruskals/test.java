@@ -1,6 +1,6 @@
-package test.randomTests.changxian.minimumSpanningTree.kruskals;
+package randomTests.changxian.minimumSpanningTree.kruskals;
 
-import src.algorithms.minimumSpanningTree.kruskals.Kruskal;
+import algorithms.minimumSpanningTree.kruskals.Kruskal;
 
 /**
  * Basic testing

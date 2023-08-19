@@ -1,4 +1,4 @@
-package src.algorithms.patternFinding;
+package algorithms.patternFinding;
 
 import java.util.ArrayList;
 import java.util.List;

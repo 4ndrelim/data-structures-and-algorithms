@@ -1,6 +1,6 @@
-package test.randomTests.changxian.linkedList;
+package randomTests.changxian.linkedList;
 
-import src.dataStructures.linkedList.LinkedList;
+import dataStructures.linkedList.LinkedList;
 
 /**
  * Basic Testing

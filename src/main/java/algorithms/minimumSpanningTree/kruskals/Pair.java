@@ -1,4 +1,4 @@
-package src.algorithms.minimumSpanningTree.kruskals;
+package algorithms.minimumSpanningTree.kruskals;
 
 public class Pair<K, V> {
     K key;

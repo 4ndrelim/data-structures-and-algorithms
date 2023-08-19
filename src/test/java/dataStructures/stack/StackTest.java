@@ -1,8 +1,9 @@
-package test.dataStructures.stack;
+package dataStructures.stack;
 
 import org.junit.Assert;
 import org.junit.Test;
-import src.dataStructures.stack.Stack;
+import dataStructures.stack.Stack;
+
 public class StackTest {
     @Test
     public void testEmpty(){

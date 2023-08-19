@@ -1,4 +1,4 @@
-package src.dataStructures.trie.legacy;
+package dataStructures.trie.legacy;
 
 /**
  * Implementation of TrieNode for Trie structure (assumes chracters are lower-cased alphabets).

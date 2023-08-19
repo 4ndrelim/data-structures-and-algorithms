@@ -1,6 +1,6 @@
-package test.randomTests.changxian.minimumSpanningTree.prims;
+package randomTests.changxian.minimumSpanningTree.prims;
 
-import src.algorithms.minimumSpanningTree.prims.Prim;
+import algorithms.minimumSpanningTree.prims.Prim;
 
 /**
  * Basic testing

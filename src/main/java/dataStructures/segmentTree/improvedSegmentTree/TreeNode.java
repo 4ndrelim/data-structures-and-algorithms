@@ -1,4 +1,4 @@
-package src.dataStructures.segmentTree.improvedSegmentTree;
+package dataStructures.segmentTree.improvedSegmentTree;
 
 /**
  * helper TreeNode class to store relevant information

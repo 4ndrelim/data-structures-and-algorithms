@@ -1,4 +1,4 @@
-package src.algorithms.sorting.insertionSort;
+package algorithms.sorting.insertionSort;
 
 /** Here, we are implementing InsertionSort where we sort the array in increasing (or more precisely, non-decreasing)
  * order.

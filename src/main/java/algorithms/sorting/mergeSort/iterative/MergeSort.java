@@ -1,4 +1,4 @@
-package src.algorithms.sorting.mergeSort.iterative;
+package algorithms.sorting.mergeSort.iterative;
 
 /** Here, we are implementing MergeSort where we sort the array in increasing (or more precisely, non-decreasing)
  * order iteratively.

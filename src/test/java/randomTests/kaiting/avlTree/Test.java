@@ -1,6 +1,6 @@
-package test.randomTests.kaiting.avlTree;
+package randomTests.kaiting.avlTree;
 
-import src.dataStructures.avlTree.AVLTree;
+import dataStructures.avlTree.AVLTree;
 
 /**
  * Basic testing

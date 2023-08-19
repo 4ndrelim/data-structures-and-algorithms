@@ -1,4 +1,4 @@
-package src.algorithms.graphs.util;
+package algorithms.graphs.util;
 
 public class BinaryTreeNode {
     int val;

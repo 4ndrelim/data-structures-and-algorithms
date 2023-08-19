@@ -1,7 +1,7 @@
-package test.dataStructures.heap;
+package dataStructures.heap;
 
 import org.junit.Assert;
-import src.dataStructures.heap.MaxHeap;
+import dataStructures.heap.MaxHeap;
 
 import java.util.Arrays;
 

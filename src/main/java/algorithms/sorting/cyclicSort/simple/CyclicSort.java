@@ -1,4 +1,4 @@
-package src.algorithms.sorting.cyclicSort.simple;
+package algorithms.sorting.cyclicSort.simple;
 
 /**
  * Implementation of cyclic sort in the simple case where the n elements of the given array are contiguous,

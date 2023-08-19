@@ -1,4 +1,4 @@
-package src.dataStructures.queue;
+package dataStructures.queue;
 
 import java.util.Deque;
 import java.util.ArrayDeque;

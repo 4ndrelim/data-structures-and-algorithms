@@ -1,8 +1,8 @@
-package test.algorithms.insertionSort;
+package algorithms.insertionSort;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.insertionSort.InsertionSort;
+import algorithms.sorting.insertionSort.InsertionSort;
 
 import java.util.Arrays;
 

@@ -1,8 +1,8 @@
-package test.algorithms.countingSort;
+package algorithms.countingSort;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.countingSort.CountingSort;
+import algorithms.sorting.countingSort.CountingSort;
 
 import java.util.Arrays;
 

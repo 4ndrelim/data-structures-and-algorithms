@@ -1,6 +1,6 @@
-package test.algorithms.kmp;
+package algorithms.kmp;
 
-import src.algorithms.patternFinding.KMP;
+import algorithms.patternFinding.KMP;
 
 import java.util.Arrays;
 import java.util.ArrayList;

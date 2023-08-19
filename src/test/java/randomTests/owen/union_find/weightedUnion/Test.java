@@ -1,6 +1,6 @@
-package test.randomTests.owen.union_find.weightedUnion;
+package randomTests.owen.union_find.weightedUnion;
 
-import src.dataStructures.disjointSet.weightedUnion.Union;
+import dataStructures.disjointSet.weightedUnion.Union;
 
 import java.util.ArrayList;
 import java.util.List;

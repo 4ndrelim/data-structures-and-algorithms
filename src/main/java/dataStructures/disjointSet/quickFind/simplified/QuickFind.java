@@ -1,4 +1,4 @@
-package src.dataStructures.disjointSet.quickFind.simplified;
+package dataStructures.disjointSet.quickFind.simplified;
 
 import java.util.List;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package test.randomTests.andre.segmentTree;
+package randomTests.andre.segmentTree;
 
-import src.dataStructures.segmentTree.SegmentTree;
+import dataStructures.segmentTree.SegmentTree;
 
 /**
  * Basic testing

@@ -1,4 +1,4 @@
-package src.dataStructures.trie;
+package dataStructures.trie;
 
 import java.util.*;
 

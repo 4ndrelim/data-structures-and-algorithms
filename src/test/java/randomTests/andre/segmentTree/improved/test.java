@@ -1,6 +1,6 @@
-package test.randomTests.andre.segmentTree.improved;
+package randomTests.andre.segmentTree.improved;
 
-import src.dataStructures.segmentTree.improvedSegmentTree.ImprovedSegmentTree;
+import dataStructures.segmentTree.improvedSegmentTree.ImprovedSegmentTree;
 
 /**
  * Basic testing

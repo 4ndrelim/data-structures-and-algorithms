@@ -1,6 +1,6 @@
-package test.randomTests.owen.union_find.quickFind.generalised;
+package randomTests.owen.union_find.quickFind.generalised;
 
-import src.dataStructures.disjointSet.quickFind.generalised.QuickFind;
+import dataStructures.disjointSet.quickFind.generalised.QuickFind;
 
 import java.util.ArrayList;
 import java.util.List;

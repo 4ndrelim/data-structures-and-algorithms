@@ -1,4 +1,4 @@
-package src.dataStructures.segmentTree;
+package dataStructures.segmentTree;
 
 /**
  * Data structure that is commonly used to solve range sum queries in O(logn)

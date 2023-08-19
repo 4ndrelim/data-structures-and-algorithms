@@ -1,9 +1,9 @@
-package test.algorithms.graphs;
+package algorithms.graphs;
 
 import org.junit.Test;
 
-import src.algorithms.graphs.depthFirstSearch;
-import src.algorithms.graphs.util.BinaryTreeNode;
+import algorithms.graphs.depthFirstSearch;
+import algorithms.graphs.util.BinaryTreeNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;

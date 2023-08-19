@@ -1,4 +1,4 @@
-package src.dataStructures.linkedList;
+package dataStructures.linkedList;
 
 /**
  * <p></p>

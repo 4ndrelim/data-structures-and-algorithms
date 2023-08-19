@@ -1,9 +1,9 @@
-package src.algorithms.graphs;
+package algorithms.graphs;
 
 import java.util.*;
 
-import src.algorithms.graphs.util.BinaryTreeNode;
-import src.algorithms.graphs.util.GraphNode;
+import algorithms.graphs.util.BinaryTreeNode;
+import algorithms.graphs.util.GraphNode;
 
 /**
  * Implementation of BFS

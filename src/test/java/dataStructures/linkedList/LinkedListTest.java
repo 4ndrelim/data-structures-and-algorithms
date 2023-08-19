@@ -1,9 +1,9 @@
-package test.dataStructures.linkedList;
+package dataStructures.linkedList;
 
 import org.junit.Assert;
 import org.junit.Test;
-import src.dataStructures.linkedList.LinkedList;
-import src.dataStructures.linkedList.LinkedList.Node;
+import dataStructures.linkedList.LinkedList;
+import dataStructures.linkedList.LinkedList.Node;
 
 public class LinkedListTest {
     @Test

@@ -1,4 +1,4 @@
-package src.algorithms.sorting.cyclicSort.simple;
+package algorithms.sorting.cyclicSort.simple;
 
 /**
  * Cyclic sort algorithm can be easily modified to find first missing non-negative integer (i.e. starting from 0)

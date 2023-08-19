@@ -1,4 +1,4 @@
-package src.algorithms.sorting.cyclicSort.generalised;
+package algorithms.sorting.cyclicSort.generalised;
 /**
  * Implementation of cyclic sort in the generalised case where the input can contain any integer and even duplicates.
  * <p></p>

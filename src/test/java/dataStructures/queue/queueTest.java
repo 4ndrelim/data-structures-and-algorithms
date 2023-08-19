@@ -1,8 +1,8 @@
-package test.dataStructures.queue;
+package dataStructures.queue;
 
 import org.junit.Assert;
 import org.junit.Test;
-import src.dataStructures.queue.Queue;
+import dataStructures.queue.Queue;
 
 public class queueTest {
     @Test

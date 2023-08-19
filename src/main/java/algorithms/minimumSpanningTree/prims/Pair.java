@@ -1,4 +1,4 @@
-package src.algorithms.minimumSpanningTree.prims;
+package algorithms.minimumSpanningTree.prims;
 
 /**
  * Helper class to encapsulate information about an edge; 

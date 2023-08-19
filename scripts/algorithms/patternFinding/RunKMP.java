@@ -1,4 +1,4 @@
-import src.algorithms.patternFinding.KMP;
+package algorithms.patternFinding;
 
 import java.util.List;
 

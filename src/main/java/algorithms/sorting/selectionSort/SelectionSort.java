@@ -1,4 +1,4 @@
-package src.algorithms.sorting.selectionSort;
+package algorithms.sorting.selectionSort;
 
 /** Here, we are implementing SelectionSort where we sort the array in increasing (or more precisely, non-decreasing)
  * order.

@@ -1,8 +1,8 @@
-package test.algorithms.selectionSort;
+package algorithms.selectionSort;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.selectionSort.SelectionSort;
+import algorithms.sorting.selectionSort.SelectionSort;
 
 import java.util.Arrays;
 

@@ -1,6 +1,6 @@
-package test.randomTests.kaiting.trie.legacy;
+package randomTests.kaiting.trie.legacy;
 
-import src.dataStructures.trie.legacy.Trie;
+import dataStructures.trie.legacy.Trie;
 
 /*
  * Basic testing of trie.

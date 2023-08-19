@@ -1,9 +1,9 @@
-package test.randomTests.owen.union_find.matrixToListConverter;
+package randomTests.owen.union_find.matrixToListConverter;
 
 import org.junit.Test;
 
-import src.algorithms.util.matrixToListConverter;
-import src.algorithms.util.matrixToListConverter.InvalidMatrixException;
+import algorithms.util.matrixToListConverter;
+import algorithms.util.matrixToListConverter.InvalidMatrixException;
 
 import java.util.*;
 

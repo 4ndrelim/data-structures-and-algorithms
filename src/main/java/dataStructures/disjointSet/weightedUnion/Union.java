@@ -1,4 +1,4 @@
-package src.dataStructures.disjointSet.weightedUnion;
+package dataStructures.disjointSet.weightedUnion;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;

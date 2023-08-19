@@ -1,4 +1,4 @@
-package src.algorithms.sorting.quickSort.partitioning;
+package algorithms.sorting.quickSort.partitioning;
 
 /**
  * Static class for 3-way in-place partitioning.

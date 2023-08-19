@@ -1,6 +1,6 @@
-package test.randomTests.changxian.stackAndQueue.monotonicQueue;
+package randomTests.changxian.stackAndQueue.monotonicQueue;
 
-import src.dataStructures.queue.MonotonicQueue;
+import dataStructures.queue.MonotonicQueue;
 
 import java.util.Arrays;
 import java.util.ArrayList;

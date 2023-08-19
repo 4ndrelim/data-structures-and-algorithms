@@ -1,6 +1,6 @@
-package test.randomTests.kaiting.trie;
+package randomTests.kaiting.trie;
 
-import src.dataStructures.trie.Trie;
+import dataStructures.trie.Trie;
 
 /*
  * Basic testing of trie.

@@ -1,8 +1,8 @@
-package test.algorithms.mergeSort.recursive;
+package algorithms.mergeSort.recursive;
 
 import org.junit.Test;
 
-import src.algorithms.sorting.mergeSort.recursive.MergeSort;
+import algorithms.sorting.mergeSort.recursive.MergeSort;
 
 import java.util.Arrays;
 
