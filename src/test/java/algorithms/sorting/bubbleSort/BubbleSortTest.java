@@ -1,8 +1,6 @@
-package algorithms.bubbleSort;
+package algorithms.sorting.bubbleSort;
 
 import org.junit.Test;
-
-import algorithms.sorting.bubbleSort.BubbleSort;
 
 import java.util.Arrays;
 

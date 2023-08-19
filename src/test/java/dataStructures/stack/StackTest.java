@@ -2,7 +2,6 @@ package dataStructures.stack;
 
 import org.junit.Assert;
 import org.junit.Test;
-import dataStructures.stack.Stack;
 
 public class StackTest {
     @Test

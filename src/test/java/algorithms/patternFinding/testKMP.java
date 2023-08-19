@@ -1,6 +1,4 @@
-package algorithms.kmp;
-
-import algorithms.patternFinding.KMP;
+package algorithms.patternFinding;
 
 import java.util.Arrays;
 import java.util.ArrayList;

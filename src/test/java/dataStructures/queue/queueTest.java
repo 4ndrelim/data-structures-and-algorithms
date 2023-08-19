@@ -2,7 +2,6 @@ package dataStructures.queue;
 
 import org.junit.Assert;
 import org.junit.Test;
-import dataStructures.queue.Queue;
 
 public class queueTest {
     @Test

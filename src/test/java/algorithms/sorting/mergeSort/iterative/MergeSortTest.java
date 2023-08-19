@@ -1,8 +1,6 @@
-package algorithms.mergeSort.iterative;
+package algorithms.sorting.mergeSort.iterative;
 
 import org.junit.Test;
-
-import algorithms.sorting.mergeSort.iterative.MergeSort;
 
 import java.util.Arrays;
 

@@ -2,7 +2,6 @@ package dataStructures.linkedList;
 
 import org.junit.Assert;
 import org.junit.Test;
-import dataStructures.linkedList.LinkedList;
 import dataStructures.linkedList.LinkedList.Node;
 
 public class LinkedListTest {

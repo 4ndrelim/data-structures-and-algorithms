@@ -1,7 +1,6 @@
-package algorithms.cyclicSort;
+package algorithms.sorting.cyclicSort.simple;
 
 import org.junit.Test;
-import algorithms.sorting.cyclicSort.simple.FindFirstMissingNonNegative;
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,6 +1,4 @@
-package algorithms.cyclicSort;
-
-import algorithms.sorting.cyclicSort.generalised.CyclicSort;
+package algorithms.sorting.cyclicSort.generalised;
 
 import java.util.Arrays;
 
