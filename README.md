@@ -8,19 +8,23 @@ This repository contains implementation of some of the fundamental data structur
 ## Full List of Implementation (in alphabetical order):
 ## Structures
 - Adelson-Velskii and Landis (AVL) Binary Search Tree
-- Disjoint Set
+- Disjoint Set / Union Find
     * Quick Find
-    * Weighted Union with path compression
+    * Weighted Union 
+    * Path compression
+- [Hashing](src/dataStructures/hashSet)
+    * [Chaining](src/dataStructures/hashSet/chaining/)
+    * [Open Addressing](src/dataStructures/hashSet/openAddressing/)
 - [Heap](src/dataStructures/heap/)
     * Max heap implementation
-- Linked List
+- [Linked List](src/dataStructures/linkedList)
 - LRU Cache
 - Minimum Spanning Tree
-- Queue
+- [Queue](src/dataStructures/queue)
 - Segment Tree
     * Array implementation
     * TreeNode implementation 
-- Stack
+- [Stack](src/dataStructures/stack)
 - Trie
 
 
@@ -49,6 +53,7 @@ This repository contains implementation of some of the fundamental data structur
     * [Queue](src/dataStructures/queue)
 2. Binary Search
     * Peak Finding
+    * Template
 3. Sorting
     * [Bubble](src/algorithms/sorting/bubbleSort)
     * [Insertion](src/algorithms/sorting/insertionSort)
@@ -61,9 +66,18 @@ This repository contains implementation of some of the fundamental data structur
     * Kd-tree
     * Interval tree
     * Augmented tree for orthogonal range searching
-5. Heap
+    * Red-Black Tree
+    * ab-Tree
+5. [Binary Heap](src/dataStructures/heap/)
+    * Max heap implementation
 6. Disjoint Set / Union Find
-7. Hashing
+    * Quick Find
+    * Weighted Union
+    * Path compression
+7. [Hashing](src/dataStructures/hashSet)
+    * [Chaining](src/dataStructures/hashSet/chaining/)
+    * [Open Addressing](src/dataStructures/hashSet/openAddressing/)
+    * Double Hashing
     * Bloom filter
 8. Basic graphs
     * Depth-first search
