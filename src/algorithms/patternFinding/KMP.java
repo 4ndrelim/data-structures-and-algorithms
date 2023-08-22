@@ -34,12 +34,13 @@ import java.util.List;
  * String : ABABCABABABAB
  *
  *          A  B  A  B  C  A  B  A  B  A  B  A  B
- *   Read:  ^    to  ^ Continue matching until with Pattern[0:4]
- *   Read:        ^ try ^ Unable to match Pattern[4]. But since last two characters form a sub-pattern
- *   Read:              try matching until Pattern[0:3] by checking if Pattern[2] == 'C'.
- *   Read:              Turns out no. No previously identified sub-pattern with 'C'. Restart.
+ *   Read:  ^    to  ^ Continue matching where possible, leading to Pattern[0:4] matched.
+ *          unable to match Pattern[4]. But notice that last two characters of String[0:4]
+ *          form a sub-pattern with Pattern[0:2] Maybe Pattern[2] == 'C' and we can 're-use' Pattern[0:2]
+ *   Read:        ^ try ^ by checking if Pattern[2] == 'C'
+ *   Read:              Turns out no. No previously identified sub-pattern with 'C'. Restart matching Pattern.
  *   Read:                 ^      to      ^ Found complete match! But rather than restart, notice that last 4 characters
- *   Read:                 form a prefix sub-pattern of Pattern, so,
+ *   Read:                 form a prefix sub-pattern of Pattern, which is Pattern[0:4] = "ABAB", so,
  *   Read:                       ^               ^ Start matching from Pattern[4] and finally Pattern[5]
  */
 public class KMP {
@@ -53,6 +54,7 @@ public class KMP {
         int len = pattern.length();
         int[] prefixIndices = new int[len + 1];
         prefixIndices[0] = -1;
+        prefixIndices[1] = 0; // 1st character has no prefix to match with
 
         int currPrefixMatched = 0; // num of chars of prefix pattern currently matched
         int pos = 2; // Starting from the 2nd character, recall 1-indexed
