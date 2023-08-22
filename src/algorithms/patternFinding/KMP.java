@@ -17,8 +17,8 @@ import java.util.List;
  *                 there is no prefix ending before its index, 0, that can be matched with.
  *      Read:          ^   ^ 'B' and 'C' cannot be matched with any prefix which are just 'A' and 'AB' respectively.
  *      Read:                  ^ Can be matched with an earlier 'A'. So we store 1.
- *                             Prefix is the substring from idx 0 to 1 (exclusive).
- *                             Which can also be interpreted as the index of the next character to match against!
+ *                             Prefix is the substring from idx 0 to 1 (exclusive). Note consider prefix from 0-indexed.
+ *                             Realise 1 can also be interpreted as the index of the next character to match against!
  *      Read:                      ^   ^ Similarly, continue matching
  *      Read:                               ^  ^ No matches, so 0
  *      Read:                                      ^   ^   ^   ^   ^   ^ Match with prefix until position 6!
