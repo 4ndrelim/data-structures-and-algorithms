@@ -29,7 +29,8 @@ import java.lang.Math;
  * enter an infinite loop of repeating pivot selection.
  *
  * Space:
- * - O(1) since sorting is done in-place
+ * - O(logn) as the partitioning is done in-place so each partitioning takes O(1) space but depth of QuickSort
+ *   recursion is logn, therefore logn * O(1) = O(logn)
  */
 
 public class QuickSort {

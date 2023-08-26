@@ -7,9 +7,9 @@ package src.algorithms.sorting.quickSort.hoares;
  *
  * Implementation Invariant:
  * The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
- * (We edited the psuedocode a bit to keep the duplicates to the left of the pivot.)
+ * (We edited the pseudocode a bit to keep the duplicates to the left of the pivot.)
  *
- * This implementation picks the element at the index 0 as the pivot.
+ * This implementation picks the first element as the pivot.
  */
 
 public class QuickSort {
@@ -53,18 +53,17 @@ public class QuickSort {
      */
     private static int partition(int[] arr, int start, int end) {
         int pivot = arr[start];
-        int low = start + 1;
-        int high = end;
+        int low = start;
+        int high = end + 1;
 
-        while (low <= high) {
-            while (low <= high && arr[low] <= pivot) {// we use <= as opposed to < to pack duplicates to the left side
-                                                     // of the pivot
+        while (low < high) {
+            do {
                 low++;
-            }
-
-            while (low <= high && arr[high] > pivot) {
+            } while (low < high && arr[low] <= pivot); // we use <= as opposed to < to pack duplicates to the left side
+                                                       // of the pivot
+            do {
                 high--;
-            }
+            } while (low < high && arr[high] > pivot);
 
             if (low < high) {
                 swap(arr, low, high);

@@ -21,12 +21,9 @@ package src.algorithms.sorting.quickSort.threeWayPartitioning;
  * - Average case: O(nlogn)
  * - Best case: O(nlogn)
  *
- * By isolating the elements equal to the pivot into their correct positions during the partitioning step, three-way
- * partitioning efficiently handles duplicates, preventing the presence of many duplicates in the array from causing
- * the time complexity of QuickSort to degrade to O(n^2).
- *
  * Space:
- * - O(1) since sorting is done in-place
+ * - O(logn) as the partitioning is done in-place so each partitioning takes O(1) space but depth of QuickSort
+ *   recursion is logn, therefore logn * O(1) = O(logn)
  */
 
 public class QuickSort {

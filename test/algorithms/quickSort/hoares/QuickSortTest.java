@@ -42,6 +42,10 @@ public class QuickSortTest {
         int[] seventhResult = Arrays.copyOf(seventhArray, seventhArray.length);
         QuickSort.sort(seventhResult);
 
+        int[] eighthArray = new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        int[] eighthResult = Arrays.copyOf(eighthArray, eighthArray.length);
+        QuickSort.sort(eighthResult);
+
         Arrays.sort(firstArray);  // get expected result
         Arrays.sort(secondArray); // get expected result
         Arrays.sort(thirdArray);  // get expected result
@@ -49,6 +53,7 @@ public class QuickSortTest {
         Arrays.sort(fifthArray);  // get expected result
         Arrays.sort(sixthArray);  // get expected result
         Arrays.sort(seventhArray);  // get expected result
+        Arrays.sort(eighthArray);  // get expected result
 
         assertArrayEquals(firstResult, firstArray);
         assertArrayEquals(secondResult, secondArray);
@@ -57,5 +62,6 @@ public class QuickSortTest {
         assertArrayEquals(fifthResult, fifthArray);
         assertArrayEquals(sixthResult, sixthArray);
         assertArrayEquals(seventhResult, seventhArray);
+        assertArrayEquals(eighthResult, eighthArray);
     }
 }

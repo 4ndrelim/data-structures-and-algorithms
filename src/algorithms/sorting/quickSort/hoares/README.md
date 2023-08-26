@@ -37,6 +37,10 @@ However, using a fixed pivot, such as always choosing the first element as the p
 especially when the array is already sorted or has a specific pattern. This is because in such cases, the partitioning 
 might create highly unbalanced sub-arrays, causing the algorithm to degrade to O(n^2) time complexity.
 
+Space:
+- O(logn) as the partitioning is done in-place so each partitioning takes O(1) space but depth of QuickSort recursion 
+  is logn, therefore logn * O(1) = O(logn)
+
 ## Notes
 
 ### Presence of Duplicates
