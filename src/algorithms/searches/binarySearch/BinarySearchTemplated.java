@@ -31,7 +31,7 @@ public class BinarySearchTemplated {
      */
     // The condition should be changed accordingly
     public static boolean condition(int value, int target) {
-        return value < target;
+        return value >= target;
     }
 
     /**
@@ -47,9 +47,9 @@ public class BinarySearchTemplated {
         int low = 0;
         while (low < high) {
             int mid = low + (high - low) / 2; // equivalent to high + low / 2 but reduces cases of integer overflow
-            if (condition(arr[mid], target)) { // if value < target
+            if (condition(arr[mid], target)) { // if value >= target
                 high = mid;
-            } else { // if value >= target
+            } else { // if value < target
                 low = mid + 1;
             }
         }

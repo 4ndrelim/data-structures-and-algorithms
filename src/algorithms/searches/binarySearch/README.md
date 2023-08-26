@@ -33,8 +33,8 @@ This template will work for most binary search problems and will only require th
 Simply modify the initialisation of the high and low pointer according to the search space.
 
 ### Condition (Requires change)
-We assume that when the condition returns true, the current value "fails" and when the condition returns false, the 
-current value "passes".
+We assume that when the condition returns true, the current value "passes" and when the condition returns false, the 
+current value "fails".
 
 In this template, we want to find the first "pass" in the array.
 
