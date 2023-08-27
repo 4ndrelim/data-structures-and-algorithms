@@ -22,8 +22,7 @@ package src.algorithms.sorting.quickSort.threeWayPartitioning;
  * - Best case: O(nlogn)
  *
  * Space:
- * - O(logn) as the partitioning is done in-place so each partitioning takes O(1) space but depth of QuickSort
- *   recursion is logn, therefore logn * O(1) = O(logn)
+ * - O(1) excluding memory allocated to the call stack, since partitioning is done in-place
  */
 
 public class QuickSort {
