@@ -1,4 +1,4 @@
-package src.algorithms.searches.binarySearch;
+package algorithms.binarySearch;
 
 /** Here, we are implementing BinarySearchTemplated where we search an array for a target value at O(log n) time
  * complexity.

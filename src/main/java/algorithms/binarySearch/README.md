@@ -6,7 +6,7 @@ upper or lower half of the current search range.
 Two versions of binary search has been implemented in this repository - BinarySearch and BinarySearchTemplated.
 
 ## BinarySearch
-![binary search img](../../../../assets/BinarySearch.png)
+![binary search img](../../../../../assets/BinarySearch.png)
 Image Source: GeeksforGeeks
 
 BinarySearch is a more straightforward and intuitive version of the binary search algorithm. In this approach, after the

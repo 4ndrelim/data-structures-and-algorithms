@@ -1,13 +1,9 @@
-package test.algorithms.binarySearchTest;
+package algorithms.binarySearch;
 
 import org.junit.Test;
 
-import src.algorithms.searches.binarySearch.BinarySearchTemplated;
-import src.algorithms.searches.binarySearch.BinarySearch;
-
 import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class BinarySearchTest {

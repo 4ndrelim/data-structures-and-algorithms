@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4486bb82-5cbd-4ae3-9ef2-6ae4afc7318d" name="Changes" comment="" />
+    <list default="true" id="4486bb82-5cbd-4ae3-9ef2-6ae4afc7318d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/algorithms/searches/binarySearch/BinarySearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/BinarySearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/searches/binarySearch/BinarySearchTemplated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/BinarySearchTemplated.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/searches/binarySearch/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +40,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/algorithms/binarySearch" />
+      <recent name="$PROJECT_DIR$/src/main/java/algorithms" />
       <recent name="$PROJECT_DIR$/src/test/java/algorithms/sorting" />
       <recent name="$PROJECT_DIR$/src/test/java/randomTests/kaiting" />
     </key>
