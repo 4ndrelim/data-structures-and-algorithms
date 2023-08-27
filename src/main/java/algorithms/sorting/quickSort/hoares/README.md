@@ -14,7 +14,7 @@ Implementation Invariant:
 
 The pivot is in the correct position, with elements to its left being < it, and elements to its right being > it.
 
-![Lecture Hoare's QuickSort](../../../../../assets/LectureHoares.jpeg)
+![Lecture Hoare's QuickSort](../../../../../../../docs/assets/images/LectureHoares.jpeg)
 Example Credits: Prof Seth/Lecture Slides
 
 ## Complexity Analysis
@@ -67,7 +67,7 @@ each other until an inversion is found. This inversion happens when the left poi
 the right pointer is at an element <= pivot. When an inversion is found, the two values are swapped and the pointers
 continue moving towards each other.
 
-![Usual Hoare's QuickSort with random pivot](../../../../../assets/UsualHoares.jpeg)
+![Usual Hoare's QuickSort with random pivot](../../../../../../../docs/assets/images/UsualHoares.jpeg)
 
 Implementation Invariant:
 

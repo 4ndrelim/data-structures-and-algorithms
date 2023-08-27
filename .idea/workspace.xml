@@ -5,9 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4486bb82-5cbd-4ae3-9ef2-6ae4afc7318d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/algorithms/searches/binarySearch/BinarySearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/BinarySearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/searches/binarySearch/BinarySearchTemplated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/BinarySearchTemplated.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/algorithms/searches/binarySearch/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/BinarySearch.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/BinarySearch.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/BubbleSort.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/BubbleSort.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/InsertionSort.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/InsertionSort.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/LectureHoares.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/LectureHoares.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Lomutos.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/Lomutos.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MergeSortIterative.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/MergeSortIterative.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MergeSortRecursive.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/MergeSortRecursive.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/ParanoidQuickSort.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/ParanoidQuickSort.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/QuickSortFirstPivot.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/QuickSortFirstPivot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/QuickSortOverview.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/QuickSortOverview.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/SelectionSort.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/SelectionSort.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/ThreeWayPartitioning.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/ThreeWayPartitioning.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/UsualHoares.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/UsualHoares.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/kmp.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/kmp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/max_heap.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/images/max_heap.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/others/matrix_operations/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/others/matrix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/binarySearch/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/patternFinding/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/patternFinding/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/bubbleSort/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/bubbleSort/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/insertionSort/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/insertionSort/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/mergeSort/iterative/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/mergeSort/iterative/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/mergeSort/recursive/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/mergeSort/recursive/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/hoares/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/hoares/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/lomuto/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/lomuto/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/paranoid/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/paranoid/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/threeWayPartitioning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/threeWayPartitioning/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/selectionSort/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/selectionSort/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dataStructures/heap/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dataStructures/heap/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dataStructures/priorityQueue/PriorityQueue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,10 +71,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/assets" />
+      <recent name="$PROJECT_DIR$/scripts/others" />
+      <recent name="$PROJECT_DIR$/scripts" />
       <recent name="$PROJECT_DIR$/src/main/java/algorithms/binarySearch" />
       <recent name="$PROJECT_DIR$/src/main/java/algorithms" />
-      <recent name="$PROJECT_DIR$/src/test/java/algorithms/sorting" />
-      <recent name="$PROJECT_DIR$/src/test/java/randomTests/kaiting" />
     </key>
   </component>
   <component name="RunManager">

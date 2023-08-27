@@ -5,7 +5,7 @@ like bubble and insertion in the sense that it maintains a sorted and unsorted r
 smallest (or largest) element in the unsorted region, and places the element in the correct and final position as it 
 would be in the sorted array.
 
-![SelectionSort](../../../../assets/SelectionSort.png)
+![SelectionSort](../../../../../../docs/assets/images/SelectionSort.png)
 
 ## Complexity Analysis
 **Time**:

@@ -9,7 +9,7 @@ following properties:
 This makes it a powerful data structure that provides efficient access to the highest (or lowest) priority element, 
 making it suitable as an underlying implementation of the ADT, priority queue.
 
-![max heap](../../../assets/max_heap.png)
+![max heap](../../../../../docs/assets/images/max_heap.png)
 
 ### Array-based Heap
 The complete binary tree property actually allows the heap to be implemented as a contiguous array (since no gaps!).

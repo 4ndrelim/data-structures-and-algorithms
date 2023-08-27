@@ -3,7 +3,7 @@ Bubble sort is one of the more intuitive comparison-based sorting algorithms.
 It makes repeated comparisons between neighbouring elements, 'bubbling' (side-by-side swaps)
 largest (or smallest) element in the unsorted region to the sorted region (often the front or the back).
 
-![bubble sort img](../../../../assets/BubbleSort.jpeg)
+![bubble sort img](../../../../../../docs/assets/images/BubbleSort.jpeg)
 
 ## Complexity Analysis
 **Time**:

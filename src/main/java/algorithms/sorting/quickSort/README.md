@@ -3,7 +3,7 @@
 This page will provide a high-level overview of the different types of QuickSort and the significance of each
 enhancement. 
 
-![QuickSort Overview](../../../../assets/QuickSortOverview.jpeg)
+![QuickSort Overview](../../../../../../docs/assets/images/QuickSortOverview.jpeg)
 
 We start off with Simple QuickSort, which utilises Hoare's / Lomuto's partitioning with a fixed pivot. But the time 
 complexity of Simple QuickSort degrades to O(n^2) when pivots chosen are continuously bad. This could be because of 

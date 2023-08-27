@@ -1,6 +1,6 @@
 # Testing Implementation
 
-This folder is for testing of implementation in **src/** folder.
+This folder contains the test code for the corresponding algorithms and data structures in **main/** folder.
 
 Note to contributors: 
 - Naming convention for test methods: featureUnderTest_testScenario_expectedBehaviour()

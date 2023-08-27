@@ -1,4 +1,4 @@
-# Running the algorithms
+# Running On Custom Inputs
 
 This folder allows you to pass user input and view the output after running the desired algorithm.
 

@@ -8,7 +8,7 @@ the sorted region remains sorted. More succinctly: <br>
 At the kth iteration, we take the element arr[k] and insert
 it into arr[0, k-1] following sorted order, returning us arr[0, k] in sorted order.
 
-![InsertionSort](../../../../assets/InsertionSort.png)
+![InsertionSort](../../../../../../docs/assets/images/InsertionSort.png)
 
 ## Complexity Analysis
 **Time**:
