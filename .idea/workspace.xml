@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4486bb82-5cbd-4ae3-9ef2-6ae4afc7318d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/LectureHoares.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Lomutos.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/ParanoidQuickSort.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/QuickSortFirstPivot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/QuickSortOverview.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/ThreeWayPartitioning.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/UsualHoares.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/algorithms/sorting/quickSort/hoares/QuickSortTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/algorithms/sorting/quickSort/lomuto/QuickSortTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/algorithms/sorting/quickSort/paranoid/QuickSortTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/algorithms/sorting/quickSort/threeWayPartitioning/QuickSortTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/randomTests/kaiting/quickSort/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/data-structures-and-algorithms.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/src/src/algorithms/sorting/insertionSort/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/src/src/dataStructures/disjointSet/quickFind/quick_find.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/hoares/QuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/hoares/QuickSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/hoares/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/hoares/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/lomuto/QuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/lomuto/QuickSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/lomuto/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/lomuto/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/paranoid/QuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/paranoid/QuickSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/paranoid/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/paranoid/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/partitioning/ThreeWay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/threeWayPartitioning/QuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/threeWayPartitioning/QuickSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/threeWayPartitioning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithms/sorting/quickSort/threeWayPartitioning/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dataStructures/hashSet/chaining/HashSetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dataStructures/hashSet/chaining/HashSetTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2UYgemqc9QBEcSUEOFFiLXewjG1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/algorithms/sorting" />
+      <recent name="$PROJECT_DIR$/src/test/java/randomTests/kaiting" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4486bb82-5cbd-4ae3-9ef2-6ae4afc7318d" name="Changes" comment="" />
+      <created>1693122026011</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1693122026011</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
