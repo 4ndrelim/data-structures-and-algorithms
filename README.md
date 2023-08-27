@@ -96,7 +96,7 @@ If you wish to contribute, do drop an email at andre_lin@u.nus.edu.
 
 
 ## Running Custom Inputs
-See [here](scripts/)
+See [here](scripts/README.md).
 
 ## Contributors
-See the [team]()!
+See the [team](docs/team/profiles.md)!
