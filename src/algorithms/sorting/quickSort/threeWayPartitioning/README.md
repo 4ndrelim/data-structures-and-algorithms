@@ -1,0 +1,1 @@
+![ThreeWayPartitioning](../../../../../assets/ThreeWayPartitioning.jpeg)
