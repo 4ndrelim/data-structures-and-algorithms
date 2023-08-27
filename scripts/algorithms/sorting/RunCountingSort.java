@@ -1,4 +1,6 @@
-import src.algorithms.sorting.countingSort.CountingSort;
+package algorithms.sorting;
+
+import algorithms.sorting.countingSort.CountingSort;
 
 public class RunCountingSort {
 

@@ -1,5 +1,5 @@
 # data-structures-and-algorithms
-This repository contains implementation of some of the fundamental data structures and algorithms in Computer Science. It is primarily used as a teaching resource and is currently being developed by ex-2040s students.
+This repository contains implementation of some fundamental data structures and algorithms in Computer Science. It is primarily used as a teaching resource and is currently being developed by ex-2040s students.
 
 **Also**, the structure of the codebase is optimised for IntelliJ IDEA since implementation are mostly written in Java.
 
