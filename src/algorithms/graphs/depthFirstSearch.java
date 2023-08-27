@@ -32,10 +32,9 @@ import src.algorithms.graphs.util.BinaryTreeNode;
  *          If an adjacency matrix were used, it would cost O(V) to find neighbours for a single vertex, making our
  *          average case time complexity O(V^2) for a connected graph
  *
- * The implementation demonstrates the use of DFS in finding the pre-order (Root, Left, Right) traversal of a binary tree
+ * The implementation demonstrates the use of DFS in finding the order traversals of a binary tree
  * The tree is represented using a custom BinaryTreeNode class
  *
- * TODO: Add new examples, and algo for all orderings
  */
 
 public class depthFirstSearch {
@@ -54,6 +53,36 @@ public class depthFirstSearch {
         }
 
         return traversal;
+    }
+
+    public static List<Integer> inOrder(BinaryTreeNode root) {
+        if (root == null) { return new ArrayList<>(); }
+        List<Integer> traversal = new ArrayList<>();
+        traversal.add(root.getVal());
+        if (root.getLeft() == null && root.getRight() == null) {
+            return traversal;
+        } else {
+            // we combine the traversal of the left subtree with the root and the traversal of the right subtree
+            traversal.addAll(inOrder(root.getRight()));
+            List<Integer> left = inOrder(root.getLeft());
+            left.addAll(traversal);
+            return left;
+        }
+    }
+
+    public static List<Integer> postOrder(BinaryTreeNode root) {
+        if (root == null) { return new ArrayList<>(); }
+        List<Integer> traversal = new ArrayList<>();
+        traversal.add(root.getVal());
+        if (root.getLeft() == null && root.getRight() == null) {
+            return traversal;
+        } else {
+            // we combine the traversal of the left and right subtrees with the root
+            List<Integer> leftAndRight = postOrder(root.getLeft());
+            leftAndRight.addAll(postOrder(root.getRight()));
+            leftAndRight.addAll(traversal);
+            return leftAndRight;
+        }
     }
 
     // call this for visualization of process
