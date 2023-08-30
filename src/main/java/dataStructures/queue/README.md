@@ -38,17 +38,3 @@ In the context of ordered operations, the lookup is only restricted to the first
 Hence, there is not much advantage in using a array, which only has a better lookup speed (*O(1)* time complexity)
 to implement a queue. Especially when using a linked list to construct your queue
 would allow you to grow or shrink the queue as you wish.
-
-
-#### Monotonic Queue
-
-This is a variant of queue where elements within the queue are either strictly increasing or decreasing.
-Monotonic queues are often implemented with a deque.
-
-Within a increasing monotonic queue, any element that is smaller than the current minimum is removed.
-Within a decreasing monotonic queue, any element that is larger than the current maximum is removed.
-
-It is worth mentioning that the most elements added to the monotonic queue would always be in a 
-increasing / decreasing order,
-hence, we only need to compare down the monotonic queue from the back when adding new elements.
-
