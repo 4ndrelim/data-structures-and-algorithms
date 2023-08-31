@@ -2,6 +2,9 @@
 *.class
 *.swp
 
+# User-custom config files/folders
+.idea/
+
 # Ignore Gradle project-specific cache directory
 .gradle
 
