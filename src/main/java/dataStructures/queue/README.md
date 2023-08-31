@@ -18,7 +18,7 @@ A [stack](../stack/README.md) is a queue with operations conducted in an opposit
 
 As a queue only interacts with either the first or last element regardless during its operations,
 it only needs to keep the pointers of the two element at hand, which is constantly updated as more
-elements are removed / added. This allows stack operations to only incur a *O(1)* time complexity.
+elements are removed / added. This allows queue operations to only incur a *O(1)* time complexity.
 
 ## Notes
 
@@ -38,31 +38,3 @@ In the context of ordered operations, the lookup is only restricted to the first
 Hence, there is not much advantage in using a array, which only has a better lookup speed (*O(1)* time complexity)
 to implement a queue. Especially when using a linked list to construct your queue
 would allow you to grow or shrink the queue as you wish.
-
-### Queue Variants
-
-These are some variants of queue that are commonly used.
-
-#### Double Ended Queue (Deque)
-
-![Deque](https://media.geeksforgeeks.org/wp-content/uploads/anod.png)
-
-*Source: GeeksForGeeks*
-
-Deque is a variant of queue where elements can be removed or added from the head and tail of the queue.
-Deque could come in handy when trying to solve sliding window problems.
-
-A deque can be implemented in multiple ways, using doubly linked lists, arrays or two stacks.
-
-#### Monotonic Queue
-
-This is a variant of queue where elements within the queue are either strictly increasing or decreasing.
-Monotonic queues are often implemented with a deque.
-
-Within a increasing monotonic queue, any element that is smaller than the current minimum is removed.
-Within a decreasing monotonic queue, any element that is larger than the current maximum is removed.
-
-It is worth mentioning that the most elements added to the monotonic queue would always be in a 
-increasing / decreasing order,
-hence, we only need to compare down the monotonic queue from the back when adding new elements.
-
