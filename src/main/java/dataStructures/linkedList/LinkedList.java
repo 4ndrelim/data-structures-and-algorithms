@@ -3,16 +3,19 @@ package dataStructures.linkedList;
 /**
  * <p></p>
  * There are many variations when it comes to implementing linked lists. Here's ours. <br>
- * A linked list that tracks both head and tail may improve the complexity of some methods below <br>
+ * A linked list that tracks both head and tail may improve the complexity
+ * of some methods below <br>
  * (e.g being able to branch off and create a new Linked List in O(1)
  * rather than iterating to find size of branched off list)
  * <p></p>
  * Constructors: <br>
  * LinkedList()                      -- Initialise a link list with a null head; size = 0 <br>
- * LinkedList(Node<T> head)          -- given a node, make node the head of a new linked list;
- *                                      size is found by iterating to the end from this specified head <br>
- * LinkedList(Node<T>head, int size) -- given a head node and size of linked list specified; 
- *                                      made private to avoid client from constructing a linked list with invalid size
+ * LinkedList(Node head)             -- given a node, make node the head of a new linked list;
+ *                                      size is found by iterating to the end from this
+ *                                      specified head <br>
+ * LinkedList(Node head, int size) -- given a head node and size of linked list specified;
+ *                                      made private to avoid client from constructing a
+ *                                      linked list with invalid size.
  * <p></p>
  * Callable methods are: <br>
  * size()                    -- Gets the size of the linked list <br>
@@ -20,12 +23,15 @@ package dataStructures.linkedList;
  * insertEnd(T object)       -- inserts the object at the end of the linked list <br>
  * insert(T object, int idx) -- inserts the object at the specified index of the linked list <br>
  * remove(int idx)           -- remove the node at the specified index <br>
- * delete(T object)          -- delete the 1st encounter of the specified object from the linked list <br>
+ * delete(T object)          -- delete the 1st encounter of the specified object
+ *                              from the linked list <br>
  * pop()                     -- remove the last node from the linked list <br>
  * poll()                    -- remove the first node from the linked list <br>
- * search(T object)          -- search for the 1st encounter of the node that holds the specified object <br>
+ * search(T object)          -- search for the 1st encounter of the node that
+ *                              holds the specified object <br>
  * get(int idx)              -- get the node at the specified index <br>
- * reverse()                 -- reverse the linked list (head of linked list now starts from the back) <br>
+ * reverse()                 -- reverse the linked list
+ *                              (head of linked list now starts from the back) <br>
  * sort()                    -- sorts the linked list by their natural order <br>
  *
  * @param <T> generic type for objects to be stored in the linked list
@@ -33,11 +39,19 @@ package dataStructures.linkedList;
 public class LinkedList<T extends Comparable<T>> {
   private Node<T> head;
   private int size;
-  
+
+  /**
+   * Constructor for linkedlist.
+   */
   public LinkedList() {
     head = null;
     size = 0;
   }
+  /**
+   * Overloaded constructor for linkedlist.
+   *
+   * @param head Head of the linked list.
+   */
 
   public LinkedList(Node<T> head) {
     this.head = head;
@@ -57,6 +71,7 @@ public class LinkedList<T extends Comparable<T>> {
 
   /**
    * Gets the size of the linked list.
+   *
    * @return int value
    */
   public int size() {
@@ -64,9 +79,11 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * inserts the object at the specified index of the linked list
+   * inserts the object at the specified index of the linked list.
+   *
    * @param object to be inserted
    * @param idx index which the object is to be inserted into
+   *
    * @return boolean representing whether insertion was successful
    */
   public boolean insert(T object, int idx) {
@@ -102,8 +119,10 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * Inserts the object at the front of the linked list
+   * Inserts the object at the front of the linked list.
+   *
    * @param object to be inserted
+   *
    * @return boolean representing whether insertion was successful
    */
   public boolean insertFront(T object) {
@@ -111,8 +130,10 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * Inserts the object at the end of the linked list
-   * @param object to be inserted 
+   * Inserts the object at the end of the linked list.
+   *
+   * @param object to be inserted
+   *
    * @return boolean representing whether insertion was successful
    */
   public boolean insertEnd(T object) {
@@ -120,8 +141,10 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * remove the node at the specified index
+   * remove the node at the specified index.
+   *
    * @param idx of the node to be removed
+   *
    * @return node's value
    */
   public T remove(int idx) {
@@ -148,8 +171,10 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * search for the 1st encounter of the node that holds the specified object
+   * search for the 1st encounter of the node that holds the specified object.
+   *
    * @param object
+   *
    * @return index of the node found
    */
   public int search(T object) {
@@ -171,8 +196,10 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * delete the 1st encounter of the specified object from the linked list
+   * delete the 1st encounter of the specified object from the linked list.
+   *
    * @param object to search and delete
+   *
    * @return boolean whether the delete op was successful
    */
   public boolean delete(T object) {
@@ -185,7 +212,8 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * remove the last node from the linked list
+   * remove the last node from the linked list.
+   *
    * @return value of popped node
    */
   public T pop() {
@@ -193,7 +221,8 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * remove the first node from the linked list
+   * remove the first node from the linked list.
+   *
    * @return value of polled node
    */
   public T poll() {
@@ -202,8 +231,10 @@ public class LinkedList<T extends Comparable<T>> {
 
 
   /**
-   * get the node at the specified index
+   * get the node at the specified index.
+   *
    * @param idx of node to be found
+   *
    * @return node found
    */
   public Node<T> get(int idx) {
@@ -220,10 +251,11 @@ public class LinkedList<T extends Comparable<T>> {
   /**
    * reverse the linked list.
    * A good video to visualise this algorithm can be found
-   * <a = https://www.youtube.com/watch?v=D7y_hoT_YZI, href = "url">here</a>.
+   * <a, href = "https://www.youtube.com/watch?v=D7y_hoT_YZI">here</a>.
    */
   public void reverse() {
-    if (head == null || head.next == null) { // No need to reverse if list is empty or only 1 element.
+    // No need to reverse if list is empty or only 1 element.
+    if (head == null || head.next == null) {
       return;
     }
 
@@ -245,11 +277,11 @@ public class LinkedList<T extends Comparable<T>> {
    * Sorts the linked list by the natural order of the elements.
    * Generally, merge sort is the most efficient sorting algorithm for linked lists.
    * Accessing a random node in the linked list incurs O(n) time complexity.
-   * This makes sort algorithms like quicksort and heapsort inefficient since they rely
-   * on the O(1) lookup time, like in an array.
+   * This makes sort algorithms like quicksort and heapsort
+   * inefficient since they rely on the O(1) lookup time, like in an array.
    * 
    * A good video to visualise this algorithm can be found
-   * <a = https://www.youtube.com/watch?v=JSceec-wEyw, href = "url">here</a>.
+   * <a, href = "https://www.youtube.com/watch?v=JSceec-wEyw">here</a>.
    */
   public void sort() {
     if (this.size <= 1) {
@@ -268,9 +300,11 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * Merge routine helper function for two sorted linked lists
+   * Merge routine helper function for two sorted linked lists.
+   *
    * @param first sorted linked list
    * @param second sorted linked list
+   *
    * @return head of merged linked list
    */
   private Node<T> merge(LinkedList<T> first, LinkedList<T> second) {
@@ -314,7 +348,7 @@ public class LinkedList<T extends Comparable<T>> {
   }
 
   /**
-   * Node class for linked list
+   * Node class for linked list.
    */
   public static class Node<T> {
     T val;
