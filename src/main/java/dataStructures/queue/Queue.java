@@ -4,16 +4,17 @@ package dataStructures.queue;
  * Implementation of a queue structure using LinkedList.
  * Node class to be used as nodes for the LinkedList
  * is documented at the bottom.
- *
+ * <p></p>
  * Callable methods / commonly supported ops:
  * size()
  * isEmpty()
  * enqueue(T item) - java's offer() / add() equivalent
  * dequeue() - java's poll() / remove() equivalent
  * peek()
- *
+ * <p></p>
  * Note: calling dequeue() or peek() on an eqmpty queue
  *       returns null
+ *
  * @param <T> generic type of object to be stored in the queue
  */
 public class Queue<T> {
@@ -22,7 +23,7 @@ public class Queue<T> {
   private int size;
 
   /**
-   * Constructor to initialize an empty queue
+   * Constructor to initialize an empty queue.
    */
   public Queue() {
     first = last = null;
@@ -31,6 +32,7 @@ public class Queue<T> {
 
   /**
    * Gets the size of the queue.
+   *
    * @return size of queue
    */
   public int size() {
@@ -47,7 +49,8 @@ public class Queue<T> {
 
   /**
    * Add an element to the end of the queue.
-   * Note: java's equivalent methods are offer() / add()
+   * Note: java's equivalent methods are offer() / add().
+   *
    * @param item item to be pushed
    */
   public void enqueue(T item) {
@@ -63,7 +66,8 @@ public class Queue<T> {
 
   /**
    * Remove an element from the start of the queue.
-   * Note: java's equivalent methods are poll() / remove()
+   * Note: java's equivalent methods are poll() / remove().
+   *
    * @return head of the queue; null is empty
    */
   public T dequeue() {
@@ -78,6 +82,7 @@ public class Queue<T> {
 
   /**
    * Display the element at the head of the queue.
+   *
    * @return first item of the queue; null is queue is empty
    */
   public T peek() {
@@ -89,6 +94,7 @@ public class Queue<T> {
 
   /**
    * Node class to wrap the object.
+   *
    * @param <T> generic type of object to be stored in the queue
    */
   private static class Node<T> {
