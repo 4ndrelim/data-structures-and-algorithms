@@ -3,9 +3,43 @@ package algorithms.graphs;
 import java.util.*;
 
 /**
+ * Implementation of Dijkstra's Algorithm
  *
+ * Dijkstra's algorithm is a graph traversal and shortest path-finding algorithm that finds the
+ * shortest path between a designated starting node and all other nodes in a weighted graph.
+ * It is particularly useful for finding the shortest distance in networks, such as road networks,
+ * computer networks, or any other interconnected systems with weighted edges.
  *
+ * In general, Dijkstra's algorithm works as follows:
+ *  - Initialize a distance array to store the shortest distances from the starting node to all other nodes.
+ *    Set the distance to the starting node as 0 and all other distances to infinity.
+ *  - Create a priority queue or min-heap to maintain the nodes to be explored, initially containing only the starting node.
+ *  - While the priority queue is not empty:
+ *      - Extract the node with the smallest distance from the priority queue.
+ *      - For each neighbor of the extracted node:
+ *          - Calculate the distance to the neighbor through the extracted node.
+ *          - If this distance is smaller than the previously recorded distance to the neighbor,
+ *            update the distance and add the neighbor to the priority queue.
+ *  - After the algorithm completes, the distance array will contain the shortest distances from the
+ *    starting node to all other nodes.
+ *
+ * Time: O(V^2) for a naive implementation using an adjacency matrix, where V is the number of vertices/nodes.
+ *       O(E + V*log(V)) for a more efficient implementation using a priority queue or heap, where E is the number
+ *       of edges in the graph.
+ * Explanation: The time complexity depends on the data structure used to represent the graph. In the case of an
+ *              adjacency matrix, it takes O(V^2) time to find the minimum distance vertex in each iteration,
+ *              resulting in a total time complexity of O(V^3). With a priority queue or heap, we can reduce the
+ *              time complexity to O(E + V*log(V)).
+ *
+ * Space: O(V) for storing the distance array and a set of visited nodes.
+ *        O(V + E) for storing the graph, where V is the number of vertices and E is the number of edges.
+ *        O(V) for the priority queue or heap.
+ *
+ * Note: Dijkstra's algorithm works only with non-negative edge weights. It may not give correct results
+ *       in the presence of negative edge weights. If negative edge weights are involved, consider using
+ *       algorithms like Bellman-Ford.
  */
+
 
 
 public class dijkstra {
@@ -18,7 +52,6 @@ public class dijkstra {
     List<List<Node>> adj;
 
     public dijkstra(int V, List<List<Node>> adj, int src) {
-        // initialize var
         this.V = V;
         dist = new int[V];
         visited = new HashSet<Integer>();
@@ -29,7 +62,6 @@ public class dijkstra {
             dist[i] = Integer.MAX_VALUE;
         }
 
-        // Add source to pq
         pq.add(new Node(src, 0));
         dist[src] = 0;
         while (visited.size() != V) {
@@ -38,6 +70,7 @@ public class dijkstra {
             processAdjacent(u);
         }
     }
+
 
     private void processAdjacent(int u) {
         int edgeDist = -1;
@@ -57,35 +90,9 @@ public class dijkstra {
         }
     }
 
-    public static void main(String[] args) {
-        int V = 6;
-        int src = 0;
-        List<List<Node>> adj = new ArrayList<List<Node>>();
-
-        for (int i = 0; i < V; i++) {
-            List<Node> item = new ArrayList<Node>();
-            adj.add(item);
-        }
-        adj.get(0).add(new Node(1, 5));
-        adj.get(0).add(new Node(2, 3));
-        adj.get(0).add(new Node(3, 2));
-        adj.get(0).add(new Node(4, 3));
-        adj.get(0).add(new Node(5, 3));
-        adj.get(2).add(new Node(1, 2));
-        adj.get(2).add(new Node(3, 3));
-
-        dijkstra d = new dijkstra(V, adj, src);
-
-        for (int i = 0; i < d.dist.length; i++) {
-            System.out.println(d.dist[i]);
-        }
-
-    }
-
     public int[] getDist() {
         return dist;
     }
-
 }
 
 
