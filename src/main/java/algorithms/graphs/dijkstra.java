@@ -82,6 +82,10 @@ public class dijkstra {
 
     }
 
+    public int[] getDist() {
+        return dist;
+    }
+
 }
 
 
