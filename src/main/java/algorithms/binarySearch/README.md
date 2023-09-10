@@ -11,9 +11,10 @@ Image Source: GeeksforGeeks
 
 BinarySearch is a more straightforward and intuitive version of the binary search algorithm. In this approach, after the
 mid-value is calculated, the high and low pointers are adjusted by just one unit. From the above example, after mid 
-points to index 4 in the first search, the low pointer moves to index 5 (+1) when narrowing the search. Similarly, when 
-mid points to index 7 in the second search, the high pointer shifts to index 6 (-1) when narrowing the search. This
-prevents any possibility of infinite loops.
+points to index 4 in the first search, the low pointer moves to index 5 (+1 from 4) when narrowing the search. 
+Similarly, when mid points to index 7 in the second search, the high pointer shifts to index 6 (-1 from 7) when 
+narrowing the search. This prevents any possibility of infinite loops. During the search, the moment mid-value is equal 
+to the target value, the search ends prematurely.
 
 ## BinarySearchTemplated
 
@@ -21,8 +22,7 @@ BinarySearchTemplated removes the condition that checks if the current mid-value
 end the search the moment the target is found). The template adds a "condition" method which will be modified based on
 the requirements of the implementation.
 
-The narrowing of the search space differs from BinarySearch - only one of the high or low pointers will be adjusted by
-one unit.
+The narrowing of the search space differs from BinarySearch - only the high pointer will be adjusted by one unit.
 
 This template will work for most binary search problems and will only require the following changes:
 - Search space (high and low)
@@ -36,14 +36,33 @@ Simply modify the initialisation of the high and low pointer according to the se
 We assume that when the condition returns true, the current value "passes" and when the condition returns false, the 
 current value "fails".
 
-In this template, we want to find the first "pass" in the array.
+Note that in this template, the conditional blocks
+```
+if (condition(x)) {
+   high = mid;
+} else {
+   low = mid + 1;
+}
+```
+requires elements that "fail" the condition to be on the left of the elements that "pass" the condition, see below, in a
+sorted array due to the way the high and low pointers are reassigned.
 
-INSERT IMAGE OF FIRST PASS
+![binary search templated 1 img](../../../../../docs/assets/images/BinarySearchTemplated1.jpeg)
+
+Hence, we will need to implement a condition method that is able to discern between arrays that "pass" and "fail"
+accurately and also place them in the correct relative positions i.e. "fail" on the left of "pass". Suppose we change the 
+condition method implementation in BinarySearchTemplated from `value >= target` to `value <= target`, what will happen? 
+<details>
+<summary> <b>what will happen?</b> </summary>
+The array becomes "P P F F F F" and the low and high pointers are now reassigned wrongly.
+</details>
 
 ### Returned Value (Requires change)
 In the implementation of BinarySearchTemplated, return low was used to find the first "pass".
 
 EXPLANATION TBC, STILL THINKING HOW TO PHRASE IT.
+
+![binary search templated 1 img](../../../../../docs/assets/images/BinarySearchTemplated2.jpeg)
 
 ### Search Space Adjustment
 What should be the search space adjustment? (Why only low = mid + 1)
