@@ -58,23 +58,50 @@ The array becomes "P P F F F F" and the low and high pointers are now reassigned
 </details>
 
 ### Returned Value (Requires change)
-In the implementation of BinarySearchTemplated, return low was used to find the first "pass".
+In this implementation of BinarySearchTemplated, we return the first "pass" in the array with `return low`. This is
+because our condition method implementation encompasses the target value that we are finding i.e. when 
+`value == target`.
 
-EXPLANATION TBC, STILL THINKING HOW TO PHRASE IT.
-
+```java
+public static boolean condition(int value, int target) {
+    return value >= target;
+}
+```
 ![binary search templated 1 img](../../../../../docs/assets/images/BinarySearchTemplated2.jpeg)
 
+However, if we want to return the last "fail" in the array, we will `return low - 1`.
+
+Suppose now we modify the condition to be `value > target`, how can we modify our BinarySearchTemplated to still work as
+expected?
+<details>
+<summary> <b>value > target?</b> </summary>
+Replace `return low` with `return low - 1` and replace arr[low] with arr[low - 1] as now the target value is the last 
+"fail".
+</details>
+
+
 ### Search Space Adjustment
-What should be the search space adjustment? (Why only low = mid + 1)
+What should be the search space adjustment? Why is only low reassigned with an increment and not high?
 
-Due to the nature of floor division in Java's \ operator, the searched mid-index will always be smaller than the high
-pointer of the previous search range. On the other hand, low = mid + 1, ensures that the searched mid-index is always
-larger than the low pointer of the previous search range. This ensures that the search range is narrowed in every loop
-and prevents the possibility of infinite loops.
+Due to the nature of floor division in Java's \ operator, if there are two mid-values within the search range, which is
+when the number of elements is even, the first mid-value will be selected. Suppose we do not increment the low pointer
+during reassignment, `low = mid`, let us take a look at the following example:
 
-INSERT IMAGE HERE TO EXPLAIN
+![binary search templated 1 img](../../../../../docs/assets/images/BinarySearchTemplated3.jpeg)
 
-As we close in towards the target value, the final low = mid + 1 narrows the search range from low. TBC ON EXPLANATION
+The search space has been narrowed down to the range of index 1 (low) to 2 (high). The mid-value is calculated, 
+`mid = (1 + 2) / 2`, to be 1 due to floor division. Since `2 < 5`, we enter the else block where there is reassignment 
+of `low = mid`. This means that the low pointer is still pointing to index 1 and the high pointer remains unchanged at
+index 2. This results in an infinite loop as the search range is not narrowed down.
+
+To resolve this issue, we need `low = mid + 1`, which will result in the low pointer pointing to index 2 in this 
+scenario. We still ensure correctness because the mid-value is not the target value, as the mid-value < target, and we 
+can safely exclude it from the search range.
+
+Why do we not need to increment the high pointer during reassignment? This is because the mid-value could be the target
+as the condition implemented is `value >= target`, hence, we cannot exclude it from the search range.
+
+See [here](./binarySearchTemplatedExamples/README.md) to use the template for other problems
 
 Credits: [Powerful Ultimate Binary Search Template](https://leetcode.com/discuss/general-discussion/786126/python-powerful-ultimate-binary-search-template-solved-many-problems)
 
