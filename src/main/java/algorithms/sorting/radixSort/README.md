@@ -24,7 +24,7 @@ and we iterate through all *w* positions, this results in:
 - Average case: O(w * (n + 10))
 - Best case (sorted array): O(w * (n + 10))
 
-**Space**: O(n + k) 
+**Space**: O(n + 10) 
 
 ## Notes
 - Radix sort's time complexity is dependent on the maximum number of digits in each element,
