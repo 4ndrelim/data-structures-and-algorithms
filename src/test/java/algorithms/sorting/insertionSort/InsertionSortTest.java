@@ -24,7 +24,7 @@ public class InsertionSortTest {
         int[] fourthArray = new int[] {1};
         int[] fourthResult = InsertionSort.sort(Arrays.copyOf(fourthArray, fourthArray.length));
 
-        int[] fifthArray = new int[] {5,1,1,2,0,0};
+        int[] fifthArray = new int[] {5, 1, 1, 2, 0, 0};
         int[] fifthResult = InsertionSort.sort(Arrays.copyOf(fifthArray, fifthArray.length));
 
         Arrays.sort(firstArray);  // get expected result

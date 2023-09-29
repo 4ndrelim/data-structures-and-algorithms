@@ -28,7 +28,7 @@ public class MergeSortTest {
         int[] fourthResult = Arrays.copyOf(fourthArray, fourthArray.length);
         MergeSort.sort(fourthResult);
 
-        int[] fifthArray = new int[] {5,1,1,2,0,0};
+        int[] fifthArray = new int[] {5, 1, 1, 2, 0, 0};
         int[] fifthResult = Arrays.copyOf(fifthArray, fifthArray.length);
         MergeSort.sort(fifthResult);
 
