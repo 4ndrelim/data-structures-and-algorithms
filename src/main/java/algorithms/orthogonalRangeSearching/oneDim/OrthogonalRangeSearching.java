@@ -1,7 +1,6 @@
 package algorithms.orthogonalRangeSearching.oneDim;
 
 import algorithms.orthogonalRangeSearching.RangeTreeNode;
-import dataStructures.avlTree.Node;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -11,8 +10,16 @@ import java.util.Queue;
 
 public class OrthogonalRangeSearching {
 
+    /**
+     * Builds a Range Tree from an array of integers.
+     *
+     * @param inputs The array of integers.
+     * @param start  The starting index of the input array.
+     * @param end    The ending index of the input array.
+     * @return The root node of the constructed Range Tree.
+     */
     public static RangeTreeNode buildTree(int[] inputs, int start, int end) {
-        //build range tree from inputs
+
         int mid = (end + start) / 2;
         Arrays.sort(inputs);
 
@@ -29,6 +36,124 @@ public class OrthogonalRangeSearching {
         }
     }
 
+    /**
+     * Finds the split node in the Range Tree based on a given range.
+     *
+     * @param root The root node of the Range Tree.
+     * @param low  The lower bound of the range.
+     * @param high The upper bound of the range.
+     * @return The split node in the Range Tree.
+     */
+    public static RangeTreeNode findSplit(RangeTreeNode root, int low, int high) {
+        RangeTreeNode v = root;
+
+        while (true) {
+            if (v == null) {
+                return null;
+            } else {
+                if (high <= v.getVal()) {
+                    v = v.getLeft();
+                } else if (low > v.getVal()) {
+                    v = v.getRight();
+                } else {
+                    break;
+                }
+            }
+        }
+        return v;
+    }
+
+    /**
+     * Performs a recursive traversal of the Range Tree and adds leaf node values to the result list.
+     *
+     * @param v      The current node being processed during traversal.
+     * @param result The list to store the values of leaf nodes encountered during traversal.
+     */
+    public static void allLeafTraversal(RangeTreeNode v, List<Integer> result) {
+        if (v != null) {
+            if (v.getLeft() != null) {
+                allLeafTraversal(v.getLeft(), result);
+            }
+            if (v.getLeft() == null && v.getRight() == null) { // leaf
+                result.add(v.getVal());
+            }
+            if (v.getRight() != null) {
+                allLeafTraversal(v.getRight(), result);
+            }
+        }
+    }
+
+    /**
+     * Performs a left traversal of the Range Tree to find nodes within a specified range.
+     *
+     * @param v      The current node being processed.
+     * @param low    The lower bound of the range.
+     * @param result A list to store the results of the traversal.
+     */
+    public static void leftTraversal(RangeTreeNode v, int low, List<Integer> result) {
+        if (v != null) {
+            if (v.getLeft() == null && v.getRight() == null) { // leaf
+                result.add(v.getVal());
+            } else {
+                if (low <= v.getVal()) {
+                    leftTraversal(v.getLeft(), low, result);
+                    allLeafTraversal(v.getRight(), result);
+                } else { // definitely a qualifying leaf has to exist
+                    leftTraversal(v.getRight(), low, result);
+                }
+            }
+        }
+    }
+
+    /**
+     * Performs a right traversal of the Range Tree to find nodes within a specified range.
+     *
+     * @param v      The current node being processed.
+     * @param high   The upper bound of the range.
+     * @param result A list to store the results of the traversal.
+     */
+    public static void rightTraversal(RangeTreeNode v, int high, List<Integer> result) {
+        if (v != null) {
+            if (v.getLeft() == null && v.getRight() == null && v.getVal() < high) { // leaf, need extra check
+                result.add(v.getVal());
+            }
+            else {
+                if (high > v.getVal()) {
+                    allLeafTraversal(v.getLeft(), result);
+                    rightTraversal(v.getRight(), high, result);
+                } else { // a qualifying leaf might or might not exist, we are just exploring
+                    rightTraversal(v.getLeft(), high, result);
+            }
+            }
+        }
+    }
+
+    /**
+     * Searches for elements within a specified range in the Range Tree.
+     *
+     * @param tree The root node of the Range Tree.
+     * @param low  The lower bound of the range.
+     * @param high The upper bound of the range.
+     * @return An array of elements within the specified range.
+     */
+    public static Object[] search(RangeTreeNode tree, int low, int high) {
+        RangeTreeNode splitNode = OrthogonalRangeSearching.findSplit(tree, low, high);
+        ArrayList<Integer> result = new ArrayList<>();
+        if (splitNode != null) {
+            leftTraversal(splitNode.getLeft(), low, result);
+            rightTraversal(splitNode.getRight(), high, result);
+        }
+        return result.toArray();
+    }
+
+    // Functions from here onwards are designed to support dynamic updates.
+
+    /**
+     * Configures the height and parent nodes for the nodes in the Range Tree.
+     * Note that this is only needed if we want to support dynamic updating of the range tree.
+     *
+     * @param node The root node of the Range Tree.
+     */
     public static void configureTree(RangeTreeNode node) {
         if (node.getLeft() == null && node.getRight() == null) {
             node.setHeight(0);
@@ -49,82 +174,13 @@ public class OrthogonalRangeSearching {
         }
     }
 
-    public static RangeTreeNode findSplit(RangeTreeNode root, int low, int high) {
-        RangeTreeNode v = root;
-
-        while (true) {
-            if (v == null) {
-                return null;
-            } else {
-                if (high <= v.getVal()) {
-                    v = v.getLeft();
-                } else if (low > v.getVal()) {
-                    v = v.getRight();
-                } else {
-                    break;
-                }
-            }
-        }
-        return v;
-    }
-
-    public static void allLeafTraversal(RangeTreeNode v, List<Integer> result) {
-        if (v != null) {
-            if (v.getLeft() != null) {
-                allLeafTraversal(v.getLeft(), result);
-            }
-            if (v.getLeft() == null && v.getRight() == null) { // leaf
-                result.add(v.getVal());
-            }
-            if (v.getRight() != null) {
-                allLeafTraversal(v.getRight(), result);
-            }
-        }
-    }
-
-    public static void leftTraversal(RangeTreeNode v, int low, List<Integer> result) {
-        if (v != null) {
-            if (v.getLeft() == null && v.getRight() == null) { // leaf
-                result.add(v.getVal());
-            } else {
-                if (low <= v.getVal()) {
-                    leftTraversal(v.getLeft(), low, result);
-                    allLeafTraversal(v.getRight(), result);
-                } else { //definitely a qualifying leaf has to exist
-                    leftTraversal(v.getRight(), low, result);
-                }
-            }
-        }
-    }
-
-    public static void rightTraversal(RangeTreeNode v, int high, List<Integer> result) {
-        if (v != null) {
-            if (v.getLeft() == null && v.getRight() == null && v.getVal() < high) { // leaf, need extra check
-                result.add(v.getVal());
-            }
-            else {
-                if (high > v.getVal()) {
-                    allLeafTraversal(v.getLeft(), result);
-                    rightTraversal(v.getRight(), high, result);
-                } else { //might or might not exist, we are just exploring
-                    rightTraversal(v.getLeft(), high, result);
-            }
-            }
-        }
-    }
-
-    public static Object[] search(RangeTreeNode tree, int low, int high) {
-        RangeTreeNode splitNode = OrthogonalRangeSearching.findSplit(tree, low, high);
-        ArrayList<Integer> result = new ArrayList<>();
-        if (splitNode != null) {
-            leftTraversal(splitNode.getLeft(), low, result);
-            rightTraversal(splitNode.getRight(), high, result);
-        }
-        return result.toArray();
-    }
-
-    // Functions from here onwards are designed to support dynamic updates.
-
+    /**
+     * Inserts a new element into the Range Tree while maintaining balance.
+     *
+     * @param node The root node of the Range Tree.
+     * @param val  The value to be inserted.
+     * @return The root node of the updated Range Tree.
+     */
     public static RangeTreeNode insert(RangeTreeNode node, int val) {
         if (val < node.getVal()) {
             if (node.getLeft() != null) {
@@ -153,6 +209,12 @@ public class OrthogonalRangeSearching {
         return rebalance(node);
     }
 
+    /**
+     * Calculates and returns the height of the given Range Tree node.
+     *
+     * @param node The Range Tree node for which to calculate the height.
+     * @return The height of the node, or -1 if the node is null.
+     */
     public static int height(RangeTreeNode node) {
         return node == null ? -1 : node.getHeight();
     }
@@ -181,9 +243,7 @@ public class OrthogonalRangeSearching {
 
     /**
      * Performs a right rotation on the specified node.
-     * Note that function should be called only if the
-     * node has a left child since it will be the
-     * new root.
+     * Note that function should be called only if the node has a left child since it will be the new root.
      * @param n node to perform right rotation on.
      * @return the new root after rotation.
      */
@@ -203,9 +263,7 @@ public class OrthogonalRangeSearching {
 
     /**
      * Performs a left rotation on the specified node.
-     * Note that function should be called only if the
-     * node has a right child since it will be the
-     * new root.
+     * Note that function should be called only if the node has a right child since it will be the new root.
      * @param n node to perform left rotation on
      * @return new root after rotation
      */
@@ -232,13 +290,11 @@ public class OrthogonalRangeSearching {
         updateHeight(n);
         int balance = getBalance(n);
         if (balance < -1) { // right-heavy case
-            System.out.println("rebalancing");
             if (height(n.getRight().getLeft()) > height(n.getRight().getRight())) {
                 n.setRight(rotateRight(n.getRight()));
             }
             n = rotateLeft(n);
         } else if (balance > 1) { // left-heavy case
-            System.out.println("rebalancing");
             if (height(n.getLeft().getRight()) > height(n.getLeft().getLeft())) {
                 n.setLeft(rotateLeft(n.getLeft()));
             }
@@ -247,6 +303,13 @@ public class OrthogonalRangeSearching {
         return n;
     }
 
+    /**
+     * Deletes an element from the Range Tree while maintaining balance.
+     *
+     * @param node The root node of the Range Tree.
+     * @param val  The value to be deleted.
+     * @return The root node of the updated Range Tree.
+     */
     public static RangeTreeNode delete(RangeTreeNode node, int val) {
         if (node.getLeft().getLeft() == null && node.getLeft().getRight() == null
                 && val == node.getLeft().getVal()) { // left node is the leaf node
@@ -274,6 +337,12 @@ public class OrthogonalRangeSearching {
         return rebalance(node);
     }
 
+    /**
+     * Finds and returns the rightmost node in the Range Tree rooted at the given node.
+     *
+     * @param n The root node of a subtree to search in.
+     * @return The rightmost node in the subtree, or null if the input node is null.
+     */
     private static RangeTreeNode getMostRight(RangeTreeNode n) {
         if (n.getRight() == null) {
             return n;
@@ -282,6 +351,13 @@ public class OrthogonalRangeSearching {
         }
     }
 
+    /**
+     * Performs a level order traversal of the Range Tree and prints the elements.
+     * This is not a necessary function for orthogonal range searching, but merely a utility function for debugging
+     * and visualisation purposes.
+     *
+     * @param root The root node of the Range Tree.
+     */
     public static void levelOrderTraversal(RangeTreeNode root) {
         if (root == null) {
             return;
