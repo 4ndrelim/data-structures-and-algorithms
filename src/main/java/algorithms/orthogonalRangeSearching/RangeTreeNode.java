@@ -1,44 +1,86 @@
 package algorithms.orthogonalRangeSearching;
 
-public class RangeTreeNode {
-  int val;
+public class RangeTreeNode<T> {
+  T val;
   int height;
-  RangeTreeNode left = null;
-  RangeTreeNode right = null;
-  RangeTreeNode parent = null;
+  RangeTreeNode<T> left = null;
+  RangeTreeNode<T> right = null;
+  RangeTreeNode<T> parent = null;
+  RangeTreeNode<T> yTree = null;
 
-  public RangeTreeNode(int val) {
+  public RangeTreeNode(T val) {
     this.val = val;
   }
-  public RangeTreeNode(int val, RangeTreeNode left, RangeTreeNode right) {
+
+  public RangeTreeNode(T val, RangeTreeNode<T> left, RangeTreeNode<T> right) {
     this.val = val;
     this.left = left;
     this.right = right;
   }
 
-  public int getVal() { return this.val; }
-  public int getHeight() { return this.height; }
-  public RangeTreeNode getLeft() { return this.left; }
-  public RangeTreeNode getRight() { return this.right; }
-  public RangeTreeNode getParent() { return this.parent; }
+  public T getVal() {
+    return this.val;
+  }
 
-  public void setVal(int val) { this.val = val; }
-  public void setLeft(RangeTreeNode left) { this.left = left; }
-  public void setRight(RangeTreeNode right) { this.right = right; }
+  public int getHeight() {
+    return this.height;
+  }
 
-  public void setParent(RangeTreeNode parent) { this.parent = parent; }
-  public void setHeight(int height) { this.height = height; }
-  @Override
-  public boolean equals(Object other) {
-    if (other == this) { return true; }
-    if (!(other instanceof RangeTreeNode)) { return false; }
-      RangeTreeNode node = (RangeTreeNode) other;
-      return this.val == node.val;
+  public RangeTreeNode<T> getLeft() {
+    return this.left;
+  }
+
+  public RangeTreeNode<T> getRight() {
+    return this.right;
+  }
+
+  public RangeTreeNode<T> getParent() {
+    return this.parent;
+  }
+
+  public RangeTreeNode<T> getYTree() {
+    return this.yTree;
+  }
+
+  public void setVal(T val) {
+    this.val = val;
+  }
+
+  public void setLeft(RangeTreeNode<T> left) {
+    this.left = left;
+  }
+
+  public void setRight(RangeTreeNode<T> right) {
+    this.right = right;
+  }
+
+  public void setParent(RangeTreeNode<T> parent) {
+    this.parent = parent;
+  }
+
+  public void setHeight(int height) {
+    this.height = height;
+  }
+
+  public void setYTree(RangeTreeNode<T> yTree) {
+    this.yTree = yTree;
   }
 
   @Override
-  public int hashCode() { return this.val; }
+  public boolean equals(Object other) {
+    if (other == this) {
+      return true;
+    }
+    if (!(other instanceof RangeTreeNode)) {
+      return false;
+    }
+    RangeTreeNode<T> node = (RangeTreeNode<T>) other;
+    return this.val == node.val;
+  }
+
   @Override
-  public String toString() { return String.valueOf(this.val); }
+  public String toString() {
+    return String.valueOf(this.val);
+  }
 
 }

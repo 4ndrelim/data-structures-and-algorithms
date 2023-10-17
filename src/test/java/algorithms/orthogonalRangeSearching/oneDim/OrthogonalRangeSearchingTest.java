@@ -39,24 +39,28 @@ public class OrthogonalRangeSearchingTest {
     Object[] fifthResult = OrthogonalRangeSearching.search(fourthTree, 31, 130);
     assertArrayEquals(fifthExpected, fifthResult);
 
+    Object[] sixthExpected = new Object[] {59};
+    Object[] sixthResult = OrthogonalRangeSearching.search(fourthTree, 59, 59);
+    assertArrayEquals(sixthExpected, sixthResult);
+
     // dynamic updates then query
 
     OrthogonalRangeSearching.configureTree(fourthTree);
     fourthTree = OrthogonalRangeSearching.insert(fourthTree, 101);
-    Object[] sixthExpected = new Object[] {49, 59, 70, 89, 100, 101};
-    Object[] sixthResult = OrthogonalRangeSearching.search(fourthTree, 31, 130);
-    assertArrayEquals(sixthExpected, sixthResult);
+    Object[] seventhExpected = new Object[] {49, 59, 70, 89, 100, 101};
+    Object[] seventhResult = OrthogonalRangeSearching.search(fourthTree, 31, 130);
+    assertArrayEquals(seventhExpected, seventhResult);
 
     fourthTree = OrthogonalRangeSearching.insert(fourthTree, 46);
     fourthTree = OrthogonalRangeSearching.insert(fourthTree, 32);
-    Object[] seventhExpected = new Object[] {30, 32, 46, 49, 59, 70};
-    Object[] seventhResult = OrthogonalRangeSearching.search(fourthTree, 20, 71);
-    assertArrayEquals(seventhExpected, seventhResult);
+    Object[] eighthExpected = new Object[] {30, 32, 46, 49, 59, 70};
+    Object[] eighthResult = OrthogonalRangeSearching.search(fourthTree, 20, 71);
+    assertArrayEquals(eighthExpected, eighthResult);
 
     fourthTree = OrthogonalRangeSearching.delete(fourthTree, 32);
     fourthTree = OrthogonalRangeSearching.delete(fourthTree, 59);
-    Object[] eighthExpected = new Object[] {30, 46, 49, 70};
-    Object[] eighthResult = OrthogonalRangeSearching.search(fourthTree, 20, 72);
-    assertArrayEquals(eighthExpected, eighthResult);
+    Object[] ninthExpected = new Object[] {30, 46, 49, 70};
+    Object[] ninthResult = OrthogonalRangeSearching.search(fourthTree, 20, 72);
+    assertArrayEquals(ninthExpected, ninthResult);
     }
 }
