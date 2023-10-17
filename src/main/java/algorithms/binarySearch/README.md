@@ -10,11 +10,12 @@ Two versions of binary search has been implemented in this repository - BinarySe
 Image Source: GeeksforGeeks
 
 BinarySearch is a more straightforward and intuitive version of the binary search algorithm. In this approach, after the
-mid-value is calculated, the high and low pointers are adjusted by just one unit. From the above example, after mid 
-points to index 4 in the first search, the low pointer moves to index 5 (+1 from 4) when narrowing the search. 
-Similarly, when mid points to index 7 in the second search, the high pointer shifts to index 6 (-1 from 7) when 
-narrowing the search. This prevents any possibility of infinite loops. During the search, the moment mid-value is equal 
-to the target value, the search ends prematurely.
+mid-value is calculated, the high or low pointer is adjusted by just one unit. From the above example, after mid points 
+to index 4 in the first search, the low pointer moves to index 5 (+1 from 4) when narrowing the search. Similarly, when 
+mid points to index 7 in the second search, the high pointer shifts to index 6 (-1 from 7) when narrowing the search. 
+This prevents any possibility of infinite loops. During the search, the moment mid-value is equal to the target value, 
+the search ends prematurely. Note that there is no need for a "condition" method as the condition is already captured
+in the predicates of the if-else blocks.
 
 ## BinarySearchTemplated
 
@@ -30,7 +31,7 @@ This template will work for most binary search problems and will only require th
 - Returned value (low or low - 1)
 
 ### Search Space (Requires change)
-Simply modify the initialisation of the high and low pointer according to the search space.
+Simply modify the initialisation of the high and low pointer according to the [search space](#search-space-adjustment).
 
 ### Condition (Requires change)
 We assume that when the condition returns true, the current value "passes" and when the condition returns false, the 
@@ -50,8 +51,9 @@ sorted array due to the way the high and low pointers are reassigned.
 ![binary search templated 1 img](../../../../../docs/assets/images/BinarySearchTemplated1.jpeg)
 
 Hence, we will need to implement a condition method that is able to discern between arrays that "pass" and "fail"
-accurately and also place them in the correct relative positions i.e. "fail" on the left of "pass". Suppose we change the 
-condition method implementation in BinarySearchTemplated from `value >= target` to `value <= target`, what will happen? 
+accurately and also place them in the correct relative positions i.e. "fail" on the left of "pass". Suppose we change 
+the condition method implementation in BinarySearchTemplated from `value >= target` to `value <= target`, what will 
+happen? 
 <details>
 <summary> <b>what will happen?</b> </summary>
 The array becomes "P P F F F F" and the low and high pointers are now reassigned wrongly.
