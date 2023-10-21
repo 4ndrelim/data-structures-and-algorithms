@@ -17,6 +17,7 @@ public class RadixSort {
    * @return The value of the digit in the number at the given segment.
    */
   private static int getSegmentMasked(int num, int segment) {
+    // Bit masking here to extract each segment from the integer.
     int mask = ((1 << NUM_BITS) - 1) << (segment * NUM_BITS);
     return (num & mask) >> (segment * NUM_BITS);
   }
