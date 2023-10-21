@@ -1,27 +1,46 @@
 # Radix Sort
 
 Radix Sort is a non-comparison based, stable sorting algorithm. 
-We first treat each element as a string with *w* digits (Padding elements that have 
-less than *w* digits).
 
-From the least-significant digit to the most-significant digit, we constantly 
-split them into ten queues corresponding to the number range *[0, 9]*. We then move 
-through the queue and concatenate the elements back into a list at the next iteration.
+Radix Sort continuously sorts based on the least-significant segment of a element 
+to the most-significant value of a element. 
 
-This takes advantage of the concept of place value. 
-(The value of a digit in a number relative to its position within the number)
+The definition of a 'segment' is user defined and defers from implementation to implementation. 
+Within our implementation, we define each segment as a bit chunk. 
+
+For example, if we aim to sort integers, we can sort each element 
+from the least to most significant digit, with the digits being our 'segments'. 
+
+While Radix Sort is non-comparison based, 
+the that total ordering of elements is still required. 
+This is maintained in how the states are stored after sorting is conducted with respect to each digit.
+
+This total ordering is needed because once we assigned a element to a order based on a segment, 
+the order *cannot* change unless deemed by a segment with a higher significance. 
+Hence a stable sort is required to maintain the order as 
+the sorting is done with respect to each of the segments.
+
+Within our implementation, we take the binary representation of the elements and 
+partition it into 8-bit segments, a integer is represented in 32 bits, 
+this gives us 4 total segments to sort through. 
+
+Note that the binary representation is weighted positional, 
+where each bit's value is dependent on its overall position 
+within the representation (the n-th bit from the right represents *2^n*), 
+hence we can actually increase / decrease the number segments we wish to conduct a split from.
 
 ![Radix Sort](https://miro.medium.com/v2/resize:fit:661/1*xFnpQ4UNK0TvyxiL8r1svg.png)
+
+We place each element into a queue based on the number of possible segments that could be generated.
+Suppose the values of our segments are in base-10, (limited to a value within range *[0, 9]*), 
+we get 10 queues.
 
 *Source: Level Up Coding* 
 
 ## Complexity Analysis
 **Time**:
-Let *k* be the base of the number system being used. For integers in java, it is base 10 
-(we have digits 0 to 9), in the case of base 2 (binary), we only have 2 digits (1, 0),
-base 3, (0, 1, 2). Hence, we can see that the base of the number system determines the number of 
-different queues we need to iterate through to rebuild our original array, additionally, we also 
-need to iterate through all *w* positions (digits), this results in the following complexities:
+Let *w* be the number of segments we sort through, *n* be the number of elements 
+and *k* be the number of queues.
 
 - Worst case: O(w * (n + k))
 - Average case: O(w * (n + k))
@@ -40,6 +59,3 @@ Radix Sort process.
 ### Common Misconception
 - While not immediately obvious, we can see that radix sort is a stable sorting algorithm as
   they are enqueued in a manner where the first observed element remains at the head of the queue.
-- While it is non-comparison based, not that total ordering of elements is still required -
-  except now this property is forced upon the algorithm in the manner of how the queues 
-are structured.
