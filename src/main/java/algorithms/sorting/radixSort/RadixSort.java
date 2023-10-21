@@ -47,8 +47,11 @@ public class RadixSort {
         sorted[freqMap[id] - 1] = curr;
         freqMap[id]--;
       }
-      // we do a swap so that our results above for this segment is
-      // saved and passed as input to the next segment
+      // We do a swap so that our results above for this segment is
+      // saved and passed as input to the next segment.
+      // By doing this we no longer need to create a new array
+      // every time we shift to a new segment to sort.
+      // We can constantly reuse the array, allowing us to only use O(n) space.
       int[] tmp = arr;
       arr = sorted;
       sorted = tmp;
