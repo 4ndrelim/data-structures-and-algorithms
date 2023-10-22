@@ -2,10 +2,15 @@ package randomTests.kaiting.trie;
 
 import dataStructures.trie.Trie;
 
-/*
+/**
  * Basic testing of trie.
  */
 public class TrieTest {
+  /**
+   * Runs the custom test.
+   *
+   * @param args unused.
+   */
   public static void main(String[] args) {
     Trie trie = new Trie();
     trie.insert("apple");

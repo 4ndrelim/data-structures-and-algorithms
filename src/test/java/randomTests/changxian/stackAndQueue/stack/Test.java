@@ -2,10 +2,15 @@ package randomTests.changxian.stackAndQueue.stack;
 
 import dataStructures.stack.Stack;
 
-/*
- * Basic Testing
+/**
+ * Basic Testing.
  */
 public class Test {
+  /**
+   * Runs custom test script.
+   *
+   * @param args unused.
+   */
   public static void main(String[] args) {
     System.out.println("Testing on empty stack: ");
     Stack<String> myStack = new Stack<>();
