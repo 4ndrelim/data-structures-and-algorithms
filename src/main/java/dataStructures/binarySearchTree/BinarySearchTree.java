@@ -12,8 +12,8 @@ import java.util.*;
  *  search(T key)
  *  predecessor(T key)
  *  successor(T key)
- *  findMax()
- *  findMin()
+ *  searchMin()
+ *  searchMax()
  *  printInorder()
  *  printPreorder()
  *  printPostorder()
@@ -97,36 +97,46 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
-     * Find the left-most child of the (sub)tree rooted at a specified node
-     * @param n tree is rooted at this node
-     * @return left-most node
+     * Find the node with the minimum key in the tree rooted at a specified node.
+     *
+     * @param n the (sub)tree rooted at node which the minimum key will be searched for
+     * @return node with the minimum key
+     * NOTE: ASSUMPTION THAT TREE IS NOT EMPTY
      */
-    private Node<T, V> getMostLeft(Node<T, V> n) {
+    private Node<T, V> searchMin(Node<T, V> n) {
         if (n.left == null) {
             return n;
         } else {
-            return getMostLeft(n.left);
+            return searchMin(n.left);
         }
     }
 
-    private Node<T, V> getMostRight(Node<T, V> n) {
+    /**
+     * Find the node with the maximum key in the tree rooted at a specified node.
+     *
+     * @param n the (sub)tree rooted at node which the maximum key will be searched for
+     * @return node with the maximum key
+     * NOTE: ASSUMPTION THAT TREE IS NOT EMPTY
+     */
+    private Node<T, V> searchMax(Node<T, V> n) {
         if (n.right == null) {
             return n;
         } else {
-            return getMostRight(n.right);
+            return searchMax(n.right);
         }
     }
 
     /**
      * Find the key of the predecessor of a specified node that exists in the tree
      * NOTE: the input node is assumed to be in the tree
+     *
      * @param node node that exists in the tree
      * @return key value; null if node has no predecessor
      */
     private T predecessor(Node<T, V> node) {
         Node<T, V> curr = node;
         if (curr.left != null) { // predecessor in children
-            return getMostRight(curr.left).key;
+            return searchMax(curr.left).key;
         } else { // predecessor in ancestor
             while (curr != null) {
                 if (curr.key.compareTo(node.key) < 0) {
@@ -147,7 +157,7 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     private T successor(Node<T, V> node) {
         Node<T, V> curr = node;
         if (curr.right != null) { // successor in children
-            return getMostLeft(curr.right).key;
+            return searchMin(curr.right).key;
         } else { // successor in ancestor
             while (curr != null) {
                 if (curr.key.compareTo(node.key) > 0) { // finds the cloests
@@ -305,7 +315,7 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
             }
         }
 
-        return predecessor(curr); // pred could be an ancestor or child of curr node and hence handled separately
+        return predecessor(curr);
     }
 
     /**
@@ -325,39 +335,53 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
             }
         }
 
-        return successor(curr); // same exp as in the pred fn
+        return successor(curr);
     }
 
     /**
-     * prints in order traversal of the entire tree.
+     * Search for the minimum key in the tree.
+     *
+     * @return node with the minimum key; null if tree is empty
      */
+    public Node<T, V> searchMin() {
+        if (root == null) {
+            return null;
+        } else {
+            return searchMin(root);
+        }
+    }
+
+    /**
+     * Search for the maximum key in the tree.
+     *
+     * @return node with the maximum key; null if tree is empty
+     */
+    public Node<T, V> searchMax() {
+        if (root == null) {
+            return null;
+        } else {
+            return searchMax(root);
+        }
+    }
+
     public void printInorder() {
         System.out.print("In-order: ");
         printInorder(root);
         System.out.println();
     }
 
-    /**
-     * prints pre-order traversal of the entire tree
-     */
     public void printPreorder() {
         System.out.print("Pre-order: ");
         printPreorder(root);
         System.out.println();
     }
 
-    /**
-     * prints post-order traversal of the entire tree
-     */
     public void printPostorder() {
         System.out.print("Post-order: ");
         printPostorder(root);
         System.out.println();
     }
 
-    /**
-     * prints level-order traversal of the entire tree
-     */
     public void printLevelorder() {
         System.out.print("Level-order: ");
         printLevelorder(root);
