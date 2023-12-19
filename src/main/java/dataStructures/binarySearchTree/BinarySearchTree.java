@@ -14,10 +14,10 @@ import java.util.*;
  *  successor(T key)
  *  searchMin()
  *  searchMax()
- *  printInorder()
- *  printPreorder()
- *  printPostorder()
- *  printLevelorder()
+ *  getInorder()
+ *  getPreorder()
+ *  getPostorder()
+ *  getLevelorder()
  */
 public class BinarySearchTree<T extends Comparable<T>, V> {
 
@@ -170,83 +170,89 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
-     * Prints out in-order traversal of tree rooted at node
+     * Stores in-order traversal of tree rooted at node into a list
+     *
      * @param node node which the tree is rooted at
      */
-    private void printInorder(Node<T, V> node) {
+    private void getInorder(Node<T, V> node, List<String> result) {
         if (node == null) {
             return;
         }
 
         if (node.left != null) {
-            printInorder(node.left);
+            getInorder(node.left, result);
         }
 
-        System.out.print(node.toString() + " ");
+        result.add(node.toString());
 
         if (node.right != null) {
-            printInorder(node.right);
+            getInorder(node.right, result);
         }
     }
 
     /**
-     * Prints out pre-order traversal of tree rooted at node
+     * Stores in-order traversal of tree rooted at node into a list
+     *
      * @param node node which the tree is rooted at
      */
-    private void printPreorder(Node<T, V> node) {
+    private void getPreorder(Node<T, V> node, List<String> result) {
         if (node == null) {
             return;
         }
 
-        System.out.print(node.toString() + " ");
+        result.add(node.toString());
 
         if (node.left != null) {
-            printPreorder(node.left);
+            getPreorder(node.left, result);
         }
 
         if (node.right != null) {
-            printPreorder(node.right);
+            getPreorder(node.right, result);
         }
     }
 
     /**
-     * Prints out post-order traversal of tree rooted at node
+     * Stores post-order traversal of tree rooted at node into a list
+     *
      * @param node node which the tree is rooted at
      */
-    private void printPostorder(Node<T, V> node) {
+    private void getPostorder(Node<T, V> node, List<String> result) {
         if (node == null) {
             return;
         }
 
         if (node.left != null) {
-            printPostorder(node.left);
+            getPostorder(node.left, result);
         }
 
         if (node.right != null) {
-            printPostorder(node.right);
+            getPostorder(node.right, result);
         }
 
-        System.out.print(node.toString() + " ");
+        result.add(node.toString());
     }
 
     /**
-     * Prints out level-order traversal of tree rooted at node
+     * Stores level-order traversal of tree rooted at node into a list
+     *
      * @param node node which the tree is rooted at
      */
-    private void printLevelorder(Node<T, V> node) {
+    private void getLevelorder(Node<T, V> node, List<String> result) {
         if (node == null) {
             return;
         }
-        Queue<Node<T, V>> q = new LinkedList<>();
-        q.add(node);
-        while (!q.isEmpty()) {
-            Node<T, V> curr = q.poll();
-            System.out.print(curr.toString() + " ");
-            if (curr.left != null) {
-                q.add(curr.left);
+
+        Queue<Node<T, V>> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            Node<T, V> current = queue.poll();
+            result.add(current.toString());
+
+            if (current.left != null) {
+                queue.add(current.left);
             }
-            if (curr.right != null) {
-                q.add(curr.right);
+            if (current.right != null) {
+                queue.add(current.right);
             }
         }
     }
@@ -364,27 +370,27 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
         }
     }
 
-    public void printInorder() {
-        System.out.print("In-order: ");
-        printInorder(root);
-        System.out.println();
+    public List<String> getInorder() {
+        List<String> result = new ArrayList<>();
+        getInorder(root, result);
+        return result;
     }
 
-    public void printPreorder() {
-        System.out.print("Pre-order: ");
-        printPreorder(root);
-        System.out.println();
+    public List<String> getPreorder() {
+        List<String> result = new ArrayList<>();
+        getPreorder(root, result);
+        return result;
     }
 
-    public void printPostorder() {
-        System.out.print("Post-order: ");
-        printPostorder(root);
-        System.out.println();
+    public List<String> getPostorder() {
+        List<String> result = new ArrayList<>();
+        getPostorder(root, result);
+        return result;
     }
 
-    public void printLevelorder() {
-        System.out.print("Level-order: ");
-        printLevelorder(root);
-        System.out.println();
+    public List<String> getLevelorder() {
+        List<String> result = new ArrayList<>();
+        getLevelorder(root, result);
+        return result;
     }
 }
