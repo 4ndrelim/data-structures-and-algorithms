@@ -55,7 +55,7 @@ If you wish to contribute, do drop an email at andre_lin@u.nus.edu.
     * [Linked List](src/main/java/dataStructures/linkedList)
     * [Stack](src/main/java/dataStructures/stack)
     * [Queue](src/main/java/dataStructures/queue)
-2. Binary Search
+2. [Binary Search](src/main/java/algorithms/binarySearch)
     * Peak Finding
     * Template
 3. Sorting
@@ -65,7 +65,7 @@ If you wish to contribute, do drop an email at andre_lin@u.nus.edu.
     * [Merge](src/main/java/algorithms/sorting/mergeSort)
     * [Quick](src/main/java/algorithms/sorting/quickSort)
 4. Trees
-    * Binary search tree
+    * [Binary search tree](src/main/java/dataStructures/binarySearchTree)
     * AVL-tree
     * Kd-tree
     * Interval tree
