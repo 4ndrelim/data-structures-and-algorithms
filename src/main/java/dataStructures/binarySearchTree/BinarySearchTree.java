@@ -1,0 +1,366 @@
+package dataStructures.binarySearchTree;
+
+import java.util.*;
+
+/**
+ * Implementation of Binary Search Tree.
+ * @param <T> generic type of object to be stored; must be comparable
+ * client methods:
+ *  root()
+ *  insert(T key)
+ *  delete(T key)
+ *  search(T key)
+ *  predecessor(T key)
+ *  successor(T key)
+ *  findMax()
+ *  findMin()
+ *  printInorder()
+ *  printPreorder()
+ *  printPostorder()
+ *  printLevelorder()
+ */
+public class BinarySearchTree<T extends Comparable<T>, V> {
+
+    private Node<T, V> root;
+
+    /**
+     * Insert a key-value pair into the tree rooted at a specified node.
+     * NOTE: ASSUMPTION THAT NO TWO NODES SHARE THE SAME KEY VALUE.
+     * @param node the (sub)tree rooted at node which the key will be inserted into
+     * @param key the key to insert
+     * @param value the value tied to the key to insert
+     */
+    private void insert(Node<T, V> node, T key, V value) {
+        if (node.key.compareTo(key) < 0) {
+            if (node.right == null) {
+                node.right = new Node<>(key, value);
+            } else {
+                insert(node.right, key, value);
+            }
+        } else if (node.key.compareTo(key) > 0) {
+            if (node.left == null) {
+                node.left = new Node<>(key, value);
+            } else {
+                insert(node.left, key, value);
+            }
+        } else {
+            throw new RuntimeException("Duplicate key not supported!");
+        }
+    }
+
+    /**
+     * Delete a key from the binary search tree rooted at a specified node.
+     * Find the node that holds the key and remove the node from the tree.
+     * @param node the (sub)tree rooted at node which the key will be deleted from
+     * @param key the key to remove
+     * @return the (new) root which the tree is rooted at after rebalancing
+     */
+    private Node<T, V> delete(Node<T, V> node, T key) {
+        if (node.key.compareTo(key) < 0) { // key > current node
+            if (node.right == null) {
+                throw new RuntimeException("Key does not exist!");
+            } else {
+                node.right = delete(node.right, key);
+            }
+        } else if (node.key.compareTo(key) > 0) { // key < current node
+            if (node.left == null) {
+                throw new RuntimeException("Key does not exist!");
+            } else {
+                node.left = delete(node.left, key);
+            }
+        } else {
+            if (node.left == null && node.right == null) { // 0 child case
+                node = null;
+            } else if (node.left == null || node.right == null) { // 1 child case
+                if (node.right != null) {
+                    node.right.parent = node.parent;
+                    return node.right;
+                } else {
+                    node.left.parent = node.parent;
+                    return node.left;
+                }
+            } else { // 2-children case
+                T successorKey = successor(key);
+                Node<T, V> successor = search(successorKey);
+
+                // replaces the current node with successor
+                node.key = successor.key;
+                node.value = successor.value;
+
+                // delete the original successor
+                // successor will definitely be in right subtree of current node and not an ancestor
+                node.right = delete(node.right, successor.key);
+            }
+        }
+
+        return node;
+    }
+
+    /**
+     * Find the left-most child of the (sub)tree rooted at a specified node
+     * @param n tree is rooted at this node
+     * @return left-most node
+     */
+    private Node<T, V> getMostLeft(Node<T, V> n) {
+        if (n.left == null) {
+            return n;
+        } else {
+            return getMostLeft(n.left);
+        }
+    }
+
+    private Node<T, V> getMostRight(Node<T, V> n) {
+        if (n.right == null) {
+            return n;
+        } else {
+            return getMostRight(n.right);
+        }
+    }
+
+    /**
+     * Find the key of the predecessor of a specified node that exists in the tree
+     * NOTE: the input node is assumed to be in the tree
+     * @param node node that exists in the tree
+     * @return key value; null if node has no predecessor
+     */
+    private T predecessor(Node<T, V> node) {
+        Node<T, V> curr = node;
+        if (curr.left != null) { // predecessor in children
+            return getMostRight(curr.left).key;
+        } else { // predecessor in ancestor
+            while (curr != null) {
+                if (curr.key.compareTo(node.key) < 0) {
+                    return curr.key;
+                }
+                curr = curr.parent;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Find the key of the successor of a specified node that exists in the tree
+     * NOTE: the input node is assumed to be in the tree
+     * @param node node that exists in the tree
+     * @return key value; null if node has no successor
+     */
+    private T successor(Node<T, V> node) {
+        Node<T, V> curr = node;
+        if (curr.right != null) { // successor in children
+            return getMostLeft(curr.right).key;
+        } else { // successor in ancestor
+            while (curr != null) {
+                if (curr.key.compareTo(node.key) > 0) { // finds the cloests
+                    return curr.key;
+                }
+                curr = curr.parent;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Prints out in-order traversal of tree rooted at node
+     * @param node node which the tree is rooted at
+     */
+    private void printInorder(Node<T, V> node) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.left != null) {
+            printInorder(node.left);
+        }
+
+        System.out.print(node.toString() + " ");
+
+        if (node.right != null) {
+            printInorder(node.right);
+        }
+    }
+
+    /**
+     * Prints out pre-order traversal of tree rooted at node
+     * @param node node which the tree is rooted at
+     */
+    private void printPreorder(Node<T, V> node) {
+        if (node == null) {
+            return;
+        }
+
+        System.out.print(node.toString() + " ");
+
+        if (node.left != null) {
+            printPreorder(node.left);
+        }
+
+        if (node.right != null) {
+            printPreorder(node.right);
+        }
+    }
+
+    /**
+     * Prints out post-order traversal of tree rooted at node
+     * @param node node which the tree is rooted at
+     */
+    private void printPostorder(Node<T, V> node) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.left != null) {
+            printPostorder(node.left);
+        }
+
+        if (node.right != null) {
+            printPostorder(node.right);
+        }
+
+        System.out.print(node.toString() + " ");
+    }
+
+    /**
+     * Prints out level-order traversal of tree rooted at node
+     * @param node node which the tree is rooted at
+     */
+    private void printLevelorder(Node<T, V> node) {
+        if (node == null) {
+            return;
+        }
+        Queue<Node<T, V>> q = new LinkedList<>();
+        q.add(node);
+        while (!q.isEmpty()) {
+            Node<T, V> curr = q.poll();
+            System.out.print(curr.toString() + " ");
+            if (curr.left != null) {
+                q.add(curr.left);
+            }
+            if (curr.right != null) {
+                q.add(curr.right);
+            }
+        }
+    }
+
+    /**
+     * Get root of tree.
+     * @return root
+     */
+    public Node<T, V> root() {
+        return root;
+    }
+
+    /**
+     * Inserts a key into the tree
+     * @param key to be inserted
+     */
+    public void insert(T key, V value) {
+        if (root == null) {
+            root = new Node<>(key, value);
+        } else {
+            insert(root, key, value);
+        }
+    }
+
+    /**
+     * Removes a key from the tree, if it exists
+     * @param key to be removed
+     */
+    public void delete(T key) {
+        root = delete(root, key);
+    }
+
+    /**
+     * Search for a node with the specified key.
+     * @param key the key to look for
+     * @return node that has the specified key; null if not found
+     */
+    public Node<T, V> search(T key) {
+        Node<T, V> curr = root;
+        while (curr != null) {
+            if (curr.key.compareTo(key) < 0) {
+                curr = curr.right;
+            } else if (curr.key.compareTo(key) > 0) {
+                curr = curr.left;
+            } else {
+                return curr;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Search for the predecessor of a given key.
+     * @param key find predecessor of this key
+     * @return generic type value; null if key has no predecessor
+     */
+    public T predecessor(T key) {
+        Node<T, V> curr = root;
+        while (curr != null) {
+            if (curr.key.compareTo(key) == 0) {
+                break;
+            } else if (curr.key.compareTo(key) < 0) {
+                curr = curr.right;
+            } else {
+                curr = curr.left;
+            }
+        }
+
+        return predecessor(curr); // pred could be an ancestor or child of curr node and hence handled separately
+    }
+
+    /**
+     * Search for the successor of a given key.
+     * @param key find successor of this key
+     * @return generic type value; null if key has no successor
+     */
+    public T successor(T key) {
+        Node<T, V> curr = root;
+        while (curr != null) {
+            if (curr.key.compareTo(key) == 0) {
+                break;
+            } else if (curr.key.compareTo(key) < 0) {
+                curr = curr.right;
+            } else {
+                curr = curr.left;
+            }
+        }
+
+        return successor(curr); // same exp as in the pred fn
+    }
+
+    /**
+     * prints in order traversal of the entire tree.
+     */
+    public void printInorder() {
+        System.out.print("In-order: ");
+        printInorder(root);
+        System.out.println();
+    }
+
+    /**
+     * prints pre-order traversal of the entire tree
+     */
+    public void printPreorder() {
+        System.out.print("Pre-order: ");
+        printPreorder(root);
+        System.out.println();
+    }
+
+    /**
+     * prints post-order traversal of the entire tree
+     */
+    public void printPostorder() {
+        System.out.print("Post-order: ");
+        printPostorder(root);
+        System.out.println();
+    }
+
+    /**
+     * prints level-order traversal of the entire tree
+     */
+    public void printLevelorder() {
+        System.out.print("Level-order: ");
+        printLevelorder(root);
+        System.out.println();
+    }
+}
