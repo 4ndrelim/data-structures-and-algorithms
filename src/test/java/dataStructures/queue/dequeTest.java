@@ -1,13 +1,16 @@
 package dataStructures.queue;
 
 import java.util.Optional;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import dataStructures.queue.Deque.Deque;
 
 /**
  * This class implements tests for the deque.
  */
-public class dequeTest {
+public class DequeTest {
   @Test
   public void testEmpty() {
     Deque<Integer> d = new Deque<>();
