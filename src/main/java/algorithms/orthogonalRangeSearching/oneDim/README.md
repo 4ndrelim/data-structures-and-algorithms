@@ -10,4 +10,23 @@ the data.
 The goal of 1D Orthogonal Range Searching is to efficiently identify and retrieve all data points that fall within the 
 given range.
 
-####NOT DONE YET####
+
+![InsertionSort](../../../../../../docs/assets/images/InsertionSort.png)
+
+## Complexity Analysis
+**Time**:
+- Overall:
+
+- Build Tree (cost incurred once only): O(nlogn) limited by sorting step
+
+Querying: O(k + logn)
+- Find Split Node: O(logn) (binary search)
+- Left Traversal: at every step, we either
+    1. output all-right subtree (O(k) where k is no. of leaves) and recurse left
+    2. recurse right (at most logn times)
+- Right Traversal: similar to left traversal
+
+**Space**: S(n) = S(n / 2) + O(n) => O(nlogn)
+
+## Notes
+### Common Misconception
