@@ -13,13 +13,13 @@ given range.
 Strategy:
 1. Use a binary search tree
 2. Store all points in the leaves of the tree (internal nodes only store copies)
-3. Each internal node v stores the MAX of any leaf in the left sub-tree (**ORS tree property**)
+3. Each internal node v stores the MAX of any leaf in the left sub-tree (**range tree property**)
 
 ![1DORS](../../../../../../docs/assets/images/1DORS.jpg)
 
 Say we want to find all the nodes between 10 and 50 i.e. query(10, 50). We would want to:
 1. Find split node: highest node where search includes both left & right subtrees
-=> we want to make use of the ORS tree property to perform binary search to find our split node. See findSplit(root, low, high) in code. 
+=> we want to make use of the range tree property to perform binary search to find our split node. See findSplit(root, low, high) in code. 
 2. Left traversal & right traversal
 
 ![1DORSQuery](../../../../../../docs/assets/images/1DORSQuery.jpeg)
@@ -43,7 +43,7 @@ Querying: O(k + logn)
 ### Dynamic Updates
 If we need to dynamically update the tree, insertion and deletion is done in a manner similar to AVL trees 
 (insert/delete and rotate to maintain height balance), except now we need to ensure that we are adding the new node
-as a leaf node, and we still need to adhere to the ORS tree property. 
+as a leaf node, and we still need to adhere to the range tree property. 
 
 Note how the ORS tree property enables efficient dynamic updating of the tree, as the value of the nodes do not need 
 to change after rotation. 

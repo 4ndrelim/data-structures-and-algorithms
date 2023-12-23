@@ -301,7 +301,7 @@ public class OrthogonalRangeSearching {
     public static List<Integer[]> search(RangeTreeNode<Integer[]> tree, int xLow, int xHigh, int yLow, int yHigh) {
         RangeTreeNode<Integer[]> splitNodeX = findXSplit(tree, xLow, xHigh);
         ArrayList<Integer[]> result = new ArrayList<>();
-        if (splitNodeX != null) { //will split node ever be leaf.... possible if range is size 1
+        if (splitNodeX != null) {
             if (splitNodeX.getLeft() == null && splitNodeX.getRight() == null
                     && splitNodeX.getVal()[0] >= xLow && splitNodeX.getVal()[0] <= xHigh) { // if split node is leaf
                 YSearch(splitNodeX, yLow, yHigh, result);
