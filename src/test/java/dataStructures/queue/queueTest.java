@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * This class implements the test cases for the queue.
  */
-public class queueTest {
+public class QueueTest {
   @Test
   public void testEmptyQueue() {
     Queue<Integer> q = new Queue<>();

@@ -3,83 +3,87 @@ package randomTests.changxian.linkedList;
 import dataStructures.linkedList.LinkedList;
 
 /**
- * Basic Testing
+ * Basic Testing.
  */
-
 public class Test {
+  /**
+   * Run custom test script.
+   *
+   * @param args unused.
+   */
   public static void main(String[] args) {
     /*
      * Testing insert methods
      */
     System.out.println("Testing insert methods: ");
-    LinkedList<Integer> LL = new LinkedList<>(); 
-    System.out.println(LL);
-    LL.insertFront(2);
-    LL.insertEnd(3);
-    LL.insertEnd(5);
-    LL.insertFront(1);
-    System.out.println(LL);
-    LL.insert(0, 0);
-    LL.insert(4, 4);
-    LL.insert(6, 7);
-    LL.insert(7, 6);
-    LL.insert(6, 6);
-    System.out.println(LL);
+    LinkedList<Integer> linkedList = new LinkedList<>();
+    System.out.println(linkedList);
+    linkedList.insertFront(2);
+    linkedList.insertEnd(3);
+    linkedList.insertEnd(5);
+    linkedList.insertFront(1);
+    System.out.println(linkedList);
+    linkedList.insert(0, 0);
+    linkedList.insert(4, 4);
+    linkedList.insert(6, 7);
+    linkedList.insert(7, 6);
+    linkedList.insert(6, 6);
+    System.out.println(linkedList);
     System.out.println();
 
     /*
      * Testing search and get methods
      */
     System.out.println("Testing search & get methods: ");
-    System.out.println(LL.search(4));
-    System.out.println(LL.search(3));
-    System.out.println(LL.get(3));
-    System.out.println(LL.get(10));
-    System.out.println(LL);
+    System.out.println(linkedList.search(4));
+    System.out.println(linkedList.search(3));
+    System.out.println(linkedList.get(3));
+    System.out.println(linkedList.get(10));
+    System.out.println(linkedList);
     System.out.println();
 
     /*
      * Testing remove methods
      */
     System.out.println("Testing remove methods: ");
-    LL.remove(5);
-    LL.delete(6);
-    LL.pop();
-    LL.poll();
-    System.out.println(LL);
-    System.out.println(); 
+    linkedList.remove(5);
+    linkedList.delete(6);
+    linkedList.pop();
+    linkedList.poll();
+    System.out.println(linkedList);
+    System.out.println();
 
     /*
      * Testing reverse of Linked Lists
      */
     System.out.println("Testing reverse method: ");
-    LinkedList<Integer> newLL = new LinkedList<>();
-    newLL.reverse();
-    System.out.println(newLL);
-    newLL.insertFront(3);
-    System.out.println(newLL);
-    LL.reverse();
-    System.out.println(LL);
-    LL.reverse();
-    System.out.println(LL);
+    LinkedList<Integer> newLinkedList = new LinkedList<>();
+    newLinkedList.reverse();
+    System.out.println(newLinkedList);
+    newLinkedList.insertFront(3);
+    System.out.println(newLinkedList);
+    linkedList.reverse();
+    System.out.println(linkedList);
+    linkedList.reverse();
+    System.out.println(linkedList);
     System.out.println();
 
     /*
      * Test sorting
-     * Note: testing with entirely new nodes and linked list to avoid mutating LL
+     * Note: testing with entirely new nodes and linked list to avoid mutating linkedList
      */
-    LinkedList<Integer> sortLL = new LinkedList<>();
-    sortLL.insertFront(5);
-    sortLL.insertEnd(2);
-    sortLL.insertFront(7);
-    sortLL.insertEnd(3);
-    sortLL.insertEnd(4);
-    sortLL.insertEnd(3);
-    System.out.println(sortLL);
-    sortLL.sort();
-    System.out.println(sortLL);
-    sortLL.insertFront(8);
-    sortLL.sort();
-    System.out.println(sortLL);
+    LinkedList<Integer> sortLinkedList = new LinkedList<>();
+    sortLinkedList.insertFront(5);
+    sortLinkedList.insertEnd(2);
+    sortLinkedList.insertFront(7);
+    sortLinkedList.insertEnd(3);
+    sortLinkedList.insertEnd(4);
+    sortLinkedList.insertEnd(3);
+    System.out.println(sortLinkedList);
+    sortLinkedList.sort();
+    System.out.println(sortLinkedList);
+    sortLinkedList.insertFront(8);
+    sortLinkedList.sort();
+    System.out.println(sortLinkedList);
   }
 }

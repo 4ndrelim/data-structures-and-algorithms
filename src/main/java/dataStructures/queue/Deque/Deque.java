@@ -1,4 +1,4 @@
-package dataStructures.queue;
+package dataStructures.queue.Deque;
 
 /**
  * This class implements a doubly-ended queue, known as a deque.

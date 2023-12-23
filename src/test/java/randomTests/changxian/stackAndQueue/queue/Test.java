@@ -3,9 +3,14 @@ package randomTests.changxian.stackAndQueue.queue;
 import dataStructures.queue.Queue;
 
 /**
- * Basic Testing
+ * Basic Testing.
  */
 public class Test {
+  /**
+   * Runs the custom test.
+   *
+   * @param args unused.
+   */
   public static void main(String[] args) {
     Queue<Integer> myQueue = new Queue<>();
     System.out.println("Adding 7, 17, 27");

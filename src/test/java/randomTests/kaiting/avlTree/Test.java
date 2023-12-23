@@ -3,15 +3,19 @@ package randomTests.kaiting.avlTree;
 import dataStructures.avlTree.AVLTree;
 
 /**
- * Basic testing
- * Note that a tree structure can be entirely 
+ * Basic testing.
+ * Note that a tree structure can be entirely
  * determined with one of the following:
  * 1. In-order + pre-order
  * 2. In-order + post-order
  * 3. In-order + level-order
  */
-
 public class Test {
+  /**
+   * Runs the custom test.
+   *
+   * @param args unused.
+   */
   public static void main(String[] args) {
     AVLTree<Integer> tree = new AVLTree<>();
     System.out.println("Inserting...");
@@ -30,7 +34,7 @@ public class Test {
     //      /   \       /   \
     //    1      4     6     8
     //                  
-   
+
     Integer x = 6;
     System.out.println("parent of " + x.toString() + " is " + tree.search(x).parent.key.toString());
 
@@ -56,7 +60,7 @@ public class Test {
     //      1     4       9
     //       \
     //        2
- 
+
     x = 4;
     System.out.println("parent of " + x.toString() + " is " + tree.search(x).parent.key.toString());
 
