@@ -10,14 +10,25 @@ the data.
 The goal of 1D Orthogonal Range Searching is to efficiently identify and retrieve all data points that fall within the 
 given range.
 
+Strategy:
+1. Use a binary search tree
+2. Store all points in the leaves of the tree (internal nodes only store copies)
+3. Each internal node v stores the MAX of any leaf in the left sub-tree (**ORS tree property**)
 
-![InsertionSort](../../../../../../docs/assets/images/InsertionSort.png)
+![1DORS](../../../../../../docs/assets/images/1DORS.jpg)
+
+Say we want to find all the nodes between 10 and 50 i.e. query(10, 50). We would want to:
+1. Find split node: highest node where search includes both left & right subtrees
+=> we want to make use of the ORS tree property to perform binary search to find our split node. See findSplit(root, low, high) in code. 
+2. Left traversal & right traversal
+
+![1DORSQuery](../../../../../../docs/assets/images/1DORSQuery.jpeg)
+Image Source: Lecture Slides
 
 ## Complexity Analysis
 **Time**:
-- Overall:
 
-- Build Tree (cost incurred once only): O(nlogn) limited by sorting step
+Build Tree (cost incurred once only): O(nlogn) limited by sorting step
 
 Querying: O(k + logn)
 - Find Split Node: O(logn) (binary search)
@@ -29,4 +40,15 @@ Querying: O(k + logn)
 **Space**: S(n) = S(n / 2) + O(n) => O(nlogn)
 
 ## Notes
-### Common Misconception
+### Dynamic Updates
+If we need to dynamically update the tree, insertion and deletion is done in a manner similar to AVL trees 
+(insert/delete and rotate to maintain height balance), except now we need to ensure that we are adding the new node
+as a leaf node, and we still need to adhere to the ORS tree property. 
+
+Note how the ORS tree property enables efficient dynamic updating of the tree, as the value of the nodes do not need 
+to change after rotation. 
+
+![1DORSDynamicUpdates](../../../../../../docs/assets/images/1DORSDynamicUpdates.jpg)
+
+For more implementation details, refer to the code below "// Functions from here onwards are designed to support 
+dynamic updates."
