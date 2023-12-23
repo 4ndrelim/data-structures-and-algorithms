@@ -43,7 +43,7 @@ Image Source: https://www.cse.wustl.edu/~taoju/cse546/lectures/Lecture21_rangequ
 ## Complexity Analysis
 **Time**:
 
-Build Tree (cost incurred once only): O(nlogn) limited by sorting step
+Build Tree (cost incurred once only): O(nlog^2n) 
 
 Querying: O(k + log^2n)
 - O(logn) to find X-split
