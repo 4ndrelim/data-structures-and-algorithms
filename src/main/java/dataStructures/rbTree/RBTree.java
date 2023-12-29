@@ -380,7 +380,7 @@ public class RBTree<T extends Comparable<T>> {
    *
    * @param node node which the tree is rooted at.
    */
-  private void printPreOrder(Node<T> node) {
+  public void printPreOrder(RBNode<T> node) {
     if (node == null) {
       return;
     }
@@ -394,11 +394,38 @@ public class RBTree<T extends Comparable<T>> {
   }
 
   /**
+   * Prints out level-order traversal of tree rooted at node.
+   *
+   * @param node node which the tree is rooted at.
+   *
+   * @return String representing the level order.
+   */
+  public String getLevelOrder(RBNode<T> node) {
+    if (node == null) {
+      return "";
+    }
+    Queue<RBNode<T>> q = new LinkedList<>();
+    StringBuilder sb = new StringBuilder();
+    q.add(node);
+    while (!q.isEmpty()) {
+      RBNode<T> curr = q.poll();
+      sb.append(curr.toString() + " ");
+      if (curr.left != null) {
+        q.add(curr.left);
+      }
+      if (curr.right != null) {
+        q.add(curr.right);
+      }
+    }
+    return sb.toString();
+  }
+
+  /**
    * Prints out post-order traversal of tree rooted at node.
    *
    * @param node node which the tree is rooted at.
    */
-  private void printPostOrder(Node<T> node) {
+  private void printPostOrder(RBNode<T> node) {
     if (node.left != null) {
       printPostOrder(node.left);
     }

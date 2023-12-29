@@ -16,4 +16,8 @@ public class RBNode <T extends Comparable<T>> {
     this.value = value;
     this.tag = tag;
   }
+
+  public T getValue() {
+    return this.value;
+  }
 }
