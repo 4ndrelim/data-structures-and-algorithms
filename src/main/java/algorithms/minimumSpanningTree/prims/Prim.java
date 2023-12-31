@@ -7,9 +7,13 @@ import java.util.*;
  * Idea: 
  *  Starting from any source (this will be the first node to be in the MST), 
  *  pick the lightest outgoing edge, and include the node at the other end as part of a set of nodes S.
- *  Now repeatedly do the above by picking the lightest outgoing edge adjacent to any node in S.
+ *
+ *  Now repeatedly do the above by picking the lightest outgoing edge adjacent to any node in the MST.
  *  (ensuring the other end of the node is not already in the MST)
  *  Repeat until S contains all nodes in the graph. S is the MST.
+ *
+ * Actual implementation:
+ *
  *
  * Motivating Example: Minimum Cost to Connect All Points
  * 
