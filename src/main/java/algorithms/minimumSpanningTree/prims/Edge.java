@@ -1,0 +1,24 @@
+package algorithms.minimumSpanningTree.prims;
+
+/**
+ * Helper class to encapsulate information about an edge; 
+ * specifically, tells us the weight of an edge and the node on the other end
+ * (assumes that the starting node of the edge is known)
+ */
+public class Edge {
+    private final int weight;
+    private final Node endNode;
+
+    public Edge(int weight, Node endNode) {
+        this.weight = weight;
+        this.endNode = endNode;
+    }
+
+    public Node getEndNode() {
+        return this.endNode;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
+}
