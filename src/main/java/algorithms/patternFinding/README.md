@@ -10,10 +10,11 @@ It is hence crucial that we develop an efficient algorithm.
 Image Source: GeeksforGeeks
 
 ## Analysis
+
 **Time complexity**:
 
 Naively, we can look for patterns in a given sequence in O(nk) where n is the length of the sequence and k
-is the length of the pattern. We do this by iterating every character of the sequence, and look at the 
+is the length of the pattern. We do this by iterating every character of the sequence, and look at the
 immediate k-1 characters that come after it. This is not a big issue if k is known to be small, but there's
 no guarantee this is the case.
 
@@ -24,6 +25,7 @@ O(n) traversal of the sequence. More details found in the src code.
 **Space complexity**: O(k) auxiliary space to store suffix that matches with prefix of the pattern string
 
 ## Notes
-A detailed illustration of how the algorithm works is shown in the code. 
-But if you have trouble understanding the implementation, 
+
+A detailed illustration of how the algorithm works is shown in the code.
+But if you have trouble understanding the implementation,
 here is a good [video](https://www.youtube.com/watch?v=EL4ZbRF587g) as well. 

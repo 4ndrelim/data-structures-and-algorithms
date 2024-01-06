@@ -10,7 +10,7 @@ import algorithms.graphs.util.BinaryTreeNode;
 import algorithms.graphs.util.GraphNode;
 
 /**
- * Test cases for {@link breadthFirstSearch}.
+ * Test cases for {@link BreadthFirstSearch}.
  */
 public class BreadthFirstSearchTest {
 
@@ -19,7 +19,7 @@ public class BreadthFirstSearchTest {
         // empty tree
         List<Integer> firstList = new ArrayList<>();
         BinaryTreeNode root1 = null;
-        List<Integer> firstResult = breadthFirstSearch.levelOrder(root1);
+        List<Integer> firstResult = BreadthFirstSearch.levelOrder(root1);
 
         //standard tree
         //     1
@@ -30,7 +30,7 @@ public class BreadthFirstSearchTest {
         List<Integer> secondList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
         BinaryTreeNode rootRight2 = new BinaryTreeNode(3, new BinaryTreeNode(4), new BinaryTreeNode(5));
         BinaryTreeNode root2 = new BinaryTreeNode(1, new BinaryTreeNode(2), rootRight2);
-        List<Integer> secondResult = breadthFirstSearch.levelOrder(root2);
+        List<Integer> secondResult = BreadthFirstSearch.levelOrder(root2);
 
         //standard tree 2
         //          1
@@ -46,7 +46,7 @@ public class BreadthFirstSearchTest {
                 new BinaryTreeNode(5, new BinaryTreeNode(6), null)
             );
         BinaryTreeNode root3 = new BinaryTreeNode(1, rootLeft3, new BinaryTreeNode(7));
-        List<Integer> thirdResult = breadthFirstSearch.levelOrder(root3);
+        List<Integer> thirdResult = BreadthFirstSearch.levelOrder(root3);
 
         assert firstResult.equals(firstList);
         assert secondResult.equals(secondList);
@@ -82,9 +82,9 @@ public class BreadthFirstSearchTest {
         GraphNode.connect(evelyn, felix);
         GraphNode.connect(evelyn, gerald);
 
-        assert breadthFirstSearch.friendHops(anonymous, diana) == -1;
-        assert breadthFirstSearch.friendHops(iris, gerald) == 7;
-        assert breadthFirstSearch.friendHops(andre, gerald) == 4;
-        assert breadthFirstSearch.friendHops(felix, harold) == 4;
+        assert BreadthFirstSearch.friendHops(anonymous, diana) == -1;
+        assert BreadthFirstSearch.friendHops(iris, gerald) == 7;
+        assert BreadthFirstSearch.friendHops(andre, gerald) == 4;
+        assert BreadthFirstSearch.friendHops(felix, harold) == 4;
     }
 }

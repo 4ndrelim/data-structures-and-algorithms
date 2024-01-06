@@ -1,8 +1,9 @@
 # BinarySearchTemplated Examples
 
-We will be utilising the BinarySearchTemplated implementation to solve some problems. 
+We will be utilising the BinarySearchTemplated implementation to solve some problems.
 
 The following will differ between problems:
+
 - Search Space
 - Condition
 - Returned Value
@@ -12,31 +13,35 @@ The following will differ between problems:
 A problem is well-suited for this approach when it meets the following criteria:
 
 - <b> Clear Distinction Between Categories: </b> There should be a definitive way to categorize elements into two 
+
 groups: "pass" and "fail".
 
 - <b> Grouped Categories: </b> All the elements in one category should be grouped together without interspersion. This 
+
 implies that if we move from a "fail" element to a "pass" one, all subsequent elements will be "pass".
 
 - <b> Monotonic Property: </b> There needs to be a consistent, unidirectional trend or property in the search space. 
-This means the condition being checked either consistently increases or decreases. For the classical binary search on a 
-sorted array, this monotonic property is the sorted order of the elements, where the array elements increase 
+
+This means the condition being checked either consistently increases or decreases. For the classical binary search on a
+sorted array, this monotonic property is the sorted order of the elements, where the array elements increase
 (or decrease) consistently.
 
 ## 1. First Bad Version [Easy]
 
 ### Problem:
 
-You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of 
-your product fails the quality check. Since each version is developed based on the previous version, all the versions 
+You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of
+your product fails the quality check. Since each version is developed based on the previous version, all the versions
 after a bad version are also bad.
 
-Suppose you have `n` versions `[1, 2, ..., n]` and you want to find out the first bad one, which causes all the 
+Suppose you have `n` versions `[1, 2, ..., n]` and you want to find out the first bad one, which causes all the
 following ones to be bad.
 
-You are given an API bool `isBadVersion(version)` which returns whether `version` is bad. Implement a function to find 
+You are given an API bool `isBadVersion(version)` which returns whether `version` is bad. Implement a function to find
 the first bad version. You should minimize the number of calls to the API.
 
 Example 1:
+
 ```
 Input: n = 5, bad = 4
 Output: 4
@@ -94,14 +99,15 @@ public int firstBadVersion(int n) {
 
 A conveyor belt has packages that must be shipped from one port to another within `days` days.
 
-The `ith` package on the conveyor belt has a weight of `weights[i]`. Each day, we load the ship with packages on the 
-conveyor belt (in the order given by `weights`). We may not load more weight than the maximum weight capacity of the 
+The `ith` package on the conveyor belt has a weight of `weights[i]`. Each day, we load the ship with packages on the
+conveyor belt (in the order given by `weights`). We may not load more weight than the maximum weight capacity of the
 ship.
 
-Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped 
+Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped
 within `days` days.
 
 Example 1:
+
 ```
 Input: weights = [1,2,3,4,5,6,7,8,9,10], days = 5
 Output: 15
@@ -120,7 +126,7 @@ parts like (2, 3, 4, 5), (1, 6, 7), (8), (9), (10) is not allowed.
 
 On first glance, while we are given an array, simply binary searching the array does not solve the problem. However,
 since our goal is to determine the least weight capacity of the ship, could this be our "target"? The answer is yes.
-By having each element being a least weight capacity case, with the lowest index being the heaviest weight and the 
+By having each element being a least weight capacity case, with the lowest index being the heaviest weight and the
 highest index being the sum of all weights, we will have our search space. The monotonic property present is that if
 we can ship all packages within `D` days with capacity `m`, we can definitely ship them within `D` days with any
 capacity greater than `m`, such as `m + 1`.

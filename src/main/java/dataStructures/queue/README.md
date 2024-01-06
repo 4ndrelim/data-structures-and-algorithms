@@ -32,6 +32,7 @@ On the other hand, a queue allows you to operate on elements that enter first. S
 this would be useful include Breadth First Search algorithms and task / resource allocation systems.
 
 ### Arrays vs Linked List
+
 It is worth noting that queues can be implemented with either a array or with a [linked list](../linkedList/README.md).
 In the context of ordered operations, the lookup is only restricted to the first element.
 

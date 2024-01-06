@@ -1,32 +1,34 @@
 package dataStructures.hashSet.chaining;
 
-import dataStructures.linkedList.LinkedList;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import dataStructures.linkedList.LinkedList;
 
 /**
  * Implementation of a HashSet that uses chaining to resolve collisions.
  *
- * <p>A HashSet is a data structure that provides expected constant-time complexity for basic operations such as add, remove, and contains.
- * It achieves this performance by leveraging the Simple Uniform Hashing Assumption (SUHA), where elements are uniformly distributed across
- * the available hash buckets. The hash function maps elements to their respective buckets, allowing efficient insertion, retrieval,
- * and removal of elements from the set.
+ * <p>A HashSet is a data structure that provides expected constant-time complexity for basic operations such as add,
+ * remove, and contains.
+ * It achieves this performance by leveraging the Simple Uniform Hashing Assumption (SUHA), where elements are
+ * uniformly distributed across the available hash buckets. The hash function maps elements to their respective
+ * buckets, allowing efficient insertion, retrieval, and removal of elements from the set.
  *
- * <p>This approach is inspired by the need to efficiently store and retrieve elements from a large universe of possible keys,
- * where the number of actual keys is relatively small.
- * Chaining is used to handle collisions, where multiple elements are mapped to the same bucket, by maintaining a linked list
- * of elements within each bucket.
+ * <p>This approach is inspired by the need to efficiently store and retrieve elements from a large universe of possible
+ * keys, where the number of actual keys is relatively small.
+ * Chaining is used to handle collisions, where multiple elements are mapped to the same bucket, by maintaining a
+ * linked list of elements within each bucket.
  *
- * <p>The expected load, or load factor, for this approach is an important consideration. The load factor is defined as the ratio
- * of the number of elements in the set to the number of buckets (n/m). A higher load factor increases the likelihood of collisions,
- * leading to longer linked lists and potentially degrading performance. To maintain optimal time complexity, the hash function
- * should aim for an equal distribution of elements across the buckets, avoiding clustering and ensuring efficient access to elements.
+ * <p>The expected load, or load factor, for this approach is an important consideration. The load factor is defined as
+ * the ratio of the number of elements in the set to the number of buckets (n/m). A higher load factor increases the
+ * likelihood of collisions, leading to longer linked lists and potentially degrading performance. To maintain optimal
+ * time complexity, the hash function should aim for an equal distribution of elements across the buckets, avoiding
+ * clustering and ensuring efficient access to elements.
  *
- * <p>The time complexity of operations in this HashSet implementation consists of two components. Firstly, there is the time to
- * compute the hash value, which is typically a constant-time operation. Secondly, there is the time to access the corresponding
- * bucket, which involves traversing the linked list in case of collisions. On average, these operations have a constant-time
- * complexity.
+ * <p>The time complexity of operations in this HashSet implementation consists of two components. Firstly, there is
+ * the time to compute the hash value, which is typically a constant-time operation. Secondly, there is the time to
+ * access the corresponding bucket, which involves traversing the linked list in case of collisions. On average,
+ * these operations have a constant-time complexity.
  *
  * <p>Public methods (along with their time-complexity):
  * int size()                   gets the number of elements (cardinality) in this HashSet. O(1).
@@ -34,10 +36,10 @@ import java.util.List;
  * boolean add(T element)       adds the given element into the HashSet. Expected O(1) assuming SUHA.
  * boolean contains(T element)  checks if the given element is present in the HashSet. Expected O(1) assuming SUHA.
  * boolean remove(T element)    removes the given element in the HashSet. Expected O(1) assuming SUHA.
- * List<T> toList()             returns a List representation of this HashSet. O(n).
+ * List toList()                returns a List representation of this HashSet. O(n).
  *
  * @param <T> the type of objects that are contained within this HashSet. T must override
- *           Object::equals and Object::hashCode for the methods add, remove, and contains to be well-defined.
+ *            Object::equals and Object::hashCode for the methods add, remove, and contains to be well-defined.
  */
 public class HashSet<T extends Comparable<T>> {
     private static final int NUMBER_OF_BUCKETS = 256; // Arbitrary number of buckets.
@@ -82,6 +84,7 @@ public class HashSet<T extends Comparable<T>> {
      * Simple hash function to hash the element into their respective bucket.
      * Currently uses the division method (k % m).
      * T must override both Object::equals and Object::hashCode.
+     *
      * @param element the specified element to be hashed.
      * @return the bucket to add the element to.
      */
@@ -98,7 +101,7 @@ public class HashSet<T extends Comparable<T>> {
      *
      * @param element the element to be added to this set
      * @return true if this set did not already contain the specified
-     * element
+     *     element
      */
     public boolean add(T element) {
         int bucket = this.hashFunction(element);
@@ -145,6 +148,11 @@ public class HashSet<T extends Comparable<T>> {
         return true;
     }
 
+    /**
+     * Returns the elements of this Hash Set in a List representation.
+     *
+     * @return a List containing the elements in this set.
+     */
     public List<T> toList() {
         List<T> outputList = new ArrayList<>();
         for (LinkedList<T> bucket : this.buckets) {

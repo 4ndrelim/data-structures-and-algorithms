@@ -36,7 +36,7 @@ public class Test {
         //
 
         Integer x = 6;
-        System.out.println("parent of " + x + " is " + tree.search(x).parent.key.toString());
+        System.out.println("parent of " + x + " is " + tree.search(x).getParent().getKey().toString());
 
         System.out.println("Deleting...");
         tree.delete(5);
@@ -62,7 +62,7 @@ public class Test {
         //        2
 
         x = 4;
-        System.out.println("parent of " + x + " is " + tree.search(x).parent.key.toString());
+        System.out.println("parent of " + x + " is " + tree.search(x).getParent().getKey().toString());
 
         System.out.println("Testing successors & predecessors queries...");
         System.out.println(tree.predecessor(1));

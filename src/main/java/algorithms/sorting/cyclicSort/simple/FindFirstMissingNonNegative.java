@@ -5,6 +5,12 @@ package algorithms.sorting.cyclicSort.simple;
  * in O(n).
  */
 public class FindFirstMissingNonNegative {
+    /**
+     * Finds the first missing non-negative integer in the array.
+     *
+     * @param arr the given array.
+     * @return the first missing, non-negative integer.
+     */
     public static int findMissing(int[] arr) {
         int curr = 0;
         while (curr < arr.length) {

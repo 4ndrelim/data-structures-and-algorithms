@@ -8,6 +8,7 @@ package algorithms.sorting.countingSort;
 public class CountingSort {
     /**
      * Sorts the given array.
+     *
      * @param arr array to be sorted.
      * @return new array that is sorted.
      */
@@ -19,19 +20,19 @@ public class CountingSort {
             k = Math.max(k, arr[i]);
         }
         // Obtain frequency map
-        int[] freq = new int[k+1];
+        int[] freq = new int[k + 1];
         for (int num : arr) {
             freq[num]++;
         }
         // Obtain prefix sum of freq map
-        for (int i = 1; i < k+1; i++) {
-            freq[i] += freq[i-1];
+        for (int i = 1; i < k + 1; i++) {
+            freq[i] += freq[i - 1];
         }
         // Sort the array by placing element in the output array
         int[] sorted = new int[n];
-        for (int i = arr.length-1; i >= 0; i--) { // we start from the back to maintain stable property
+        for (int i = arr.length - 1; i >= 0; i--) { // we start from the back to maintain stable property
             int num = arr[i];
-            sorted[freq[num]-1] = num; // freq[num]-1 because 0-indexed
+            sorted[freq[num] - 1] = num; // freq[num]-1 because 0-indexed
             freq[num]--;
         }
         return sorted;

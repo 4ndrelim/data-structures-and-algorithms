@@ -1,20 +1,22 @@
 package algorithms.sorting.insertionSort;
 
-/** Here, we are implementing InsertionSort where we sort the array in increasing (or more precisely, non-decreasing)
+/**
+ * Here, we are implementing InsertionSort where we sort the array in increasing (or more precisely, non-decreasing)
  * order.
- *
+ * <p>
  * Implementation Invariant:
  * The loop invariant is: at the end of kth iteration, the first (k+1) items in the array are in sorted order.
  * At the end of the (n-1)th iteration, all n items in the array will be in sorted order.
- *
+ * <p>
  * Note:
- *      1. the loop invariant here slightly differs from the lecture slides as we are using 0-based indexing
- *      2. Insertion into the sorted portion is done byb 'bubbling' elements as in bubble sort
+ * 1. the loop invariant here slightly differs from the lecture slides as we are using 0-based indexing
+ * 2. Insertion into the sorted portion is done byb 'bubbling' elements as in bubble sort
  */
 
 public class InsertionSort {
     /**
      * Sorts the given array in-place in non-decreasing order.
+     *
      * @param arr array to be sorted.
      * @return the same array arr that is sorted.
      */
@@ -26,7 +28,8 @@ public class InsertionSort {
         return arr;
     }
 
-    /** Inserts val within the sorted portion of the array. The sorted portion of the array is arr[0, idx - 1].
+    /**
+     * Inserts val within the sorted portion of the array. The sorted portion of the array is arr[0, idx - 1].
      *
      * @param arr the array to be sorted (of length idx)
      * @param idx index of the element to be inserted into the sorted portion of the array

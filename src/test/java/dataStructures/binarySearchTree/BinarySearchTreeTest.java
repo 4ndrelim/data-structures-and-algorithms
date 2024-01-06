@@ -1,9 +1,9 @@
 package dataStructures.binarySearchTree;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
 
 public class BinarySearchTreeTest {
     @Test
@@ -19,7 +19,10 @@ public class BinarySearchTreeTest {
         List<String> result = bst.getInorder();
 
         // Expected in-order traversal result
-        List<String> expected = Arrays.asList("Key: 2, Value: Two", "Key: 3, Value: Three", "Key: 4, Value: Four", "Key: 5, Value: Five", "Key: 7, Value: Seven");
+        List<String> expected =
+            Arrays.asList("Key: 2, Value: Two", "Key: 3, Value: Three", "Key: 4, Value: Four", "Key: 5, Value: Five",
+                "Key: 7, Value: Seven"
+            );
 
         assert result.equals(expected);
     }
@@ -76,7 +79,8 @@ public class BinarySearchTreeTest {
         List<String> result = bst.getInorder();
 
         // Expected in-order traversal result after deletion
-        List<String> expected = Arrays.asList("Key: 2, Value: Two", "Key: 4, Value: Four", "Key: 5, Value: Five", "Key: 7, Value: Seven");
+        List<String> expected =
+            Arrays.asList("Key: 2, Value: Two", "Key: 4, Value: Four", "Key: 5, Value: Five", "Key: 7, Value: Seven");
 
         assert result.equals(expected);
     }

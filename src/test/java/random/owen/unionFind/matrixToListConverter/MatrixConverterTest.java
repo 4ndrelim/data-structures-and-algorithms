@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import algorithms.util.matrixToListConverter;
-import algorithms.util.matrixToListConverter.InvalidMatrixException;
+import algorithms.util.MatrixToListConverter;
+import algorithms.util.MatrixToListConverter.InvalidMatrixException;
 
 /**
- * Test cases for {@link matrixToListConverter}.
+ * Test cases for {@link MatrixToListConverter}.
  */
 public class MatrixConverterTest {
     @Test
@@ -19,7 +19,7 @@ public class MatrixConverterTest {
         // empty matrix
         int[][] firstMatrix = new int[0][0];
         ArrayList<Integer>[] firstList = new ArrayList[0];
-        List<Integer>[] firstResult = matrixToListConverter.convert(firstMatrix);
+        List<Integer>[] firstResult = MatrixToListConverter.convert(firstMatrix);
 
         // symmetric matrix (undirected graph)
         int[][] secondMatrix = {
@@ -34,7 +34,7 @@ public class MatrixConverterTest {
         Collections.addAll(secondList[0], 1, 2);
         Collections.addAll(secondList[1], 0, 2);
         Collections.addAll(secondList[2], 0, 1);
-        List<Integer>[] secondResult = matrixToListConverter.convert(secondMatrix);
+        List<Integer>[] secondResult = MatrixToListConverter.convert(secondMatrix);
 
         //asymmetric matrix (directed graph)
         int[][] thirdMatrix = {
@@ -49,7 +49,7 @@ public class MatrixConverterTest {
         Collections.addAll(thirdList[0], 2);
         Collections.addAll(thirdList[1], 0);
         Collections.addAll(thirdList[2], 0, 1, 2);
-        List<Integer>[] thirdResult = matrixToListConverter.convert(thirdMatrix);
+        List<Integer>[] thirdResult = MatrixToListConverter.convert(thirdMatrix);
 
         //invalid matrix (n x m graph, n != m)
         int[][] fourthMatrix = {
@@ -67,7 +67,7 @@ public class MatrixConverterTest {
             assert thirdList[i].equals(thirdResult[i]);
         }
         try {
-            matrixToListConverter.convert(fourthMatrix);
+            MatrixToListConverter.convert(fourthMatrix);
         } catch (InvalidMatrixException error) {
             assert error.getMessage() == "The matrix must be N x N, not N x M!";
         }

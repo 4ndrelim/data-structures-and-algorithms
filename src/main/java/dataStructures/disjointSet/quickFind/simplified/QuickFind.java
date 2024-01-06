@@ -1,15 +1,20 @@
 package dataStructures.disjointSet.quickFind.simplified;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simplified implementation of quick-find where the objects are integers range from 1-n.
  */
 public class QuickFind {
-    private int[] identity;
-    private int size;
+    private final int[] identity;
+    private final int size;
 
+    /**
+     * TODO documentation
+     *
+     * @param size
+     */
     public QuickFind(int size) {
         // we will ignore index 0. So index 1 corresponds to element 1, index 2 corresponds with element 2 and so on.
         this.identity = new int[size + 1];
@@ -20,7 +25,9 @@ public class QuickFind {
     }
 
     /**
-     * Forms a union between elements of two different groups merging all the elements with the same identity as the former element to that of the latter element.
+     * Forms a union between elements of two different groups merging all the elements with the same identity as
+     * the former element to that of the latter element.
+     *
      * @param fr identity of the first element
      * @param to identity of the second element
      */
@@ -35,6 +42,7 @@ public class QuickFind {
 
     /**
      * Retrieves all the elements in the component whose identity is the same as that of the given element.
+     *
      * @param element whose component we would lie to find.
      * @return all elements in the component
      */

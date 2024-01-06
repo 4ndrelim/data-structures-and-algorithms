@@ -9,7 +9,7 @@ import org.junit.Test;
 import algorithms.graphs.util.BinaryTreeNode;
 
 /**
- * Test cases for {@link depthFirstSearch}.
+ * Test cases for {@link DepthFirstSearch}.
  */
 public class DepthFirstSearchTest {
 
@@ -18,7 +18,7 @@ public class DepthFirstSearchTest {
         // empty tree
         List<Integer> firstList = new ArrayList<>();
         BinaryTreeNode root1 = null;
-        List<Integer> firstResult = depthFirstSearch.preOrder(root1);
+        List<Integer> firstResult = DepthFirstSearch.preOrder(root1);
 
         //standard tree
         //     1
@@ -29,7 +29,7 @@ public class DepthFirstSearchTest {
         List<Integer> secondList = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
         BinaryTreeNode rootRight2 = new BinaryTreeNode(3, new BinaryTreeNode(4), new BinaryTreeNode(5));
         BinaryTreeNode root2 = new BinaryTreeNode(1, new BinaryTreeNode(2), rootRight2);
-        List<Integer> secondResult = depthFirstSearch.preOrder(root2);
+        List<Integer> secondResult = DepthFirstSearch.preOrder(root2);
 
         //standard tree 2
         //          1
@@ -45,7 +45,7 @@ public class DepthFirstSearchTest {
                 new BinaryTreeNode(5, new BinaryTreeNode(6), null)
             );
         BinaryTreeNode root3 = new BinaryTreeNode(1, rootLeft3, new BinaryTreeNode(7));
-        List<Integer> thirdResult = depthFirstSearch.preOrder(root3);
+        List<Integer> thirdResult = DepthFirstSearch.preOrder(root3);
 
         assert firstResult.equals(firstList);
         assert secondResult.equals(secondList);
@@ -57,7 +57,7 @@ public class DepthFirstSearchTest {
         // empty tree
         List<Integer> firstList = new ArrayList<>();
         BinaryTreeNode root1 = null;
-        List<Integer> firstResult = depthFirstSearch.inOrder(root1);
+        List<Integer> firstResult = DepthFirstSearch.inOrder(root1);
 
         //standard tree
         //     1
@@ -68,7 +68,7 @@ public class DepthFirstSearchTest {
         List<Integer> secondList = new ArrayList<>(Arrays.asList(2, 1, 4, 3, 5));
         BinaryTreeNode rootRight2 = new BinaryTreeNode(3, new BinaryTreeNode(4), new BinaryTreeNode(5));
         BinaryTreeNode root2 = new BinaryTreeNode(1, new BinaryTreeNode(2), rootRight2);
-        List<Integer> secondResult = depthFirstSearch.inOrder(root2);
+        List<Integer> secondResult = DepthFirstSearch.inOrder(root2);
 
         //standard tree 2
         //          1
@@ -84,7 +84,7 @@ public class DepthFirstSearchTest {
                 new BinaryTreeNode(5, new BinaryTreeNode(6), null)
             );
         BinaryTreeNode root3 = new BinaryTreeNode(1, rootLeft3, new BinaryTreeNode(7));
-        List<Integer> thirdResult = depthFirstSearch.inOrder(root3);
+        List<Integer> thirdResult = DepthFirstSearch.inOrder(root3);
 
         assert firstResult.equals(firstList);
         assert secondResult.equals(secondList);
@@ -96,7 +96,7 @@ public class DepthFirstSearchTest {
         // empty tree
         List<Integer> firstList = new ArrayList<>();
         BinaryTreeNode root1 = null;
-        List<Integer> firstResult = depthFirstSearch.inOrder(root1);
+        List<Integer> firstResult = DepthFirstSearch.inOrder(root1);
 
         //standard tree
         //     1
@@ -107,7 +107,7 @@ public class DepthFirstSearchTest {
         List<Integer> secondList = new ArrayList<>(Arrays.asList(2, 4, 5, 3, 1));
         BinaryTreeNode rootRight2 = new BinaryTreeNode(3, new BinaryTreeNode(4), new BinaryTreeNode(5));
         BinaryTreeNode root2 = new BinaryTreeNode(1, new BinaryTreeNode(2), rootRight2);
-        List<Integer> secondResult = depthFirstSearch.postOrder(root2);
+        List<Integer> secondResult = DepthFirstSearch.postOrder(root2);
 
         //standard tree 2
         //          1
@@ -123,7 +123,7 @@ public class DepthFirstSearchTest {
                 new BinaryTreeNode(5, new BinaryTreeNode(6), null)
             );
         BinaryTreeNode root3 = new BinaryTreeNode(1, rootLeft3, new BinaryTreeNode(7));
-        List<Integer> thirdResult = depthFirstSearch.postOrder(root3);
+        List<Integer> thirdResult = DepthFirstSearch.postOrder(root3);
 
         assert firstResult.equals(firstList);
         assert secondResult.equals(secondList);

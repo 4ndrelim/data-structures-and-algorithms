@@ -4,9 +4,10 @@ package algorithms.sorting.cyclicSort.simple;
  * Implementation of cyclic sort in the simple case where the n elements of the given array are contiguous,
  * but not in sorted order. Below illustrates the idea using integers from 0 to n-1.
  */
- public class CyclicSort {
+public class CyclicSort {
     /**
      * Sorts the given array.
+     *
      * @param arr the array to be sorted.
      */
     public static void sort(int[] arr) {
@@ -23,4 +24,4 @@ package algorithms.sorting.cyclicSort.simple;
             }
         }
     }
- }
+}
