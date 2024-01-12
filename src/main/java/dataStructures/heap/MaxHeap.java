@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Implementation of an array-based max heap structure derived from a binary heap.
+ * Implementation of an (0-indexed) array-based max heap structure derived from a binary heap.
  *
  * Callable methods are:
  * size()               - O(1)
@@ -19,14 +19,6 @@ import java.util.Map;
  * heapify(List<T> lst) - O(n)
  * heapify(T ...seq)    - O(n)
  * toString()
- *
- * Notes:
- *        1. Array is essentially filled in level-order
- *        2. 0-indexed implementation
- *        3. Actually it suffices to compare index of left child of a node and size of heap to check if it's a leaf node
- *        4. Heapify deals with bubbling down all elements starting from the back,
- *            what about bubbling-up all elements starting from the front instead?
- *            No issue with correctness, problem lies with efficiency of operation.
  *
  * @param <T> generic type for objects to be stored and queried
  */
@@ -255,6 +247,7 @@ public class MaxHeap<T extends Comparable<T>> {
    * @return boolean value that determines is leaf or not
    */
   private boolean isLeaf(int i) {
+    // actually, suffice to compare index of left child of a node and size of heap
     return this.getRightIndex(i) >= this.size() && this.getLeftIndex(i) >= this.size();
   }
 
