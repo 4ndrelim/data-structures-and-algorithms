@@ -68,7 +68,7 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
             } else {
                 node.left = delete(node.left, key);
             }
-        } else {
+        } else { // key == current node
             if (node.left == null && node.right == null) { // 0 child case
                 node = null;
             } else if (node.left == null || node.right == null) { // 1 child case

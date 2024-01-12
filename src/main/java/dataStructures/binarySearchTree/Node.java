@@ -1,7 +1,7 @@
 package dataStructures.binarySearchTree;
 
 /**
- * TreeNode implementation for Binary Search Tree.
+ * Node implementation for Binary Search Tree.
  * Note: Properties should rightfully be kept private 
  * and accessed/modified via public getters/setters.
  * But it was left as such to avoid clutter.
