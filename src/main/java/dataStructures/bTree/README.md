@@ -73,5 +73,17 @@ Search:
 
 where n is the number of elements (whatever the structure, it must store at least n nodes)
 
+## How do B Trees relate to (a,b) trees?
+A B-Tree is an (a,b) tree with a = ceil(b/2).
+
+There are varying definitions of B-trees but we will be following the CLRS definition: a B tree is parameterized by
+a value t >= 2, known as its minimum degree. 
+- Every internal node other than the root has at least t children. 
+- Following this definition, t = a in the naming convention of (a,b) trees. 
+
+## Split Child Method
+![split child](../../../../../docs/assets/images/btreesplitchild.jpeg)
+Image Source: https://www.geeksforgeeks.org/insert-operation-in-b-tree/
+
 ## References
 This description heavily references CS2040S Recitation Sheet 4. 
