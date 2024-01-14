@@ -62,12 +62,11 @@ Rule #3: Leaf depth
 All leaf nodes must be at the same depth from root. 
 
 ## Complexity Analysis
-Search:
 
-**Time**:  O(bloga(n)) = O(logn)
+**Search, Insertion, Deletion Time**:  O(bloga(n)) = O(logn)
 
-- The max height of an (a,b) tree is O(loga(n)). 
-- Linear search takes maximally b nodes per level. 
+- The max height of an (a,b) tree is O(loga(n)).
+- Linear search takes maximally b nodes per level.
 
 **Space**: O(n)
 
@@ -81,9 +80,25 @@ a value t >= 2, known as its minimum degree.
 - Every internal node other than the root has at least t children. 
 - Following this definition, t = a in the naming convention of (a,b) trees. 
 
-## Split Child Method
+## Search Operation 
+Here is an outline of the search operation:
+1. Begin the search at the root of the B tree. 
+2. If the key being searched for is in the current node, return true (i.e. found). 
+3. Else, determine the child node where the key might be located based on comparison with the keys in the current node. 
+4. Recursively perform the search operation in the determined child node. 
+5. If the search reaches a leaf node, and the key is not found, return false (i.e. not found). 
+
+## Insert Operation
+You can read more about how the insert operation works 
+[here](https://www.geeksforgeeks.org/insert-operation-in-b-tree/).
+
+### Split Child Method
 ![split child](../../../../../docs/assets/images/btreesplitchild.jpeg)
 Image Source: https://www.geeksforgeeks.org/insert-operation-in-b-tree/
+
+## Delete Operation
+The delete operation has a similar idea as the insert operation, but involves a lot more edge cases. If you are
+interested to learn about it, you can read more [here](https://www.geeksforgeeks.org/delete-operation-in-b-tree/).
 
 ## References
 This description heavily references CS2040S Recitation Sheet 4. 

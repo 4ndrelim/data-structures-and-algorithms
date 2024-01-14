@@ -88,6 +88,7 @@ public class BTree {
     /**
      * Splits a child node of the current node during insertion, promoting the middle key to the parent node.
      * This method is called when the child node is full and needs to be split to maintain B-tree properties.
+     * Refer to the Split Child Method image in the README for a visualisation of this method.
      * @param x The parent node.
      * @param i The index of the child node to split.
      */
@@ -184,12 +185,12 @@ public class BTree {
         }
 
         if (i < x.keyCount && key == x.keys[i]) {
-            if (x.leaf) {
+            if (x.leaf) { // Case 1: key in node x and x is a leaf
                 for (int curr = i; curr < x.keyCount; curr++) {
                     x.keys[curr] = x.keys[curr + 1];
                 }
                 x.keyCount -= 1;
-            } else {
+            } else { // Case 2: key in node x and x is an internal node
                 BTreeNode y = x.children[i];
                 BTreeNode z = x.children[i + 1];
                 if (y.keyCount >= this.t) {
@@ -205,7 +206,7 @@ public class BTree {
                     deleteRecursive(y, key);
                 }
             }
-        } else {
+        } else { // Case 3: key not present in x
             if (x.leaf) {
                 System.out.println("Key " +  key + " does not exist in the B-tree.");
             } else {
