@@ -1,18 +1,25 @@
 # Data Structures & Algorithms
-This repository contains implementation of some fundamental data structures and algorithms in Computer Science. It is primarily used as a teaching resource and is currently being developed by ex-2040s students.
 
-The project uses Gradle and the structure is optimised for IntelliJ IDEA since implementation are mostly written in Java.
+This repository contains implementation of some fundamental data structures and algorithms in Computer Science. It is
+primarily used as a teaching resource and is currently being developed by ex-2040s students.
 
-**Note**: This is still being developed. Those below with links mean that they are complete (alongside testing). We project to complete CS2040s course content by November and along the way, add interesting algorithms/problems. We are hopeful that the subsequent batches of students (from AY23/24 S2) will benefit greatly from this. 
+The project uses Gradle and the structure is optimised for IntelliJ IDEA since implementation are mostly written in
+Java.
+
+**Note**: This is still being developed. Those below with links mean that they are complete (alongside testing). We
+project to complete CS2040s course content by November and along the way, add interesting algorithms/problems. We are
+hopeful that the subsequent batches of students (from AY23/24 S2) will benefit greatly from this.
 
 If you wish to contribute, do drop an email at andre_lin@u.nus.edu.
 
 ## Full List of Implementation (in alphabetical order):
+
 ## Structures
+
 - Adelson-Velskii and Landis (AVL) Binary Search Tree
 - Disjoint Set / Union Find
     * Quick Find
-    * Weighted Union 
+    * Weighted Union
     * Path compression
 - [Hashing](src/main/java/dataStructures/hashSet)
     * [Chaining](src/main/java/dataStructures/hashSet/chaining)
@@ -25,12 +32,12 @@ If you wish to contribute, do drop an email at andre_lin@u.nus.edu.
 - [Queue](src/main/java/dataStructures/queue)
 - Segment Tree
     * Array implementation
-    * TreeNode implementation 
+    * TreeNode implementation
 - [Stack](src/main/java/dataStructures/stack)
 - Trie
 
-
 ## Algorithms
+
 - [Counting Sort](src/main/java/algorithms/sorting/countingSort)
 - [Cyclic Sort](src/main/java/algorithms/sorting/cyclicSort)
     * [Special case](src/main/java/algorithms/sorting/cyclicSort/simple) of O(n) time complexity
@@ -49,8 +56,8 @@ If you wish to contribute, do drop an email at andre_lin@u.nus.edu.
     * [3-way Partitioning](src/main/java/algorithms/sorting/quickSort/threeWayPartitioning)
 - Radix Sort
 
-
 ## Short-cut to CS2040S Material
+
 1. Basic structures
     * [Linked List](src/main/java/dataStructures/linkedList)
     * [Stack](src/main/java/dataStructures/stack)
@@ -91,12 +98,13 @@ If you wish to contribute, do drop an email at andre_lin@u.nus.edu.
     * Dijkstra
     * Directed acyclic graphs
 10. Minimum spanning tree
-    * Prim's 
+    * Prim's
     * Kruskal's
 
-
 ## Running Custom Inputs
+
 See [here](scripts/README.md).
 
 ## Contributors
+
 See the [team](docs/team/profiles.md)!

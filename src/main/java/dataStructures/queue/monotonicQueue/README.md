@@ -11,5 +11,6 @@ increasing / decreasing order,
 hence, we only need to compare down the monotonic queue from the back when adding new elements.
 
 ## Operation Orders
-Just like a queue, a monotonic queue mainly has *O(1)* operations, 
+
+Just like a queue, a monotonic queue mainly has *O(1)* operations,
 which is unique given that it ensures a certain order, which usually incurs operations of a higher complexity.

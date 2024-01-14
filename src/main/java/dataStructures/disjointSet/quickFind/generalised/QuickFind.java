@@ -5,20 +5,29 @@ import java.util.List;
 
 /**
  * Implementation of quick-find structure; Turns a list of objects into a data structure that supports union operations
+ *
  * @param <T> generic type of object to be stored
  */
 public class QuickFind<T> {
-    private List<T> objects;
-    private List<Integer> identity;
+    private final List<T> objects;
+    private final List<Integer> identity;
 
+    /**
+     * TODO documentation
+     */
     public QuickFind() {
-        this.objects = new ArrayList<T>();
-        this.identity = new ArrayList<Integer>();
+        this.objects = new ArrayList<>();
+        this.identity = new ArrayList<>();
     }
 
+    /**
+     * TODO documentation
+     *
+     * @param input
+     */
     public QuickFind(List<T> input) {
         this.objects = input;
-        this.identity = new ArrayList<Integer>();
+        this.identity = new ArrayList<>();
         for (int i = 0; i < input.size(); i++) {
             this.identity.add(i);
         }
@@ -26,6 +35,7 @@ public class QuickFind<T> {
 
     /**
      * Adds a new item into the existing list.
+     *
      * @param item to be added
      */
     public void add(T item) {
@@ -35,6 +45,7 @@ public class QuickFind<T> {
 
     /**
      * Merges the objects in two different components identified by a member from each.
+     *
      * @param objOne object in one of the components
      * @param objTwo object in another component
      */
@@ -58,6 +69,7 @@ public class QuickFind<T> {
 
     /**
      * Retrieves all elements in the same component as the given object.
+     *
      * @param objOne
      * @return list of elements.
      */
