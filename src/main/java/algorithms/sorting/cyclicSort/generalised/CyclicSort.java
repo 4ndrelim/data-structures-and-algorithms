@@ -13,18 +13,19 @@ public class CyclicSort {
      */
     public static void cyclicSort(int[] arr, int n) {
         for (int currIdx = 0; currIdx < n - 1; currIdx++) {
-            int currElement = arr[currIdx];
+            int currElement;
             int rightfulPos;
 
             do {
                 rightfulPos = currIdx; // initialization since elements before currIdx are correctly placed
+                currElement = arr[currIdx];
                 for (int i = currIdx + 1; i < n; i++) { // O(n) find rightfulPos for the currElement
                     if (arr[i] < currElement) {
                         rightfulPos++;
                     }
-                    if (rightfulPos == currIdx) { // verified curr position is correct for curr element
-                        break;
-                    }
+                }
+                if (rightfulPos == currIdx) { // verified curr position is correct for curr element
+                    break;
                 }
                 while (currElement == arr[rightfulPos]) { // duplicates found, so find next suitable position
                     rightfulPos++;
