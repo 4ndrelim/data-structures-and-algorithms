@@ -20,3 +20,9 @@ pivot check.
 So, we introduced 3-way partitioning to handle duplicates by partitioning the array into three sections: elements less
 than the pivot, elements equal to the pivot, and elements greater than the pivot. Now the good pivot check ignores the
 size of the segment that comprises elements = to pivot.
+
+## Recommended Order of Reading
+1. [Hoares](./hoares)
+2. [Lomuto](./lomuto)
+3. [Paranoid](./paranoid)
+4. [3-way partitioning](./threeWayPartitioning)

@@ -1,5 +1,6 @@
 # Linked Lists
 
+## Background
 Linked lists are a linear structure used to store data elements.
 It consists of a collection of objects, used to store our data elements, known as nodes.
 
