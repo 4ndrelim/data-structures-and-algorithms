@@ -50,7 +50,10 @@ O(n) traversal of the sequence. More details found in the src code.
 **Space complexity**: O(k) auxiliary space to store suffix that matches with prefix of the pattern string
 
 ## Notes
-
-A detailed illustration of how the algorithm works is shown in the code.
+1. A detailed illustration of how the algorithm works is shown in the code.
 But if you have trouble understanding the implementation,
 here is a good [video](https://www.youtube.com/watch?v=EL4ZbRF587g) as well. 
+2. A subroutine to find Longest Prefix Suffix (LPS) is commonly involved in the preprocessing step of KMP. 
+It may be useful to interpret these numbers as the number of characters matched between the suffix and prefix. <br>
+Knowing the number of characters of prefix would help in informing the position of the next character of the pattern to
+match.

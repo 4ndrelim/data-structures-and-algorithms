@@ -34,11 +34,16 @@ public class KmpTest {
     @Test
     public void testNoOccurence_findOccurrences_shouldReturnStartIndices() {
         String seq = "abcabcabc";
-        String pattern = "noway";
+        String patternOne = "noway";
+        String patternTwo = "cbc";
 
-        List<Integer> indices = KMP.findOccurrences(seq, pattern);
-        List<Integer> expected = new ArrayList<>();
-        Assert.assertEquals(expected, indices);
+        List<Integer> indicesOne = KMP.findOccurrences(seq, patternOne);
+        List<Integer> expectedOne = new ArrayList<>();
+        Assert.assertEquals(expectedOne, indicesOne);
+
+        List<Integer> indicesTwo = KMP.findOccurrences(seq, patternTwo);
+        List<Integer> expectedTwo = new ArrayList<>();
+        Assert.assertEquals(expectedTwo, indicesTwo);
     }
 
     @Test
