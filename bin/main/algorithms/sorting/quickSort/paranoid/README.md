@@ -1,0 +1,1 @@
+![ParanoidQuickSort](../../../../../../../docs/assets/images/ParanoidQuickSort.jpeg)
