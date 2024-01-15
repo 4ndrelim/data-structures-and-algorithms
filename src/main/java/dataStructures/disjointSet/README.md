@@ -26,3 +26,7 @@ a balanced tree and hence complexity does not necessarily improve
 
 3. Weighted Union - Same idea of using a tree, but constructed in a way that the tree is balanced, leading to improved
 complexities. Can be further augmented with path compression.
+
+## Notes
+Disjoint Set is a data structure designed to keep track of a set of elements partitioned into a number of 
+non-overlapping subsets. It is not suited for handling duplicates and so our implementation ignores duplicates.

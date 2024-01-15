@@ -2,11 +2,11 @@
 
 ## Background
 Every object will be assigned a component identity. The implementation of Quick Find often involves
-an underlying array that tracks the component identity of each object.
+an underlying array or hash map that tracks the component identity of each object. Here, we use a hash map.
 
 ### Union
 Between the two components, decide on the component d, to represent the combined set. Let the other
-component's identity be d'. Simply iterate over the component identifier array, and for any element with
+component's identity be d'. Simply iterate over the component identifier array / map, and for any element with
 identity d', assign it to d.
 
 ### Find
