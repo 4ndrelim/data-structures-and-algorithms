@@ -1,6 +1,9 @@
 # Knuth-Moris-Pratt Algorithm
 
-KMP match is a type of pattern-searching algorithm.
+## Background
+KMP match is a type of pattern-searching algorithm that improves the efficiency of naive search by avoiding unnecessary
+comparisons. It is most notable when the pattern has repeating sub-patterns.
+<br>
 Pattern-searching problems is prevalent across many fields of CS, for instance,
 in text editors when searching for a pattern, in computational biology sequence matching problems,
 in NLP problems, and even for looking for file patterns for effective file management.
@@ -9,9 +12,31 @@ It is hence crucial that we develop an efficient algorithm.
 ![KMP](../../../../../docs/assets/images/kmp.png)
 Image Source: GeeksforGeeks
 
-## Analysis
+### Intuition
+It's efficient because it utilizes the information gained from previous character comparisons. When a mismatch occurs, 
+the algorithm uses this information to skip over as many characters as possible.
 
-**Time complexity**:
+Considering the string pattern: <br>
+<div style="text-align: center;">
+                "XYXYCXYXYF" 
+</div>
+and string: 
+<div style="text-align: center;">
+                XYXYCXYXYCXYXYFGABC
+</div>
+
+KMP has, during its initial processing of the pattern, identified that "XYXY" is a repeating sub-pattern. 
+This means when the mismatch at F (10th character of the pattern) and C (10th character of the string) occurs, 
+KMP doesn't need to start matching again from the very beginning of the pattern. <br>
+Instead, it leverages the information that "XYXY" has already been matched.
+
+Therefore, the algorithm continues matching from the 5th character of the pattern string (C in "XYXYCXYXYF"). <br> 
+It checks this against the 10th character of the string (C in "XYXYCXYXYCXYXYFGABC"). <br>
+Since they match, the algorithm continues from there without re-checking the initial "XYXY".
+
+## Complexity Analysis
+Let k be the length of the pattern and n be the length of the string to match against.
+**Time complexity**: O(n+k)
 
 Naively, we can look for patterns in a given sequence in O(nk) where n is the length of the sequence and k
 is the length of the pattern. We do this by iterating every character of the sequence, and look at the
