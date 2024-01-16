@@ -1,5 +1,6 @@
 # Queue
 
+## Background
 A queue is a linear data structure that restricts the order in which operations can be performed on its elements.
 
 ### Operation Orders

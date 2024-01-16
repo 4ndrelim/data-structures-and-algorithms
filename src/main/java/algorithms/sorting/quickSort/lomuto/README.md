@@ -1,4 +1,4 @@
-This is how QuickSort works if we always pick the first element as the pivot.
+This is how QuickSort works if we always pick the first element as the pivot with Lomuto's partitioning.
 
 ![QuickSort with first element as pivot](../../../../../../../docs/assets/images/QuickSortFirstPivot.png)
 

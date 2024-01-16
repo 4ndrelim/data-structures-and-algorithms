@@ -1,6 +1,6 @@
 # Generalized Case
 
-## More Details
+## Background
 
 Implementation of cyclic sort in the generalised case where the input can contain any integer and duplicates.
 
@@ -36,3 +36,5 @@ Read: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 - Average: O(n^2), it's bounded by the above two
 
 **Space**: O(1) auxiliary space, this is an in-place algorithm
+
+## Notes

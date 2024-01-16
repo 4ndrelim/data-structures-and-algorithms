@@ -3,15 +3,6 @@ package algorithms.sorting.selectionSort;
 /**
  * Here, we are implementing SelectionSort where we sort the array in increasing (or more precisely, non-decreasing)
  * order.
- * <p>
- * Implementation Invariant:
- * Let the array of length n to be sorted be A.
- * The loop invariant is:
- * At the end of the kth iteration, the smallest k items are correctly sorted in the first k positions of the array.
- * <p>
- * So, at the end of the (n-1)th iteration of the loop, the smallest (n-1) items are correctly sorted in the first (n-1)
- * positions of the array, leaving the last item correctly positioned in the last index of the array. Therefore,
- * (n-1) iterations of the loop is sufficient.
  */
 
 public class SelectionSort {
