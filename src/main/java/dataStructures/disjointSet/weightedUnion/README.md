@@ -26,6 +26,7 @@ are balanced.
 **Space**: O(n), implementation still involves wrapping the n elements with some structure / wrapper (e.g. Node class).
 
 # Weighted Union
+
 ## Background
 Now, we improve upon the Quick Union structure by ensuring trees constructed are 'balanced'. Balanced
 trees have a nice property that the height of the tree will be upper-bounded by O(log(n)). This considerably speeds
@@ -33,6 +34,12 @@ up Union operations. <br>
 We additionally track the size of each tree and ensure that whenever there is a union between 2 elements, **the smaller
 tree becomes a child of the larger tree.**
 It can be mathematically shown the height of the tree is bounded by O(log(n)).
+
+<div align="center">
+    <img src="../../../../../../docs/assets/images/WeightedUnion.png" width="50%">
+    <br>
+    Credits: CS2040s Lecture Slides
+</div>
 
 ### Intuition - Why It Works
 First, it is crucial to know that Weighted Union's efficiency relies on careful **construction** of the trees. <br>
@@ -71,3 +78,9 @@ Interested readers can find out more [here](https://dl.acm.org/doi/pdf/10.1145/3
 **Space**: O(n)
 
 ## Notes
+### Sample Demo - LeetCode 684: Redundant Connections
+The 'objects' in the question are given to be integers. Using int arrays instead of HashMap mapping in our 
+implementation would suffice. But below uses the code exactly from our implementation to show its versatility.
+
+<img src="../../../../../../docs/assets/images/WeightedUnionLeetCode.png">
+
