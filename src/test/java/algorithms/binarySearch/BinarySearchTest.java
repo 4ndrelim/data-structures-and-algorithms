@@ -1,12 +1,11 @@
 package algorithms.binarySearch;
 
-import static org.junit.Assert.assertEquals;
-
+import algorithms.binarySearch.binarySearch.BinarySearch;
+import algorithms.binarySearch.binarySearchTemplated.BinarySearchTemplated;
 import org.junit.Test;
 
-/**
- * Test cases for {@link BinarySearch}.
- */
+import static org.junit.Assert.assertEquals;
+
 public class BinarySearchTest {
     @Test
     public void test_binarySearch() {
