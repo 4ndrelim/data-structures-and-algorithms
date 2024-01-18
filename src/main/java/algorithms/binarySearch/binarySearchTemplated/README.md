@@ -36,17 +36,22 @@ sorted array due to the way the high and low pointers are reassigned.
 
 Hence, we will need to implement a condition method that is able to discern between arrays that "pass" and "fail"
 accurately and also place them in the correct relative positions i.e. "fail" on the left of "pass". Suppose we change
-the condition method implementation in BinarySearchTemplated from `value >= target` to `value <= target`, what will
+the condition method implementation in BinarySearchTemplated from `value >= target` to `value < target`, what will
 happen?
 <details>
 <summary> <b>what will happen?</b> </summary>
-The array becomes "P P F F F F" and the low and high pointers are now reassigned wrongly. We are now looking for the
-first "fail" instead of the first "pass".
+The array becomes "P P F F F F" and the low and high pointers are now reassigned wrongly - the loop invariant is broken
+as the search space is narrowed down in the wrong direction.
 
-To resolve this issue, multiple changes are required: the pointer assignment bodies have to be swapped, low = mid + 1 
-needs to be changed to low = mid, high = mid changed to high = mid - 1 AND ceiling division has to be used to calculate 
-the mid-value. The arrangement of the "pass" elements on the left of the "fail" elements is discouraged as it breaks
-away from the convention used in the template.
+We are now looking for the first "fail" instead of the first "pass".
+
+To resolve this issue, there are two fixes:
+1. Swap the conditional blocks of low - mid + 1 and high = mid.
+**OR**
+2. Simply add a "not" in front of the condition, converting "P P F F F F" back to "F F P P P P".
+
+Note that some conditions may be easier to define with "pass" elements being on the left of "fail" elements, hence, it
+is important to adjust the code with the above fixes accordingly.
 </details>
 
 ### Returned Value (Requires change)
