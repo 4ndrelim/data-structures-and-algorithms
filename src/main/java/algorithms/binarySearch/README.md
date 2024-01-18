@@ -15,7 +15,8 @@ At the end of each iteration, the target value is either within the search range
 We will discuss more implementation-specific details and complexity analysis in the respective folders. In short,
 1. The [binarySearch](binarySearch) method is a more straightforward and intuitive version of the binary search 
 algorithm.
-2. The [binarySearchTemplate](binarySearchTemplated) method provides a template that can be used for most binary search 
-problems by introducing a condition method that can be modified based on the requirements of the implementation.
+2. The [binarySearchTemplate](binarySearchTemplated) method provides a more generalised template that can be used for 
+most binary search problems by introducing a condition method that can be modified based on the requirements of the 
+implementation.
 
 
