@@ -35,7 +35,7 @@ public class MaxHeap<T extends Comparable<T>> {
     }
 
     public int size() {
-        return this.heap.size();
+        return heap.size();
     }
 
     /**
@@ -70,7 +70,10 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param item item to be inserted
      */
     public void offer(T item) {
-        assert !indexOf.containsKey(item) : "Duplicate objects found!";
+        // shouldn't happen as mentioned in README; do nothing, though should customize behaviour in practice
+        if (indexOf.containsKey(item)) {
+
+        }
 
         heap.add(item); // add to the end of the arraylist
         indexOf.put(item, size() - 1); // add item into index map; here becomes problematic if there are duplicates
@@ -83,11 +86,10 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param obj object to be removed
      */
     public void remove(T obj) {
-        if (!indexOf.containsKey(obj)) {
-            System.out.printf("%s does not exist!%n", obj);
-            return;
+        if (!indexOf.containsKey(obj)) { // do nothing
+
         }
-        this.remove(indexOf.get(obj));
+        remove(indexOf.get(obj));
     }
 
     /**
@@ -97,9 +99,9 @@ public class MaxHeap<T extends Comparable<T>> {
      * @return deleted element
      */
     private T remove(int i) {
-        T item = this.get(i); // remember element to be removed
-        swap(i, this.size() - 1); // O(1) swap with last element in the heap
-        heap.remove(this.size() - 1); // O(1)
+        T item = get(i); // remember element to be removed
+        swap(i, size() - 1); // O(1) swap with last element in the heap
+        heap.remove(size() - 1); // O(1)
         indexOf.remove(item); // remove from index map
         bubbleDown(i); // O(log n)
         return item;
@@ -112,7 +114,10 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param updatedObj updated object
      */
     public void decreaseKey(T obj, T updatedObj) {
-        assert updatedObj.compareTo(obj) <= 0 : "Value should reduce or remain the same";
+        // shouldn't happen; do nothing, though should customize behaviour in practice
+        if (updatedObj.compareTo(obj) > 0) {
+
+        }
 
         int idx = indexOf.get(obj); // get the index of the object in the array implementation
         heap.set(idx, updatedObj); // simply replace
@@ -128,7 +133,10 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param updatedObj updated object
      */
     public void increaseKey(T obj, T updatedObj) {
-        assert updatedObj.compareTo(obj) >= 0 : "Value should reduce or remain the same";
+        // shouldn't happen; do nothing, though should customize behaviour in practice
+        if (updatedObj.compareTo(obj) < 0) {
+            return;
+        }
 
         int idx = indexOf.get(obj); // get the index of the object in the array implementation
         heap.set(idx, updatedObj); // simply replace
@@ -144,10 +152,10 @@ public class MaxHeap<T extends Comparable<T>> {
      */
     public void heapify(List<T> lst) {
         heap = new ArrayList<>(lst);
-        for (int i = 0; i < this.size(); i++) {
-            indexOf.put(this.get(i), i);
+        for (int i = 0; i < size(); i++) {
+            indexOf.put(get(i), i);
         }
-        for (int i = this.size() - 1; i >= 0; i--) {
+        for (int i = size() - 1; i >= 0; i--) {
             bubbleDown(i);
         }
     }
@@ -165,7 +173,7 @@ public class MaxHeap<T extends Comparable<T>> {
             indexOf.put(obj, j);
             j++;
         }
-        for (int i = this.size() - 1; i >= 0; i--) {
+        for (int i = size() - 1; i >= 0; i--) {
             bubbleDown(i);
         }
     }
@@ -176,7 +184,7 @@ public class MaxHeap<T extends Comparable<T>> {
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder("[");
-        for (int i = 0; i < this.size(); i++) {
+        for (int i = 0; i < size(); i++) {
             ret.append(heap.get(i));
             ret.append(", ");
         }
@@ -199,11 +207,11 @@ public class MaxHeap<T extends Comparable<T>> {
      */
     private void swap(int idx1, int idx2) {
         // update the index of each value in the map
-        indexOf.put(this.get(idx1), idx2);
-        indexOf.put(this.get(idx2), idx1);
+        indexOf.put(get(idx1), idx2);
+        indexOf.put(get(idx2), idx1);
 
         T tmp = get(idx1); // Recall internally implemented with an ArrayList
-        heap.set(idx1, this.get(idx2));
+        heap.set(idx1, get(idx2));
         heap.set(idx2, tmp);
     }
 
@@ -220,7 +228,7 @@ public class MaxHeap<T extends Comparable<T>> {
      * @return parent of element at index i
      */
     private T getParent(int i) {
-        return this.get(getParentIndex(i));
+        return get(getParentIndex(i));
     }
 
     /**
@@ -236,7 +244,7 @@ public class MaxHeap<T extends Comparable<T>> {
      * @return left child of element at index i
      */
     private T getLeft(int i) {
-        return this.get(getLeftIndex(i));
+        return get(getLeftIndex(i));
     }
 
     /**
@@ -252,7 +260,7 @@ public class MaxHeap<T extends Comparable<T>> {
      * @return right child of element at index i
      */
     private T getRight(int i) {
-        return this.get(getRightIndex(i));
+        return get(getRightIndex(i));
     }
 
     /**
@@ -262,9 +270,9 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param i given index
      */
     private void bubbleUp(int i) {
-        while (i > 0 && this.get(i).compareTo(getParent(i)) > 0) { // the furthest up you can go is the root
+        while (i > 0 && get(i).compareTo(getParent(i)) > 0) { // the furthest up you can go is the root
             int parentIdx = getParentIndex(i);
-            this.swap(i, parentIdx);
+            swap(i, parentIdx);
             i = parentIdx;
         }
     }
@@ -277,7 +285,7 @@ public class MaxHeap<T extends Comparable<T>> {
      */
     private boolean isLeaf(int i) {
         // actually, suffice to compare index of left child of a node and size of heap
-        return this.getRightIndex(i) >= this.size() && this.getLeftIndex(i) >= this.size();
+        return getRightIndex(i) >= size() && getLeftIndex(i) >= size();
     }
 
     /**
@@ -287,17 +295,17 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param i given index
      */
     private void bubbleDown(int i) {
-        while (!this.isLeaf(i)) {
-            T maxItem = this.get(i);
+        while (!isLeaf(i)) {
+            T maxItem = get(i);
             int maxIndex = i; // index of max item
 
             // check if left child is greater in priority, if left exists
-            if (getLeftIndex(i) < this.size() && maxItem.compareTo(getLeft(i)) < 0) {
+            if (getLeftIndex(i) < size() && maxItem.compareTo(getLeft(i)) < 0) {
                 maxItem = getLeft(i);
                 maxIndex = getLeftIndex(i);
             }
             // check if right child is greater in priority, if right exists
-            if (getRightIndex(i) < this.size() && maxItem.compareTo(getRight(i)) < 0) {
+            if (getRightIndex(i) < size() && maxItem.compareTo(getRight(i)) < 0) {
                 maxIndex = getRightIndex(i);
             }
 
