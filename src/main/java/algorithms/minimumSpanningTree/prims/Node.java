@@ -51,8 +51,14 @@ public class Node {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Node node = (Node) o;
         return isVisited == node.isVisited && edges.equals(node.edges);
     }

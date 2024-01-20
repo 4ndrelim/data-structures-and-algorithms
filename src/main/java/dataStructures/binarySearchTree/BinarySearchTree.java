@@ -53,6 +53,20 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
         }
     }
 
+
+    /**
+     * Inserts a key into the tree
+     *
+     * @param key to be inserted
+     */
+    public void insert(T key, V value) {
+        if (root == null) {
+            root = new Node<>(key, value);
+        } else {
+            insert(root, key, value);
+        }
+    }
+
     /**
      * Delete a key from the binary search tree rooted at a specified node.
      * Find the node that holds the key and remove the node from the tree.
@@ -103,6 +117,15 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
+     * Removes a key from the tree, if it exists
+     *
+     * @param key to be removed
+     */
+    public void delete(T key) {
+        root = delete(root, key);
+    }
+
+    /**
      * Find the node with the minimum key in the tree rooted at a specified node.
      *
      * @param n the (sub)tree rooted at node which the minimum key will be searched for
@@ -118,6 +141,19 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
+     * Search for the minimum key in the tree.
+     *
+     * @return node with the minimum key; null if tree is empty
+     */
+    public Node<T, V> searchMin() {
+        if (root == null) {
+            return null;
+        } else {
+            return searchMin(root);
+        }
+    }
+
+    /**
      * Find the node with the maximum key in the tree rooted at a specified node.
      *
      * @param n the (sub)tree rooted at node which the maximum key will be searched for
@@ -129,6 +165,19 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
             return n;
         } else {
             return searchMax(n.getRight());
+        }
+    }
+
+    /**
+     * Search for the maximum key in the tree.
+     *
+     * @return node with the maximum key; null if tree is empty
+     */
+    public Node<T, V> searchMax() {
+        if (root == null) {
+            return null;
+        } else {
+            return searchMax(root);
         }
     }
 
@@ -149,167 +198,6 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
                     return curr.getKey();
                 }
                 curr = curr.getParent();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Find the key of the successor of a specified node that exists in the tree
-     * NOTE: the input node is assumed to be in the tree
-     *
-     * @param node node that exists in the tree
-     * @return key value; null if node has no successor
-     */
-    private T successor(Node<T, V> node) {
-        Node<T, V> curr = node;
-        if (curr.getRight() != null) { // successor in children
-            return searchMin(curr.getRight()).getKey();
-        } else { // successor in ancestor
-            while (curr != null) {
-                if (curr.getKey().compareTo(node.getKey()) > 0) { // finds the closest
-                    return curr.getKey();
-                }
-                curr = curr.getParent();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Stores in-order traversal of tree rooted at node into a list
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void getInorder(Node<T, V> node, List<String> result) {
-        if (node == null) {
-            return;
-        }
-
-        if (node.getLeft() != null) {
-            getInorder(node.getLeft(), result);
-        }
-
-        result.add(node.toString());
-
-        if (node.getRight() != null) {
-            getInorder(node.getRight(), result);
-        }
-    }
-
-    /**
-     * Stores in-order traversal of tree rooted at node into a list
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void getPreorder(Node<T, V> node, List<String> result) {
-        if (node == null) {
-            return;
-        }
-
-        result.add(node.toString());
-
-        if (node.getLeft() != null) {
-            getPreorder(node.getLeft(), result);
-        }
-
-        if (node.getRight() != null) {
-            getPreorder(node.getRight(), result);
-        }
-    }
-
-    /**
-     * Stores post-order traversal of tree rooted at node into a list
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void getPostorder(Node<T, V> node, List<String> result) {
-        if (node == null) {
-            return;
-        }
-
-        if (node.getLeft() != null) {
-            getPostorder(node.getLeft(), result);
-        }
-
-        if (node.getRight() != null) {
-            getPostorder(node.getRight(), result);
-        }
-
-        result.add(node.toString());
-    }
-
-    /**
-     * Stores level-order traversal of tree rooted at node into a list
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void getLevelorder(Node<T, V> node, List<String> result) {
-        if (node == null) {
-            return;
-        }
-
-        Queue<Node<T, V>> queue = new LinkedList<>();
-        queue.add(node);
-        while (!queue.isEmpty()) {
-            Node<T, V> current = queue.poll();
-            result.add(current.toString());
-
-            if (current.getLeft() != null) {
-                queue.add(current.getLeft());
-            }
-            if (current.getRight() != null) {
-                queue.add(current.getRight());
-            }
-        }
-    }
-
-    /**
-     * Get root of tree.
-     *
-     * @return root
-     */
-    public Node<T, V> root() {
-        return root;
-    }
-
-    /**
-     * Inserts a key into the tree
-     *
-     * @param key to be inserted
-     */
-    public void insert(T key, V value) {
-        if (root == null) {
-            root = new Node<>(key, value);
-        } else {
-            insert(root, key, value);
-        }
-    }
-
-    /**
-     * Removes a key from the tree, if it exists
-     *
-     * @param key to be removed
-     */
-    public void delete(T key) {
-        root = delete(root, key);
-    }
-
-    /**
-     * Search for a node with the specified key.
-     *
-     * @param key the key to look for
-     * @return node that has the specified key; null if not found
-     */
-    public Node<T, V> search(T key) {
-        Node<T, V> curr = root;
-        while (curr != null) {
-            if (curr.getKey().compareTo(key) < 0) {
-                curr = curr.getRight();
-            } else if (curr.getKey().compareTo(key) > 0) {
-                curr = curr.getLeft();
-            } else {
-                return curr;
             }
         }
         return null;
@@ -337,6 +225,28 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
+     * Find the key of the successor of a specified node that exists in the tree
+     * NOTE: the input node is assumed to be in the tree
+     *
+     * @param node node that exists in the tree
+     * @return key value; null if node has no successor
+     */
+    private T successor(Node<T, V> node) {
+        Node<T, V> curr = node;
+        if (curr.getRight() != null) { // successor in children
+            return searchMin(curr.getRight()).getKey();
+        } else { // successor in ancestor
+            while (curr != null) {
+                if (curr.getKey().compareTo(node.getKey()) > 0) { // finds the closest
+                    return curr.getKey();
+                }
+                curr = curr.getParent();
+            }
+        }
+        return null;
+    }
+
+    /**
      * Search for the successor of a given key.
      *
      * @param key find successor of this key
@@ -358,28 +268,52 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
-     * Search for the minimum key in the tree.
+     * Get root of tree.
      *
-     * @return node with the minimum key; null if tree is empty
+     * @return root
      */
-    public Node<T, V> searchMin() {
-        if (root == null) {
-            return null;
-        } else {
-            return searchMin(root);
-        }
+    public Node<T, V> root() {
+        return root;
     }
 
     /**
-     * Search for the maximum key in the tree.
+     * Search for a node with the specified key.
      *
-     * @return node with the maximum key; null if tree is empty
+     * @param key the key to look for
+     * @return node that has the specified key; null if not found
      */
-    public Node<T, V> searchMax() {
-        if (root == null) {
-            return null;
-        } else {
-            return searchMax(root);
+    public Node<T, V> search(T key) {
+        Node<T, V> curr = root;
+        while (curr != null) {
+            if (curr.getKey().compareTo(key) < 0) {
+                curr = curr.getRight();
+            } else if (curr.getKey().compareTo(key) > 0) {
+                curr = curr.getLeft();
+            } else {
+                return curr;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Stores in-order traversal of tree rooted at node into a list
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void getInorder(Node<T, V> node, List<String> result) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.getLeft() != null) {
+            getInorder(node.getLeft(), result);
+        }
+
+        result.add(node.toString());
+
+        if (node.getRight() != null) {
+            getInorder(node.getRight(), result);
         }
     }
 
@@ -389,16 +323,83 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
         return result;
     }
 
+    /**
+     * Stores in-order traversal of tree rooted at node into a list
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void getPreorder(Node<T, V> node, List<String> result) {
+        if (node == null) {
+            return;
+        }
+
+        result.add(node.toString());
+
+        if (node.getLeft() != null) {
+            getPreorder(node.getLeft(), result);
+        }
+
+        if (node.getRight() != null) {
+            getPreorder(node.getRight(), result);
+        }
+    }
+
     public List<String> getPreorder() {
         List<String> result = new ArrayList<>();
         getPreorder(root, result);
         return result;
     }
 
+    /**
+     * Stores post-order traversal of tree rooted at node into a list
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void getPostorder(Node<T, V> node, List<String> result) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.getLeft() != null) {
+            getPostorder(node.getLeft(), result);
+        }
+
+        if (node.getRight() != null) {
+            getPostorder(node.getRight(), result);
+        }
+
+        result.add(node.toString());
+    }
+
     public List<String> getPostorder() {
         List<String> result = new ArrayList<>();
         getPostorder(root, result);
         return result;
+    }
+
+    /**
+     * Stores level-order traversal of tree rooted at node into a list
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void getLevelorder(Node<T, V> node, List<String> result) {
+        if (node == null) {
+            return;
+        }
+
+        Queue<Node<T, V>> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            Node<T, V> current = queue.poll();
+            result.add(current.toString());
+
+            if (current.getLeft() != null) {
+                queue.add(current.getLeft());
+            }
+            if (current.getRight() != null) {
+                queue.add(current.getRight());
+            }
+        }
     }
 
     public List<String> getLevelorder() {
