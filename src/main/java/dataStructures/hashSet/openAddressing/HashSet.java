@@ -26,15 +26,16 @@ import java.util.stream.Collectors;
  *            Object::equals and Object::hashCode for the methods add, remove, and contains to be well-defined.
  */
 public class HashSet<T> {
-    private static final int INITIAL_CAPACITY = 16; // Initial capacity of the hash set.
-    private static final double LOAD_FACTOR = 0.75; // Load factor threshold for resizing.
-    private static final int ELEMENT_NOT_FOUND = -1;
+    private static final int INITIAL_CAPACITY = 16; // Initial capacity of the hash set. Arbitrary.
+    private static final double LOAD_FACTOR = 0.75; // Load factor threshold for resizing. Arbitrary.
     private int size; // Number of elements present in the Set (its cardinality).
+
+    // An array is used, instead of an ArrayList, to prevent automatic resizing. This introduces some complexity,
+    // since Java arrays are covariant, which could lead to heap pollution if not properly handled.
     private T[] buckets;
-    private final T tombstone;
 
     /**
-     * Creates a HashSet with an initial capacity of 16.
+     * Creates an empty HashSet with an initial capacity of 16.
      */
     public HashSet() {
         // Safe cast because the only way to add elements into this HashSet is through the add method, which
@@ -44,41 +45,44 @@ public class HashSet<T> {
         this.buckets = tempBuckets;
         this.size = 0;
 
-        // There is no way to retrieve an instance of Tombstone. Therefore, it is safe to cast Tombstone to T.
-        @SuppressWarnings("unchecked")
-        T tempVar = (T) Tombstone.TOMBSTONE;
-        this.tombstone = tempVar;
     }
 
     /**
-     * Adds the specified element to this set if it is not already present
+     * Adds the specified element to this set if it is not already present.
      * If this set already contains the element, the call leaves the set unchanged and returns false.
      * <p>
      * If load factor (0.75) is exceeded, triggers a resize operation and double the current capacity.
      * It's important to note that resizing is not performed with every add operation but rather when the load
-     * factor exceeds the threshold. Therefore, the amortized time complexity of adding elements remains O(1)
+     * factor exceeds the threshold. Therefore, the amortized time complexity of adding elements remains O(1).
      *
-     * @param element the element to be added to this set
-     * @return true if this set did not already contain the specified
-     *     element
+     * @param element the element to be added to this set.
+     * @return true if this set did not already contain the specified element.
      */
     public boolean add(T element) {
-        if (this.contains(element)) {
-            return false;
+        if (contains(element)) {
+            return false; // Element is not added.
         }
 
         if (isLoadFactorExceeded()) {
-            resize(this.capacity() * 2); // Resize to double the capacity.
+            resize(capacity() * 2); // Resize to double the capacity.
         }
 
-        int bucketIndex = this.linearProbe(element);
-        if (!this.isEmptyBucket(
-            bucketIndex)) { // probe function returns the index of an empty bucket or the index containing the element.
-            return false; // Duplicate elements are not added to the set.
+        int collisions = 0;
+        while (collisions < capacity()) {
+            int bucketIndex = hashFunction(element, collisions);
+
+            // Insert into empty bucket.
+            if (isEmptyBucket(bucketIndex)) {
+                buckets[bucketIndex] = element;
+                this.size++;
+                return true;
+            }
+
+            // Bucket is not empty
+            collisions++;
         }
-        this.buckets[bucketIndex] = element;
-        this.size++;
-        return true;
+
+        return false;
     }
 
     /**
@@ -99,19 +103,28 @@ public class HashSet<T> {
      */
     public boolean remove(T element) {
         // If load factor falls below 0.25 and still above minimum size (16), shrink the hashset by half.
-        if (this.size() <= this.capacity() * 0.25 && this.capacity() / 2 >= INITIAL_CAPACITY) {
+        if (size() <= capacity() * 0.25 && capacity() / 2 >= INITIAL_CAPACITY) {
             resize(this.capacity() / 2);
         }
 
-        int bucketIndex = this.search(element);
-        // If the index returned by the probe function contains an empty bucket, then the element is not present in
-        // the set.
-        if (bucketIndex == ELEMENT_NOT_FOUND) {
-            return false;
+        int collisions = 0;
+        while (collisions < capacity()) {
+            int bucketIndex = hashFunction(element, collisions);
+
+            // Element is not removed, because it is not in the Set.
+            if (isNullBucket(bucketIndex)) {
+                return false;
+            }
+
+            if (buckets[bucketIndex].equals(element)) {
+                buckets[bucketIndex] = tombstone(); // Mark the current bucket with a Tombstone.
+                size--;
+                return true;
+            }
+
+            collisions++;
         }
-        this.buckets[bucketIndex] = this.tombstone; // marks the current bucket with a tombstone.
-        this.size--;
-        return true;
+        return false;
     }
 
     /**
@@ -121,15 +134,29 @@ public class HashSet<T> {
      * @return true if this set contains the specified element
      */
     public boolean contains(T element) {
-        int bucketIndex = this.search(element);
+        int collisions = 0;
+        while (collisions < capacity()) {
+            int bucketIndex = hashFunction(element, collisions);
 
-        if (bucketIndex == ELEMENT_NOT_FOUND) {
-            return false;
+            // Invariant: Probe sequence is unbroken (no null values between buckets in the sequence).
+            // This is maintained by add and delete.
+            // This means that given a probe sequence e.g. (1, 2, 3, 4, 5, ...) for a given element, add will attempt to
+            // add the element into the buckets in the given order. As a result, if an element is in bucket 3, there
+            // will be elements in buckets 1 and 2, given that there must have been collisions for the element to be
+            // added to bucket 3 instead of bucket 1, or bucket 2.
+            // Similarly, to maintain that invariant, delete will not replace the element with null, but with a
+            // marker (Tombstone).
+            if (isNullBucket(bucketIndex)) {
+                return false;
+            }
+
+            if (buckets[bucketIndex].equals(element)) {
+                return true;
+            }
+            // Skips Tombstones/Deleted elements.
+            collisions++;
         }
-
-        // Checks equality of element using Object::equals and Object::hashCode
-        return element.equals(this.buckets[bucketIndex])
-            && element.hashCode() == this.buckets[bucketIndex].hashCode();
+        return false;
     }
 
     /**
@@ -156,8 +183,8 @@ public class HashSet<T> {
      * @return the list representation of this HashSet.
      */
     public List<T> toList() {
-        return Arrays.stream(this.buckets)
-            .filter(element -> element != null && !element.equals(this.tombstone))
+        return Arrays.stream(buckets)
+            .filter(element -> element != null && !element.equals(tombstone()))
             .collect(Collectors.toList());
     }
 
@@ -173,6 +200,10 @@ public class HashSet<T> {
 
     /**
      * Hashes the specified element to determine the bucket index for placement within the array.
+     * Note that the hashFunction for an open-addressed HashSet is defined differently from that of chaining,
+     * in that it receives an extra <code>position</code> parameter. This position will be taken into account
+     * based on the probe strategy (Linear Probing in this implementation).
+     * <p>
      * The hash function calculates the index by performing the following steps:
      * <p>
      * 1. Obtains the hash code of the element using its `hashCode` method.
@@ -185,71 +216,33 @@ public class HashSet<T> {
      * within the valid range of the array bounds.
      * This ensures that the index falls within the range of available buckets.
      *
-     * @param element the element to be hashed
+     * @param element    the element to be hashed
+     * @param collisions the number of collisions so far.
      * @return the bucket index where the element should be placed
      */
-    private int hashFunction(T element) {
-        int hashCode = element.hashCode();
-        return (hashCode & 0x7FFFFFFF) % buckets.length;
+    private int hashFunction(T element, int collisions) {
+        int hashCode = element.hashCode() & 0x7FFFFFFF;
+
+        // This step is where the OA and chaining implementation differs.
+        int probeAdjustedHash = linearProbe(hashCode, collisions);
+
+        return probeAdjustedHash % capacity(); // Division-method. Not the most ideal.
     }
 
     /**
-     * Given an element, returns the index of an empty (defined as null OR tombstone) bucket to insert the element at.
-     * If the element is already present in the HashSet, return its index.
+     * Returns the new hash based on the number of collisions so far. Uses linear probing which increments the hash
+     * linearly, hash + (c * collisions), where c is 1 in this case.
+     * <p>
+     * NOTE: Quadratic probing would look something like
+     * hash + (c ^ collisions).
      *
-     * @param element the given element to probe an empty bucket for.
-     * @return the index of an empty bucket.
+     * @param hash       the original hash value, without accounting for the number of collisions. This would be the
+     *                   same hash value as the chaining implementation.
+     * @param collisions the number of collisions so far.
+     * @return the new hash value, after adjusting for the number of collisions.
      */
-    private int linearProbe(T element) {
-        int startingProbeIndex = hashFunction(element);
-
-        int currentBucketIndex = startingProbeIndex;
-        for (int i = 0; i < this.capacity() - 1; i++) {
-            T existingElement = this.buckets[currentBucketIndex];
-            // check for empty / available bucket.
-            if (this.isEmptyBucket(currentBucketIndex)) {
-                return currentBucketIndex;
-            }
-
-            // check if element is equals to the element in the bucket.
-            // Checks equality of element using Object::equals and Object::hashCode
-            if (element.equals(existingElement)
-                && element.hashCode() == existingElement.hashCode()) {
-                return currentBucketIndex;
-            }
-            currentBucketIndex = (currentBucketIndex + 1) % this.capacity();
-        }
-        return ELEMENT_NOT_FOUND; // placeholder return value for now. Will never reach this line.
-    }
-
-    /**
-     * Given an element, return the index of the bucket containing the element.
-     * Performance degrades badly as load factor approaches 1.
-     *
-     * @param element the element to look for.
-     * @return the index of the bucket containing the element.
-     */
-    private int search(T element) {
-        int startingProbeIndex = hashFunction(element);
-
-        int currentBucketIndex = startingProbeIndex;
-        for (int i = 0; i < this.capacity() - 1; i++) {
-            // if bucket contains NULL, means element is not present because deleted elements are marked with tombstone.
-            // That is to say given an arbitrary probe sequence of index 1, 2, 3, ..., there can never be a case where
-            // there is a NULL bucket in the middle of the probe sequence; only tombstone markers.
-            if (this.isNullBucket(currentBucketIndex)) {
-                return ELEMENT_NOT_FOUND;
-            }
-
-            // Checks equality of elements using Object::equals and Object::hashCode.
-            if (this.buckets[currentBucketIndex].equals(element)
-                && this.buckets[currentBucketIndex].hashCode() == element.hashCode()) {
-                return currentBucketIndex;
-            }
-            currentBucketIndex = (currentBucketIndex + 1) % this.capacity();
-        }
-
-        return ELEMENT_NOT_FOUND; // element is not in the HashSet.
+    private int linearProbe(int hash, int collisions) {
+        return hash + collisions;
     }
 
     /**
@@ -269,7 +262,7 @@ public class HashSet<T> {
      * @return true if the bucket contains null at the given bucketIndex.
      */
     private boolean isNullBucket(int bucketIndex) {
-        return this.buckets[bucketIndex] == null;
+        return buckets[bucketIndex] == null;
     }
 
     /**
@@ -279,7 +272,7 @@ public class HashSet<T> {
      * @return true if the bucket contains a Tombstone at the given bucketIndex.
      */
     private boolean isTombstoneBucket(int bucketIndex) {
-        return this.tombstone.equals(this.buckets[bucketIndex]);
+        return tombstone().equals(buckets[bucketIndex]);
     }
 
     /**
@@ -306,7 +299,7 @@ public class HashSet<T> {
         // re-hashes every element and re-insert into the newly created buckets.
         Arrays.stream(temp)
             .filter(Objects::nonNull)
-            .filter(element -> !element.equals(this.tombstone))
+            .filter(element -> !element.equals(tombstone()))
             .forEach(this::add);
     }
 
@@ -318,6 +311,14 @@ public class HashSet<T> {
      */
     private boolean isLoadFactorExceeded() {
         return this.size() >= this.capacity() * LOAD_FACTOR;
+    }
+
+    private static <T> T tombstone() {
+        // It is safe to cast Tombstone to T, because methods retrieving elements (HashSet::get) from the HashSet
+        // should, and will check whether the item is a Tombstone object, returning null in-place of the Tombstone.
+        @SuppressWarnings("unchecked")
+        T tombstone = (T) Tombstone.TOMBSTONE;
+        return tombstone;
     }
 
     /**
@@ -335,6 +336,7 @@ public class HashSet<T> {
 
         /**
          * Checks if the given object is an instance of Tombstone.
+         * Two Tombstone instances will always be the same.
          *
          * @param obj the object to compare
          * @return true if the object is an instance of Tombstone, false otherwise
