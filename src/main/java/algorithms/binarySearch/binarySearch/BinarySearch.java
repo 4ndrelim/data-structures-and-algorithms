@@ -1,4 +1,4 @@
-package algorithms.binarySearch;
+package algorithms.binarySearch.binarySearch;
 
 /**
  * Here, we are implementing BinarySearch where we search an array for a target value at O(log n) time complexity.
@@ -8,6 +8,8 @@ package algorithms.binarySearch;
  * All elements in the array are unique. (to allow for easy testing)
  * <p>
  * Brief Description and Implementation Invariant:
+ *
+ * Brief Description:
  * With the assumption that the array is sorted in ascending order, BinarySearch reduces the search range by half or
  * half + 1 (due to floor division) after every loop. This is done by reassigning the max (high) or min (low) of the
  * search range to the middle of the search range when the target value is smaller than or larger than the current
