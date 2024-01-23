@@ -211,7 +211,7 @@ public class RBTree<T extends Comparable<T>> {
     // Current node does not have 2 children.
     if (current.left == null || current.right == null) {
       nextNode = deleteZeroOrOne(current);
-      deletedColor = current.tag;
+      deletedColor = current.getTag();
     } else {
       // Find the successor of this node.
       // Our successor would be the smallest node in the subtree
@@ -226,14 +226,12 @@ public class RBTree<T extends Comparable<T>> {
       // Since our successor must be a leaf, it has no children.
       // We remove the successor node from this "path".
       nextNode = deleteZeroOrOne(successor);
-      deletedColor = successor.tag;
+      deletedColor = successor.getTag();
     }
     // If we deleted a black node, we need to fix the tree.
     if (!deletedColor) {
       fixAfterDelete(nextNode); // We fix the next node that causes problems with the property.
-      if (nextNode.value.equals(-1)) {
-        // In our implementation, -1 represents the node being a temporary node, but this could also
-        // be replaced by a sentinel RBTree node.
+      if (nextNode instanceof TombstoneNode) {
         swap(nextNode.parent, nextNode, null);
       }
     }
@@ -247,27 +245,23 @@ public class RBTree<T extends Comparable<T>> {
    * @return The next node in concern.
    */
   private RBNode<T> deleteZeroOrOne(RBNode<T> node) {
-    // If something has no child, we can ignore.
-    if (node.left == null && node.right == null) {
-      if (node.tag) { // If our node is red, we can just remove it.
+    if (node.left != null && node.right == null) {
+      swap(node.parent, node, node.left);
+      return node.left;
+    } else if (node.right != null && node.left == null) {
+      swap(node.parent, node, node.right);
+    } else {
+      if (node.getTag()) {
         swap(node.parent, node, null);
         return null;
       } else {
-        // Else, we need a temp. black node to hold the spot first, because the number of
-        // black nodes down this path has reduced.
-        RBNode<T> temp = new RBNode<>(null, false);
+        // We create a temporary tombstone node.
+        RBNode<T> temp = new TombstoneNode<>();
         swap(node.parent, node, temp);
         return temp;
       }
     }
-    // We replace ourselves with the respective child we have.
-    if (node.left != null) {
-      swap(node.parent, node, node.left);
-      return node.left;
-    } else {
-      swap(node.parent, node, node.right);
-      return node.right;
-    }
+    return null;
   }
 
   /**
@@ -276,7 +270,7 @@ public class RBTree<T extends Comparable<T>> {
    * @param node Node in question.
    */
   private void fixAfterDelete(RBNode<T> node) {
-    if (node.equals(root)) { // No need to fix the root.
+    if (node == root || node == null) { // No need to fix the root or null nodes.
       return;
     }
     RBNode<T> brother = findBrother(node);
@@ -285,7 +279,8 @@ public class RBTree<T extends Comparable<T>> {
       fixRedSibling(node, brother);
       brother = findBrother(node); // Get our new brother (who will now be black.)
     }
-    if (!brother.left.tag && !brother.right.tag) { // Brother's children are all black.
+    if ((brother.left == null || !brother.left.getTag())
+      && (brother.right == null || !brother.right.getTag())) { // Brother's children are all black.
       brother.tag = true; // Color our brother node red.
       if (node.parent.tag) { // Parent is red, brother's children are both black.
         node.parent.tag = false; // Recolor parent black.
@@ -325,7 +320,8 @@ public class RBTree<T extends Comparable<T>> {
    */
   private void fixBlackSibling(RBNode<T>  node, RBNode<T> brother) {
     // If we are the left child and our brother's right child is black.
-    if (node.parent.left.equals(node) && !brother.right.tag) {
+    if (node.parent.left.equals(node) &&
+      (brother.right == null || !brother.right.getTag())) {
       // Recolor our brother and his child.
       brother.left.tag = false;
       brother.tag = true;
@@ -333,7 +329,9 @@ public class RBTree<T extends Comparable<T>> {
       // Fix position and update to our new brother.
       rightRotate(brother);
       brother = node.parent.right;
-    } else if (!node.parent.left.equals(node) && !brother.left.tag){
+
+    } else if (!node.parent.left.equals(node) &&
+      (brother.left == null || !brother.left.getTag())){
       // If we are the right child and our brother's left child is black.
       brother.right.tag = false;
       brother.tag = true;
@@ -351,6 +349,7 @@ public class RBTree<T extends Comparable<T>> {
       // Readjust by bring parent about us.
       leftRotate(node.parent);
     } else {
+      if (brother.left == null) {return;}
       brother.left.tag = false;
       rightRotate(node.parent);
     }
@@ -432,5 +431,17 @@ public class RBTree<T extends Comparable<T>> {
       printPostOrder(node.right);
     }
     System.out.print(node.toString() + " ");
+  }
+
+  /**
+   * Gets the depth of the tree rooted at the node.
+   *
+   * @param node node which the tree is rooted at.
+   */
+  public int getDepth(RBNode<T> node) {
+    if (node == null) {return 0;}
+    int l_depth = getDepth(node.left);
+    int r_depth = getDepth(node.right);
+    return Math.max(l_depth, r_depth) + 1;
   }
 }
