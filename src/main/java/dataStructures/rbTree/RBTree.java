@@ -14,7 +14,7 @@ public class RBTree<T extends Comparable<T>> {
   public void insertNode(T val) {
     RBNode<T> current = root;
     RBNode<T> parent = null;
-    while (!current.equals(null)) { // Iteratively search for insertion point.
+    while (current != null) { // Iteratively search for insertion point.
       parent = current;
       if (val.compareTo(current.value) == -1) {
         current = current.left;
@@ -24,7 +24,7 @@ public class RBTree<T extends Comparable<T>> {
     }
     // Inserted node will always be kept as red first.
     RBNode<T> toInsert = new RBNode<>(val, true);
-    if (parent == null) { // First node.
+    if (this.root == null) { // First node.
       this.root = toInsert;
     } else if (val.compareTo(parent.value) == -1) {
       parent.left = toInsert;
@@ -43,10 +43,10 @@ public class RBTree<T extends Comparable<T>> {
    */
   public RBNode<T> findNode(T val) {
     RBNode<T> current = this.root;
-    while (!current.equals(null)) {
+    while (current != null) {
       if (current.value.equals(val)) {
         return current;
-      } else if (current.value.compareTo(val) == -1) {
+      } else if (val.compareTo(current.value) == -1) {
         current = current.left;
       } else {
         current = current.right;
@@ -64,14 +64,14 @@ public class RBTree<T extends Comparable<T>> {
    * @param updated The new child to replace the current node.
    */
   private void swap(RBNode<T> par, RBNode<T> curr, RBNode<T> updated) {
-    if (par.equals(null)) {
+    if (par == null) {
       root = updated;
     } else if (par.left == curr) { // If the old node is originally the left child.
       par.left = updated;
     } else {
       par.right = updated;
     }
-    if (!updated.equals(null)) {
+    if (updated != null) {
       updated.parent = par;
     }
   }
@@ -87,8 +87,8 @@ public class RBTree<T extends Comparable<T>> {
 
     // Swap current node's left with the right node of the left child.
     node.left = left.right;
-    if (!node.left.equals(null)) {
-      node.left.parent = node;
+    if (left.right != null) {
+      left.right.parent = node;
     }
 
     // Swap current node with left's right node.
@@ -110,8 +110,8 @@ public class RBTree<T extends Comparable<T>> {
 
     // Swap current node's right with the left node of the right child.
     node.right = right.left;
-    if (!node.right.equals(null)) {
-      node.right.parent = node;
+    if (right.left != null) {
+      right.left.parent = node;
     }
 
     // Swap current node with right's left node.
@@ -144,7 +144,7 @@ public class RBTree<T extends Comparable<T>> {
    */
   private void fixAfterInsert(RBNode<T> node) {
     RBNode<T> par = node.parent;
-    if (par.equals(null)) {
+    if (par == null) {
       node.tag = false; // Roots must be black.
       return;
     }
@@ -153,7 +153,7 @@ public class RBTree<T extends Comparable<T>> {
     RBNode<T> grandpa = par.parent;
 
     // Case where grandpa == null, parent is the root of the tree.
-    if (grandpa.equals(null)) {
+    if (grandpa == null) {
       par.tag = false; // Roots must be black.
       return;
     }
@@ -161,7 +161,7 @@ public class RBTree<T extends Comparable<T>> {
     RBNode<T> uncle = this.findBrother(par);
 
     // If uncle is red, we have to recolor the parent, grandpa and uncle.
-    if (!uncle.equals(null) && uncle.tag) {
+    if (uncle != null && uncle.tag) {
       par.tag = false;
       grandpa.tag = true;
       uncle.tag = false;
@@ -182,7 +182,7 @@ public class RBTree<T extends Comparable<T>> {
       }
       grandpa.tag = true;
     } else { // If parent is the right node of grandpa...
-      if (node.equals(par.right)) { // And we are the right child.
+      if (node.equals(par.right)) { // And we are the left child.
         leftRotate(grandpa);
         par.tag = false;
       } else { // And we are the left child.
@@ -203,13 +203,13 @@ public class RBTree<T extends Comparable<T>> {
 
     // Finds node with the value within the tree.
     RBNode<T> current = findNode(val);
-    if (current.equals(null)) {return;}
+    if (current == null) {return;}
 
     RBNode<T> nextNode; // Node to fix next.
     boolean deletedColor;
 
     // Current node does not have 2 children.
-    if (current.left.equals(null) || current.right.equals(null)) {
+    if (current.left == null || current.right == null) {
       nextNode = deleteZeroOrOne(current);
       deletedColor = current.tag;
     } else {
@@ -217,7 +217,7 @@ public class RBTree<T extends Comparable<T>> {
       // Our successor would be the smallest node in the subtree
       // with the current node's right child as the root.
       RBNode<T> successor = current.right;
-      while (!successor.left.equals(null)) {
+      while (successor.left != null) {
         successor = successor.left;
       }
       // We replace the value with the successor.
@@ -248,7 +248,7 @@ public class RBTree<T extends Comparable<T>> {
    */
   private RBNode<T> deleteZeroOrOne(RBNode<T> node) {
     // If something has no child, we can ignore.
-    if (node.left.equals(null) && node.right.equals(null)) {
+    if (node.left == null && node.right == null) {
       if (node.tag) { // If our node is red, we can just remove it.
         swap(node.parent, node, null);
         return null;
@@ -261,7 +261,7 @@ public class RBTree<T extends Comparable<T>> {
       }
     }
     // We replace ourselves with the respective child we have.
-    if (!node.left.equals(null)) {
+    if (node.left != null) {
       swap(node.parent, node, node.left);
       return node.left;
     } else {
