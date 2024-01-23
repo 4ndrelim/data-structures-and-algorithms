@@ -56,13 +56,16 @@ public class RBTreeTest {
 
     // Testing delete rotations
     tree.deleteNode(6);
-    Assert.assertEquals("4 2 8 1 3 5 9 7 ", tree.getLevelOrder(tree.root));
+    Assert.assertEquals("4 2 7 1 3 5 8 9 ", tree.getLevelOrder(tree.root));
+    Assert.assertEquals(4, tree.getDepth(tree.root));
     tree.deleteNode(5);
-    Assert.assertEquals("4 2 8 1 3 7 9 ", tree.getLevelOrder(tree.root));
+    Assert.assertEquals("4 2 7 1 3 9 8 ", tree.getLevelOrder(tree.root));
     tree.deleteNode(2);
     tree.deleteNode(8);
-    Assert.assertEquals("4 1 7 3 9 ", tree.getLevelOrder(tree.root));
+    Assert.assertEquals(3, tree.getDepth(tree.root));
+    Assert.assertEquals("4 3 7 1 9 ", tree.getLevelOrder(tree.root));
     tree.deleteNode(4);
-    Assert.assertEquals("3 1 7 9 ", tree.getLevelOrder(tree.root));
+    Assert.assertEquals("7 3 9 1 ", tree.getLevelOrder(tree.root));
+    Assert.assertEquals(3, tree.getDepth(tree.root));
   }
 }

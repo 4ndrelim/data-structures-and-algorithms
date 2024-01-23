@@ -3,6 +3,12 @@ import dataStructures.rbTree.RBNode;
 import java.lang.StringBuilder;
 
 import java.util.*;
+
+/*
+  This class implements a RBTree.
+  The implementation of this class heavily relies upon the following site:
+  https://www.happycoders.eu/algorithms/red-black-tree-java/
+ */
 public class RBTree<T extends Comparable<T>> {
   RBNode<T> root = null;
 
