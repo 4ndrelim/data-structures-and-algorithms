@@ -1,32 +1,35 @@
 package dataStructures.lruCache;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Implementation of Least Recently Used (LRU) Cache 
+ * Implementation of Least Recently Used (LRU) Cache
+ *
  * @param <K> generic type of key to be stored
  * @param <V> generic type of associated value corresponding to a given key
- * Constructor: 
- *  LRU(int capacity)
- * Client methods:
- *  get(K key)
- *  put(K key, V value)
- * Both methods above run in O(1) average time complexity
+ *            Constructor:
+ *            LRU(int capacity)
+ *            Client methods:
+ *            get(K key)
+ *            put(K key, V value)
+ *            Both methods above run in O(1) average time complexity
  */
 public class LRU<K, V> {
-    int cap;
-    Map<K, Node<K, V>> map;
-    Node<K, V> left;  // dummy left node to point to the left end
-    Node<K, V> right; // dummy right node to point to the right end
+    private final int cap;
+    private final Map<K, Node<K, V>> map;
+    private final Node<K, V> left;  // dummy left node to point to the left end
+    private final Node<K, V> right; // dummy right node to point to the right end
 
     /**
      * Helper node class that encapsulates key-value pair and act as linked list to neighbour nodes.
      */
     private class Node<K, V> {
-        K key;
-        V val;
-        Node<K, V> next; 
-        Node<K,V> prev;
+        private final K key;
+        private V val;
+        private Node<K, V> next;
+        private Node<K, V> prev;
+
         Node(K key, V value) {
             this.key = key;
             this.val = value;
@@ -35,6 +38,11 @@ public class LRU<K, V> {
         }
     }
 
+    /**
+     * Constructs an instance of Least Recently Used Cache.
+     *
+     * @param capacity the maximum capacity of the cache.
+     */
     public LRU(int capacity) {
         this.cap = capacity;
         this.map = new HashMap<>();
@@ -46,6 +54,7 @@ public class LRU<K, V> {
 
     /**
      * Helper method to remove the specified node from the doubly linked list
+     *
      * @param node to be removed from the linked list
      */
     private void remove(Node<K, V> node) {
@@ -57,6 +66,7 @@ public class LRU<K, V> {
 
     /**
      * Helper method to insert a node to the right end of the double linked list (Most Recently Used)
+     *
      * @param node to be inserted
      */
     private void insert(Node<K, V> node) {
@@ -69,6 +79,7 @@ public class LRU<K, V> {
 
     /**
      * return the value of the key if it exists; otherwise null
+     *
      * @param key whose value, if exists, to be obtained
      */
     public V get(K key) {
@@ -82,9 +93,10 @@ public class LRU<K, V> {
     }
 
     /**
-     * Update the value of the key if the key exists. 
-     * Otherwise, add the key-value pair to the cache. 
-     * If the number of keys exceeds the capacity from this operation, evict the least recently used key 
+     * Update the value of the key if the key exists.
+     * Otherwise, add the key-value pair to the cache.
+     * If the number of keys exceeds the capacity from this operation, evict the least recently used key
+     *
      * @param key the key
      * @param val the associated value
      */

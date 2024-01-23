@@ -11,9 +11,11 @@ or LIFO order but rather can utilise either orders flexibly.
 A deque can be implemented in multiple ways, using doubly linked lists, arrays or two stacks.
 
 ## Analysis
+
 Much like a queue, deque operations involves the head / tail, resulting in *O(1)* complexity for most operations.
 
 ## Notes
+
 Just like a queue, a monotonic deque could also be created to solve more specific sliding window problems.
 
 
