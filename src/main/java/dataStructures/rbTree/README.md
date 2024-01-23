@@ -20,7 +20,7 @@ cases to consider during an insert operation and 6 different cases to consider d
 
 ## Operation Orders
 
-This allows for *O(logN)* operations.
+Much like other balanced BSTs, RB Trees have *O(logN)* operations.
 
 ## Notes
 
