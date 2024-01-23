@@ -1,5 +1,4 @@
 package dataStructures.rbTree;
-import dataStructures.avlTree.Node;
 import dataStructures.rbTree.RBNode;
 import java.lang.StringBuilder;
 
