@@ -16,7 +16,7 @@ Gradle is used for development.
 - Adelson-Velskii and Landis (AVL) Binary Search Tree
 - [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)
     * [Quick Find](src/main/java/dataStructures/disjointSet/quickFind)
-    * [Weighted Union]((src/main/java/dataStructures/disjointSet)/weightedUnion)
+    * [Weighted Union](src/main/java/dataStructures/disjointSet/weightedUnion)
       * Path compression
 - [Hashing](src/main/java/dataStructures/hashSet)
     * [Chaining](src/main/java/dataStructures/hashSet/chaining)
