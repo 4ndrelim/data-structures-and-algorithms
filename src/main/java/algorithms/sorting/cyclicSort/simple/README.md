@@ -1,6 +1,6 @@
 # Simple Case
 
-## More Details
+## Background
 
 Cyclic Sort can achieve O(n) time complexity in cases where the elements of the collection have a known,
 continuous range, and there exists a direct, O(1) time-complexity mapping from each element to its respective index in
@@ -41,7 +41,7 @@ The algorithm does a 2-pass iteration.
 Note that the answer is necessarily between 0 and n (inclusive), where n is the length of the array,
 otherwise there would be a contradiction.
 
-## Misc
+## Notes
 
 1. It may seem quite trivial to sort integers from 0 to n-1 when one could simply generate such a sequence.
    But this algorithm is useful in cases where the integers to be sorted are keys to associated values (or some mapping)

@@ -15,7 +15,7 @@ At the end of the ith iteration, the ith element (of the original array) from th
 its correct position.
 
 Note: An alternative implementation from the front is easily done with minor modification.
-The catch is that this implementation is not stable.
+The catch is that this implementation would not be stable.
 
 ### Common Misconception
 

@@ -26,6 +26,15 @@ public class AVLTree<T extends Comparable<T>> {
     private Node<T> root;
 
     /**
+     * Get root of tree.
+     *
+     * @return root
+     */
+    public Node<T> root() {
+        return root;
+    }
+
+    /**
      * Get height of node in avl tree.
      *
      * @param n node whose height is to be queried
@@ -33,6 +42,16 @@ public class AVLTree<T extends Comparable<T>> {
      */
     public int height(Node<T> n) {
         return n == null ? -1 : n.getHeight();
+    }
+
+    /**
+     * Get height of node that holds the specified key
+     *
+     * @param key the key value of the node whose height is to be found
+     * @return int value representing height
+     */
+    public int height(T key) {
+        return height(search(key));
     }
 
     /**
@@ -127,6 +146,37 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Find the left-most child of the (sub)tree rooted at a specified node
+     *
+     * @param n tree is rooted at this node
+     * @return left-most node
+     */
+    private Node<T> getMostLeft(Node<T> n) {
+        if (n.getLeft() == null) {
+            return n;
+        } else {
+            return getMostLeft(n.getLeft());
+        }
+    }
+
+    private Node<T> getMostRight(Node<T> n) {
+        if (n.getRight() == null) {
+            return n;
+        } else {
+            return getMostRight(n.getRight());
+        }
+    }
+
+    /**
+     * Inserts a key into the tree
+     *
+     * @param key to be inserted
+     */
+    public void insert(T key) {
+        root = insert(root, key);
+    }
+
+    /**
      * Insert a key which will be wrapped in a node, into the tree rooted at a specified node.
      * NOTE: ASSUMPTION THAT NO TWO NODES SHARE THE SAME KEY VALUE.
      *
@@ -148,6 +198,15 @@ public class AVLTree<T extends Comparable<T>> {
             throw new RuntimeException("Duplicate key not supported!");
         }
         return rebalance(node);
+    }
+
+    /**
+     * Removes a key from the tree, if it exists
+     *
+     * @param key to be removed
+     */
+    public void delete(T key) {
+        root = delete(root, key);
     }
 
     /**
@@ -193,172 +252,6 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * Find the left-most child of the (sub)tree rooted at a specified node
-     *
-     * @param n tree is rooted at this node
-     * @return left-most node
-     */
-    private Node<T> getMostLeft(Node<T> n) {
-        if (n.getLeft() == null) {
-            return n;
-        } else {
-            return getMostLeft(n.getLeft());
-        }
-    }
-
-    private Node<T> getMostRight(Node<T> n) {
-        if (n.getRight() == null) {
-            return n;
-        } else {
-            return getMostRight(n.getRight());
-        }
-    }
-
-    /**
-     * Find the key of the predecessor of a specified node that exists in the tree
-     * NOTE: the input node is assumed to be in the tree
-     *
-     * @param node node that exists in the tree
-     * @return key value; null if node has no predecessor
-     */
-    private T predecessor(Node<T> node) {
-        Node<T> curr = node;
-        if (curr.getLeft() != null) { // has left-child
-            return getMostRight(curr.getLeft()).getKey();
-        } else { // so pred must be an ancestor
-            while (curr != null) {
-                if (curr.getKey().compareTo(node.getKey()) < 0) {
-                    return curr.getKey();
-                }
-                curr = curr.getParent();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Find the key of the successor of a specified node that exists in the tree
-     * NOTE: the input node is assumed to be in the tree
-     *
-     * @param node node that exists in the tree
-     * @return key value; null if node has no successor
-     */
-    private T successor(Node<T> node) {
-        Node<T> curr = node;
-        if (curr.getRight() != null) { // has right-child
-            return getMostLeft(curr.getRight()).getKey();
-        }
-        while (curr != null) {
-            if (curr.getKey().compareTo(node.getKey()) > 0) {
-                return curr.getKey();
-            }
-            curr = curr.getParent();
-        }
-        return null;
-    }
-
-    /**
-     * Prints out in-order traversal of tree rooted at node
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void printInorder(Node<T> node) {
-        if (node == null) {
-            return;
-        }
-        if (node.getLeft() != null) {
-            printInorder(node.getLeft());
-        }
-        System.out.print(node + " ");
-        if (node.getRight() != null) {
-            printInorder(node.getRight());
-        }
-    }
-
-    /**
-     * Prints out pre-order traversal of tree rooted at node
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void printPreorder(Node<T> node) {
-        if (node == null) {
-            return;
-        }
-        System.out.print(node + " ");
-        if (node.getLeft() != null) {
-            printPreorder(node.getLeft());
-        }
-        if (node.getRight() != null) {
-            printPreorder(node.getRight());
-        }
-    }
-
-    /**
-     * Prints out post-order traversal of tree rooted at node
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void printPostorder(Node<T> node) {
-        if (node.getLeft() != null) {
-            printPostorder(node.getLeft());
-        }
-        if (node.getRight() != null) {
-            printPostorder(node.getRight());
-        }
-        System.out.print(node + " ");
-    }
-
-    /**
-     * Prints out level-order traversal of tree rooted at node
-     *
-     * @param node node which the tree is rooted at
-     */
-    private void printLevelorder(Node<T> node) {
-        if (node == null) {
-            return;
-        }
-        Queue<Node<T>> q = new LinkedList<>();
-        q.add(node);
-        while (!q.isEmpty()) {
-            Node<T> curr = q.poll();
-            System.out.print(curr.toString() + " ");
-            if (curr.getLeft() != null) {
-                q.add(curr.getLeft());
-            }
-            if (curr.getRight() != null) {
-                q.add(curr.getRight());
-            }
-        }
-    }
-
-    /**
-     * Get root of tree.
-     *
-     * @return root
-     */
-    public Node<T> root() {
-        return root;
-    }
-
-    /**
-     * Inserts a key into the tree
-     *
-     * @param key to be inserted
-     */
-    public void insert(T key) {
-        root = insert(root, key);
-    }
-
-    /**
-     * Removes a key from the tree, if it exists
-     *
-     * @param key to be removed
-     */
-    public void delete(T key) {
-        root = delete(root, key);
-    }
-
-    /**
      * Search for a node with the specified key.
      *
      * @param key the key to look for
@@ -376,16 +269,6 @@ public class AVLTree<T extends Comparable<T>> {
             }
         }
         return null;
-    }
-
-    /**
-     * Get height of node that holds the specified key
-     *
-     * @param key the key value of the node whose height is to be found
-     * @return int value representing height
-     */
-    public int height(T key) {
-        return height(search(key));
     }
 
     /**
@@ -418,6 +301,28 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Find the key of the predecessor of a specified node that exists in the tree
+     * NOTE: the input node is assumed to be in the tree
+     *
+     * @param node node that exists in the tree
+     * @return key value; null if node has no predecessor
+     */
+    private T predecessor(Node<T> node) {
+        Node<T> curr = node;
+        if (curr.getLeft() != null) { // has left-child
+            return getMostRight(curr.getLeft()).getKey();
+        } else { // so pred must be an ancestor
+            while (curr != null) {
+                if (curr.getKey().compareTo(node.getKey()) < 0) {
+                    return curr.getKey();
+                }
+                curr = curr.getParent();
+            }
+        }
+        return null;
+    }
+
+    /**
      * Search for the successor of a given key.
      *
      * @param key find successor of this key
@@ -447,6 +352,27 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Find the key of the successor of a specified node that exists in the tree
+     * NOTE: the input node is assumed to be in the tree
+     *
+     * @param node node that exists in the tree
+     * @return key value; null if node has no successor
+     */
+    private T successor(Node<T> node) {
+        Node<T> curr = node;
+        if (curr.getRight() != null) { // has right-child
+            return getMostLeft(curr.getRight()).getKey();
+        }
+        while (curr != null) {
+            if (curr.getKey().compareTo(node.getKey()) > 0) {
+                return curr.getKey();
+            }
+            curr = curr.getParent();
+        }
+        return null;
+    }
+
+    /**
      * prints in order traversal of the entire tree.
      */
     public void printInorder() {
@@ -456,12 +382,49 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Prints out in-order traversal of tree rooted at node
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void printInorder(Node<T> node) {
+        if (node == null) {
+            return;
+        }
+        if (node.getLeft() != null) {
+            printInorder(node.getLeft());
+        }
+        System.out.print(node + " ");
+        if (node.getRight() != null) {
+            printInorder(node.getRight());
+        }
+    }
+
+    /**
      * prints pre-order traversal of the entire tree
      */
     public void printPreorder() {
         System.out.print("Pre-order: ");
         printPreorder(root);
         System.out.println();
+    }
+
+
+    /**
+     * Prints out pre-order traversal of tree rooted at node
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void printPreorder(Node<T> node) {
+        if (node == null) {
+            return;
+        }
+        System.out.print(node + " ");
+        if (node.getLeft() != null) {
+            printPreorder(node.getLeft());
+        }
+        if (node.getRight() != null) {
+            printPreorder(node.getRight());
+        }
     }
 
     /**
@@ -474,11 +437,49 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Prints out post-order traversal of tree rooted at node
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void printPostorder(Node<T> node) {
+        if (node.getLeft() != null) {
+            printPostorder(node.getLeft());
+        }
+        if (node.getRight() != null) {
+            printPostorder(node.getRight());
+        }
+        System.out.print(node + " ");
+    }
+
+    /**
      * prints level-order traversal of the entire tree
      */
     public void printLevelorder() {
         System.out.print("Level-order: ");
         printLevelorder(root);
         System.out.println();
+    }
+
+    /**
+     * Prints out level-order traversal of tree rooted at node
+     *
+     * @param node node which the tree is rooted at
+     */
+    private void printLevelorder(Node<T> node) {
+        if (node == null) {
+            return;
+        }
+        Queue<Node<T>> q = new LinkedList<>();
+        q.add(node);
+        while (!q.isEmpty()) {
+            Node<T> curr = q.poll();
+            System.out.print(curr.toString() + " ");
+            if (curr.getLeft() != null) {
+                q.add(curr.getLeft());
+            }
+            if (curr.getRight() != null) {
+                q.add(curr.getRight());
+            }
+        }
     }
 }

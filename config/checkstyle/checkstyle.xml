@@ -256,7 +256,7 @@
               -->
         </module>
 
-<!--        <module name="OverloadMethodsDeclarationOrder"/>-->
+        <module name="OverloadMethodsDeclarationOrder"/>
 
         <!--
         WHITESPACE CHECKS

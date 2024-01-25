@@ -1,14 +1,22 @@
 # Insertion Sort
 
+## Background
+
 Insertion sort is a comparison-based sorting algorithm that builds the final sorted array one element at a
 time. It works by repeatedly taking an element from the unsorted portion of the array and
 inserting it correctly (portion remains sorted) into the sorted portion. Note that the position is not final
 since subsequent elements from unsorted portion may displace previously inserted elements. What's important is
-the sorted region remains sorted. More succinctly: <br>
-At the kth iteration, we take the element arr[k] and insert
+the sorted region remains sorted. 
+
+More succinctly, at the kth iteration, we take the element arr[k] and insert
 it into arr[0, k-1] following sorted order, returning us arr[0, k] in sorted order.
 
 ![InsertionSort](../../../../../../docs/assets/images/InsertionSort.png)
+
+### Implementation Invariant
+The loop invariant: At the end of kth iteration, the first (k+1) items in the array are in sorted order.
+
+At the end of the (n-1)th iteration, all n items in the array will be in sorted order.
 
 ## Complexity Analysis
 
