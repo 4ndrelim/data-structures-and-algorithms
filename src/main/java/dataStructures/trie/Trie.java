@@ -79,7 +79,6 @@ public class Trie {
                 break;
             }
         }
-        return;
     }
 
     public List<String> wordsWithPrefix(String prefix) {
