@@ -72,7 +72,7 @@ right of those that fail! Since "all the versions after a bad version are also b
 
 Since we want to return the first bad version, we will return low.
 
-![first bad version img](../../../../../../docs/assets/images/firstBadVersion.jpeg)
+![first bad version img](../../../../../../../docs/assets/images/firstBadVersion.jpeg)
 
 <b> Full Solution: </b>
 

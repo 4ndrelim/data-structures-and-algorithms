@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-/**
- * Test cases for {@link BinarySearch}.
- */
+import algorithms.binarySearch.binarySearch.BinarySearch;
+import algorithms.binarySearch.binarySearchTemplated.BinarySearchTemplated;
+
 public class BinarySearchTest {
     @Test
     public void test_binarySearch() {
@@ -37,12 +37,22 @@ public class BinarySearchTest {
         int[] secondArray = {1, 5, 10, 11, 12};
         int secondResult = BinarySearchTemplated.search(secondArray, 11);
 
-        // Test 3: target not in array
+        // Test 3: target not in array but could exist within search space
         int[] thirdArray = {1, 5, 10, 11, 12};
         int thirdResult = BinarySearchTemplated.search(thirdArray, 3);
+
+        // Test 4: target not in array but could exist on the right of search space
+        int[] fourthArray = {1, 5, 10, 11, 12};
+        int fourthResult = BinarySearchTemplated.search(thirdArray, 13);
+
+        // Test 3: target not in array but could exist on the left of search space
+        int[] fifthArray = {1, 5, 10, 11, 12};
+        int fifthResult = BinarySearchTemplated.search(thirdArray, 0);
 
         assertEquals(0, firstResult);
         assertEquals(3, secondResult);
         assertEquals(-1, thirdResult);
+        assertEquals(-1, fourthResult);
+        assertEquals(-1, fifthResult);
     }
 }
