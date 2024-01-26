@@ -13,6 +13,10 @@ public class Trie {
         root = new TrieNode();
     }
 
+    /**
+     * Inserts a word into the trie.
+     * @param word
+     */
     public void insert(String word) {
         word = word.toLowerCase(); // ignore case-sensitivity
         TrieNode trav = root;
@@ -26,6 +30,11 @@ public class Trie {
         trav.isEnd = true; // set word
     }
 
+    /**
+     * Searches for a word in the trie.
+     * @param word
+     * @return true if the word is found, false otherwise.
+     */
     public boolean search(String word) {
         word = word.toLowerCase();
         TrieNode trav = root;
@@ -39,6 +48,10 @@ public class Trie {
         return trav.isEnd;
     }
 
+    /**
+     * Deletes a word from the trie.
+     * @param word
+     */
     public void delete(String word) {
         word = word.toLowerCase();
         TrieNode trav = root;
@@ -55,6 +68,10 @@ public class Trie {
     // ABOVE ARE STANDARD METHODS OF A TYPICAL TRIE IMPLEMENTATION
     // BELOW IMPLEMENTS TWO MORE COMMON / USEFUL METHODS FOR TRIE; IN PARTICULAR, NOTE THE PRUNING METHOD
 
+    /**
+     * Deletes a word from the trie, and also prune redundant nodes. This is useful in keeping the trie compact.
+     * @param word
+     */
     public void deleteAndPrune(String word) {
         List<TrieNode> trackNodes = new ArrayList<>();
         TrieNode trav = root;
@@ -81,6 +98,11 @@ public class Trie {
         }
     }
 
+    /**
+     * Find all words with the specified prefix.
+     * @param prefix
+     * @return a list of words.
+     */
     public List<String> wordsWithPrefix(String prefix) {
         List<String> ret = new ArrayList<>();
         TrieNode trav = root;
@@ -98,6 +120,10 @@ public class Trie {
         return ret;
     }
 
+    /**
+     * Find all words in the trie.
+     * @return a list of words.
+     */
     public List<String> getAllWords() {
         List<StringBuilder> allWords = getAllSuffixFromNode(root);
         List<String> ret = new ArrayList<>();
@@ -107,6 +133,11 @@ public class Trie {
         return ret;
     }
 
+    /**
+     * Helper method to get suffix from the node.
+     * @param node
+     * @return
+     */
     private List<StringBuilder> getAllSuffixFromNode(TrieNode node) {
         List<StringBuilder> ret = new ArrayList<>();
         if (node.isEnd) {
@@ -121,5 +152,26 @@ public class Trie {
             }
         }
         return ret;
+    }
+
+    // BELOW IS A METHOD THAT IS USED FOR TESTING PURPOSES ONLY
+
+    /**
+     * Helper method for testing purposes.
+     * @param str
+     * @param pos
+     * @return
+     */
+    public Boolean checkNodeExistsAtPosition(String str, Integer pos) {
+        TrieNode trav = root;
+        for (int i = 0; i < pos; i++) {
+            char c = str.charAt(i);
+            if (trav.children.containsKey(c)) {
+                trav = trav.children.get(c);
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }
