@@ -318,7 +318,7 @@ public class HashSet<T> {
         return this.size() >= this.capacity() * LOAD_FACTOR;
     }
 
-    private static <T> T tombstone() {
+    public T tombstone() {
         // It is safe to cast Tombstone to T, because methods retrieving elements (HashSet::get) from the HashSet
         // should, and will check whether the item is a Tombstone object, returning null in-place of the Tombstone.
         @SuppressWarnings("unchecked")
