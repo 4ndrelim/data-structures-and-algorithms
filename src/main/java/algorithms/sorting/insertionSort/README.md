@@ -14,7 +14,7 @@ it into arr[0, k-1] following sorted order, returning us arr[0, k] in sorted ord
 ![InsertionSort](../../../../../../docs/assets/images/InsertionSort.png)
 
 ### Implementation Invariant
-The loop invariant: At the end of kth iteration, the first (k+1) items in the array are in sorted order.
+The loop invariant: **At the end of kth iteration, the first (k+1) items in the array are in sorted order**.
 
 At the end of the (n-1)th iteration, all n items in the array will be in sorted order.
 
