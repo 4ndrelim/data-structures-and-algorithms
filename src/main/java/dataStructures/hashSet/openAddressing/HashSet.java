@@ -165,7 +165,7 @@ public class HashSet<T> {
      * @return true if this HashSet is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return this.size() == 0;
+        return size() == 0;
     }
 
     /**
@@ -174,7 +174,7 @@ public class HashSet<T> {
      * @return the number of elements present in this HashSet.
      */
     public int size() {
-        return this.size;
+        return size;
     }
 
     /**
@@ -195,7 +195,7 @@ public class HashSet<T> {
      * @return the number of buckets of this HashSet.
      */
     public int capacity() {
-        return this.buckets.length; // returns the number of buckets.
+        return buckets.length; // returns the number of buckets.
     }
 
     /**
@@ -252,7 +252,7 @@ public class HashSet<T> {
      * @return true if the bucket at the given index contains no element, false otherwise.
      */
     private boolean isEmptyBucket(int bucketIndex) {
-        return this.isNullBucket(bucketIndex) || this.isTombstoneBucket(bucketIndex);
+        return this.isNullBucket(bucketIndex) || isTombstoneBucket(bucketIndex);
     }
 
     /**
@@ -287,14 +287,14 @@ public class HashSet<T> {
      */
     private void resize(int newCapacity) {
         // creates a temporary reference to the original bucket
-        T[] temp = this.buckets;
+        T[] temp = buckets;
 
         // Safe cast because the only way to add elements into this HashSet is through the add method, which
         // only takes in elements of type T.
         @SuppressWarnings("unchecked")
         T[] newBuckets = (T[]) new Object[newCapacity];
-        this.buckets = newBuckets;
-        this.size = 0;
+        buckets = newBuckets;
+        size = 0;
 
         // re-hashes every element and re-insert into the newly created buckets.
         Arrays.stream(temp)
