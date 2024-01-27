@@ -67,11 +67,13 @@ public class HashSet<T> {
             resize(capacity() * 2); // Resize to double the capacity.
         }
 
+        // Number of collisions encountered when attempting to insert the element into its rightful bucket
         int collisions = 0;
         while (collisions < capacity()) {
             int bucketIndex = hashFunction(element, collisions);
 
-            // Insert into empty bucket.
+            // Insert into empty bucket. An empty bucket is defined as one that contains either a
+            // Tombstone, or null.
             if (isEmptyBucket(bucketIndex)) {
                 buckets[bucketIndex] = element;
                 this.size++;
@@ -82,6 +84,10 @@ public class HashSet<T> {
             collisions++;
         }
 
+        // This line will only be reached if the number of empty buckets is zero.
+        // With the resizing mechanism, the HashSet/buckets will expand to a larger capacity when a
+        // certain threshold is reached. This means that there will always be empty buckets for adding of elements.
+        assert false: "should never reach this line under normal circumstances, due to resizing mechanism";
         return false;
     }
 
@@ -112,6 +118,8 @@ public class HashSet<T> {
             int bucketIndex = hashFunction(element, collisions);
 
             // Element is not removed, because it is not in the Set.
+            // Unlike HashSet::add, HashSet::remove ignores buckets containing Tombstones.
+            // Refer to README for a more detailed explanation.
             if (isNullBucket(bucketIndex)) {
                 return false;
             }
@@ -146,6 +154,10 @@ public class HashSet<T> {
             // added to bucket 3 instead of bucket 1, or bucket 2.
             // Similarly, to maintain that invariant, delete will not replace the element with null, but with a
             // marker (Tombstone).
+            // If a bucket contains null in the probe sequence, we can be sure that the Set does not
+            // contain the element, and return false immediately.
+            // Unlike HashSet::add, HashSet::contains ignores buckets containing Tombstones.
+            // Refer to README for a more detailed explanation.
             if (isNullBucket(bucketIndex)) {
                 return false;
             }
@@ -153,6 +165,7 @@ public class HashSet<T> {
             if (buckets[bucketIndex].equals(element)) {
                 return true;
             }
+
             // Skips Tombstones/Deleted elements.
             collisions++;
         }
