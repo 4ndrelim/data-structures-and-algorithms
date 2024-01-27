@@ -11,15 +11,15 @@ encountered. <br>
 
 ### Implementation Invariant
 
-At the end of the ith iteration, the ith element (of the original array) from the back will be placed in
-its correct position.
+**At the end of the ith iteration, the ith element (of the original array) from the back will be placed in
+its correct position**.
 
 Note: An alternative implementation from the front is easily done with minor modification.
 The catch is that this implementation would not be stable.
 
 ### Common Misconception
 
-_Counting sort does not require total ordering of elements since it is non-comparison based._
+_"Counting sort does not require total ordering of elements since it is non-comparison based."_
 
 This is incorrect. It requires total ordering of elements to determine their relative positions in the sorted output.
 In our implementation, the total ordering property is reflected by virtue of the structure of the frequency map.

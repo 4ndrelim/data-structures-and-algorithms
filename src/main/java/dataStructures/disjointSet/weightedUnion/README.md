@@ -49,7 +49,8 @@ objects of the smaller tree becomes part of the larger tree (by setting the root
 
 Notice that trees will only increase in height when it's size is doubled. Working on this intuition, one can show 
 (by induction) that a tree of height h has at least 2^h elements. Consequently, 
-**a tree of size n is at most height of logn**.
+**a tree of size n is at most height of logn**. <br/>
+_Note: n = 2^(logn)_
 
 ### Implementation Details
 The concept introduces the idea of constructing trees and forests and certainly, one can similarly implement a 
@@ -72,9 +73,10 @@ assigning to its grandparent actually suffice and yield the same big-O upper-bou
 done in a single pass.). By doing so, we greatly reduce the height of the trees formed.
 
 The analysis with compression is a bit trickier here and talks about the inverse-Ackermann function. 
-Interested readers can find out more [here](https://dl.acm.org/doi/pdf/10.1145/321879.321884)
+Interested readers can find out more [here](https://dl.acm.org/doi/pdf/10.1145/321879.321884).
 
 **Time**: O(alpha)
+
 **Space**: O(n)
 
 ## Notes

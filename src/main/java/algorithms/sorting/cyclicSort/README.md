@@ -7,8 +7,8 @@ Though under some conditions (discussed later), the best case could be done in O
 
 ### Implementation Invariant
 
-At the end of the ith iteration, the ith element
-(of the original array, from either the back or front depending on implementation), is correctly positioned.
+**At the end of the ith iteration, the ith element
+(of the original array, from either the back or front depending on implementation), is correctly positioned**.
 
 ### Comparison to Selection Sort
 
