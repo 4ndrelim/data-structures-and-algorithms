@@ -12,8 +12,8 @@ query if there already exists a path between 2 nodes.
 
 Generally, there are 2 main operations:
 
-1. Union: Join two subsets into a single subset
-2. Find: Determine which subset a particular element is in. In practice, this is often done to check
+1. **Union**: Join two subsets into a single subset
+2. **Find**: Determine which subset a particular element is in. In practice, this is often done to check
    if two elements are in the same subset or component.
 
 The Disjoint Set structure is often introduced in 3 parts, with each iteration being better than the
@@ -27,12 +27,12 @@ Querying for connectivity and updating usually tracked with an internal array.
 a balanced tree and hence complexity does not necessarily improve
    - Note, this is not implemented but details can be found under weighted union folder.
 
-3. **Weighted Union** - Same idea of using a tree, but constructed in a way that the tree is balanced, leading to improved
-complexities. Can be further augmented with path compression.
+3. **Weighted Union** - Same idea of using a tree, but constructed in a way that the tree is balanced, leading to 
+4. improved complexities. Can be further augmented with path compression.
 
 ## Applications
 Because of its efficiency and simplicity in implementing, Disjoint Set structures are widely used in practice:
-1. As mentioned, it is often sued as a helper structure for Kruskal's MST algorithm
+1. As mentioned, it is often used as a helper structure for Kruskal's MST algorithm
 2. It can be used in the context of network connectivity
    - Managing a network of computers 
    - Or even analyse social networks, finding communities and determining if two users are connected through a chain
@@ -42,4 +42,4 @@ Because of its efficiency and simplicity in implementing, Disjoint Set structure
 
 ## Notes
 Disjoint Set is a data structure designed to keep track of a set of elements partitioned into a number of 
-non-overlapping subsets. It is not suited for handling duplicates and so our implementation ignores duplicates.
+non-overlapping subsets. **It is not suited for handling duplicates** and so our implementation ignores duplicates.
