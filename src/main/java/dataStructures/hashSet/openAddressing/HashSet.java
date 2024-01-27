@@ -146,14 +146,6 @@ public class HashSet<T> {
         while (collisions < capacity()) {
             int bucketIndex = hashFunction(element, collisions);
 
-            // Invariant: Probe sequence is unbroken (no null values between buckets in the sequence).
-            // This is maintained by add and delete.
-            // This means that given a probe sequence e.g. (1, 2, 3, 4, 5, ...) for a given element, add will attempt to
-            // add the element into the buckets in the given order. As a result, if an element is in bucket 3, there
-            // will be elements in buckets 1 and 2, given that there must have been collisions for the element to be
-            // added to bucket 3 instead of bucket 1, or bucket 2.
-            // Similarly, to maintain that invariant, delete will not replace the element with null, but with a
-            // marker (Tombstone).
             // If a bucket contains null in the probe sequence, we can be sure that the Set does not
             // contain the element, and return false immediately.
             // Unlike HashSet::add, HashSet::contains ignores buckets containing Tombstones.
