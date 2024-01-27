@@ -7,16 +7,17 @@ the array (the probe sequence) until either the target element is found, or an u
 which indicates that there is no such key in the table.
 
 ## Implementation Invariant
+
 Note that the buckets are 1-indexed in the following explanation.
 
-Invariant: Probe sequence is unbroken. That is to say, given an element that is initially hashed to 
+Invariant: Probe sequence is unbroken. That is to say, given an element that is initially hashed to
 bucket 1 (arbitrary), the probe sequence {1, 2, ..., m} generated when attempting to `add`/`remove`/`find`
 the element will ***never*** contain null.
 
 This invariant is used to help us ensure the correctness and efficiency of `add`/`remove`/`contains`.
-With the above example of an element generating a probe sequence {1, 2, ...}, `add` will check each bucket 
-sequentially, attempting to add the element, treating buckets containing `Tombstones` (to be explained later) and 
-`nulls` as **empty** buckets available for insertion. 
+With the above example of an element generating a probe sequence {1, 2, ...}, `add` will check each bucket
+sequentially, attempting to add the element, treating buckets containing `Tombstones` (to be explained later) and
+`nulls` as **empty** buckets available for insertion.
 
 As a result, if the bucket is inserted in bucket `m`, such that the probe sequence {1, 2, ..., m} is
 generated, then there must have been elements occupying buckets {1, 2, ..., m - 1}, resulting in collisions.
@@ -26,13 +27,14 @@ simply replacing the element to be removed with `null` will cause `contains` to 
 was present.
 
 `Tombstones` allow us to mark the bucket as deleted, which allows `contains` to know that there is a
-possibility that the targeted element can be found later in the probe sequence, returning false immediately upon 
+possibility that the targeted element can be found later in the probe sequence, returning false immediately upon
 encountering `null`.
 
 We could simply look into every bucket in the sequence, but that will result in `remove` and `contains` having an O(n)
 runtime complexity, defeating the purpose of hashing.
 
-TLDR: There is a need to differentiate between deleted elements, and `nulls` to ensure operations on the Set have an O(1)
+TLDR: There is a need to differentiate between deleted elements, and `nulls` to ensure operations on the Set have an O(
+1)
 time complexity.
 
 ## Probing Strategies
@@ -80,10 +82,12 @@ For n items, in a table of size m, assuming uniform hashing, the expected cost o
 e.g. if α = 90%, then E[#probes] = 10;
 
 ## Properties of Good Hash Functions
+
 There are two properties to measure the "goodness" of a Hash Function
+
 1. h(key, i) enumerates all possible buckets.
-   - For every bucket j, there is some i such that: h(key, i) = j
-   - The hash function is a permutation of {1..m}.
+    - For every bucket j, there is some i such that: h(key, i) = j
+    - The hash function is a permutation of {1..m}.
 
 Linear probing satisfies the first property, because it will probe all possible buckets in the Set. I.e. if an element
 is initially hashed to bucket 1, in a Set with capacity n, linear probing generates a sequence of {1, 2, ..., n - 1, n},
@@ -96,6 +100,6 @@ enumerating every single bucket.
     - Linear Probing does ***NOT*** fulfil UHA. In linear probing, when a collision occurs, the HashSet handles it by
       checking the next bucket, linearly until an empty bucket is found. The next slot is always determined in a fixed
       linear manner.
-    - In practicality, achieving UHA is difficult. Double hashing can come close to achieving UHA, by using another 
+    - In practicality, achieving UHA is difficult. Double hashing can come close to achieving UHA, by using another
       hash function to vary the step size (unlike linear probe where the step size is constant), resulting in a more
       uniform distribution of keys and better performance for the hash table.

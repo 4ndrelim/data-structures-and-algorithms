@@ -87,7 +87,7 @@ public class HashSet<T> {
         // This line will only be reached if the number of empty buckets is zero.
         // With the resizing mechanism, the HashSet/buckets will expand to a larger capacity when a
         // certain threshold is reached. This means that there will always be empty buckets for adding of elements.
-        assert false: "should never reach this line under normal circumstances, due to resizing mechanism";
+        assert false : "should never reach this line under normal circumstances, due to resizing mechanism";
         return false;
     }
 
@@ -318,6 +318,11 @@ public class HashSet<T> {
         return this.size() >= this.capacity() * LOAD_FACTOR;
     }
 
+    /**
+     * Returns the singleton instance of Tombstone. Should never be called outside of tests.
+     *
+     * @return the singleton instance of Tombstone.
+     */
     public T tombstone() {
         // It is safe to cast Tombstone to T, because methods retrieving elements (HashSet::get) from the HashSet
         // should, and will check whether the item is a Tombstone object, returning null in-place of the Tombstone.
