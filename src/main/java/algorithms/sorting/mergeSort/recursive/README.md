@@ -1,6 +1,6 @@
 # Merge Sort
 
-### Brief Description:
+### Background
 MergeSort is a divide-and-conquer sorting algorithm. The recursive implementation takes a top-down approach by
 recursively dividing the array into two halves, sorting each half separately, and then merging the sorted halves
 to produce the final sorted output.
@@ -9,11 +9,11 @@ to produce the final sorted output.
 
 Image Source: https://www.101computing.net/merge-sort-algorithm/
 
-### Implementation Invariant (for the merging subroutine):
+### Implementation Invariant (for the merging subroutine)
 The sub-array temp[start, (k-1)] consists of the (𝑘−start) smallest elements of arr[start, mid] and
 arr[mid + 1, end], in sorted order.
 
-### Complexity Analysis:
+### Complexity Analysis
 Time:
 - Worst case: O(nlogn)
 - Average case: O(nlogn)

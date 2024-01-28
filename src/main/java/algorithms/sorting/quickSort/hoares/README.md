@@ -78,7 +78,7 @@ Implementation Invariant:
 
 All elements in A[start, returnIdx] are <= pivot and all elements in A[returnIdx + 1, end] are >= pivot.
 
-## Hoare's vs Lomuto's QuickSort
+### Hoare's vs Lomuto's QuickSort
 
 Hoare's partition scheme is in contrast to Lomuto's partition scheme. Hoare's uses two pointers, while Lomuto's uses
 one. Hoare's partition scheme is generally more efficient as it requires less swaps. See more at
