@@ -1,22 +1,25 @@
 # Binary Search Tree
 
 ## Overview
-A Binary Search Tree (BST) is a tree-based data structure in which each node has at most two children, referred to as 
-the left child and the right child. Each node in a BST contains a unique key and an associated value. The tree is 
+
+A Binary Search Tree (BST) is a tree-based data structure in which each node has at most two children, referred to as
+the left child and the right child. Each node in a BST contains a unique key and an associated value. The tree is
 structured so that, for any given node:
 
 1. The left subtree contains nodes with keys less than the node's key.
 2. The right subtree contains nodes with keys greater than the node's key.
 
-This property makes BSTs efficient for operations like searching, as the average time complexity for many operations is 
+This property makes BSTs efficient for operations like searching, as the average time complexity for many operations is
 proportional to the tree's height.
 
 Note: in the following explanation a "smaller" node refers to a node with a smaller key and a "larger" node refers to a
 node with a larger key.
 
 ## Implementation
+
 ### BinarySearchTree Class
-The BinarySearchTree class is a generic implementation of a BST. It supports a variety of operations that allow 
+
+The BinarySearchTree class is a generic implementation of a BST. It supports a variety of operations that allow
 interaction with the tree:
 
 - root(): Retrieve the root node of the tree.
@@ -35,7 +38,8 @@ interaction with the tree:
 We will expand on the delete implementation due to its relative complexity.
 
 #### Delete Implementation Details
-The delete operation is split into three different cases - when the node to be deleted has no children, one child or 
+
+The delete operation is split into three different cases - when the node to be deleted has no children, one child or
 two children.
 
 **No children:** Simply delete the node.
@@ -45,12 +49,14 @@ the binary search tree property as the right child will definitely be smaller th
 
 **Two children:** Replace the deleted node with its successor. This works because the binary search tree property is
 maintained:
-1. the entire left subtree will definitely be smaller than the successor as the successor is larger than the deleted 
-node
-2. the entire right subtree will definitely be larger than the successor as the successor will be the smallest node in 
-the right subtree
+
+1. the entire left subtree will definitely be smaller than the successor as the successor is larger than the deleted
+   node
+2. the entire right subtree will definitely be larger than the successor as the successor will be the smallest node in
+   the right subtree
 
 ### Node
+
 The Node class represents the nodes within the BinarySearchTree. Each Node instance contains:
 
 - key: The unique key associated with the node.
@@ -60,8 +66,9 @@ The Node class represents the nodes within the BinarySearchTree. Each Node insta
 - parent: Reference to the parent node.
 
 ## Complexity Analysis
+
 **Time Complexity:** For a balanced tree, most operations (insert, delete, search) can be performed in O(log n) time,
-except tree traversal operations which can be performed in O(n) time. However, in the worst case (an unbalanced tree), 
+except tree traversal operations which can be performed in O(n) time. However, in the worst case (an unbalanced tree),
 these operations may degrade to O(n).
 
 **Space Complexity:** O(n), where n is the number of elements in the tree.

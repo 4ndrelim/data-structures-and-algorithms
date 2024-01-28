@@ -4,17 +4,18 @@ package algorithms.sorting.quickSort.hoares;
  * Here, we are implementing Hoares's QuickSort where we sort the array in increasing (or more precisely,
  * non-decreasing) order. We will follow lecture implementation here, which differs slightly from the usual
  * implementation of Hoare's. See more under notes in README.
- *
+ * <p>
  * Implementation Invariant:
  * The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
  * (We edited the pseudocode a bit to keep the duplicates to the left of the pivot.)
- *
+ * <p>
  * This implementation picks the first element as the pivot.
  */
 
 public class QuickSort {
     /**
      * Sorts the given array in-place in non-decreasing order.
+     *
      * @param arr array to be sorted.
      */
     public static void sort(int[] arr) {
@@ -42,7 +43,7 @@ public class QuickSort {
      * Partitions the sub-array from index 'start' to index 'end' around a randomly selected pivot element.
      * The elements less than or equal to the pivot are placed on the left side, and the elements greater than
      * the pivot are placed on the right side.
-     *
+     * <p>
      * Given a sub-array of length m, the time complexity of the partition subroutine is O(m) as we need to iterate
      * through every element in the sub-array once.
      *
@@ -60,7 +61,7 @@ public class QuickSort {
             do {
                 low++;
             } while (low < high && arr[low] <= pivot); // we use <= as opposed to < to pack duplicates to the left side
-                                                       // of the pivot
+            // of the pivot
             do {
                 high--;
             } while (low < high && arr[high] > pivot);

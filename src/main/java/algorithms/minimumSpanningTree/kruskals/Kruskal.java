@@ -1,6 +1,7 @@
 package algorithms.minimumSpanningTree.kruskals;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * Very ugly use of java generics - will refactor one day..
@@ -8,8 +9,8 @@ import java.util.*;
  */
 public class Kruskal {
     private class Node {
-        int size;
-        Node parent;
+        private int size;
+        private Node parent;
 
         public Node() {
             this.size = 1;
@@ -28,6 +29,7 @@ public class Kruskal {
 
         /**
          * Make child a child of this node
+         *
          * @param child
          */
         public void makeChild(Node child) {
@@ -36,6 +38,12 @@ public class Kruskal {
         }
     }
 
+    /**
+     * TODO documentation.
+     *
+     * @param adjM the adjacency matrix.
+     * @return TODO return.
+     */
     public int minCostConnectPoints(int[][] adjM) {
         int v = adjM.length;
         Node[] nodesMapping = new Node[v];
@@ -43,20 +51,20 @@ public class Kruskal {
             nodesMapping[i] = new Node();
         }
 
-        PriorityQueue<Pair<Integer, Pair<Integer, Integer>>> heap = new PriorityQueue<>(
-            (a,b) -> a.key - b.key
-        );
+        PriorityQueue<Pair<Integer, Pair<Integer, Integer>>> heap =
+            new PriorityQueue<>(Comparator.comparingInt(Pair::getKey));
+
         for (int i = 0; i < v; i++) {
             for (int j = i + 1; j < v; j++) {
                 Pair<Integer, Integer> edge = new Pair<>(i, j);
                 if (adjM[i][j] != 0) {
-                    heap.add(new Pair<Integer, Pair<Integer, Integer>>(adjM[i][j], edge));
+                    heap.add(new Pair<>(adjM[i][j], edge));
                 }
             }
         }
 
         int ans = 0;
-        while (heap.size() != 0) {
+        while (!heap.isEmpty()) {
             Pair<Integer, Pair<Integer, Integer>> curr = heap.poll();
             Pair<Integer, Integer> edge = curr.getValue();
             Node fr = nodesMapping[edge.getKey()];
