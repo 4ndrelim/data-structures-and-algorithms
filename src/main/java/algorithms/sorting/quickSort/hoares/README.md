@@ -5,12 +5,14 @@ Note that the usual Hoare's QuickSort differs slightly from lecture implementati
 
 This version of QuickSort assumes the **absence of duplicates** in our array.
 
+## Background
+
 QuickSort is a sorting algorithm based on the divide-and-conquer strategy. It works by selecting a pivot element from
 the array and rearranging the elements such that all elements less than the pivot are on its left, and
 all elements greater than the pivot are on its right. This effectively partitions the array into two parts. The same
 process is then applied recursively to the two partitions until the entire array is sorted.
 
-Implementation Invariant:
+## Implementation Invariant:
 
 The pivot is in the correct position, with elements to its left being < it, and elements to its right being > it.
 
@@ -18,8 +20,8 @@ The pivot is in the correct position, with elements to its left being < it, and 
 Example Credits: Prof Seth/Lecture Slides
 
 ## Complexity Analysis
-
-Complexity Analysis: (this analysis is based on fixed index pivot selection)
+* This analysis is based on fixed index pivot selection.
+* The complexity analysis for Hoare's quicksort is the same as that of Lomuto's quicksort. 
 
 Time:
 

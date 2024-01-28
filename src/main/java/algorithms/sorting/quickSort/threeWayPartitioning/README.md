@@ -1,6 +1,6 @@
 # Three-Way Partitioning
 
-### Background
+## Background
 Three-way partitioning is used in QuickSort to tackle the scenario where there are many duplicate elements in the
 array being sorted.
 
@@ -10,11 +10,11 @@ and swaps with duplicate elements, making the sorting process more efficient.
 
 ![ThreeWayPartitioning](../../../../../../../docs/assets/images/ThreeWayPartitioning.jpeg)
 
-### Implementation Invariant:
+## Implementation Invariant:
 The pivot and any element numerically equal to the pivot will be in the correct positions in the array. Elements
 to their left are < them and elements to their right are > than them.
 
-### Complexity Analysis:
+## Complexity Analysis:
 Time:
 - Worst case: O(nlogn)
 - Average case: O(nlogn)

@@ -23,7 +23,8 @@ then swap the pivot back to its correct position. Below is an illustration:
 The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
 
 ## Complexity Analysis:
-Time:
+* The complexity analysis for Lomuto's quicksort is the same as that of Hoare's quicksort.
+  Time:
 - Expected worst case (poor choice of pivot): O(n^2)
 - Expected average case: O(nlogn)
 - Expected best case (balanced pivot): O(nlogn)

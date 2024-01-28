@@ -1,11 +1,11 @@
 # Paranoid QuickSort
 
-### Background 
+## Background 
 Paranoid Quicksort is the naive quicksort with an additional check to guarantee a good pivot.
 
 ![ParanoidQuickSort](../../../../../../../docs/assets/images/ParanoidQuickSort.jpeg)
 
-### Complexity Analysis:
+## Complexity Analysis:
 Time: (this analysis assumes the absence of many duplicates in our array)
 - Expected worst case: O(nlogn)
 - Expected average case: O(nlogn)
