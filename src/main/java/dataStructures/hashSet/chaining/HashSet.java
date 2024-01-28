@@ -67,7 +67,7 @@ public class HashSet<T extends Comparable<T>> {
      * @return the number of elements in this set (its cardinality)
      */
     public int size() {
-        return this.size;
+        return size;
     }
 
     /**
@@ -76,13 +76,12 @@ public class HashSet<T extends Comparable<T>> {
      * @return true if this set contains no elements
      */
     public boolean isEmpty() {
-        return this.size() == 0;
+        return size() == 0;
     }
 
     /**
-     * TODO formal documentation.
      * Simple hash function to hash the element into their respective bucket.
-     * Currently uses the division method (k % m).
+     * Currently, uses the division method (k % m).
      * T must override both Object::equals and Object::hashCode.
      *
      * @param element the specified element to be hashed.
@@ -104,12 +103,12 @@ public class HashSet<T extends Comparable<T>> {
      *     element
      */
     public boolean add(T element) {
-        int bucket = this.hashFunction(element);
-        LinkedList<T> bucketLinkedList = this.buckets[bucket];
+        int bucket = hashFunction(element);
+        LinkedList<T> bucketLinkedList = buckets[bucket];
         if (bucketLinkedList.search(element) != -1) {
             return false; // element is already in the set.
         }
-        ++this.size; // updates the cardinality of this hashset.
+        ++size; // updates the cardinality of this hashset.
         return bucketLinkedList.insertFront(element);
     }
 
@@ -120,8 +119,8 @@ public class HashSet<T extends Comparable<T>> {
      * @return true if this set contains the specified element
      */
     public boolean contains(T element) {
-        int bucket = this.hashFunction(element);
-        LinkedList<T> bucketLinkedList = this.buckets[bucket];
+        int bucket = hashFunction(element);
+        LinkedList<T> bucketLinkedList = buckets[bucket];
         return bucketLinkedList.search(element) != -1;
     }
 
@@ -137,14 +136,14 @@ public class HashSet<T extends Comparable<T>> {
      * @return true if this set contained the specified element
      */
     public boolean remove(T element) {
-        int bucket = this.hashFunction(element);
-        LinkedList<T> bucketLinkedList = this.buckets[bucket];
+        int bucket = hashFunction(element);
+        LinkedList<T> bucketLinkedList = buckets[bucket];
         int index = bucketLinkedList.search(element);
         if (index == -1) {
             return false; // If the element is not in the hashset.
         }
         bucketLinkedList.remove(index);
-        --this.size; // updates the cardinality of the hash set.
+        --size; // updates the cardinality of the hash set.
         return true;
     }
 
@@ -155,7 +154,7 @@ public class HashSet<T extends Comparable<T>> {
      */
     public List<T> toList() {
         List<T> outputList = new ArrayList<>();
-        for (LinkedList<T> bucket : this.buckets) {
+        for (LinkedList<T> bucket : buckets) {
             while (bucket.size() != 0) {
                 outputList.add(bucket.pop());
             }

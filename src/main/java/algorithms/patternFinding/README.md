@@ -9,6 +9,8 @@ in text editors when searching for a pattern, in computational biology sequence 
 in NLP problems, and even for looking for file patterns for effective file management.
 It is hence crucial that we develop an efficient algorithm.
 
+Typically, the algorithm returns a list of indices that denote the start of each occurrence of the pattern string.
+
 ![KMP](../../../../../docs/assets/images/kmp.png)
 Image Source: GeeksforGeeks
 
