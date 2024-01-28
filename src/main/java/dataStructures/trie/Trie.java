@@ -15,6 +15,9 @@ public class Trie {
         root = new TrieNode();
     }
 
+    /**
+     * TrieNode implementation. Note, fields are set to public for decreased verbosity.
+     */
     private class TrieNode {
         // CHECKSTYLE:OFF: VisibilityModifier
         public Map<Character, TrieNode> children; // or array of size 26 (assume not case-sensitive) to denote each char

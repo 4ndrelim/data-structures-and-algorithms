@@ -8,7 +8,8 @@ Like most trees, a trie is composed of nodes and edges. But, unlike binary trees
 2 children. A trie stores words by breaking down into characters and organising these characters within a hierarchical 
 tree. Each node represents a single character, except the root, which does not represent any character 
 but acts as a starting point for all the words stored. A path in the trie, which is a sequence of connected nodes 
-from the root, represents a prefix or a whole word. Shared prefixes of different words are represented by common paths. 
+from the root, represents a prefix or a whole word. Shared prefixes of different words are represented by common paths.
+
 To distinguish complete words from prefixes within the trie, nodes are often implemented with a boolean flag. 
 This flag is set to true for nodes that correspond to the final character of a complete word and false otherwise.
 
