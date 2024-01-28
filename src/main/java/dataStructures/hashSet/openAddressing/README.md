@@ -1,8 +1,10 @@
 # HashSet (Open-addressing)
 
+## Background
+
 Open-addressing is another approach to resolving collisions in hash tables.
 
-A hash collision is resolved by <b>probing<b>, or searching through alternative locations in
+A hash collision is resolved by **probing** - searching through alternative locations in
 the array (the probe sequence) until either the target element is found, or an unused array slot is found,
 which indicates that there is no such key in the table.
 
@@ -10,7 +12,9 @@ which indicates that there is no such key in the table.
 
 Note that the buckets are 1-indexed in the following explanation.
 
-Invariant: Probe sequence is unbroken. That is to say, given an element that is initially hashed to
+Invariant: ***Probe sequence is unbroken.***
+
+That is to say, given an element that is initially hashed to
 bucket 1 (arbitrary), the probe sequence {1, 2, ..., m} generated when attempting to `add`/`remove`/`find`
 the element will ***never*** contain null.
 
@@ -33,11 +37,26 @@ encountering `null`.
 We could simply look into every bucket in the sequence, but that will result in `remove` and `contains` having an O(n)
 runtime complexity, defeating the purpose of hashing.
 
-TLDR: There is a need to differentiate between deleted elements, and `nulls` to ensure operations on the Set have an O(
-1)
-time complexity.
+TLDR: There is a need to differentiate between deleted elements, and `nulls` to ensure operations on the Set have an
+O(1) time complexity.
 
 ## Probing Strategies
+
+For Open-Addressing, the hash function differs from that of Chaining, in that the number of collisions encountered
+when inserting the key into the Hash Set is taken into account into determining the hash value.
+
+In the following probe strategies, the hash function typically looks like a variation of:
+<div style="text-align: center;"><code>h(k, i) = (h'(k) + i) mod m</code></div>
+
+`h'(k)` would be the equivalent of a typical hash function used in a HashSet that resolves collisions by Chaining,
+while an additional parameter `i` indicates the number of collisions so far.
+
+Take Linear Probing with a step size of 1 as an example.
+Given an element `k` hashed to bucket 1 initially, such that:
+<div style="text-align: center;"><code>h(k, 0) = 1</code></div>
+
+then, if there was already an element in bucket 1 resulting in a collision, then the next bucket index is determined by:
+<div style="text-align: center;"><code>h(k, 1) = 1 + 1 = 2</code></div>
 
 ### Linear Probing
 
@@ -48,7 +67,8 @@ Simplest form of probing and involves linearly searching the hash table for an e
 However, this method of probing can result in a phenomenon called (primary) clustering where a large run of
 occupied slots builds up, which can drastically degrade the performance of add, remove and contains operations.
 
-h(k, i) = (h'(k) + i) mod m where h'(k) is an ordinary hash function
+`h(k, i) = (h'(k) + i) mod m`
+where `h'(k)` is an ordinary hash function, and `i` is the number of collisions so far.
 
 ### Quadratic Probing
 
@@ -58,35 +78,37 @@ polynomial until an open slot is found.
 This helps to avoid primary clustering of entries (like in Linear Probing), but might still result in secondary
 clustering where keys that hash to the same value probe the same alternative cells when a collision occurs.
 
-h(k, i) = ( h`(k) + c1 * i + c2 * (i^2) ) mod m where c1 and c2 are arbitrary constants
+`h(k, i) = (h'(k) + c1 * i + c2 * (i^2)) mod m` where `c1` and `c2` are arbitrary constants
 
 ### Double Hashing
 
 This is a method of probing where a secondary hash function is used for probing whenever a collision occurs.
 
-If h2(k) is relatively prime to m for all k, Uniform Hashing Assumption can hold true, as all permutations of probe
-sequences occur in equal probability.
+If `h2(k)` is relatively prime to `m` for all `k`, Uniform Hashing Assumption can hold true, as all permutations of
+probe sequences occur in equal probability.
 
-h(k, i) = (h1(k) + i * h2(k)) mod m where h1(k) and h2(k) are two ordinary hash functions
+`h(k, i) = (h1(k) + i * h2(k)) mod m` where `h1(k)` and `h2(k)` are two ordinary hash functions
 
 *Source: https://courses.csail.mit.edu/6.006/fall11/lectures/lecture10.pdf*
 
 ## Complexity Analysis
 
-let α = n / m where α is the load factor of the table
+let `α = n / m` where `α` is the load factor of the table
 
-For n items, in a table of size m, assuming uniform hashing, the expected cost of an operation is:
+For `n` items, in a table of size `m`, assuming uniform hashing, the expected cost of an operation is:
 
-<div style="text-align: center;">1/1-α</div>
+<div style="text-align: center;"><code>1/1-α</code></div>
 
-e.g. if α = 90%, then E[#probes] = 10;
+e.g. if `α` = 90%, then `E[#probes]` = 10;
 
-## Properties of Good Hash Functions
+## Notes
+
+### Properties of Good Hash Functions
 
 There are two properties to measure the "goodness" of a Hash Function
 
-1. h(key, i) enumerates all possible buckets.
-    - For every bucket j, there is some i such that: h(key, i) = j
+1. `h(key, i)` enumerates all possible buckets.
+    - For every bucket `j`, there is some `i` such that: `h(key, i) = j`
     - The hash function is a permutation of {1..m}.
 
 Linear probing satisfies the first property, because it will probe all possible buckets in the Set. I.e. if an element
