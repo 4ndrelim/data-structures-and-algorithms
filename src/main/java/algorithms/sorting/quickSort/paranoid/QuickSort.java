@@ -3,31 +3,9 @@ package algorithms.sorting.quickSort.paranoid;
 /**
  * Here, we are implementing Paranoid QuickSort where we sort the array in increasing (or more precisely,
  * non-decreasing) order.
- * <p>
- * This is basically Lomuto's QuickSort, with an additional check to guarantee a good pivot.
- * <p>
- * Complexity Analysis:
- * Time: (this analysis assumes the absence of many duplicates in our array)
- * - Expected worst case: O(nlogn)
- * - Expected average case: O(nlogn)
- * - Expected best case: O(nlogn)
- * <p>
- * The additional check to guarantee a good pivot guards against the worst case scenario where the chosen pivot results
- * in an extremely imbalanced partitioning. Since the chosen pivot has to at least partition the array into a
- * 1/10, 9/10 split, the recurrence relation will be: T(n) = T(n/10) + T(9n/10) + n(# iterations of pivot selection).
- * <p>
- * The number of iterations of pivot selection is expected to be <2 (more precisely, 1.25). This is because
- * P(good pivot) = 8/10. Expected number of tries to get a good pivot = 1 / P(good pivot) = 10/8 = 1.25.
- * <p>
- * Therefore, the expected time-complexity is: T(n) = T(n/10) + T(9n/10) + 1.25n => O(nlogn).
- * <p>
- * Edge case: does not terminate
- * The presence of this additional check and repeating pivot selection means that if we have an array of
- * length n >= 10 containing all/many duplicates of the same number, any pivot we pick will be a bad pivot and we will
- * enter an infinite loop of repeating pivot selection.
- * <p>
- * Space:
- * - O(1) excluding memory allocated to the call stack, since partitioning is done in-place
+ *
+ * We are implementing this with the Lomuto's partitioning scheme, with an additional check to guarantee a good pivot.
+ * You could also implement this with the Hoare's partitioning scheme instead.
  */
 
 public class QuickSort {
