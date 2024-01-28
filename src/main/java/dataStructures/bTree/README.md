@@ -1,5 +1,18 @@
 # B-Trees
 
+### Table of Contents
+- [Background](#background)
+- [(a,b) trees](#-ab--trees)
+  - [Implementation Invariants/(a,b) Tree Rules](#implementation-invariants--ab--tree-rules)
+  - [Complexity Analysis](#complexity-analysis)
+- [How do B Trees relate to (a,b) trees?](#how-do-b-trees-relate-to--ab--trees)
+- [Search Operation](#search-operation)
+- [Insert Operation](#insert-operation)
+  - [Split Child Method](#split-child-method)
+- [Delete Operation](#delete-operation)
+- [Application](#application)
+
+
 ## Background
 Is the fastest way to search for data to store them in an array, sort them and perform binary search? No. This will
 incur minimally O(nlogn) sorting cost, and O(n) cost per insertion to maintain sorted order. <br>
@@ -15,7 +28,7 @@ deletion and search operations to O(h) ~= O(logn). <br>
 B-tree is another of self-balancing search tree data structure that maintains sorted data and allows for efficient
 insertion, deletion and search operations. 
 
-### (a,b) trees
+## (a,b) trees
 
 Before we talk about B-trees, we first introduce its family (generalized form) - (a,b) trees. <br> 
 
@@ -29,7 +42,7 @@ Here is a (2,4) tree to aid visualisation as we go through the (a,b) tree rules/
 ![(2,4) tree](../../../../../docs/assets/images/(2,4)tree.jpg)
 
 
-### Implementation Invariant/(a,b) Tree Rules
+### Implementation Invariants/(a,b) Tree Rules
 Rule #1: (a,b)-child Policy
 The min and max of keys and children each node can have are bounded as follows:
 ![(a,b) child policy](../../../../../docs/assets/images/(a,b)childpolicy.jpg)
@@ -63,7 +76,7 @@ Rule #3: Leaf depth
 All leaf nodes must be at the same depth from root. 
 - This property forces the tree to be balanced. 
 
-## Complexity Analysis
+### Complexity Analysis
 
 **Search, Insertion, Deletion Time**:  O(bloga(n)) = O(logn)
 

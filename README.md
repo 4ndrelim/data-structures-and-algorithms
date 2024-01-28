@@ -82,7 +82,7 @@ Gradle is used for development.
     * AVL-tree
     * Orthogonal Range Searching
     * [Trie](src/main/java/dataStructures/trie)
-    * B-Tree
+    * [B-Tree](src/main/java/dataStructures/bTree)
     * Red-Black Tree (Not covered in CS2040s but useful!)
     * Kd-tree (**WIP**)
     * Interval tree (**WIP**)
