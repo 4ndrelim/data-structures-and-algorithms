@@ -1,5 +1,5 @@
 # Quick Union
-
+If you wish to jump to [weighted union](#Weighted-Union).
 ## Background
 Here, we consider a completely different approach. We consider the use of trees. Every element can be
 thought of as a tree node and starts off in its own component. Under this representation, it is likely
