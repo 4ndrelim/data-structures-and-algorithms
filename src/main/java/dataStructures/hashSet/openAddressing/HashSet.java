@@ -76,7 +76,7 @@ public class HashSet<T> {
             // Tombstone, or null.
             if (isEmptyBucket(bucketIndex)) {
                 buckets[bucketIndex] = element;
-                this.size++;
+                size++;
                 return true;
             }
 
@@ -124,7 +124,8 @@ public class HashSet<T> {
                 return false;
             }
 
-            if (buckets[bucketIndex].equals(element)) {
+            if (buckets[bucketIndex].equals(element)
+                && buckets[bucketIndex].hashCode() == element.hashCode()) {
                 buckets[bucketIndex] = tombstone(); // Mark the current bucket with a Tombstone.
                 size--;
                 return true;
@@ -154,7 +155,8 @@ public class HashSet<T> {
                 return false;
             }
 
-            if (buckets[bucketIndex].equals(element)) {
+            if (buckets[bucketIndex].equals(element)
+                && buckets[bucketIndex].hashCode() == element.hashCode()) {
                 return true;
             }
 
@@ -257,7 +259,7 @@ public class HashSet<T> {
      * @return true if the bucket at the given index contains no element, false otherwise.
      */
     private boolean isEmptyBucket(int bucketIndex) {
-        return this.isNullBucket(bucketIndex) || isTombstoneBucket(bucketIndex);
+        return isNullBucket(bucketIndex) || isTombstoneBucket(bucketIndex);
     }
 
     /**
@@ -315,7 +317,7 @@ public class HashSet<T> {
      * @return true if the current load factor is exceeded, false otherwise.
      */
     private boolean isLoadFactorExceeded() {
-        return this.size() >= this.capacity() * LOAD_FACTOR;
+        return size() >= capacity() * LOAD_FACTOR;
     }
 
     /**
