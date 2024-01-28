@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-/** This BTree implementation is a simplified implementation, which supports the basic search, insert, delete and
+/**
+ * This BTree implementation is a simplified implementation, which supports the basic search, insert, delete and
  * in-order traversal operations. It is not designed to cover edge cases.
  */
 public class BTree {
@@ -21,13 +22,14 @@ public class BTree {
         this.t = t;
     }
 
-    /** Inner class representing a B-tree node
+    /**
+     * Inner class representing a B-tree node
      */
     private class BTreeNode {
-        int[] keys;
-        BTreeNode[] children;
-        int keyCount; // necessary for Java implementation due to fixed-size arrays
-        boolean leaf;
+        private int[] keys;
+        private BTreeNode[] children;
+        private int keyCount; // necessary for Java implementation due to fixed-size arrays
+        private boolean leaf;
 
         /**
          * Constructor for creating a B-tree node.
@@ -159,7 +161,7 @@ public class BTree {
     private void deleteRecursive(BTreeNode x, int key) {
         int i = 0;
 
-        while (i < x.keyCount && key > x.keys[i]){
+        while (i < x.keyCount && key > x.keys[i]) {
             i += 1;
         }
 
@@ -187,7 +189,7 @@ public class BTree {
             }
         } else { // Case 3: key not present in x
             if (x.leaf) {
-                System.out.println("Key " +  key + " does not exist in the B-tree.");
+                System.out.println("Key " + key + " does not exist in the B-tree.");
             } else {
                 if (x.children[i].keyCount < this.t) {
                     fixChild(x, i);

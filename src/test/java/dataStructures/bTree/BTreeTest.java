@@ -1,15 +1,12 @@
 package dataStructures.bTree;
-
-import org.junit.Test;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+
 public class BTreeTest {
     @Test
-    public void test_BTree() {
+    public void testBTree() {
         BTree bTree = new BTree(3); // Specify the order of the B-tree
 
         int[] keys = {3, 7, 1, 8, 5, 12, 2, 9, 6, 10, 11, 4};
