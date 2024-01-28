@@ -1,7 +1,8 @@
 # B-Trees
 
 ## Background
-Is the fastest way to search for data to store them in an array, sort them and perform binary search? No. <br>
+Is the fastest way to search for data to store them in an array, sort them and perform binary search? No. This will
+incur minimally O(nlogn) sorting cost, and O(n) cost per insertion to maintain sorted order. <br>
 
 We have seen binary search trees (BSTs), which always maintains data in sorted order. This allows us to avoid the 
 overhead of sorting before we search. However, we also learnt that unbalanced BSTs can be incredibly inefficient for 
@@ -18,7 +19,7 @@ insertion, deletion and search operations.
 
 Before we talk about B-trees, we first introduce its family (generalized form) - (a,b) trees. <br> 
 
-- In an (a,b) tree, a nd b refer to the minimum and maximum number of children of an internal node in the tree. <br>
+- In an (a,b) tree, a and b refer to the minimum and maximum number of children of an internal node in the tree. <br>
 - a and b are parameters where 2 <= a <= (b+1)/2. 
 
 Note that unlike binary trees, in (a,b) trees, each node can have more than 2 children and each node can store multiple 
@@ -55,11 +56,12 @@ Specifically, for a non-leaf node with k keys and (k+1) children:
 Then: 
 - first child t1 has key range <= v1
 - final child tk+1 has key range > vk
-- all other children ti have key range (vi-1, vi)
+- all other children ti have key range (vi-1, vi]
 
 Rule #3: Leaf depth
 
 All leaf nodes must be at the same depth from root. 
+- This property forces the tree to be balanced. 
 
 ## Complexity Analysis
 
@@ -99,6 +101,27 @@ Image Source: https://www.geeksforgeeks.org/insert-operation-in-b-tree/
 ## Delete Operation
 The delete operation has a similar idea as the insert operation, but involves a lot more edge cases. If you are
 interested to learn about it, you can read more [here](https://www.geeksforgeeks.org/delete-operation-in-b-tree/).
+
+## Application
+There are many uses of B-Trees but the most common is their utility in database management systems in handling large 
+datasets by optimizing disk accesses.
+
+Large amounts of data have to be stored on the disk. But disk I/O operations are slow and not knowing where to look 
+for the data can drastically worsen search time. B-Tree is used as an index structure to efficiently locate the 
+desired data. Note, the B-Tree itself can be partially stored in RAM (higher levels) and and partially on disk 
+(lower, less freq accessed levels).
+
+Consider a database of all the CS modules offered in NUS. Suppose there is a column "Code" (module code) in the 
+"CS Modules" table. If the database has a B-Tree index on the "Code" column, the keys in the B-Tree would be the 
+module code of all CS modules offered.
+
+Each key in the B-Tree is associated with a pointer, that points to the location on the disk where the corresponding 
+data can be found. For e.g., a key for "CS2040s" would have a pointer to the disk location(s) where the row(s) 
+(i.e. data) with "CS2040s" is stored. This efficient querying allows the database quickly navigate through the keys 
+and find the disk location of the desired data without having to scan the whole "CS Modules" table.
+
+The choice of t will impact the height of the tree, and hence how fast the query is. Trade-off would be space, as a 
+higher t means more keys in each node and they would have to be (if not already) loaded to RAM.
 
 ## References
 This description heavily references CS2040S Recitation Sheet 4. 

@@ -1,5 +1,10 @@
 package dataStructures.bTree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /** This BTree implementation is a simplified implementation, which supports the basic search, insert, delete and
  * in-order traversal operations. It is not designed to cover edge cases.
  */
@@ -141,32 +146,6 @@ public class BTree {
             }
 
             insertNonFull(x.children[i], key);
-        }
-    }
-
-    /**
-     * Prints the keys of the B-tree level by level.
-     */
-    public void printBTree() {
-        if (root != null) {
-            printBTree(root, 0);
-        }
-    }
-
-    private void printBTree(BTreeNode node, int level) {
-        System.out.println("Level " + level + ": " + node.keyCount + " keys");
-
-        for (int i = 0; i < node.keyCount; i++) {
-            System.out.print(node.keys[i] + " ");
-        }
-        System.out.println();
-
-        if (!node.leaf) {
-            for (int i = 0; i <= node.keyCount; i++) {
-                if (node.children[i] != null) {
-                    printBTree(node.children[i], level + 1);
-                }
-            }
         }
     }
 
@@ -359,6 +338,97 @@ public class BTree {
 
         child.keyCount++;
         sibling.keyCount--;
+    }
+
+    /**
+     * Returns the level order traversal of the B Tree.
+     * @return An array containing the level order traversal of the B Tree.
+     */
+    public Object[] levelOrderTraversal() {
+        List<Integer> result = new ArrayList<>();
+
+        if (root == null) {
+            return result.toArray(); // Return an empty list for an empty tree
+        }
+
+        Queue<BTreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+
+            for (int i = 0; i < levelSize; i++) {
+                BTreeNode current = queue.poll();
+
+                // Process current node
+                for (int j = 0; j < current.keyCount; j++) {
+                    result.add(current.keys[j]);
+                }
+
+                // Enqueue children if not a leaf
+                if (!current.leaf) {
+                    for (int j = 0; j <= current.keyCount; j++) {
+                        if (current.children[j] != null) {
+                            queue.offer(current.children[j]);
+                        }
+                    }
+                }
+            }
+        }
+
+        return result.toArray();
+    }
+
+    /**
+     * Returns the preorder traversal of the B Tree.
+     * @return An array containing the preorder traversal of the B Tree.
+     */
+    public Object[] preOrderTraversal() {
+        List<Integer> result = new ArrayList<>();
+        preOrderTraversal(root, result);
+        return result.toArray();
+    }
+
+    private void preOrderTraversal(BTreeNode node, List<Integer> result) {
+        if (node != null) {
+            // Process current node
+            for (int i = 0; i < node.keyCount; i++) {
+                result.add(node.keys[i]);
+            }
+
+            // Recursively traverse children
+            if (!node.leaf) {
+                for (int i = 0; i <= node.keyCount; i++) {
+                    preOrderTraversal(node.children[i], result);
+                }
+            }
+        }
+    }
+
+    /**
+     * Debugging method: Prints the keys of the B-tree level by level.
+     */
+    public void printBTree() {
+        if (root != null) {
+            printBTree(root, 0);
+        }
+    }
+
+    private void printBTree(BTreeNode node, int level) {
+        System.out.println("Level " + level + ": " + node.keyCount + " keys");
+
+        for (int i = 0; i < node.keyCount; i++) {
+            System.out.print(node.keys[i] + " ");
+        }
+        System.out.println();
+
+        if (!node.leaf) {
+            for (int i = 0; i <= node.keyCount; i++) {
+                if (node.children[i] != null) {
+                    printBTree(node.children[i], level + 1);
+                }
+            }
+        }
     }
 
 }
