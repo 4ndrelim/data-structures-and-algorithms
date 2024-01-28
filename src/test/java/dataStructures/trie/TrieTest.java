@@ -7,14 +7,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * insert
- * search
- * delete
- * deleteAndPrune
- * wordsWithPrefix
- * getAllWords
- */
 public class TrieTest {
     @Test
     public void search_shouldFindWordIfExists() {
@@ -70,6 +62,20 @@ public class TrieTest {
         trie.deleteAndPrune("cs3230");
         Assert.assertFalse(trie.checkNodeExistsAtPosition("cs3230", 3));
         Assert.assertTrue(trie.checkNodeExistsAtPosition("cs3230", 2));
+    }
+
+    @Test
+    public void deleteAndPrune_shouldNotDeletePrefixWords() {
+        Trie trie = new Trie();
+        trie.insert("art");
+        trie.insert("artist");
+        trie.insert("artistic");
+        trie.insert("artistically");
+
+        Assert.assertTrue(trie.search("artistically"));
+        trie.deleteAndPrune("artistically");
+        Assert.assertTrue(trie.search("artistic")); // should not be pruned away
+        Assert.assertTrue(trie.search("art")); // should not be pruned away
     }
 
     @Test

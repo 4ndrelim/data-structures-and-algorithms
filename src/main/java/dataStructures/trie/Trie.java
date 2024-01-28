@@ -1,7 +1,9 @@
 package dataStructures.trie;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of a Trie; Here we consider strings (not case-sensitive)
@@ -11,6 +13,18 @@ public class Trie {
 
     public Trie() {
         root = new TrieNode();
+    }
+
+    private class TrieNode {
+        // CHECKSTYLE:OFF: VisibilityModifier
+        public Map<Character, TrieNode> children; // or array of size 26 (assume not case-sensitive) to denote each char
+        // CHECKSTYLE:OFF: VisibilityModifier
+        public boolean isEnd; // a marker to indicate whether the path from the root to this node forms a known word
+
+        public TrieNode() {
+            children = new HashMap<Character, TrieNode>();
+            isEnd = false;
+        }
     }
 
     /**
@@ -90,7 +104,7 @@ public class Trie {
             char curr = word.charAt(i);
             TrieNode nodeBeforeCurr = trackNodes.get(i);
             TrieNode nextNode = nodeBeforeCurr.children.get(curr);
-            if (nextNode.children.size() == 0) { // this node essentially doesn't track anything, remove
+            if (!nextNode.isEnd && nextNode.children.size() == 0) { // node essentially doesn't track anything, remove
                 nodeBeforeCurr.children.remove(curr);
             } else { // children.size() > 0; i.e. this node is still useful; no need to further prune upwards
                 break;
