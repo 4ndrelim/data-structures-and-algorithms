@@ -52,7 +52,6 @@ public class Node {
     public String toString() {
         return "Node{" +
                 "identifier='" + identifier + '\'' +
-                ", adjacentNodes=" + adjacentNodes +
                 '}';
     }
 
@@ -61,13 +60,11 @@ public class Node {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        return isVisited == node.isVisited &&
-                Objects.equals(identifier, node.identifier) &&
-                Objects.equals(adjacentNodes, node.adjacentNodes);
+        return Objects.equals(identifier, node.identifier);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identifier, adjacentNodes, isVisited);
+        return Objects.hash(identifier);
     }
 }
