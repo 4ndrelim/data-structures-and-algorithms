@@ -1,52 +1,59 @@
 package algorithms.minimumSpanningTree.prims;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
-/**
- * Helper class to encapsulate information about a node;
- * specifically, tells us the weight of an edge and the node on the other end
- * (assumes that the starting node of the edge is known)
- */
 public class Node {
-    private final List<Edge> edges;
     private boolean isVisited = false;
-    private int currMinDistance;
+    private int currMinWeight;
+    private Map<Node, Integer> adjacentNodes;
+    private String identifier; // Unique identifier for the node
 
-    public Node(List<Edge> edges) {
-        this.edges = new ArrayList<>(edges);
-    }
-    public Node() {
-        this.edges = new ArrayList<>();
-    }
-
-    public List<Edge> getEdges() {
-        return this.edges;
+    public Node(String identifier) {
+        this.adjacentNodes = new HashMap<>();
+        this.identifier = identifier;
     }
 
-    public int getCurrMinDistance() {
-        return currMinDistance;
+    public Node(String identifier, Map<Node, Integer> adjacentNodes) {
+        this.identifier = identifier;
+        this.adjacentNodes = adjacentNodes;
     }
 
-    public void setVisited(boolean isVisited) {
-        this.isVisited = isVisited;
+    public Map<Node, Integer> getAdjacentNodes() {
+        return adjacentNodes;
+    }
+
+    public int getCurrMinWeight() {
+        return currMinWeight;
+    }
+
+    public void setCurrMinWeight(int currMinWeight) {
+        this.currMinWeight = currMinWeight;
     }
 
     public boolean isVisited() {
         return this.isVisited;
     }
 
-    public void setCurrMinDistance(int currMinDistance) {
-        this.currMinDistance = currMinDistance;
+    public void setVisited(boolean isVisited) {
+        this.isVisited = isVisited;
     }
 
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    @Override
     public String toString() {
-        return this.edges.toString();
-    }
-
-    public void addEdge(Edge mstEdge) {
-        this.edges.add(mstEdge);
+        return "Node{" +
+                "identifier='" + identifier + '\'' +
+                ", adjacentNodes=" + adjacentNodes +
+                '}';
     }
 
     @Override
@@ -54,11 +61,13 @@ public class Node {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        return isVisited == node.isVisited && edges.equals(node.edges);
+        return isVisited == node.isVisited &&
+                Objects.equals(identifier, node.identifier) &&
+                Objects.equals(adjacentNodes, node.adjacentNodes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(edges, isVisited);
+        return Objects.hash(identifier, adjacentNodes, isVisited);
     }
 }
