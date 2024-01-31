@@ -1,6 +1,7 @@
 package algorithms.minimumSpanningTree.prims;
 
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -8,12 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.Test;
 
 public class PrimsTest {
     @Test
-    public void testPrimsMST_SimpleGraph() {
+    public void test_simpleGraph() {
         // Graph setup
         // A -1- B -1- C
         Node nodeActualA = new Node("A");
@@ -52,7 +52,7 @@ public class PrimsTest {
     }
 
     @Test
-    public void testPrimsMST_ComplexGraph() {
+    public void test_complexGraph() {
         // Graph setup
         //     A
         //   / | \
