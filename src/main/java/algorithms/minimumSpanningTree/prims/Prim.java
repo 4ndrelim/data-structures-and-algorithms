@@ -1,12 +1,10 @@
 package algorithms.minimumSpanningTree.prims;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Set;
 
 /** 
  * Implementation of Prim's Algorithm to find MSTs
@@ -32,46 +30,56 @@ import java.util.Set;
 public class Prim {
     public static List<Node> getPrimsMST(List<Node> graph) {
         PriorityQueue<Node> pq = new PriorityQueue<>(
-            (a, b) -> a.getCurrMinDistance() - b.getCurrMinDistance()
+            (a, b) -> a.getCurrMinWeight() - b.getCurrMinWeight()
         );
 
         // Values in the map represent the corresponding node with only the edges in the MST
         Map<Node, Node> nodeToMSTNode = new HashMap<>();
+        Map<Node, Node> parentInMST = new HashMap<>();
 
-        // mstEdge map required to track the edges in the MST. The corresponding node is the start node of the edge.
-        Map<Edge, Node> mstEdge = new HashMap<>();
-
-        // Initialize each node's minDistance to infinity and add to the priority queue
+        // Initialize each node's minWeight to infinity and add to the priority queue
         for (Node node : graph) {
-            node.setCurrMinDistance(Integer.MAX_VALUE);
+            node.setCurrMinWeight(Integer.MAX_VALUE);
             pq.add(node);
-            nodeToMSTNode.put(node, new Node()); // Create a corresponding MST node
+            nodeToMSTNode.put(node, new Node(node.getIdentifier())); // Create a corresponding MST node
+            parentInMST.put(node, null);
         }
 
         // Assuming graph is not empty and the start node is the first node
         if (!graph.isEmpty()) {
-            graph.get(0).setCurrMinDistance(0);
+            graph.get(0).setCurrMinWeight(0);
         }
 
         while (!pq.isEmpty()) {
             Node current = pq.poll();
             current.setVisited(true);
 
-            for (Edge edge : current.getEdges()) {
-                Node adjacent = edge.getEndNode();
-                if (!adjacent.isVisited() && edge.getWeight() < adjacent.getCurrMinDistance()) {
-                    pq.remove(adjacent);
-                    adjacent.setCurrMinDistance(edge.getWeight());
-                    pq.add(adjacent);
-                    mstEdge.put(edge, current); // Update the lightest valid outgoing edge
+            Map<Node, Integer> currentAdjacentNodes = current.getAdjacentNodes();
+
+            for (Map.Entry<Node, Integer> entry : currentAdjacentNodes.entrySet()) {
+                Node adjacent = entry.getKey();
+                Integer weight = entry.getValue();
+
+                if (!adjacent.isVisited() && weight < adjacent.getCurrMinWeight()) {
+                    adjacent.setCurrMinWeight(weight);
+
+                    // Update the parent in MST
+                    parentInMST.put(adjacent, current);
                 }
             }
         }
 
-        // Populate the MST nodes with the edges to be included in the MST
-        for (Edge edge : mstEdge.keySet()) {
-            Node start = mstEdge.get(edge);
-            nodeToMSTNode.get(start).addEdge(edge);
+        // Construct the MST using the parent-child relationships
+        for (Node originalNode : graph) {
+            Node mstNode = nodeToMSTNode.get(originalNode);
+            Node parent = parentInMST.get(originalNode);
+
+            if (parent != null) {
+                Node mstParent = nodeToMSTNode.get(parent);
+                int weight = originalNode.getAdjacentNodes().get(parent);
+                mstParent.getAdjacentNodes().put(mstNode, weight);
+                mstNode.getAdjacentNodes().put(mstParent, weight); // For undirected graphs
+            }
         }
 
         // Extract the nodes from the map to return them
