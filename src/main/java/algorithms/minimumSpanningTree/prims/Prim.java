@@ -61,7 +61,9 @@ public class Prim {
                 Integer weight = entry.getValue();
 
                 if (!adjacent.isVisited() && weight < adjacent.getCurrMinWeight()) {
+                    pq.remove(adjacent);
                     adjacent.setCurrMinWeight(weight);
+                    pq.add(adjacent);
 
                     // Update the parent in MST
                     parentInMST.put(adjacent, current);
@@ -86,6 +88,4 @@ public class Prim {
         return new ArrayList<>(nodeToMSTNode.values());
     }
 }
-
-
 
