@@ -6,32 +6,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-/** 
+/**
  * Implementation of Prim's Algorithm to find MSTs
- * Idea: 
- *  Starting from any source (this will be the first node to be in the MST), 
- *  pick the lightest outgoing edge, and include the node at the other end as part of a set of nodes S.
- *
- *  Now repeatedly do the above by picking the lightest outgoing edge adjacent to any node in the MST.
- *  (ensuring the other end of the node is not already in the MST)
+ * Idea:
+ *  Starting from any source (this will be the first node to be in the MST), pick the lightest outgoing edge, and
+ *  include the node at the other end as part of a set of nodes S. Now repeatedly do the above by picking the lightest
+ *  outgoing edge adjacent to any node in the MST (ensure the other end of the node is not already in the MST).
  *  Repeat until S contains all nodes in the graph. S is the MST.
- *
  * Actual implementation:
- *
- *
- * Motivating Example: Minimum Cost to Connect All Points
- * 
-          A -9- C -2- E 
-         /     /  \     \ 
-        3     4    7     2
-       /     /      \  /
-      F -1- B  --5--  D 
-*/
+ *  No Edge class was implemented. Instead, each node has a Map of adjacent nodes and their corresponding edge weights.
+ *  To represent the MST, a new list of nodes is created with the same identifiers as the original graph, with each node
+ *  containing only the edges in the MST.
+ */
 public class Prim {
     public static List<Node> getPrimsMST(List<Node> graph) {
-        PriorityQueue<Node> pq = new PriorityQueue<>(
-            (a, b) -> a.getCurrMinWeight() - b.getCurrMinWeight()
-        );
+        PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.getCurrMinWeight() - b.getCurrMinWeight());
 
         // Values in the map represent the corresponding node with only the edges in the MST
         Map<Node, Node> nodeToMSTNode = new HashMap<>();

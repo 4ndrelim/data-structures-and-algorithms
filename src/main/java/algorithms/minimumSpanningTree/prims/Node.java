@@ -4,17 +4,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Node class for Prim's algorithm.
+ *
+ * Each node has a unique identifier and contains a Map of adjacent nodes and their corresponding edge weights.
+ */
 public class Node {
     private boolean isVisited = false;
-    private int currMinWeight;
-    private Map<Node, Integer> adjacentNodes;
-    private String identifier; // Unique identifier for the node
+    private int currMinWeight; // Current minimum weight to get to this node to calculate Prim's MST
+    private final Map<Node, Integer> adjacentNodes;
+    private String identifier;
 
+    /**
+     * Constructor for a node with no adjacent nodes.
+     *
+     * @param identifier Unique identifier for the node
+     */
     public Node(String identifier) {
         this.adjacentNodes = new HashMap<>();
         this.identifier = identifier;
     }
 
+    /**
+     * Constructor for a node with a list of adjacent nodes.
+     *
+     * @param identifier    Unique identifier for the node
+     * @param adjacentNodes List of adjacent nodes
+     */
     public Node(String identifier, Map<Node, Integer> adjacentNodes) {
         this.identifier = identifier;
         this.adjacentNodes = adjacentNodes;
@@ -50,15 +66,22 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
-                "identifier='" + identifier + '\'' +
-                '}';
+        return "Node{"
+                + "identifier='"
+                + identifier + '\''
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Node node = (Node) o;
         return Objects.equals(identifier, node.identifier);
     }
