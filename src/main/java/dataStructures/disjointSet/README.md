@@ -5,8 +5,7 @@
 A disjoint-set structure also known as a union-find or merge-find set, is a data structure
 keeps track of a partition of a set into disjoint (non-overlapping) subsets. 
 
-In CS2040s, this
-is introduced in the context of checking for dynamic connectivity. For instance, Kruskal's algorithm
+In CS2040s, this is introduced in the context of checking for dynamic connectivity. For instance, Kruskal's algorithm
 in graph theory to find minimum spanning tree of a graph utilizes disjoint set to efficiently
 query if there already exists a path between 2 nodes.
 
@@ -42,4 +41,4 @@ Because of its efficiency and simplicity in implementing, Disjoint Set structure
 
 ## Notes
 Disjoint Set is a data structure designed to keep track of a set of elements partitioned into a number of 
-non-overlapping subsets. **It is not suited for handling duplicates** and so our implementation ignores duplicates.
+non-overlapping subsets. **It is not suited for handling duplicates**, so our implementation ignores duplicates.

@@ -1,6 +1,4 @@
-package algorithms.sorting;
-
-import algorithms.sorting.countingSort.CountingSort;
+package algorithms.sorting.countingSort;
 
 /**
  * Script to run Counting Sort.
@@ -15,8 +13,8 @@ public class RunCountingSort {
     //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
 
     public static void main(String[] args) {
-        toSort = CountingSort.sort(toSort);
-        display(toSort);
+        int[] sorted = CountingSort.sort(toSort);
+        display(sorted);
     }
 
     /**

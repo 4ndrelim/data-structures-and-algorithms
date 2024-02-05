@@ -51,18 +51,18 @@ public class QuickSort {
 
         swap(arr, start, pIdx); // swap the pivot to the start of the array
 
-        int less = start + 1;
+        int idx = start + 1; // interpret: at the end, all elements at indices less than this var is <= pivot
 
         for (int i = start + 1; i <= end; i++) {
             if (arr[i] <= pivot) {
-                swap(arr, less, i);
-                less++;
+                swap(arr, idx, i);
+                idx++;
             }
         }
 
-        swap(arr, less - 1, start); // swap the pivot to its correct position
+        swap(arr, idx - 1, start); // swap the pivot to its correct position
 
-        return less - 1;
+        return idx - 1;
     }
 
     /**

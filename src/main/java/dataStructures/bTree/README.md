@@ -1,18 +1,5 @@
 # B-Trees
 
-### Table of Contents
-- [Background](#background)
-- [(a,b) trees](#-ab--trees)
-  - [Implementation Invariants/(a,b) Tree Rules](#implementation-invariants--ab--tree-rules)
-  - [Complexity Analysis](#complexity-analysis)
-- [How do B Trees relate to (a,b) trees?](#how-do-b-trees-relate-to--ab--trees)
-- [Search Operation](#search-operation)
-- [Insert Operation](#insert-operation)
-  - [Split Child Method](#split-child-method)
-- [Delete Operation](#delete-operation)
-- [Application](#application)
-
-
 ## Background
 Is the fastest way to search for data to store them in an array, sort them and perform binary search? No. This will
 incur minimally O(nlogn) sorting cost, and O(n) cost per insertion to maintain sorted order. <br>
@@ -76,7 +63,7 @@ Rule #3: Leaf depth
 All leaf nodes must be at the same depth from root. 
 - This property forces the tree to be balanced. 
 
-### Complexity Analysis
+## Complexity Analysis
 
 **Search, Insertion, Deletion Time**:  O(bloga(n)) = O(logn)
 
@@ -90,12 +77,14 @@ where n is the number of elements (whatever the structure, it must store at leas
 ## How do B Trees relate to (a,b) trees?
 A B-Tree is an (a,b) tree with a = ceil(b/2).
 
-There are varying definitions of B-trees but we will be following the CLRS definition: a B tree is parameterized by
+There are varying definitions of B-trees, but we will be following the CLRS definition: a B tree is parameterized by
 a value t >= 2, known as its minimum degree. 
 - Every internal node other than the root has at least t children. 
 - Following this definition, t = a in the naming convention of (a,b) trees. 
 
-## Search Operation 
+## Operations
+
+### Search Operation 
 Here is an outline of the search operation:
 1. Begin the search at the root of the B tree. 
 2. If the key being searched for is in the current node, return true (i.e. found). 
@@ -103,7 +92,7 @@ Here is an outline of the search operation:
 4. Recursively perform the search operation in the determined child node. 
 5. If the search reaches a leaf node, and the key is not found, return false (i.e. not found). 
 
-## Insert Operation
+### Insert Operation
 You can read more about how the insert operation works 
 [here](https://www.geeksforgeeks.org/insert-operation-in-b-tree/).
 
@@ -121,7 +110,7 @@ datasets by optimizing disk accesses.
 
 Large amounts of data have to be stored on the disk. But disk I/O operations are slow and not knowing where to look 
 for the data can drastically worsen search time. B-Tree is used as an index structure to efficiently locate the 
-desired data. Note, the B-Tree itself can be partially stored in RAM (higher levels) and and partially on disk 
+desired data. Note, the B-Tree itself can be partially stored in RAM (higher levels) and partially on disk 
 (lower, less freq accessed levels).
 
 Consider a database of all the CS modules offered in NUS. Suppose there is a column "Code" (module code) in the 
@@ -134,7 +123,7 @@ data can be found. For e.g., a key for "CS2040s" would have a pointer to the dis
 and find the disk location of the desired data without having to scan the whole "CS Modules" table.
 
 The choice of t will impact the height of the tree, and hence how fast the query is. Trade-off would be space, as a 
-higher t means more keys in each node and they would have to be (if not already) loaded to RAM.
+higher t means more keys in each node, and they would have to be (if not already) loaded to RAM.
 
 ## References
 This description heavily references CS2040S Recitation Sheet 4. 
