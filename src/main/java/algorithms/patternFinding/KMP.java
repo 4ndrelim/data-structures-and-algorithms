@@ -42,8 +42,8 @@ import java.util.List;
  */
 public class KMP {
     /**
-     * Captures the longest prefix which is also a suffix for every substring starting at index 0. Does this
-     * by tracking the number of characters (of the prefix and suffix) matched.
+     * Captures the longest prefix which is also a suffix for some substring ending at each index, starting from 0.
+     * Does this by tracking the number of characters (of the prefix and suffix) matched.
      *
      * @param pattern to search
      * @return an array of indices
