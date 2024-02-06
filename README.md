@@ -108,8 +108,28 @@ Gradle is used for development.
     * Prim's
     * Kruskal's
 
-## Running Custom Inputs
-See [here](scripts/README.md).
+## Set-up 
+If you are a CS2040s student, your IDEA configurations should already be compatible with this project structure. So, 
+feel free to clone and use it as you see fit. Note, below configuration is as per CS2040s PS1 set-up guide.
+
+1. Choose Java Version 11.0.XX for Project SDK. You can download it [here](https://www.oracle.com/java/technologies/downloads/#java11)
+   - Create account and login if necessary
+   - Make sure to download the correct one compatible with your hardware
+2. Download IntelliJ (Community Edition) [here](https://www.jetbrains.com/idea/download/?section=mac) if you do not have it.
+3. Fork the repo and clone it on your local device
+4. Launch IntelliJ on your device and under the `Projects` tab, and click `open`. Navigate to where the local repo is 
+cloned 
+   1. Configure to Java SDK (if not done) by first heading to `File` on the top-left panel,
+   2. Click on `Project Structure...`
+   3. Apply the desired Java SDK in the `SDK:` dropdown. Remember to click `Apply`.
+5. You can test if everything is properly set-up with the command: <br/>
+`./gradlew clean test` <br/>
+All files should be compiled and all testcases should pass.
+
+## Usage
+The resources here can be directly viewed from GitHub interface, but it is advisable for you to fork and clone 
+it to your local desktop, especially if you wish to tweak or play with custom inputs. There is a folder where you can 
+import and run the algorithms/structures here for your own input. See [here](scripts/README.md).
 
 ## Disclaimer
 While our team of TAs and students have diligently verified the correctness of our code, there might still be

@@ -1,7 +1,7 @@
 # Paranoid QuickSort
 
 ## Background 
-Paranoid Quicksort is the naive quicksort with an additional check to guarantee a good pivot.
+Paranoid Quicksort is the naive quicksort with that allow additional attempts to guarantee a good pivot selection.
 
 ![ParanoidQuickSort](../../../../../../../docs/assets/images/ParanoidQuickSort.jpeg)
 
