@@ -1,453 +1,397 @@
 package dataStructures.rbTree;
-import dataStructures.rbTree.RBNode;
-import java.lang.StringBuilder;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
-/*
-  This class implements a RBTree.
-  The implementation of this class heavily relies upon the following site:
-  https://www.happycoders.eu/algorithms/red-black-tree-java/
+/**
+ * This class represents a Red-Black (RB) tree.
+ * @param <T> The class of the elements being added to the RB-Tree.
  */
 public class RBTree<T extends Comparable<T>> {
-  RBNode<T> root = null;
 
-  /**
-   * Inserts a node into RB Tree.
-   *
-   * @param val The value to be inserted.
-   */
-  public void insertNode(T val) {
-    RBNode<T> current = root;
-    RBNode<T> parent = null;
-    while (current != null) { // Iteratively search for insertion point.
-      parent = current;
-      if (val.compareTo(current.value) == -1) {
-        current = current.left;
-      } else {
-        current = current.right;
-      }
-    }
-    // Inserted node will always be kept as red first.
-    RBNode<T> toInsert = new RBNode<>(val, true);
-    if (this.root == null) { // First node.
-      this.root = toInsert;
-    } else if (val.compareTo(parent.value) == -1) {
-      parent.left = toInsert;
-      toInsert.parent = parent;
-    } else {
-      parent.right = toInsert;
-      toInsert.parent = parent;
-    }
-    this.fixAfterInsert(toInsert);
-  }
+    /**
+     * The root node.
+     */
+    private RBNode<T> root;
 
-  /**
-   * Searches the RB Tree iteratively for a given value.
-   *
-   * @param val The value to search for, null if it does not exist.
-   */
-  public RBNode<T> findNode(T val) {
-    RBNode<T> current = this.root;
-    while (current != null) {
-      if (current.value.equals(val)) {
-        return current;
-      } else if (val.compareTo(current.value) == -1) {
-        current = current.left;
-      } else {
-        current = current.right;
-      }
-    }
-    return null;
-  }
+    /**
+     * A representation of the NIL node used in RB-Trees.
+     */
+    private RBNode<T> nilNode;
 
-  /**
-   * Helper function that conducts update on the relationship
-   * between a parent node with a new child node.
-   *
-   * @param par The parent node.
-   * @param curr The current node that is a child of the parent.
-   * @param updated The new child to replace the current node.
-   */
-  private void swap(RBNode<T> par, RBNode<T> curr, RBNode<T> updated) {
-    if (par == null) {
-      root = updated;
-    } else if (par.left == curr) { // If the old node is originally the left child.
-      par.left = updated;
-    } else {
-      par.right = updated;
-    }
-    if (updated != null) {
-      updated.parent = par;
-    }
-  }
-
-  /**
-   * This conducts right-rotation on a given node.
-   *
-   * @param node The node to rotate from.
-   */
-  private void rightRotate(RBNode<T> node) {
-    RBNode<T> par = node.parent;
-    RBNode<T> left = node.left;
-
-    // Swap current node's left with the right node of the left child.
-    node.left = left.right;
-    if (left.right != null) {
-      left.right.parent = node;
+    /**
+     * Constructor for the Red-Black Tree.
+     */
+    public RBTree() {
+        nilNode = new RBNode<>();
+        root = nilNode;
     }
 
-    // Swap current node with left's right node.
-    left.right = node;
-    node.parent = left;
-
-    // Swap parent of node to left. (Which is the new "higher" node in the tree).
-    swap(par, node, left);
-  }
-
-  /**
-   * This conducts left-rotation on a given node.
-   *
-   * @param node The node to rotate from.
-   */
-  private void leftRotate(RBNode<T> node) {
-    RBNode<T> par = node.parent;
-    RBNode<T> right = node.right;
-
-    // Swap current node's right with the left node of the right child.
-    node.right = right.left;
-    if (right.left != null) {
-      right.left.parent = node;
+    /**
+     * Gets root of the tree.
+     *
+     * @return Root.
+     */
+    public RBNode<T> getRoot() {
+        return this.root;
     }
 
-    // Swap current node with right's left node.
-    right.left = node;
-    node.parent = right;
-
-    // Swap parent of node to right.
-    swap(par, node, right);
-  }
-
-  /**
-   * Helper function to find the brother of the node.
-   *
-   * @param node The node we are interested in.
-   * @return Brother of the node.
-   */
-  private RBNode<T> findBrother(RBNode<T> node) {
-    RBNode<T> par = node.parent;
-    if (par.left == node) {
-      return par.right;
-    } else {
-      return par.left;
-    }
-  }
-
-  /**
-   * Fixes properties of the RB tree after insertion of a node.
-   *
-   * @param node The node to fix.
-   */
-  private void fixAfterInsert(RBNode<T> node) {
-    RBNode<T> par = node.parent;
-    if (par == null) {
-      node.tag = false; // Roots must be black.
-      return;
-    }
-    if (!par.tag) {return;} // Parent is of the correct color.
-
-    RBNode<T> grandpa = par.parent;
-
-    // Case where grandpa == null, parent is the root of the tree.
-    if (grandpa == null) {
-      par.tag = false; // Roots must be black.
-      return;
+    /**
+     * Helper function to conduct left-rotate.
+     *
+     * @param node The node to rotate from.
+     */
+    private void leftRotate(RBNode<T> node) {
+        RBNode<T> right = node.getRight();
+        node.setRight(right.getLeft());
+        if (right.getLeft() != this.nilNode) {
+            right.getLeft().setParent(node);
+        }
+        right.setParent(node.getParent());
+        if (node.getParent() == null) {
+            root = right;
+        } else if (node == node.getParent().getLeft()) { // We swap ourselves with our right node.
+            node.getParent().setLeft(right);
+        } else {
+            node.getParent().setRight(right);
+        }
+        // We become the child of the right node.
+        right.setLeft(node);
+        node.setParent(right);
     }
 
-    RBNode<T> uncle = this.findBrother(par);
-
-    // If uncle is red, we have to recolor the parent, grandpa and uncle.
-    if (uncle != null && uncle.tag) {
-      par.tag = false;
-      grandpa.tag = true;
-      uncle.tag = false;
-      // Fix upwards.
-      fixAfterInsert(grandpa);
-    } else if (par.equals(grandpa.left)) { // If parent is the left node of grandpa...
-      if (node.equals(par.right)) { // And we are the right child.
-        leftRotate(par);
-        rightRotate(grandpa);
-
-        // We become the new "parent" of our parent, recolor accordingly.
-        node.tag = false;
-      } else { // And we are the left child.
-        rightRotate(grandpa);
-
-        // Parent becomes the new parent of grandpa, hence we recolor accordingly.
-        par.tag = false;
-      }
-      grandpa.tag = true;
-    } else { // If parent is the right node of grandpa...
-      if (node.equals(par.right)) { // And we are the left child.
-        leftRotate(grandpa);
-        par.tag = false;
-      } else { // And we are the left child.
-        rightRotate(par);
-        leftRotate(grandpa);
-        node.tag = false;
-      }
-      grandpa.tag = true;
+    /**
+     * Helper function to conduct right-rotate.
+     *
+     * @param node The node to rotate from.
+     */
+    private void rightRotate(RBNode<T> node) {
+        RBNode<T> left = node.getLeft();
+        node.setLeft(left.getRight());
+        if (left.getRight() != this.nilNode) {
+            left.getRight().setParent(node);
+        }
+        left.setParent(node.getParent());
+        if (node.getParent() == null) {
+            root = left;
+        } else if (node.getParent().getLeft() == node) {
+            node.getParent().setLeft(left);
+        } else {
+            node.getParent().setRight(left);
+        }
+        left.setRight(node);
+        node.setParent(left);
     }
-  }
 
-  /**
-   * Deletes a node from the RB tree.
-   *
-   * @param val The value to remove from the tree.
-   */
-  public void deleteNode(T val) {
-
-    // Finds node with the value within the tree.
-    RBNode<T> current = findNode(val);
-    if (current == null) {return;}
-
-    RBNode<T> nextNode; // Node to fix next.
-    boolean deletedColor;
-
-    // Current node does not have 2 children.
-    if (current.left == null || current.right == null) {
-      nextNode = deleteZeroOrOne(current);
-      deletedColor = current.getTag();
-    } else {
-      // Find the successor of this node.
-      // Our successor would be the smallest node in the subtree
-      // with the current node's right child as the root.
-      RBNode<T> successor = current.right;
-      while (successor.left != null) {
-        successor = successor.left;
-      }
-      // We replace the value with the successor.
-      current.value = successor.value;
-
-      // Since our successor must be a leaf, it has no children.
-      // We remove the successor node from this "path".
-      nextNode = deleteZeroOrOne(successor);
-      deletedColor = successor.getTag();
-    }
-    // If we deleted a black node, we need to fix the tree.
-    if (!deletedColor) {
-      fixAfterDelete(nextNode); // We fix the next node that causes problems with the property.
-      if (nextNode instanceof TombstoneNode) {
-        swap(nextNode.parent, nextNode, null);
-      }
-    }
-  }
-
-  /**
-   * Helper function to delete a node with zero or one child.
-   *
-   * @param node The node in focus.
-   *
-   * @return The next node in concern.
-   */
-  private RBNode<T> deleteZeroOrOne(RBNode<T> node) {
-    if (node.left != null && node.right == null) {
-      swap(node.parent, node, node.left);
-      return node.left;
-    } else if (node.right != null && node.left == null) {
-      swap(node.parent, node, node.right);
-    } else {
-      if (node.getTag()) {
-        swap(node.parent, node, null);
+    /**
+     * Gets an element from the tree.
+     * In our implementation, this represents more of a "check-if-exists" operation.
+     * But in key-value RB-Trees, such as Java's TreeMap, the get will return the value
+     * tagged to the key, whilst the search will be conducted based on the key value.
+     *
+     * @param element The element in the tree.
+     * @return The element we are looking for.
+     */
+    public T get(T element) {
+        RBNode<T> current = root;
+        while (current != null) {
+            int compareResults = current.getElement().compareTo(element);
+            switch (compareResults) {
+            case 1:
+                return current.getElement();
+            case -1:
+                current = current.getLeft();
+                break;
+            default:
+                current = current.getRight();
+                break;
+            }
+        }
         return null;
-      } else {
-        // We create a temporary tombstone node.
-        RBNode<T> temp = new TombstoneNode<>();
-        swap(node.parent, node, temp);
-        return temp;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Fixes the tree after a delete operation.
-   *
-   * @param node Node in question.
-   */
-  private void fixAfterDelete(RBNode<T> node) {
-    if (node == root || node == null) { // No need to fix the root or null nodes.
-      return;
-    }
-    RBNode<T> brother = findBrother(node);
-    // If our brother is red...
-    if (brother.tag) {
-      fixRedSibling(node, brother);
-      brother = findBrother(node); // Get our new brother (who will now be black.)
-    }
-    if ((brother.left == null || !brother.left.getTag())
-      && (brother.right == null || !brother.right.getTag())) { // Brother's children are all black.
-      brother.tag = true; // Color our brother node red.
-      if (node.parent.tag) { // Parent is red, brother's children are both black.
-        node.parent.tag = false; // Recolor parent black.
-      } else {
-        // Else, we fix upwards.
-        fixAfterDelete(node.parent);
-      }
-    } else { // Brother has at least one red child.
-      fixBlackSibling(node, brother);
-    }
-  }
-
-  /**
-   * Helper function that fixes node with a brother that is red.
-   *
-   * @param node The black node.
-   * @param brother The red node (our sibling node), that we need to fix to black.
-   */
-  private void fixRedSibling(RBNode<T> node, RBNode<T> brother) {
-    // Recolor nodes (remember that we are black!)
-    brother.tag = false;
-    node.parent.tag = true;
-
-    // Rotate node.
-    if (node.equals(node.parent.left)) {
-      leftRotate(node.parent);
-    } else {
-      rightRotate(node.parent);
-    }
-  }
-
-  /**
-   * Helper function that fixes node with a brother is black and has at least one red child.
-   *
-   * @param node The node.
-   * @param brother The node's sibling.
-   */
-  private void fixBlackSibling(RBNode<T>  node, RBNode<T> brother) {
-    // If we are the left child and our brother's right child is black.
-    if (node.parent.left.equals(node) &&
-      (brother.right == null || !brother.right.getTag())) {
-      // Recolor our brother and his child.
-      brother.left.tag = false;
-      brother.tag = true;
-
-      // Fix position and update to our new brother.
-      rightRotate(brother);
-      brother = node.parent.right;
-
-    } else if (!node.parent.left.equals(node) &&
-      (brother.left == null || !brother.left.getTag())){
-      // If we are the right child and our brother's left child is black.
-      brother.right.tag = false;
-      brother.tag = true;
-      leftRotate(brother);
-      brother = node.parent.left;
     }
 
-    // Brother has at least one red child, and the outer child with respect to our position
-    // is red.
-    brother.tag = node.parent.tag;
-    node.parent.tag = false;
-    if (node.parent.left.equals(node)) {
-      // Recolor nodes.
-      brother.right.tag = false;
-      // Readjust by bring parent about us.
-      leftRotate(node.parent);
-    } else {
-      if (brother.left == null) {return;}
-      brother.left.tag = false;
-      rightRotate(node.parent);
-    }
-  }
+    /**
+     * The element to insert into the tree.
+     *
+     * @param element The element to insert.
+     */
+    public void insert(T element) {
+        RBNode<T> toInsert = new RBNode<>(element);
+        RBNode<T> previous = null;
+        RBNode<T> current = root;
 
-  /**
-   * Prints out in-order traversal of tree rooted at node.
-   *
-   * @param node Node which the tree is rooted at.
-   */
-  public void printInOrder(RBNode<T> node) {
-    if (node == null) {
-      return;
-    }
-    if (node.left != null) {
-      printInOrder(node.left);
-    }
-    System.out.print(node.toString() + " ");
-    if (node.right != null) {
-      printInOrder(node.right);
-    }
-  }
+        while (current != null) {
+            previous = current;
+            int compareResults = toInsert.getElement().compareTo(current.getElement());
+            if (compareResults < 0) { // We assume no duplicates in this implementation.
+                current = current.getLeft();
+            } else {
+                current = current.getRight();
+            }
+        }
 
-  /**
-   * Prints out pre-order traversal of tree rooted at node.
-   *
-   * @param node node which the tree is rooted at.
-   */
-  public void printPreOrder(RBNode<T> node) {
-    if (node == null) {
-      return;
-    }
-    System.out.print(node.toString() + " ");
-    if (node.left != null) {
-      printPreOrder(node.left);
-    }
-    if (node.right != null) {
-      printPreOrder(node.right);
-    }
-  }
+        toInsert.setParent(previous);
+        if (previous == null) {
+            root = toInsert;
+        } else {
+            int compareResults = toInsert.getElement().compareTo(previous.getElement());
+            if (compareResults < 0) {
+                previous.setLeft(toInsert);
+            } else {
+                previous.setRight(toInsert);
+            }
+        }
 
-  /**
-   * Prints out level-order traversal of tree rooted at node.
-   *
-   * @param node node which the tree is rooted at.
-   *
-   * @return String representing the level order.
-   */
-  public String getLevelOrder(RBNode<T> node) {
-    if (node == null) {
-      return "";
-    }
-    Queue<RBNode<T>> q = new LinkedList<>();
-    StringBuilder sb = new StringBuilder();
-    q.add(node);
-    while (!q.isEmpty()) {
-      RBNode<T> curr = q.poll();
-      sb.append(curr.toString() + " ");
-      if (curr.left != null) {
-        q.add(curr.left);
-      }
-      if (curr.right != null) {
-        q.add(curr.right);
-      }
-    }
-    return sb.toString();
-  }
+        if (toInsert.getParent() == null) {
+            toInsert.changeColor(RBNode.VAL.BLACK); // Root is black!
+            return;
+        }
 
-  /**
-   * Prints out post-order traversal of tree rooted at node.
-   *
-   * @param node node which the tree is rooted at.
-   */
-  private void printPostOrder(RBNode<T> node) {
-    if (node.left != null) {
-      printPostOrder(node.left);
-    }
-    if (node.right != null) {
-      printPostOrder(node.right);
-    }
-    System.out.print(node.toString() + " ");
-  }
+        if (toInsert.getParent().getParent() == null) { // Grandparent is root!
+            return;
+        }
 
-  /**
-   * Gets the depth of the tree rooted at the node.
-   *
-   * @param node node which the tree is rooted at.
-   */
-  public int getDepth(RBNode<T> node) {
-    if (node == null) {return 0;}
-    int l_depth = getDepth(node.left);
-    int r_depth = getDepth(node.right);
-    return Math.max(l_depth, r_depth) + 1;
-  }
+        this.fixInsert(toInsert); // We need to fix the tree :(
+    }
+
+    /**
+     * Helper function to re-balance tree post insert operations.
+     *
+     * @param node The node to fix from.
+     */
+    private void fixInsert(RBNode<T> node) {
+        RBNode<T> uncle;
+        while (node.getParent().getColor() == RBNode.VAL.RED) {
+            // If the parent of the current node is the right node of the grandparent.
+            if (node.getParent() == node.getParent().getParent().getRight()) {
+                uncle = node.getParent().getParent().getLeft();
+                if (uncle.getColor() == RBNode.VAL.RED) { // If uncle is currently red.
+                    // We fix our uncle, our parent and the grandparent.
+                    uncle.changeColor(RBNode.VAL.BLACK);
+                    node.getParent().changeColor(RBNode.VAL.BLACK);
+                    node.getParent().getParent().changeColor(RBNode.VAL.RED);
+                    node = node.getParent().getParent();
+                } else { // Our uncle is currently black.
+                    if (node.getParent().getLeft() == node) { // If we are the left child of our parent.
+                        node = node.getParent();
+                        this.rightRotate(node);
+                    }
+                    // Fix our parents and grandparents, uncle is fine :)
+                    node.getParent().changeColor(RBNode.VAL.BLACK);
+                    node.getParent().getParent().changeColor(RBNode.VAL.RED);
+                    this.leftRotate(node.getParent().getParent());
+                }
+            } else { // Mirror copy of the above!
+                uncle = node.getParent().getParent().getRight();
+                if (uncle.getColor() == RBNode.VAL.RED) {
+                    uncle.changeColor(RBNode.VAL.BLACK);
+                    node.getParent().changeColor(RBNode.VAL.BLACK);
+                    node.getParent().getParent().changeColor(RBNode.VAL.RED);
+                    node = node.getParent().getParent();
+                } else {
+                    if (node.getParent().getRight() == node) {
+                        node = node.getParent();
+                        this.leftRotate(node);
+                    }
+                    node.getParent().changeColor(RBNode.VAL.BLACK);
+                    node.getParent().getParent().changeColor(RBNode.VAL.RED);
+                    this.rightRotate(node.getParent().getParent());
+                }
+            }
+            if (node == this.root) { // We have fixed up to the root.
+                break;
+            }
+        }
+        root.changeColor(RBNode.VAL.BLACK); // Ensure root remains black.
+    }
+
+    /**
+     * Finds the minimum element in the tree.
+     *
+     * @param node The node the tree is rooted from.
+     * @return The node containing the minimum element in the tree.
+     */
+    public RBNode<T> findMin(RBNode<T> node) {
+        while (node.getLeft() != this.nilNode) {
+            node = node.getRight();
+        }
+        return node;
+    }
+
+    /**
+     * Helper function to transpose node b into node a's position.
+     *
+     * @param a The node to be transposed out.
+     * @param b The node to be transposed in.
+     */
+    private void swap(RBNode<T> a, RBNode<T> b) {
+        if (a.getParent() == null) {
+            root = b;
+        } else if (a == a.getParent().getLeft()) {
+            a.getParent().setLeft(b);
+        } else {
+            a.getParent().setRight(b);
+        }
+        b.setParent(a.getParent());
+    }
+
+    /**
+     * To delete a node containing a certain element from the tree.
+     * Note that this implementation does not account for duplicates of the same element.
+     *
+     * @param element The element we need to delete from the tree.
+     */
+    public void delete(T element) {
+        RBNode<T> node = root;
+        RBNode<T> target = this.nilNode;
+        while (node != null) {
+            int compareResult = node.getElement().compareTo(element);
+            switch (compareResult) {
+            case 0:
+                target = node;
+                break;
+            case 1:
+                node = node.getLeft();
+                break;
+            default:
+                node = node.getRight();
+                break;
+            }
+        }
+        if (target == this.nilNode) {
+            return;
+        }
+        RBNode<T> temp = target;
+        RBNode.VAL initialColor = temp.getColor();
+        RBNode<T> fin;
+        if (target.getLeft() == this.nilNode) {
+            fin = temp.getRight();
+            this.swap(target, target.getLeft());
+        } else if (target.getRight() == this.nilNode) {
+            fin = temp.getLeft();
+            this.swap(target, target.getRight());
+        } else {
+            temp = this.findMin(target.getRight());
+            initialColor = temp.getColor();
+            fin = temp.getRight();
+            if (temp.getParent() == target) {
+                fin.setParent(temp);
+            } else {
+                this.swap(temp, temp.getRight());
+                temp.setRight(target.getRight());
+                temp.getRight().setParent(temp);
+            }
+            this.swap(target, temp);
+            temp.setLeft(target.getLeft());
+            temp.getLeft().setParent(temp);
+            temp.changeColor(target.getColor());
+        }
+        if (initialColor.equals(RBNode.VAL.BLACK)) {
+            this.fixDelete(fin); // We need to fix the final node if we removed a black.
+        }
+    }
+
+    /**
+     * Function to re-balance the tree post delete operations.
+     *
+     * @param node The node to fix upwards from.
+     */
+    private void fixDelete(RBNode<T> node) {
+        RBNode<T> temp;
+        while (node != null && node.getColor().equals(RBNode.VAL.BLACK)) {
+            if (node == node.getParent().getLeft()) { // Current node is the left child.
+                temp = node.getParent().getRight();
+                if (temp.getColor().equals(RBNode.VAL.RED)) { // Our sibling node is red.
+                    temp.changeColor(RBNode.VAL.BLACK);
+                    node.getParent().changeColor(RBNode.VAL.RED);
+                    this.leftRotate(node.getParent());
+                    temp = node.getParent().getRight();
+                }
+                if (temp.getColor().equals(RBNode.VAL.BLACK)
+                    && temp.getColor().equals(RBNode.VAL.BLACK)) { // Left & Right child are black.
+                    temp.changeColor(RBNode.VAL.RED);
+                    node = node.getParent();
+                } else {
+                    if (temp.getRight().getColor().equals(RBNode.VAL.BLACK)) {
+                        temp.getLeft().changeColor(RBNode.VAL.BLACK);
+                        temp.changeColor(RBNode.VAL.RED);
+                        this.rightRotate(temp);
+                        temp = node.getParent().getRight();
+                    }
+                    temp.changeColor(node.getParent().getColor());
+                    node.getParent().changeColor(RBNode.VAL.BLACK);
+                    temp.getRight().changeColor(RBNode.VAL.BLACK);
+                    this.leftRotate(node.getParent());
+                    node = root;
+                }
+            } else { // Current node is the right child, mirror of the above :)
+                temp = node.getParent().getLeft();
+                if (temp.getColor().equals(RBNode.VAL.RED)) {
+                    temp.changeColor(RBNode.VAL.BLACK);
+                    node.getParent().changeColor(RBNode.VAL.RED);
+                    this.rightRotate(node.getParent());
+                    temp = node.getParent().getLeft();
+                }
+                if (temp.getRight().getColor().equals(RBNode.VAL.BLACK)
+                    && temp.getLeft().getColor().equals(RBNode.VAL.BLACK)) {
+                    temp.changeColor(RBNode.VAL.RED);
+                    node = node.getParent();
+                } else {
+                    if (temp.getLeft().getColor().equals(RBNode.VAL.BLACK)) {
+                        temp.getRight().changeColor(RBNode.VAL.BLACK);
+                        temp.changeColor(RBNode.VAL.RED);
+                        this.leftRotate(temp);
+                        temp = node.getParent().getLeft();
+                    }
+                    temp.changeColor(node.getParent().getColor());
+                    node.getParent().changeColor(RBNode.VAL.BLACK);
+                    temp.getLeft().changeColor(RBNode.VAL.BLACK);
+                    this.rightRotate(node.getParent());
+                    node = root;
+                }
+            }
+        }
+        node.changeColor(RBNode.VAL.BLACK); // We ensure our root remains black!
+    }
+
+    /**
+     * Gets level order of the tree.
+     *
+     * @param node The node the tree is rooted at.
+     * @return String representation of the level order of the tree.
+     */
+    public String getLevelOrder(RBNode<T> node) {
+        if (node == this.nilNode || node == null) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        Queue<RBNode<T>> q = new LinkedList<>();
+        q.add(node);
+        while (!q.isEmpty()) {
+            RBNode<T> current = q.poll();
+            sb.append(current.getElement());
+            if (current.getLeft() != null && current.getLeft() != this.nilNode) {
+                q.add(current.getLeft());
+            }
+            if (current.getRight() != null && current.getRight() != this.nilNode) {
+                q.add(current.getRight());
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Gets depth of node.
+     *
+     * @param node The node the tree is rooted at.
+     * @return The depth of the node within the tree.
+     */
+    public int getDepth(RBNode<T> node) {
+        if (node == null || node == this.nilNode) {
+            return 0;
+        }
+        int leftHeight = getDepth(node.getLeft());
+        int rightHeight = getDepth(node.getRight());
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
 }
