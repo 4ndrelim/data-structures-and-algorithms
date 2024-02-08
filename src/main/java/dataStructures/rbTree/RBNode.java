@@ -55,20 +55,6 @@ public class RBNode<T extends Comparable<T>> {
     }
 
     /**
-     * Constructor for our RB-Tree node.
-     * Defaults to red.
-     *
-     * @param element The element to add.
-     */
-    public RBNode(T element) {
-        this.element = element;
-        this.left = null;
-        this.right = null;
-        this.color = VAL.RED;
-        this.parent = null;
-    }
-
-    /**
      * Constructor for a NIL node.
      */
     public RBNode() {

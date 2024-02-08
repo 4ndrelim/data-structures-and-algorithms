@@ -19,17 +19,17 @@ public class RBTreeTest {
   public void testDeleteAndSearch() {
     RBTree<Integer> tree = new RBTree<>();
     Assert.assertEquals(null, tree.get(10));
-    tree.insert(1);
+    RBNode<Integer> del1 = tree.insert(1);
     tree.insert(5);
     tree.insert(8);
     tree.insert(2);
-    tree.insert(3);
+    RBNode<Integer> del2 = tree.insert(3);
     Assert.assertEquals((Integer) 1, tree.get(1));
     Assert.assertEquals((Integer) 2, tree.get(2));
     Assert.assertEquals((Integer) 3, tree.get(3));
-    tree.delete(3);
+    tree.delete(del2);
     Assert.assertEquals(null, tree.get(3));
-    tree.delete(1);
+    tree.delete(del1);
     Assert.assertEquals(null, tree.get(1));
   }
 
@@ -40,32 +40,33 @@ public class RBTreeTest {
     // Testing insert rotations
     Assert.assertEquals("", tree.getLevelOrder(tree.getRoot()));
     tree.insert(1);
-    tree.insert(2);
+    RBNode<Integer> del2 = tree.insert(2);
     tree.insert(3);
     Assert.assertEquals("2 1 3 ", tree.getLevelOrder(tree.getRoot()));
 
-    tree.insert(4);
-    tree.insert(5);
+    RBNode<Integer> del4 = tree.insert(4);
+    RBNode<Integer> del5 = tree.insert(5);
     Assert.assertEquals("2 1 4 3 5 ", tree.getLevelOrder(tree.getRoot()));
 
     tree.insert(9);
-    tree.insert(6);
+    RBNode<Integer> del6 = tree.insert(6);
     tree.insert(7);
-    tree.insert(8);
+    RBNode<Integer> del8 = tree.insert(8);
     Assert.assertEquals("4 2 6 1 3 5 8 7 9 ", tree.getLevelOrder(tree.getRoot()));
 
     // Testing delete rotations
-    tree.delete(6);
+    tree.delete(del6);
     Assert.assertEquals("4 2 7 1 3 5 8 9 ", tree.getLevelOrder(tree.getRoot()));
     Assert.assertEquals(4, tree.getDepth(tree.getRoot()));
-    tree.delete(5);
-    Assert.assertEquals("4 2 7 1 3 9 8 ", tree.getLevelOrder(tree.getRoot()));
-    tree.delete(2);
-    tree.delete(8);
-    Assert.assertEquals(3, tree.getDepth(tree.getRoot()));
-    Assert.assertEquals("4 3 7 1 9 ", tree.getLevelOrder(tree.getRoot()));
-    tree.delete(4);
-    Assert.assertEquals("7 3 9 1 ", tree.getLevelOrder(tree.getRoot()));
-    Assert.assertEquals(3, tree.getDepth(tree.getRoot()));
+    tree.delete(del5);
+    Assert.assertEquals("4 2 8 1 3 7 9 ", tree.getLevelOrder(tree.getRoot()));
+    tree.delete(del2);
+    tree.delete(del8);
+    Assert.assertEquals(null, tree.get(8));
+    Assert.assertEquals(4, tree.getDepth(tree.getRoot()));
+    Assert.assertEquals("9 4 3 7 1 ", tree.getLevelOrder(tree.getRoot()));
+    tree.delete(del4);
+    Assert.assertEquals("9 7 3 1 ", tree.getLevelOrder(tree.getRoot()));
+    Assert.assertEquals(4, tree.getDepth(tree.getRoot()));
   }
 }

@@ -35,12 +35,51 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     /**
+     * Gets depth of the RB tree.
+     * @param node The node the tree is rooted from.
+     * @return Depth.
+     */
+    public int getDepth(RBNode<T> node) {
+        if (node == nil || node == null) {
+            return 0;
+        }
+        int hLeft = getDepth(node.getLeft());
+        int hRight = getDepth(node.getRight());
+        return 1 + Math.max(hRight, hLeft);
+    }
+
+    /**
+     * Gets level order of the tree.
+     * @param node The node the tree is rooted from.
+     * @return The string representation of the tree.
+     */
+    public String getLevelOrder(RBNode<T> node) {
+        if (node == nil) {
+            return "";
+        }
+        Queue<RBNode<T>> q = new LinkedList<>();
+        q.add(node);
+        StringBuilder sb = new StringBuilder();
+        while (!q.isEmpty()) {
+            RBNode<T> curr = q.poll();
+            sb.append(curr.getElement() + " ");
+            if (curr.getLeft() != nil) {
+                q.add(curr.getLeft());
+            }
+            if (curr.getRight() != nil) {
+                q.add(curr.getRight());
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
      * Inserts element into tree.
      * @param element The element to insert.
      * @return The newly added node.
      */
     public RBNode<T> insert(T element) {
-        RBNode<T> toAdd = new RBNode<>(element);
+        RBNode<T> toAdd = new RBNode<>(element, nil, nil);
         RBNode<T> prev = nil;
         RBNode<T> curr = root;
         while (curr != nil) {
@@ -54,7 +93,7 @@ public class RBTree<T extends Comparable<T>> {
         toAdd.setParent(prev);
         if (prev == nil) {
             this.root = toAdd;
-        } else if (element.compareTo(curr.getElement()) < 0) {
+        } else if (element.compareTo(prev.getElement()) < 0) {
             prev.setLeft(toAdd);
         } else {
             prev.setRight(toAdd);
@@ -195,7 +234,7 @@ public class RBTree<T extends Comparable<T>> {
      * @return The node with the minimum value.
      */
     public RBNode<T> getMin(RBNode<T> node) {
-        while (node != nil) {
+        while (node.getLeft() != nil) {
             node = node.getLeft();
         }
         return node;
@@ -216,7 +255,7 @@ public class RBTree<T extends Comparable<T>> {
             x = node.getLeft();
             this.transplant(node.getLeft(), node);
         } else {
-            y = this.getMin(node);
+            y = this.getMin(node.getRight());
             deletedColor = y.getColor();
             x = y.getRight();
             if (y.getParent() == node) {
