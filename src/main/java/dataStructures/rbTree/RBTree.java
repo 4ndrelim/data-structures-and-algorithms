@@ -332,8 +332,8 @@ public class RBTree<T extends Comparable<T>> {
                     node = this.root;
                 }
             }
-            node.setColor(RBNode.VAL.BLACK);
         }
+        node.setColor(RBNode.VAL.BLACK);
     }
 
 }

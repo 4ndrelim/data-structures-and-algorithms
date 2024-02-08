@@ -63,10 +63,10 @@ public class RBTreeTest {
     tree.delete(del2);
     tree.delete(del8);
     Assert.assertEquals(null, tree.get(8));
-    Assert.assertEquals(4, tree.getDepth(tree.getRoot()));
-    Assert.assertEquals("9 4 3 7 1 ", tree.getLevelOrder(tree.getRoot()));
+    Assert.assertEquals(3, tree.getDepth(tree.getRoot()));
+    Assert.assertEquals("4 3 9 1 7 ", tree.getLevelOrder(tree.getRoot()));
     tree.delete(del4);
-    Assert.assertEquals("9 7 3 1 ", tree.getLevelOrder(tree.getRoot()));
-    Assert.assertEquals(4, tree.getDepth(tree.getRoot()));
+    Assert.assertEquals("7 3 9 1 ", tree.getLevelOrder(tree.getRoot()));
+    Assert.assertEquals(3, tree.getDepth(tree.getRoot()));
   }
 }
