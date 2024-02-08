@@ -2,6 +2,7 @@ package dataStructures.hashSet.openAddressing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -136,5 +137,21 @@ public class HashSetTest {
         List<Integer> actualList = hashSet.toList();
 
         assertEquals(expectedList, actualList);
+    }
+
+    @Test
+    public void testTombstoneEquals() {
+        HashSet<Integer> integerHashSet = new HashSet<>();
+        assertNotEquals(Integer.valueOf(5), integerHashSet.tombstone());
+        assertNotEquals(null, integerHashSet.tombstone());
+
+        HashSet<Boolean> booleanHashSet = new HashSet<>();
+        assertNotEquals(Boolean.TRUE, booleanHashSet.tombstone());
+        assertNotEquals(Boolean.FALSE, booleanHashSet.tombstone());
+        assertNotEquals(null, booleanHashSet.tombstone());
+
+        HashSet<Object> objectHashSet = new HashSet<>();
+        assertNotEquals(new Object(), objectHashSet.tombstone());
+        assertNotEquals(null, objectHashSet.tombstone());
     }
 }

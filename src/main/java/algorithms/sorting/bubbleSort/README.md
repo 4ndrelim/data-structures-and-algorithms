@@ -9,7 +9,7 @@ largest (or smallest) element in the unsorted region to the sorted region (often
 ![bubble sort img](../../../../../../docs/assets/images/BubbleSort.jpeg)
 
 ### Implementation Invariant
-After the kth iteration, the biggest k items are correctly sorted at the final k positions of the array. 
+**After the kth iteration, the biggest k items are correctly sorted at the final k positions of the array**. 
 
 The job of the kth iteration of the outer loop is to bubble the kth-largest element to the kth position of the array 
 from the right (i.e. its correct position). 

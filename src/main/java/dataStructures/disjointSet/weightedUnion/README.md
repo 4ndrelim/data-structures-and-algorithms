@@ -1,10 +1,11 @@
 # Quick Union
-
+If you wish to jump to [weighted union](#Weighted-Union).
 ## Background
 Here, we consider a completely different approach. We consider the use of trees. Every element can be
 thought of as a tree node and starts off in its own component. Under this representation, it is likely
-that at any given point, we might have a forest of trees, and that's perfectly fine. The root node of each tree
-simply represents the identity / is a representative of all elements in the same component. <br>
+that at any given point, we might have a forest of trees, and that's perfectly fine. A forests of trees would simply be
+interpreted as different components, with elements in the same tree belonging to the same component.
+The root node of each tree is used as the identity for all elements in the same component. <br>
 Note that the trees here are not necessarily binary trees. In fact, more often than not, we will have nodes
 with multiple children nodes.
 
@@ -49,16 +50,16 @@ objects of the smaller tree becomes part of the larger tree (by setting the root
 
 Notice that trees will only increase in height when it's size is doubled. Working on this intuition, one can show 
 (by induction) that a tree of height h has at least 2^h elements. Consequently, 
-**a tree of size n is at most height of logn**.
+**a tree of size n is at most height of logn**. <br/>
+_Note: n = 2^(logn)_
 
 ### Implementation Details
 The concept introduces the idea of constructing trees and forests and certainly, one can similarly implement a 
 Node wrapper class to represent objects as nodes in a tree. <br>
-But notice that the operations only need knowledge of the parent node and the size of the tree 
-(which is tracked by the root). In other words, using internal lists and arrays to track is sufficient to 
-simulate the construction of trees.
+But notice that the operations only need knowledge of the parent node and the size of the tree. 
+In other words, using internal arrays or hash maps to track is sufficient to simulate the construction of trees.
 
-Our implementation does this.
+Our implementation uses hash map to account for arbitrary object type.
 
 ## Complexity Analysis
 **Time**: O(log(n)) for Union and Find operations.
@@ -72,9 +73,10 @@ assigning to its grandparent actually suffice and yield the same big-O upper-bou
 done in a single pass.). By doing so, we greatly reduce the height of the trees formed.
 
 The analysis with compression is a bit trickier here and talks about the inverse-Ackermann function. 
-Interested readers can find out more [here](https://dl.acm.org/doi/pdf/10.1145/321879.321884)
+Interested readers can find out more [here](https://dl.acm.org/doi/pdf/10.1145/321879.321884).
 
 **Time**: O(alpha)
+
 **Space**: O(n)
 
 ## Notes

@@ -83,7 +83,7 @@ Due to the nature of floor division in Java's \ operator, if there are two mid-v
 when the number of elements is even, the first mid-value will be selected. Suppose we do not increment the low pointer
 during reassignment, `low = mid`, let us take a look at the following example:
 
-![binary search templated 1 img](../../../../../docs/assets/images/BinarySearchTemplated3.jpeg)
+![binary search templated 1 img](../../../../../../docs/assets/images/BinarySearchTemplated3.jpeg)
 
 The search space has been narrowed down to the range of index 1 (low) to 2 (high). The mid-value is calculated,
 `mid = (1 + 2) / 2`, to be 1 due to floor division. Since `2 < 5`, we enter the else block where there is reassignment
