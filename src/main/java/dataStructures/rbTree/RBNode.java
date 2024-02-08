@@ -43,6 +43,22 @@ public class RBNode<T extends Comparable<T>> {
      * Defaults to red.
      *
      * @param element The element to add.
+     * @param left The left child node.
+     * @param right The right child node.
+     */
+    public RBNode(T element, RBNode<T> left, RBNode<T> right) {
+        this.element = element;
+        this.left = left;
+        this.right = right;
+        this.color = VAL.RED;
+        this.parent = null;
+    }
+
+    /**
+     * Constructor for our RB-Tree node.
+     * Defaults to red.
+     *
+     * @param element The element to add.
      */
     public RBNode(T element) {
         this.element = element;
@@ -114,7 +130,7 @@ public class RBNode<T extends Comparable<T>> {
      * @return The right child node.
      */
     public RBNode<T> getRight() {
-        return this.left;
+        return this.right;
     }
 
     /**
@@ -140,7 +156,7 @@ public class RBNode<T extends Comparable<T>> {
      *
      * @param color The color to change to.
      */
-    public void changeColor(VAL color) {
+    public void setColor(VAL color) {
         this.color = color;
     }
 
