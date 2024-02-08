@@ -1,4 +1,4 @@
-package dataStructures.queue;
+package dataStructures.queue.monotonicQueue;
 
 
 import java.util.ArrayDeque;
