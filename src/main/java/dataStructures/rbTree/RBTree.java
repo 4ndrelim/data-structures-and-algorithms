@@ -12,12 +12,12 @@ public class RBTree<T extends Comparable<T>> {
     /**
      * Root of the tree.
      */
-    RBNode<T> root;
+    private RBNode<T> root;
 
     /**
      * NIL Node
      */
-    RBNode<T> nil = new RBNode<>();
+    private RBNode<T> nil = new RBNode<>();
 
     /**
      * Constructor for RB Tree.
