@@ -336,4 +336,33 @@ public class RBTree<T extends Comparable<T>> {
         node.setColor(RBNode.VAL.BLACK);
     }
 
+    /**
+     * Counts the number of black nodes in a tree.
+     * @param node The node the tree is rooted from.
+     * @return The number of black nodes. If the property has been broken, -1.
+     */
+    public int countBlack(RBNode<T> node) {
+        if (node == this.nil) {
+            return 0;
+        }
+        int leftCount = countBlack(node.getLeft());
+        int rightCount = countBlack(node.getRight());
+        // Check equality in black nodes.
+        if (leftCount == -1 || rightCount == -1 || leftCount != rightCount) {
+            return -1;
+        } else {
+            if (node.getColor().equals(RBNode.VAL.BLACK)) {
+                return leftCount + 1;
+            }
+            return leftCount;
+        }
+    }
+
+    /**
+     * Checks if red black property is met.
+     * @return True if property is met.
+     */
+    public boolean isRedBlackTree() {
+        return countBlack(this.root) != -1;
+    }
 }
