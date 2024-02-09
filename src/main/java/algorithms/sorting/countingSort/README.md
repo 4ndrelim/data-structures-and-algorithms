@@ -9,6 +9,11 @@ computes the prefix sum for the map. This prefix map tells us which position an 
 It is updated after each insertion to reflection the new position to insert the next time the same element is
 encountered. <br>
 
+![counting sort img](../../../../../../docs/assets/images/CountingSort.png)
+Image Source: https://www.oreilly.com/library/view/mastering-algorithms-with/1565924533/ch12s13.html
+
+_To align with the naming convention of our implementation, data => arr, counts => freq, temp => sorted._
+
 ### Implementation Invariant
 
 **At the end of the ith iteration, the ith element (of the original array) from the back will be placed in
