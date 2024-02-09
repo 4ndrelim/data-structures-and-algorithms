@@ -10,6 +10,7 @@ It is updated after each insertion to reflection the new position to insert the 
 encountered. <br>
 
 ![counting sort img](../../../../../../docs/assets/images/CountingSort.png)
+
 Image Source: https://www.oreilly.com/library/view/mastering-algorithms-with/1565924533/ch12s13.html
 
 _To align with the naming convention of our implementation, data => arr, counts => freq, temp => sorted._
