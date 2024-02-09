@@ -6,7 +6,7 @@ Counting sort is a non-comparison-based sorting algorithm and isn't bounded by t
 of most sorting algorithms. <br>
 It first obtains the frequency map of all elements (i.e. counting the occurrence of every element), then
 computes the prefix sum for the map. This prefix map tells us which position an element should be inserted.
-It is updated after each insertion to reflection the new position to insert the next time the same element is
+It is updated after each insertion to reflect the new position to insert the next time the same element is
 encountered. <br>
 
 ![counting sort img](../../../../../../docs/assets/images/CountingSort.png)
@@ -41,5 +41,7 @@ Counting sort is NOT AN IN-PLACE algorithm. For one, it requires additional spac
 
 ## Notes
 
-1. Counting sort (stable version) is often used as a sub-routine for radix sort.
-2. Supplementary: Here is a [video](https://www.youtube.com/watch?v=OKd534EWcdk) if you are still having troubles.
+1. Our counting sort implementation works only on non-negative integers. However, to adapt it to work for arrays with
+negative integers, we can add an offset of +m, where m is the smallest integer in the array. 
+2. Counting sort (stable version) is often used as a sub-routine for radix sort.
+3. Supplementary: Here is a [video](https://www.youtube.com/watch?v=OKd534EWcdk) if you are still having troubles.

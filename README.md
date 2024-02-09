@@ -79,7 +79,7 @@ Gradle is used for development.
     * [Radix Sort](src/main/java/algorithms/sorting/radixSort) (found in tutorial)
 4. Trees
     * [Binary search tree](src/main/java/dataStructures/binarySearchTree)
-    * AVL-tree
+    * [AVL-tree](src/main/java/dataStructures/avlTree)
     * Orthogonal Range Searching
     * [Trie](src/main/java/dataStructures/trie)
     * [B-Tree](src/main/java/dataStructures/bTree)
