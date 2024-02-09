@@ -43,8 +43,9 @@ Consider any two nodes (need not have the same immediate parent node) in the tre
 between the two nodes <= 1 too?
 </details>
 
-It can be mathematically shown that a **height-balanced tree with n nodes, has at most height <= 2log(n)**. Therefore, 
-following the definition of a balanced tree, AVL trees are balanced.
+It can be mathematically shown that a **height-balanced tree with n nodes, has at most height <= 2log(n)** (
+in fact, using the golden ratio, we can achieve a tighter bound of ~1.44log(n)).
+Therefore, following the definition of a balanced tree, AVL trees are balanced.
 
 <div align="center">
     <img src="../../../../../docs/assets/images/AvlTree.png" width="40%">

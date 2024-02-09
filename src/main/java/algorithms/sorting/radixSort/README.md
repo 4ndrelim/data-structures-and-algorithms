@@ -76,3 +76,6 @@ like QuickSort or MergeSort for large datasets with a small range of key values
 might not be optimal on small datasets that include elements with a significantly higher number of digits compared to 
 others. This scenario could introduce more sorting passes than desired, diminishing the algorithm's overall efficiency.
   - Avoid for datasets with sparse data
+
+- Our implementation uses bit masking. If you are unsure, do check 
+[this](https://cheever.domains.swarthmore.edu/Ref/BinaryMath/NumSys.html ) out
