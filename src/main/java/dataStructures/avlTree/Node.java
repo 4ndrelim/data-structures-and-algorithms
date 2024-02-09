@@ -15,10 +15,9 @@ public class Node<T extends Comparable<T>> {
     private Node<T> parent;
     private int height;
     /*
-     * Can insert more properties here.
-     * If key is not unique, introduce a value property
-     * so when nodes are being compared, a distinction
-     * can be made
+     * Can insert more properties here for augmentation
+     * e.g. If key is not unique, introduce a value property as a tie-breaker
+     * or weight property for order statistics
      */
 
     public Node(T key) {

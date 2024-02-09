@@ -16,9 +16,9 @@ public class RadixSort {
      * @return The value of the digit in the number at the given segment.
      */
     private static int getSegmentMasked(int num, int segment) {
-        // Bit masking here to extract each segment from the integer.
-        int mask = ((1 << NUM_BITS) - 1) << (segment * NUM_BITS);
-        return (num & mask) >> (segment * NUM_BITS);
+        // bit masking here to extract each segment from the integer.
+        int mask = (1 << NUM_BITS) - 1;
+        return (num >> (segment * NUM_BITS)) & mask;  // we do a right-shift on num to focus on the desired segment
     }
 
     /**
@@ -28,7 +28,7 @@ public class RadixSort {
      * @param sorted output array.
      */
     private static void radixSort(int[] arr, int[] sorted) {
-        // sort the N numbers by segments, starting from left-most segment
+        // Code in the loop is essentially counting sort; sort the N numbers by segments, starting from right-most
         for (int i = 0; i < NUM_SEGMENTS; i++) {
             int[] freqMap = new int[1 << NUM_BITS]; // at most this number of elements
 

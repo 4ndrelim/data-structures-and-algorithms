@@ -55,7 +55,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * Update height of node in avl tree during rebalancing.
+     * Update height of node in avl tree for re-balancing.
      *
      * @param n node whose height is to be updated
      */
@@ -372,6 +372,10 @@ public class AVLTree<T extends Comparable<T>> {
         return null;
     }
 
+
+    // ---------------------------------------------- NOTE ------------------------------------------------------------
+    // METHODS BELOW ARE NOT NECESSARY; JUST FOR VISUALISATION PURPOSES
+
     /**
      * prints in order traversal of the entire tree.
      */
@@ -390,13 +394,9 @@ public class AVLTree<T extends Comparable<T>> {
         if (node == null) {
             return;
         }
-        if (node.getLeft() != null) {
-            printInorder(node.getLeft());
-        }
+        printInorder(node.getLeft());
         System.out.print(node + " ");
-        if (node.getRight() != null) {
-            printInorder(node.getRight());
-        }
+        printInorder(node.getRight());
     }
 
     /**
@@ -408,7 +408,6 @@ public class AVLTree<T extends Comparable<T>> {
         System.out.println();
     }
 
-
     /**
      * Prints out pre-order traversal of tree rooted at node
      *
@@ -419,12 +418,8 @@ public class AVLTree<T extends Comparable<T>> {
             return;
         }
         System.out.print(node + " ");
-        if (node.getLeft() != null) {
-            printPreorder(node.getLeft());
-        }
-        if (node.getRight() != null) {
-            printPreorder(node.getRight());
-        }
+        printPreorder(node.getLeft());
+        printPreorder(node.getRight());
     }
 
     /**
@@ -442,12 +437,11 @@ public class AVLTree<T extends Comparable<T>> {
      * @param node node which the tree is rooted at
      */
     private void printPostorder(Node<T> node) {
-        if (node.getLeft() != null) {
-            printPostorder(node.getLeft());
+        if (node == null) {
+            return;
         }
-        if (node.getRight() != null) {
-            printPostorder(node.getRight());
-        }
+        printPostorder(node.getLeft());
+        printPostorder(node.getRight());
         System.out.print(node + " ");
     }
 
