@@ -51,8 +51,9 @@ public class KMP {
     private static int[] getPrefixTable(String pattern) {
         // 1-indexed implementation
         int len = pattern.length();
+        // INTERPRETATION: suffix ending at the ith position (1-indexed) matches with numCharsMatched[i] of the prefix
         int[] numCharsMatched = new int[len + 1];
-        numCharsMatched[0] = -1;
+        numCharsMatched[0] = -1; // since 1-indexed, dummy value. We will exploit this dummy to make code neater later
         numCharsMatched[1] = 0; // 1st character has no prefix to match with
 
         int currPrefixMatched = 0; // num of chars of prefix pattern currently matched

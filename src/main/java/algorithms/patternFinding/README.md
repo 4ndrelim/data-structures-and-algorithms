@@ -18,32 +18,44 @@ Image Source: GeeksforGeeks
 It's efficient because it utilizes the information gained from previous character comparisons. When a mismatch occurs, 
 the algorithm uses this information to skip over as many characters as possible.
 
-Considering the string pattern: <br>
-<div style="text-align: center;">
-                "XYXYCXYXYF" 
-</div>
+Considering the string pattern: 
+
+Pattern:| X | Y | X | Y | C | X | Y | X | Y | F |
+|-------|---|---|---|---|---|---|---|---|---|---|
+Position:| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10|
+
 and string: 
-<div style="text-align: center;">
-                XYXYCXYXYCXYXYFGABC
-</div>
+
+String:  | X | Y | X | Y | C | X | Y | X | Y | C | X | Y | X | Y | F | G | A | B | C |
+|--------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+Position:| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12| 13| 14| 15| 16| 17| 18| 19|
 
 KMP has, during its initial processing of the pattern, identified that "XYXY" is a repeating sub-pattern. 
 This means when the mismatch at F (10th character of the pattern) and C (10th character of the string) occurs, 
 KMP doesn't need to start matching again from the very beginning of the pattern. <br>
 Instead, it leverages the information that "XYXY" has already been matched.
 
-Therefore, the algorithm continues matching from the 5th character of the pattern string (C in "XYXYCXYXYF"). <br> 
-It checks this against the 10th character of the string (C in "XYXYCXYXYCXYXYFGABC"). <br>
-Since they match, the algorithm continues from there without re-checking the initial "XYXY".
+Therefore, the algorithm continues matching from the 5th character of the pattern string.
+
+This is the key idea behind KMP algorithm and is applied throughout the string. 
+How it knows to 'reuse' previously identified sub-patterns is by keeping 
+track of what is known as the Longest Prefix Suffix (LPS; Longest prefix that is also a suffix) Table. Look at the 
+implementation for a step-by-step explanation for how LPS table is generated.
+
+Pattern: |   | X | Y | X | Y | C | X | Y | X | Y | F |
+|--------|---|---|---|---|---|---|---|---|---|---|---|
+Position:| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10|
+LPS:     | -1| 0 | 0 | 1 | 2 | 0 | 1 | 2 | 3 | 4 | 0 | 
 
 ## Complexity Analysis
 Let k be the length of the pattern and n be the length of the string to match against.
-**Time complexity**: O(n+k)
 
 Naively, we can look for patterns in a given sequence in O(nk) where n is the length of the sequence and k
 is the length of the pattern. We do this by iterating every character of the sequence, and look at the
 immediate k-1 characters that come after it. This is not a big issue if k is known to be small, but there's
 no guarantee this is the case.
+
+**Time complexity**: O(n+k)
 
 KMP does this in O(n+k) by making use of previously identified sub-patterns. It identifies sub-patterns
 by first processing the pattern input in O(k) time, allowing identification of patterns in
