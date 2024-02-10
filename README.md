@@ -13,7 +13,7 @@ Gradle is used for development.
 ## Full List (in alphabetical order):
 
 ## Data Structures
-- Adelson-Velskii and Landis (AVL) Binary Search Tree
+- [Adelson-Velskii and Landis (AVL) Binary Search Tree](src/main/java/dataStructures/avlTree)
 - [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)
     * [Quick Find](src/main/java/dataStructures/disjointSet/quickFind)
     * [Weighted Union](src/main/java/dataStructures/disjointSet/weightedUnion)
@@ -25,7 +25,7 @@ Gradle is used for development.
     * Max heap implementation 
 - [Linked List](src/main/java/dataStructures/linkedList)
 - LRU Cache
-- Minimum Spanning Tree
+- Minimum Spanning Tree 
     * Kruskal
     * Prim's
     * Boruvska
@@ -80,12 +80,11 @@ Gradle is used for development.
 4. Trees
     * [Binary search tree](src/main/java/dataStructures/binarySearchTree)
     * [AVL-tree](src/main/java/dataStructures/avlTree)
-    * Orthogonal Range Searching
     * [Trie](src/main/java/dataStructures/trie)
     * [B-Tree](src/main/java/dataStructures/bTree)
     * Red-Black Tree (Not covered in CS2040s but useful!)
-    * Kd-tree (**WIP**)
-    * Interval tree (**WIP**)
+    * Orthogonal Range Searching (**WIP**)
+    * Interval Trees (**WIP**)
 5. [Binary Heap](src/main/java/dataStructures/heap) (Max heap)
 6. [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)
     * [Quick Find](src/main/java/dataStructures/disjointSet/quickFind)
@@ -97,14 +96,14 @@ Gradle is used for development.
 8. Basic graphs (**WIP**)
     * Depth-first search
     * Breadth-first search
-9. Graphs
+9. Graphs (**WIP**)
     * Bellman-ford
     * Dijkstra
-    * Directed acyclic graphs algorithms (**WIP**)
+    * Directed acyclic graphs algorithms 
       * Post-order DFS
       * Kahn's
-    * Floyd Warshall (**WIP**)
-10. Minimum spanning tree
+    * Floyd Warshall 
+10. Minimum spanning tree (**WIP**)
     * Prim's
     * Kruskal's
 
