@@ -31,9 +31,9 @@ In practice, numbers are often interpreted in their binary representation, with 
 bit chunk of a specified size (usually 8 bits/1 byte, though this number could vary for optimization).
 
 For our implementation, we utilize the binary representation of elements, partitioning them into 8-bit segments. 
-Given that an integer is typically represented in 32 bits, this results in four segments per integer. 
+Given that an integer is typically represented in 32 bits, this results in four segments. 
 By applying the sorting subroutine to each segment across all integers, we can efficiently sort the array. 
-This method requires sorting the array four times in total, once for each 8-bit segment,
+This method requires sorting the array four times in total, once for each 8-bit segment.
 
 ### Implementation Invariant
 At the end of the *ith* iteration, the elements are sorted based on their numeric value up till the *ith* segment.
