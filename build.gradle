@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id "com.adarshr.test-logger" version "3.2.0"
     id "checkstyle"
+    // Add the ShadowJar plugin
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 sourceSets.main.java.srcDirs += ['scripts']
@@ -22,5 +24,16 @@ dependencies {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+// ShadowJar configuration (optional)
+// Customize this as needed
+shadowJar {
+    archiveBaseName.set('myapp')
+    archiveVersion.set('1.0.0')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'com.mycompany.myapp.MainClass'
     }
 }
