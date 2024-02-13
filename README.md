@@ -46,10 +46,10 @@ Gradle is used for development.
     * [Generalized case](src/main/java/algorithms/sorting/cyclicSort/generalised) of O(n^2) time complexity
 - [Insertion Sort](src/main/java/algorithms/sorting/insertionSort)
 - [Knuth-Morris-Pratt](src/main/java/algorithms/patternFinding) aka KMP algorithm
-- Merge Sort
+- [Merge Sort](src/main/java/algorithms/sorting/mergeSort)
     * [Recursive](src/main/java/algorithms/sorting/mergeSort/recursive)
     * [Bottom-up iterative](src/main/java/algorithms/sorting/mergeSort/iterative)
-- Quick Sort
+- [Quick Sort](src/main/java/algorithms/sorting/quickSort/)
     * [Hoare's](src/main/java/algorithms/sorting/quickSort/hoares)
     * [Lomuto's](src/main/java/algorithms/sorting/quickSort/lomuto)
     * [Paranoid](src/main/java/algorithms/sorting/quickSort/paranoid)
