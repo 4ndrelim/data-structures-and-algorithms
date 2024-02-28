@@ -19,6 +19,23 @@ This flag is set to true for nodes that correspond to the final character of a c
     <em>Source: <a href="https://java2blog.com/trie-data-structure-in-java/">Java2Blog</a></em>
 </div>
 
+### TrieNode
+A TrieNode represents a single node within a trie, which is a specialized tree-like data structure 
+used primarily for storing strings in a compact format. It typically encapsulates the following:
+
+1. Some kind of data structure to track children nodes; usually a HashMap or an array where indices represent 
+alphabets (e.g. an array of size 26 for chars a-z)
+   - Our implementation uses HashMap which is more versatile since it doesn't restrict the type of characters. But
+   it is not uncommon to see nodes with int or char array. In fact, PS5 of CS2040s does this!
+2. Boolean flag to denote the end of a sequence of characters.
+3. Optional: Additional fields to augment the trie. For instance, one can track the weight of the subtree rooted at each node to
+easily query the number of words with some prefix.
+4. Optional: Parent pointer. Some trie implementations include a back-pointer to the node's parent. This is not required
+for basic trie operations but can be useful for certain algorithms that require traversing the trie in reverse, 
+such as deletions or suffix trie constructions.
+   - Our implementation features one such method where we prune the trie. But we used an array to track past nodes seen
+   rather than rely on parent pointers.
+
 ## Complexity Analysis
 Let the length of the longest word be _L_ and the number of words be _N_.
 

@@ -37,10 +37,11 @@ public class Trie {
     public void insert(String word) {
         word = word.toLowerCase(); // ignore case-sensitivity
         TrieNode trav = root;
+        char curr;
         for (int i = 0; i < word.length(); i++) {
-            char curr = word.charAt(i);
+            curr = word.charAt(i);
             if (!trav.children.containsKey(curr)) {
-                trav.children.put(curr, new TrieNode()); // recall, the edges represent the characters
+                trav.children.put(curr, new TrieNode()); // recall: new char is represented by this child node
             }
             trav = trav.children.get(curr);
         }
@@ -55,8 +56,9 @@ public class Trie {
     public boolean search(String word) {
         word = word.toLowerCase();
         TrieNode trav = root;
+        char curr;
         for (int i = 0; i < word.length(); i++) {
-            char curr = word.charAt(i);
+            curr = word.charAt(i);
             if (!trav.children.containsKey(curr)) {
                 return false;
             }
@@ -72,8 +74,9 @@ public class Trie {
     public void delete(String word) {
         word = word.toLowerCase();
         TrieNode trav = root;
+        char curr;
         for (int i = 0; i < word.length(); i++) {
-            char curr = word.charAt(i);
+            curr = word.charAt(i);
             if (!trav.children.containsKey(curr)) {
                 return; // word does not exist in trie, so just return
             }
@@ -92,8 +95,9 @@ public class Trie {
     public void deleteAndPrune(String word) {
         List<TrieNode> trackNodes = new ArrayList<>();
         TrieNode trav = root;
+        char curr;
         for (int i = 0; i < word.length(); i++) {
-            char curr = word.charAt(i);
+            curr = word.charAt(i);
             if (!trav.children.containsKey(curr)) {
                 return; // word does not exist in trie
             }
@@ -102,12 +106,14 @@ public class Trie {
         }
         trav.isEnd = false;
 
-        // now we start pruning
-        for (int i = word.length() - 1; i >= 0; i--) {
-            char curr = word.charAt(i);
-            TrieNode nodeBeforeCurr = trackNodes.get(i);
-            TrieNode nextNode = nodeBeforeCurr.children.get(curr);
-            if (!nextNode.isEnd && nextNode.children.size() == 0) { // node essentially doesn't track anything, remove
+        // now, we start pruning
+        TrieNode currNode; // nodes representing chars, where chars will be iterated from the back
+        TrieNode nodeBeforeCurr;
+        for (int i = word.length() - 1; i >= 0; i--) { // consider chars from back
+            curr = word.charAt(i);
+            nodeBeforeCurr = trackNodes.get(i);
+            currNode = nodeBeforeCurr.children.get(curr);
+            if (!currNode.isEnd && currNode.children.size() == 0) { // node essentially doesn't track anything, remove
                 nodeBeforeCurr.children.remove(curr);
             } else { // children.size() > 0; i.e. this node is still useful; no need to further prune upwards
                 break;
