@@ -2,10 +2,14 @@
 
 This repository contains implementation and discussion notes (intuition, applications, analysis) 
 of some fundamental data structures and algorithms in Computer Science. <br>
-It is aligned with [CS2040s](https://nusmods.com/courses/CS2040S/data-structures-and-algorithms) syllabus taught at NUS.
+It is aligned with [CS2040s](https://nusmods.com/courses/CS2040S/data-structures-and-algorithms) syllabus taught by 
+[Prof Seth](https://www.comp.nus.edu.sg/cs/people/gilbert/) at NUS. 
 
-The work here is continually being developed by CS2040s Teaching Assistants(TAs) and ex-2040s students. 
-Lecture content has been covered and future plans include deeper discussion into the tougher parts of tutorials.
+The work here is continually being developed by CS2040s Teaching Assistants(TAs) and ex-2040s students, 
+under the guidance of Prof Seth.
+It is still in its infant stage, mostly covering lecture content and discussion notes.
+Future plans include deeper discussion into the tougher parts of tutorials and even practice problems / puzzles related
+to DSA.
 
 The project's structure is optimised for IntelliJ IDEA as per the course's preferred IDE. 
 Gradle is used for development.
