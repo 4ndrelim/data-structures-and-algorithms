@@ -22,17 +22,11 @@ public class OrthogonalRangeSearching {
 
     if (start > end) {
       return null;
-    } else if (end - start + 1 > 3) {
+    } else if (start == end) {
+      return new RangeTreeNode<>(inputs[start]);
+    } else {
       return new RangeTreeNode<>(inputs[mid], buildTree(inputs, start, mid),
               buildTree(inputs, mid + 1, end));
-    } else if (end - start + 1 == 3) {
-      return new RangeTreeNode<>(inputs[mid], buildTree(inputs, start, mid),
-              buildTree(inputs, end, end));
-    } else if (end - start + 1 == 2) {
-      return new RangeTreeNode<>(inputs[mid], buildTree(inputs, start, start),
-              buildTree(inputs, end, end));
-    } else {
-      return new RangeTreeNode<>(inputs[mid]);
     }
   }
 
@@ -52,7 +46,7 @@ public class OrthogonalRangeSearching {
         return null;
       } else {
         if (high <= v.getVal()) {
-          if (v.getLeft() == null && v.getRight() == null) { // reached the leaf
+          if (isLeaf(v)) {
             break;
           }
           v = v.getLeft();
@@ -77,7 +71,7 @@ public class OrthogonalRangeSearching {
       if (v.getLeft() != null) {
         allLeafTraversal(v.getLeft(), result);
       }
-      if (v.getLeft() == null && v.getRight() == null) { // leaf
+      if (isLeaf(v)) {
         result.add(v.getVal());
       }
       if (v.getRight() != null) {
@@ -95,7 +89,7 @@ public class OrthogonalRangeSearching {
    */
   public static void leftTraversal(RangeTreeNode<Integer> v, int low, List<Integer> result) {
     if (v != null) {
-      if (v.getLeft() == null && v.getRight() == null) { // leaf
+      if (isLeaf(v)) {
         result.add(v.getVal());
       } else {
         if (low <= v.getVal()) {
@@ -117,7 +111,7 @@ public class OrthogonalRangeSearching {
    */
   public static void rightTraversal(RangeTreeNode<Integer> v, int high, List<Integer> result) {
     if (v != null) {
-      if (v.getLeft() == null && v.getRight() == null && v.getVal() <= high) { // leaf, need extra check
+      if (isLeaf(v) && v.getVal() <= high) { // leaf, need extra check
         result.add(v.getVal());
       } else {
         if (high > v.getVal()) {
@@ -142,8 +136,8 @@ public class OrthogonalRangeSearching {
     RangeTreeNode<Integer> splitNode = OrthogonalRangeSearching.findSplit(tree, low, high);
     ArrayList<Integer> result = new ArrayList<>();
     if (splitNode != null) {
-      if (splitNode.getLeft() == null && splitNode.getRight() == null
-        && splitNode.getVal() >= low && splitNode.getVal() <= high) { // if split node is leaf
+      if (isLeaf(splitNode) && splitNode.getVal() >= low
+              && splitNode.getVal() <= high) {
           result.add(splitNode.getVal());
       }
       leftTraversal(splitNode.getLeft(), low, result);
@@ -152,7 +146,11 @@ public class OrthogonalRangeSearching {
     return result.toArray();
   }
 
-  // Functions from here onwards are designed to support dynamic updates.
+  private static boolean isLeaf(RangeTreeNode<Integer> node) {
+    return node.getLeft() == null && node.getRight() == null;
+  }
+
+  // FUNCTIONS FROM HERE ONWARDS ARE DESIGNED TO SUPPORT DYNAMIC UPDATES.
 
   /**
    * Configures the height and parent nodes for the nodes in the Range Tree.
@@ -276,7 +274,7 @@ public class OrthogonalRangeSearching {
    * @return new root after rotation
    */
   private static RangeTreeNode<Integer> rotateLeft(RangeTreeNode<Integer> n) {
-    RangeTreeNode<Integer> newRoot = n.getRight();
+    RangeTreeNode<Integer> newRoot = n.getRight(); // newRoot is the right subtree of the original root
     RangeTreeNode<Integer> newRightSub = newRoot.getLeft();
     newRoot.setLeft(n);
     n.setRight(newRightSub);
@@ -299,12 +297,14 @@ public class OrthogonalRangeSearching {
     updateHeight(n);
     int balance = getBalance(n);
     if (balance < -1) { // right-heavy case
-      if (height(n.getRight().getLeft()) > height(n.getRight().getRight())) {
+      RangeTreeNode<Integer> rightChild = n.getRight();
+      if (height(rightChild.getLeft()) > height(rightChild.getRight())) {
         n.setRight(rotateRight(n.getRight()));
       }
       n = rotateLeft(n);
     } else if (balance > 1) { // left-heavy case
-      if (height(n.getLeft().getRight()) > height(n.getLeft().getLeft())) {
+      RangeTreeNode<Integer> leftChild = n.getLeft();
+      if (height(leftChild.getRight()) > height(leftChild.getLeft())) {
         n.setLeft(rotateLeft(n.getLeft()));
       }
       n = rotateRight(n);
@@ -320,26 +320,29 @@ public class OrthogonalRangeSearching {
    * @return The root node of the updated Range Tree.
    */
   public static RangeTreeNode<Integer> delete(RangeTreeNode<Integer> node, int val) {
-    if (node.getLeft().getLeft() == null && node.getLeft().getRight() == null
-        && val == node.getLeft().getVal()) { // left node is the leaf node
-      node.setVal(node.getRight().getVal());
+    RangeTreeNode<Integer> leftChild = node.getLeft();
+    RangeTreeNode<Integer> rightChild = node.getRight();
+
+    if (leftChild.getLeft() == null && leftChild.getRight() == null
+        && val == leftChild.getVal()) { // left node is the leaf node
+      node.setVal(rightChild.getVal());
       node.setLeft(null);
       node.setRight(null);
-    } else if (node.getRight().getLeft() == null && node.getRight().getRight() == null
-        && val == node.getRight().getVal()) { // right node is the leaf node
+    } else if (rightChild.getLeft() == null && rightChild.getRight() == null
+        && val == rightChild.getVal()) { // right node is the leaf node
       node.setLeft(null);
       node.setRight(null);
     } else {
       if (val <= node.getVal()) {
-        if (node.getLeft() != null) {
-          node.setLeft(delete(node.getLeft(), val));
+        if (leftChild != null) {
+          node.setLeft(delete(leftChild, val));
         }
         if (val == node.getVal()) { // duplicate node
-          node.setVal(getMostRight(node.getLeft()).getVal()); // update the duplicate key
+          node.setVal(getMostRight(leftChild).getVal()); // update the duplicate key
         }
       } else {
-        if (node.getRight() != null) {
-          node.setRight(delete(node.getRight(), val));
+        if (rightChild != null) {
+          node.setRight(delete(rightChild, val));
         }
       }
     }

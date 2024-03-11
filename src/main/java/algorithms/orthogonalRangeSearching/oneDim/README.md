@@ -1,14 +1,15 @@
 # 1D Orthogonal Range Searching
 
 1D orthogonal range searching is a computational problem where you search for elements or data points within a 
-specified 1D range (interval) in a collection of 1D data (e.g. Find me everyone between ages 22 and 27). 
+specified 1D range (interval) in a collection of 1D data (e.g. Find me everyone between ages 22 and 27). Additionally,
+we also want to support efficient insertions of new data points into the maintained set.
 
-While we can simply sort (and binary search the low and high of the specified range) to return all data points within 
-the specified range, each query will minimally take O(nlogn) due to the sorting step, assuming dynamic updating of 
-the data.
+One strategy is would be to sort all the data points in O(nlogn) time, then insertion would take O(n). We can binary 
+search the low and high of the specified range to return all data points within in O(logn) time. This would be a 
+reasonable approach if the no. of queries >> no. of insertions.
 
-The goal of 1D Orthogonal Range Searching is to efficiently identify and retrieve all data points that fall within the 
-given range.
+In cases where the no. of insertions >> no. of queries, we might want to further optimise the time complexity of
+insertions to O(logn) using a 1D range tree.
 
 Strategy:
 1. Use a binary search tree
@@ -20,7 +21,9 @@ Strategy:
 Say we want to find all the nodes between 10 and 50 i.e. query(10, 50). We would want to:
 1. Find split node: highest node where search includes both left & right subtrees
 => we want to make use of the range tree property to perform binary search to find our split node. See findSplit(root, low, high) in code. 
-2. Left traversal & right traversal
+2. Left traversal & right traversal 
+- Left traversal covers the range within [low, splitNode]
+- Right traversal covers the range within (splitNode, high]
 
 ![1DORSQuery](../../../../../../docs/assets/images/1DORSQuery.jpeg)
 Image Source: Lecture Slides
@@ -28,7 +31,9 @@ Image Source: Lecture Slides
 ## Complexity Analysis
 **Time**:
 
-Build Tree (cost incurred once only): O(nlogn) limited by sorting step
+Build Tree (cost incurred once only): 
+- if given an unsorted array, O(nlogn) limited by sorting step
+- if given a sorted array, O(n)
 
 Querying: O(k + logn)
 - Find Split Node: O(logn) (binary search)
