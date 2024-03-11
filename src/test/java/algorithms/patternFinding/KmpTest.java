@@ -11,53 +11,58 @@ import org.junit.Test;
  * Test cases for {@link KMP}.
  */
 public class KmpTest {
-  @Test
-  public void test_findOccurrences_shouldReturnStartIndices() {
-    String seq = "abclaabcabcabc";
-    String pattern = "abc";
+    @Test
+    public void test_findOccurrences_shouldReturnStartIndices() {
+        String seq = "abclaabcabcabc";
+        String pattern = "abc";
 
-    List<Integer> indices = KMP.findOccurrences(seq, pattern);
-    List<Integer> expected = Arrays.asList(0, 5, 8, 11);
-    Assert.assertEquals(expected, indices);
-  }
+        List<Integer> indices = KMP.findOccurrences(seq, pattern);
+        List<Integer> expected = Arrays.asList(0, 5, 8, 11);
+        Assert.assertEquals(expected, indices);
+    }
 
-  @Test
-  public void testEmptySequence_findOccurrences_shouldReturnStartIndices() {
-    String seq = "";
-    String pattern = "a";
+    @Test
+    public void testEmptySequence_findOccurrences_shouldReturnStartIndices() {
+        String seq = "";
+        String pattern = "a";
 
-    List<Integer> indices = KMP.findOccurrences(seq, pattern);
-    List<Integer> expected = new ArrayList<>();
-    Assert.assertEquals(expected, indices);
-  }
+        List<Integer> indices = KMP.findOccurrences(seq, pattern);
+        List<Integer> expected = new ArrayList<>();
+        Assert.assertEquals(expected, indices);
+    }
 
-  @Test
-  public void testNoOccurence_findOccurrences_shouldReturnStartIndices() {
-    String seq = "abcabcabc";
-    String pattern = "noway";
+    @Test
+    public void testNoOccurence_findOccurrences_shouldReturnStartIndices() {
+        String seq = "abcabcabc";
+        String patternOne = "noway";
+        String patternTwo = "cbc";
 
-    List<Integer> indices = KMP.findOccurrences(seq, pattern);
-    List<Integer> expected = new ArrayList<>();
-    Assert.assertEquals(expected, indices);
-  }
+        List<Integer> indicesOne = KMP.findOccurrences(seq, patternOne);
+        List<Integer> expectedOne = new ArrayList<>();
+        Assert.assertEquals(expectedOne, indicesOne);
 
-  @Test
-  public void testRepeatPatternOnly_findOccurrences_shouldReturnStartIndices() {
-    String seq = "abcabcabcabcabc";
-    String pattern = "abc";
+        List<Integer> indicesTwo = KMP.findOccurrences(seq, patternTwo);
+        List<Integer> expectedTwo = new ArrayList<>();
+        Assert.assertEquals(expectedTwo, indicesTwo);
+    }
 
-    List<Integer> indices = KMP.findOccurrences(seq, pattern);
-    List<Integer> expected = Arrays.asList(0, 3, 6, 9, 12);
-    Assert.assertEquals(expected, indices);
-  }
+    @Test
+    public void testRepeatPatternOnly_findOccurrences_shouldReturnStartIndices() {
+        String seq = "abcabcabcabcabc";
+        String pattern = "abc";
 
-  @Test
-  public void testAllSame_findOccurrences_shouldReturnStartIndices() {
-    String seq = "aaaaaaaaaaaaa";
-    String pattern = "aa";
+        List<Integer> indices = KMP.findOccurrences(seq, pattern);
+        List<Integer> expected = Arrays.asList(0, 3, 6, 9, 12);
+        Assert.assertEquals(expected, indices);
+    }
 
-    List<Integer> indices = KMP.findOccurrences(seq, pattern);
-    List<Integer> expected = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-    Assert.assertEquals(expected, indices);
-  }
+    @Test
+    public void testAllSame_findOccurrences_shouldReturnStartIndices() {
+        String seq = "aaaaaaaaaaaaa";
+        String pattern = "aa";
+
+        List<Integer> indices = KMP.findOccurrences(seq, pattern);
+        List<Integer> expected = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+        Assert.assertEquals(expected, indices);
+    }
 }

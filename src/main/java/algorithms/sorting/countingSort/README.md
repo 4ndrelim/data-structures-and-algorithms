@@ -1,21 +1,47 @@
 # Counting Sort
 
-Counting sort is a non-comparison-based sorting algorithm and isn't bounded by the O(nlogn) lower-bound 
+## Background
+
+Counting sort is a non-comparison-based sorting algorithm and isn't bounded by the O(nlogn) lower-bound
 of most sorting algorithms. <br>
-It first obtains the frequency map of all elements (ie counting the occurrence of every element), then
+It first obtains the frequency map of all elements (i.e. counting the occurrence of every element), then
 computes the prefix sum for the map. This prefix map tells us which position an element should be inserted.
-Ultimately, each group of elements will be placed together, and the groups in succession, in the sorted output.
+It is updated after each insertion to reflect the new position to insert the next time the same element is
+encountered. <br>
+
+![counting sort img](../../../../../../docs/assets/images/CountingSort.png)
+
+Image Source: https://www.oreilly.com/library/view/mastering-algorithms-with/1565924533/ch12s13.html
+
+_To align with the naming convention of our implementation, data => arr, counts => freq, temp => sorted._
+
+### Implementation Invariant
+
+**At the end of the ith iteration, the ith element (of the original array) from the back will be placed in
+its correct position**.
+
+Note: An alternative implementation from the front is easily done with minor modification.
+The catch is that this implementation would not be stable.
+
+### Common Misconception
+
+_"Counting sort does not require total ordering of elements since it is non-comparison based."_
+
+This is incorrect. It requires total ordering of elements to determine their relative positions in the sorted output.
+In our implementation, the total ordering property is reflected by virtue of the structure of the frequency map.
 
 ## Complexity Analysis
-Time: O(k+n)=O(max(k,n)) where k is the value of the largest element and n is the number of elements. <br>
-Space: O(k+n)=O(max(k,n)) <br>
+
+**Time**: O(k+n)=O(max(k,n))  <br>
+**Space**: O(k+n)=O(max(k,n)) <br>
+where k is the value of the largest element and n is the number of elements.
+
 Counting sort is most efficient if the range of input values do not exceed the number of input values. <br>
 Counting sort is NOT AN IN-PLACE algorithm. For one, it requires additional space to store freq map. <br>
 
 ## Notes
-COMMON MISCONCEPTION: Counting sort does not require total ordering of elements since it is non-comparison based.
-This is incorrect. It requires total ordering of elements to determine their relative positions in the sorted output.
-In fact, in conventional implementation, the total ordering property is reflected by virtue of the structure
-of the frequency map.
 
-Supplementary: Here is a [video](https://www.youtube.com/watch?v=OKd534EWcdk) if you are still having troubles.
+1. Our counting sort implementation works only on non-negative integers. However, to adapt it to work for arrays with
+negative integers, we can add an offset of +m, where m is the smallest integer in the array. 
+2. Counting sort (stable version) is often used as a sub-routine for radix sort.
+3. Supplementary: Here is a [video](https://www.youtube.com/watch?v=OKd534EWcdk) if you are still having troubles.
