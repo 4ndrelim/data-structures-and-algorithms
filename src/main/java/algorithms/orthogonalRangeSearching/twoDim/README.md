@@ -22,8 +22,8 @@ Given the 2D range tree, we now want to query the points in a given rectangle
 i.e. search(tree, xLow, xHigh, yLow, yHigh). 
 
 We first want to find the points that will satisfy the x-condition i.e. find me all points whose x-coordinates are 
-between xLow and xHigh. To do so, we first need to find our split node in the x-tree, by performing binary search while 
-traversing the x-tree - similar to how we found the split node in a 1D range tree. This will give us our X-split. 
+between xLow and xHigh. To do so, we first need to find our split node in the x-tree, by performing binary search[^1] 
+while traversing the x-tree - similar to how we found the split node in a 1D range tree. This will give us our X-split. 
 
 Now given our X-split, we want to find points that satisfy both our x-condition and y-condition. 
 
@@ -66,3 +66,6 @@ entirely rebuilding the y-trees for the rotated notes. Therefore, 2D ORS is main
 - Query cost: O(k + log^dn)
 - Build tree cost: O(nlog^(d-1)n)
 - Space: O(nlog^(d-1)n)
+
+[^1] This reference to binary search differs from our typical binary search formulation, but essentially refers
+to the findSplit function where you walk down the balanced tree and remove roughly half of the nodes each time. 

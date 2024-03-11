@@ -24,24 +24,13 @@ public class OrthogonalRangeSearching {
 
         if (start > end) {
             return null;
-        } else if (end - start + 1 > 3) {
-            RangeTreeNode<Integer[]> node = new RangeTreeNode<>(inputs.get(mid), buildXTree(inputs, start, mid),
-                    buildXTree(inputs, mid + 1, end));
-            node.setYTree(buildYTree(inputs, start, end));
-            return node;
-        } else if (end - start + 1 == 3) {
-            RangeTreeNode<Integer[]> node = new RangeTreeNode<>(inputs.get(mid), buildXTree(inputs, start, mid),
-                    buildXTree(inputs, end, end));
-            node.setYTree(buildYTree(inputs, start, end));
-            return node;
-        } else if (end - start + 1 == 2) {
-            RangeTreeNode<Integer[]> node = new RangeTreeNode<>(inputs.get(mid),
-                    buildXTree(inputs, start, start),
-                    buildXTree(inputs, end, end));
+        } else if (start == end) {
+            RangeTreeNode<Integer[]> node = new RangeTreeNode<>(inputs.get(mid));
             node.setYTree(buildYTree(inputs, start, end));
             return node;
         } else {
-            RangeTreeNode<Integer[]> node = new RangeTreeNode<>(inputs.get(mid));
+            RangeTreeNode<Integer[]> node = new RangeTreeNode<>(inputs.get(mid), buildXTree(inputs, start, mid),
+                    buildXTree(inputs, mid + 1, end));
             node.setYTree(buildYTree(inputs, start, end));
             return node;
         }
@@ -58,7 +47,6 @@ public class OrthogonalRangeSearching {
      */
     private static RangeTreeNode<Integer[]> buildYTree(List<Integer[]> inputs, int start, int end) {
 
-        int mid = (end + start) / 2;
         List<Integer[]> ySortedSublist = inputs.subList(start, end + 1);
         ySortedSublist.sort(Comparator.comparingInt(a -> a[1])); //sort by y-coordinate
 
@@ -80,17 +68,11 @@ public class OrthogonalRangeSearching {
 
         if (start > end) {
             return null;
-        } else if (end - start + 1 > 3) {
+        } else if (start == end) {
+            return new RangeTreeNode<>(inputs.get(start));
+        } else {
             return new RangeTreeNode<>(inputs.get(mid), buildYTree(inputs, start, mid),
                     buildYTree(inputs, mid + 1, end));
-        } else if (end - start + 1 == 3) {
-            return new RangeTreeNode<>(inputs.get(mid), buildYTree(inputs, start, mid),
-                    buildYTree(inputs, end, end));
-        } else if (end - start + 1 == 2) {
-            return new RangeTreeNode<>(inputs.get(mid), buildYTree(inputs, start, start),
-                    buildYTree(inputs, end, end));
-        } else {
-            return new RangeTreeNode<>(inputs.get(mid));
         }
     }
 
@@ -133,7 +115,7 @@ public class OrthogonalRangeSearching {
     public static void XLeftTraversal(RangeTreeNode<Integer[]> v, int xLow, int xHigh, int yLow, int yHigh,
                                       ArrayList<Integer[]> result) {
         if (v != null) {
-            if (v.getLeft() == null && v.getRight() == null && v.getVal()[0] >= xLow && v.getVal()[0] <= xHigh) { //leaf
+            if (isLeaf(v) && v.getVal()[0] >= xLow && v.getVal()[0] <= xHigh) { //leaf
                 YSearch(v, yLow, yHigh, result);
             } else {
                 if (xLow <= v.getVal()[0]) {
@@ -158,7 +140,7 @@ public class OrthogonalRangeSearching {
     public static void XRightTraversal(RangeTreeNode<Integer[]> v, int xLow, int xHigh, int yLow, int yHigh,
                                        ArrayList<Integer[]> result) {
         if (v != null) {
-            if (v.getLeft() == null && v.getRight() == null && v.getVal()[0] >= xLow && v.getVal()[0] <= xHigh) { //leaf
+            if (isLeaf(v) && v.getVal()[0] >= xLow && v.getVal()[0] <= xHigh) { //leaf
                 YSearch(v, yLow, yHigh, result);
             } else {
                 if (xHigh >= v.getVal()[0]) {
@@ -186,7 +168,7 @@ public class OrthogonalRangeSearching {
                 return null;
             } else {
                 if (yHigh <= v.getVal()[1]) {
-                    if (v.getLeft() == null && v.getRight() == null) { // extra check since ysplit might be leaf node
+                    if (isLeaf(v)) { // extra check since ysplit might be leaf node
                         break;
                     } else {
                         v = v.getLeft();
@@ -212,7 +194,7 @@ public class OrthogonalRangeSearching {
             if (v.getLeft() != null) {
                 allLeafTraversal(v.getLeft(), result);
             }
-            if (v.getLeft() == null && v.getRight() == null) { // leaf
+            if (isLeaf(v)) {
                 result.add(v.getVal());
             }
             if (v.getRight() != null) {
@@ -228,16 +210,16 @@ public class OrthogonalRangeSearching {
      * @param low    The lower bound of the Y-coordinate range.
      * @param result A list to store the results.
      */
-    public static void leftTraversal(RangeTreeNode<Integer[]> v, int low, List<Integer[]> result) {
+    public static void YLeftTraversal(RangeTreeNode<Integer[]> v, int low, List<Integer[]> result) {
         if (v != null) {
-            if (v.getLeft() == null && v.getRight() == null) { // leaf
+            if (isLeaf(v)) {
                 result.add(v.getVal());
             } else {
                 if (low <= v.getVal()[1]) {
-                    leftTraversal(v.getLeft(), low, result);
+                    YLeftTraversal(v.getLeft(), low, result);
                     allLeafTraversal(v.getRight(), result);
                 } else { // definitely a qualifying leaf has to exist
-                    leftTraversal(v.getRight(), low, result);
+                    YLeftTraversal(v.getRight(), low, result);
                 }
             }
         }
@@ -250,16 +232,16 @@ public class OrthogonalRangeSearching {
      * @param high    The upper bound of the Y-coordinate range.
      * @param result A list to store the results.
      */
-    public static void rightTraversal(RangeTreeNode<Integer[]> v, int high, List<Integer[]> result) {
+    public static void YRightTraversal(RangeTreeNode<Integer[]> v, int high, List<Integer[]> result) {
         if (v != null) {
-            if (v.getLeft() == null && v.getRight() == null && v.getVal()[1] <= high) { // leaf, need extra check
+            if (isLeaf(v) && v.getVal()[1] <= high) { // leaf, need extra check
                 result.add(v.getVal());
             } else {
                 if (high > v.getVal()[1]) {
                     allLeafTraversal(v.getLeft(), result);
-                    rightTraversal(v.getRight(), high, result);
+                    YRightTraversal(v.getRight(), high, result);
                 } else { // a qualifying leaf might or might not exist, we are just exploring
-                    rightTraversal(v.getLeft(), high, result);
+                    YRightTraversal(v.getLeft(), high, result);
                 }
             }
         }
@@ -275,15 +257,14 @@ public class OrthogonalRangeSearching {
      */
     public static void YSearch(RangeTreeNode<Integer[]> v, int yLow, int yHigh, ArrayList<Integer[]> result) {
         if (v != null) {
-            System.out.println(v.getVal()[0]);
             RangeTreeNode<Integer[]> splitNodeY = findYSplit(v.getYTree(), yLow, yHigh);
             if (splitNodeY != null) {
-                if (splitNodeY.getLeft() == null && splitNodeY.getRight() == null
+                if (isLeaf(splitNodeY)
                         && splitNodeY.getVal()[1] >= yLow && splitNodeY.getVal()[1] <= yHigh) { // if split node is leaf
                     result.add(splitNodeY.getVal());
                 }
-                leftTraversal(splitNodeY.getLeft(), yLow, result);
-                rightTraversal(splitNodeY.getRight(), yHigh, result);
+                YLeftTraversal(splitNodeY.getLeft(), yLow, result);
+                YRightTraversal(splitNodeY.getRight(), yHigh, result);
             }
         }
     }
@@ -302,7 +283,7 @@ public class OrthogonalRangeSearching {
         RangeTreeNode<Integer[]> splitNodeX = findXSplit(tree, xLow, xHigh);
         ArrayList<Integer[]> result = new ArrayList<>();
         if (splitNodeX != null) {
-            if (splitNodeX.getLeft() == null && splitNodeX.getRight() == null
+            if (isLeaf(splitNodeX)
                     && splitNodeX.getVal()[0] >= xLow && splitNodeX.getVal()[0] <= xHigh) { // if split node is leaf
                 YSearch(splitNodeX, yLow, yHigh, result);
             }
@@ -311,4 +292,9 @@ public class OrthogonalRangeSearching {
         }
         return result;
     }
+
+    private static <T> boolean isLeaf(RangeTreeNode<T> node) {
+        return node.getLeft() == null && node.getRight() == null;
+    }
+
 }
