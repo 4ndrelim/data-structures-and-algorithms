@@ -1,9 +1,6 @@
 package algorithms.minimumSpanningTree.prims;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
@@ -14,19 +11,26 @@ import java.util.PriorityQueue;
  *  outgoing edge adjacent to any node in the MST (ensure the other end of the node is not already in the MST).
  *  Repeat until S contains all nodes in the graph. S is the MST.
  * Actual implementation:
- *  No Edge class was implemented. Instead, each node has a Map of adjacent nodes and their corresponding edge weights.
- *  To represent the MST, a new list of nodes is created with the same identifiers as the original graph, with each node
- *  containing only the edges in the MST.
+ *  No Edge class was implemented. Instead, the weights of the edges are stored in a 2D array adjacency matrix.
+ *  A Node class is implemented to encapsulate a isVisited flag and the current minimum weight to reach the node.
  */
 public class Prim {
     public static int[][] getPrimsMST(Node[] nodes, int[][] adjacencyMatrix) {
         PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.getCurrMinWeight() - b.getCurrMinWeight());
         int[][] mstMatrix = new int[nodes.length][nodes.length]; // MST adjacency matrix
 
-        // Initialize the MST matrix to represent no edges with Integer.MAX_VALUE
+        // Initialize mstMatrix with all edges set to Integer.MAX_VALUE
+        for (int[] row : mstMatrix) {
+            Arrays.fill(row, Integer.MAX_VALUE);
+        }
+
+        int[] parent = new int[nodes.length]; // To track the parent node of each node in the MST
+        Arrays.fill(parent, -1); // Initialize parent array with -1, indicating no parent
+
+        // Initialize the MST matrix to represent no edges with Integer.MAX_VALUE and 0 for self loops
         for (int i = 0; i < nodes.length; i++) {
             for (int j = 0; j < nodes.length; j++) {
-                mstMatrix[i][j] = Integer.MAX_VALUE;
+                mstMatrix[i][j] = (i == j) ? 0 : Integer.MAX_VALUE;
             }
         }
 
@@ -50,13 +54,22 @@ public class Prim {
                         pq.remove(nodes[i]);
                         nodes[i].setCurrMinWeight(weight);
                         pq.add(nodes[i]);
-                        // Update the MST matrix
-                        mstMatrix[currentIndex][i] = weight;
-                        mstMatrix[i][currentIndex] = weight; // For undirected graphs
+                        parent[i] = currentIndex; // Set current node as parent of adjacent node
                     }
                 }
             }
         }
+
+        // Build MST matrix based on parent array
+        for (int i = 1; i < nodes.length; i++) {
+            int p = parent[i];
+            if (p != -1) {
+                int weight = adjacencyMatrix[p][i];
+                mstMatrix[p][i] = weight;
+                mstMatrix[i][p] = weight; // For undirected graphs
+            }
+        }
+
         return mstMatrix;
     }
 }
