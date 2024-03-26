@@ -19,62 +19,45 @@ import java.util.PriorityQueue;
  *  containing only the edges in the MST.
  */
 public class Prim {
-    public static List<Node> getPrimsMST(List<Node> graph) {
+    public static int[][] getPrimsMST(Node[] nodes, int[][] adjacencyMatrix) {
         PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.getCurrMinWeight() - b.getCurrMinWeight());
+        int[][] mstMatrix = new int[nodes.length][nodes.length]; // MST adjacency matrix
 
-        // Values in the map represent the corresponding node with only the edges in the MST
-        Map<Node, Node> nodeToMSTNode = new HashMap<>();
-        Map<Node, Node> parentInMST = new HashMap<>();
-
-        // Initialize each node's minWeight to infinity and add to the priority queue
-        for (Node node : graph) {
-            node.setCurrMinWeight(Integer.MAX_VALUE);
-            pq.add(node);
-            nodeToMSTNode.put(node, new Node(node.getIdentifier())); // Create a corresponding MST node
-            parentInMST.put(node, null);
+        // Initialize the MST matrix to represent no edges with Integer.MAX_VALUE
+        for (int i = 0; i < nodes.length; i++) {
+            for (int j = 0; j < nodes.length; j++) {
+                mstMatrix[i][j] = Integer.MAX_VALUE;
+            }
         }
 
-        // Assuming graph is not empty and the start node is the first node
-        if (!graph.isEmpty()) {
-            graph.get(0).setCurrMinWeight(0);
+        // Initialize all nodes' currMinWeight to infinity, except the first node
+        for (Node node : nodes) {
+            node.setCurrMinWeight(Integer.MAX_VALUE);
+            pq.add(node);
         }
 
         while (!pq.isEmpty()) {
             Node current = pq.poll();
             current.setVisited(true);
 
-            Map<Node, Integer> currentAdjacentNodes = current.getAdjacentNodes();
+            int currentIndex = current.getIndex();
 
-            for (Map.Entry<Node, Integer> entry : currentAdjacentNodes.entrySet()) {
-                Node adjacent = entry.getKey();
-                Integer weight = entry.getValue();
+            for (int i = 0; i < nodes.length; i++) {
+                if (adjacencyMatrix[currentIndex][i] != Integer.MAX_VALUE && !nodes[i].isVisited()) {
+                    int weight = adjacencyMatrix[currentIndex][i];
 
-                if (!adjacent.isVisited() && weight < adjacent.getCurrMinWeight()) {
-                    pq.remove(adjacent);
-                    adjacent.setCurrMinWeight(weight);
-                    pq.add(adjacent);
-
-                    // Update the parent in MST
-                    parentInMST.put(adjacent, current);
+                    if (weight < nodes[i].getCurrMinWeight()) {
+                        pq.remove(nodes[i]);
+                        nodes[i].setCurrMinWeight(weight);
+                        pq.add(nodes[i]);
+                        // Update the MST matrix
+                        mstMatrix[currentIndex][i] = weight;
+                        mstMatrix[i][currentIndex] = weight; // For undirected graphs
+                    }
                 }
             }
         }
-
-        // Construct the MST using the parent-child relationships
-        for (Node originalNode : graph) {
-            Node mstNode = nodeToMSTNode.get(originalNode);
-            Node parent = parentInMST.get(originalNode);
-
-            if (parent != null) {
-                Node mstParent = nodeToMSTNode.get(parent);
-                int weight = originalNode.getAdjacentNodes().get(parent);
-                mstParent.getAdjacentNodes().put(mstNode, weight);
-                mstNode.getAdjacentNodes().put(mstParent, weight); // For undirected graphs
-            }
-        }
-
-        // Extract the nodes from the map to return them
-        return new ArrayList<>(nodeToMSTNode.values());
+        return mstMatrix;
     }
 }
 

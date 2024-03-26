@@ -1,45 +1,19 @@
 package algorithms.minimumSpanningTree.prims;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-/**
- * Node class for Prim's algorithm.
- *
- * Each node has a unique identifier and contains a Map of adjacent nodes and their corresponding edge weights.
- */
 public class Node {
     private boolean isVisited = false;
-    private int currMinWeight; // Current minimum weight to get to this node to calculate Prim's MST
-    private final Map<Node, Integer> adjacentNodes;
+    private int currMinWeight = Integer.MAX_VALUE; // Current minimum weight to get to this node
+    private int index; // Index of this node in the adjacency matrix
     private String identifier;
 
-    /**
-     * Constructor for a node with no adjacent nodes.
-     *
-     * @param identifier Unique identifier for the node
-     */
-    public Node(String identifier) {
-        this.adjacentNodes = new HashMap<>();
+    public Node(String identifier, int index) {
         this.identifier = identifier;
+        this.index = index;
     }
 
-    /**
-     * Constructor for a node with a list of adjacent nodes.
-     *
-     * @param identifier    Unique identifier for the node
-     * @param adjacentNodes List of adjacent nodes
-     */
-    public Node(String identifier, Map<Node, Integer> adjacentNodes) {
-        this.identifier = identifier;
-        this.adjacentNodes = adjacentNodes;
-    }
-
-    public Map<Node, Integer> getAdjacentNodes() {
-        return adjacentNodes;
-    }
-
+    // Getter and setter for currMinWeight
     public int getCurrMinWeight() {
         return currMinWeight;
     }
@@ -48,46 +22,46 @@ public class Node {
         this.currMinWeight = currMinWeight;
     }
 
+    // Getter and setter for isVisited
     public boolean isVisited() {
-        return this.isVisited;
+        return isVisited;
     }
 
     public void setVisited(boolean isVisited) {
         this.isVisited = isVisited;
     }
 
+    // Getter for identifier
     public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    // Getter and setter for index
+    public int getIndex() {
+        return index;
     }
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    // toString method
     @Override
     public String toString() {
-        return "Node{"
-                + "identifier='"
-                + identifier + '\''
-                + '}';
+        return "Node{" + "identifier='" + identifier + '\'' + ", index=" + index + '}';
     }
 
+    // equals and hashCode based on identifier and index
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        return Objects.equals(identifier, node.identifier);
+        return index == node.index && Objects.equals(identifier, node.identifier);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identifier);
+        return Objects.hash(identifier, index);
     }
 }
