@@ -5,6 +5,8 @@ Segment Trees are primarily used to solve problems that require answers to queri
 with the possibility of modifying the array elements. 
 These queries could be finding the sum, minimum, or maximum in a subarray, or similar aggregated results.
 
+![Segment Tree](../../../../../docs/assets/images/SegmentTree.png)
+
 ### Structure 
 (Note: See below for a brief description of the array-based implementation of a segment tree)
 
