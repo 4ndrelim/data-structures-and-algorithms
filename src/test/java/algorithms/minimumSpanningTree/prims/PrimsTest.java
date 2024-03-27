@@ -9,7 +9,11 @@ public class PrimsTest {
     @Test
     public void test_simpleGraph() {
         // Graph setup (Adjacency Matrix)
-        // A -1- B -1- C
+        //     B
+        //    / \
+        //   1   1
+        //  /     \
+        // A - 1 - C
         int[][] adjacencyMatrix = {
                 {0, 1, 1}, // A: A-B, A-C
                 {1, 0, 1}, // B: B-A, B-C
@@ -28,9 +32,9 @@ public class PrimsTest {
         // Expected MST
         // A -1- B -1- C
         int[][] expectedMST = {
-            {0, 1, 1}, // A: A-B, A-C
-            {1, 0, Integer.MAX_VALUE}, // B: B-A
-            {1, Integer.MAX_VALUE, 0}  // C: C-A
+            {0, 1, Integer.MAX_VALUE}, // A: A-B
+            {1, 0, 1}, // B: B-A, B-C
+            {Integer.MAX_VALUE, 1, 0}  // C: C-B
         };
 
         // Assertion
@@ -42,18 +46,18 @@ public class PrimsTest {
         // Graph setup
         //    A
         //  / | \
-        // 1  4  2
+        // 1  4  3
         ///   |   \
         //B --3-- D
         // \  |  /
-        //  2 4 3
+        //  2 4 1
         //   \|/
         //    C
         int[][] adjacencyMatrix = {
-            {0, 1, 4, 2}, // A: A-B, A-C, A-D
+            {0, 1, 4, 3}, // A: A-B, A-C, A-D
             {1, 0, 2, 3}, // B: B-A, B-C, B-D
-            {4, 2, 0, 3}, // C: C-A, C-B, C-D
-            {2, 3, 3, 0}  // D: D-A, D-B, D-C
+            {4, 2, 0, 1}, // C: C-A, C-B, C-D
+            {3, 3, 1, 0}  // D: D-A, D-B, D-C
         };
 
         Node[] nodes = {
@@ -69,10 +73,10 @@ public class PrimsTest {
         // Expected MST
         // Based on the graph, assuming the MST is correctly computed
         int[][] expectedMST = {
-            {0, 1, Integer.MAX_VALUE, 2}, // A: A-B, A-D
+            {0, 1, Integer.MAX_VALUE, Integer.MAX_VALUE}, // A: A-B
             {1, 0, 2, Integer.MAX_VALUE}, // B: B-A, B-C
-            {Integer.MAX_VALUE, 2, 0, Integer.MAX_VALUE}, // C: C-B
-            {2, Integer.MAX_VALUE, Integer.MAX_VALUE, 0}  // D: D-A
+            {Integer.MAX_VALUE, 2, 0, 1}, // C: C-B, C-D
+            {Integer.MAX_VALUE, Integer.MAX_VALUE, 1, 0}  // D: D-C
         };
 
         // Assertion

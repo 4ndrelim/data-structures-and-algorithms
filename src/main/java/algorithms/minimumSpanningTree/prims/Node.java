@@ -1,24 +1,36 @@
 package algorithms.minimumSpanningTree.prims;
 
-import java.util.Objects;
-
 /**
  * Node class to represent a node in the graph
+ * Note: In our Node class, we do not allow the currMinWeight to be updated after initialization to prevent any
+ * reference issues in the PriorityQueue.
  */
 public class Node {
-    private boolean isVisited = false;
-    private int currMinWeight = Integer.MAX_VALUE; // Current minimum weight to get to this node
+    private final int currMinWeight; // Current minimum weight to get to this node
     private int index; // Index of this node in the adjacency matrix
     private final String identifier;
 
     /**
-     * Constructor
+     * Constructor for Node
+     * @param identifier
+     * @param index
+     * @param currMinWeight
+     */
+    public Node(String identifier, int index, int currMinWeight) {
+        this.identifier = identifier;
+        this.index = index;
+        this.currMinWeight = currMinWeight;
+    }
+
+    /**
+     * Constructor for Node with default currMinWeight
      * @param identifier
      * @param index
      */
     public Node(String identifier, int index) {
         this.identifier = identifier;
         this.index = index;
+        this.currMinWeight = Integer.MAX_VALUE;
     }
 
     /**
@@ -28,36 +40,16 @@ public class Node {
         return currMinWeight;
     }
 
-    public void setCurrMinWeight(int currMinWeight) {
-        this.currMinWeight = currMinWeight;
-    }
-
     /**
      * Getter for identifier
      * @return identifier
      */
-    public boolean isVisited() {
-        return isVisited;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    /**
-     * Setter for isVisited
-     * @param isVisited
-     */
-    public void setVisited(boolean isVisited) {
-        this.isVisited = isVisited;
-    }
-
-    /**
-     * Getter for identifier
-     * @return identifier
-     */
     public int getIndex() {
         return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     @Override
