@@ -1,9 +1,15 @@
 package dataStructures.segmentTree;
 
+/**
+ * Implementation of a Segment Tree. Uses SegmentTreeNode as a helper node class.
+ */
 public class SegmentTree {
     private SegmentTreeNode root;
     private int[] array;
 
+    /**
+     * Helper node class. Used internally.
+     */
     private class SegmentTreeNode {
         private SegmentTreeNode leftChild;   // left child
         private SegmentTreeNode rightChild;  // right child
@@ -21,13 +27,17 @@ public class SegmentTree {
          */
         public SegmentTreeNode(SegmentTreeNode leftChild, SegmentTreeNode rightChild, int start, int end, int sum) {
             this.leftChild = leftChild;
-            this.rightChild = rightChild
+            this.rightChild = rightChild;
             this.start = start;
             this.end = end;
             this.sum = sum;
         }
     }
 
+    /**
+     * Constructor.
+     * @param nums
+     */
     public SegmentTree(int[] nums) {
         root = buildTree(nums, 0, nums.length - 1);
         array = nums;
@@ -37,7 +47,7 @@ public class SegmentTree {
         if (start == end) {
             return new SegmentTreeNode(null, null, start, end, nums[start]);
         }
-        int mid = start + (end-start) / 2;
+        int mid = start + (end - start) / 2;
         SegmentTreeNode left = buildTree(nums, start, mid);
         SegmentTreeNode right = buildTree(nums, mid + 1, end);
         return new SegmentTreeNode(left, right, start, end, left.sum + right.sum);
@@ -68,10 +78,10 @@ public class SegmentTree {
         // poss 2:             ^            ^
         // poss 3:                       ^      ^
         if (leftEnd <= mid) {
-            rangeSum += query(node.leftChild, leftEnd, Math.min(rightEnd, mid)); // poss1 / poss2
+            rangeSum += query(node.leftChild, leftEnd, Math.min(rightEnd, mid)); // poss1 or poss2
         }
         if (mid + 1 <= rightEnd) {
-            rangeSum += query(node.rightChild, Math.max(leftEnd, mid + 1), rightEnd); // poss2 / poss2
+            rangeSum += query(node.rightChild, Math.max(leftEnd, mid + 1), rightEnd); // poss2 or poss3
         }
         return rangeSum;
     }
@@ -91,6 +101,7 @@ public class SegmentTree {
     private void update(SegmentTreeNode node, int idx, int val) {
         if (node.start == node.end && node.start == idx) {
             node.sum = val; // previously, node held a single value; now updated
+            return;
         }
         int mid = node.start + (node.end - node.start) / 2;
         if (idx <= mid) {
@@ -98,6 +109,6 @@ public class SegmentTree {
         } else {
             update(node.rightChild, idx, val);
         }
-        node.sum = node.leftChild.sum  + node.rightChild.sum; // propagate updates up
+        node.sum = node.leftChild.sum + node.rightChild.sum; // propagate updates up
     }
 }
