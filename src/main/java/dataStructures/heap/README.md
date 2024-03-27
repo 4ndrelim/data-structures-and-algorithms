@@ -27,6 +27,20 @@ That said, in practice, the array-based implementation of a heap often provides 
 former, in cache efficiency and memory locality. This is due to its contiguous memory layout. As such,
 the implementation shown here is a 0-indexed array-based heap.
 
+#### Obtain index representing child nodes
+Suppose the parent node is captured at index *i* of the array (1-indexed).
+**1-indexed**: <br>
+Left Child: *i* x 2 <br>
+Right Child:  *i* x 2 + 1 <br>
+
+The 1-indexed calculation is intuitive. So, when dealing with 0-indexed representation (as in our implementation), 
+one option is to convert 0-indexed to 1-indexed representation, do the above calculations, and revert. <br>
+(Note: Now, we assume parent node is captured at index *i* (0-indexed))
+
+**0-indexed**: <br>
+Left Child: (*i* + 1) x 2 - 1  = *i* x 2 + 1 <br>
+Right Child: (*i* + 1) x 2 + 1 - 1 = *i* x 2 + 2 <br>
+
 ### Relevance of increaseKey and decreaseKey operations
 
 The decision not to include explicit "decrease key" and "increase key" operations in the standard implementations of

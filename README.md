@@ -38,6 +38,7 @@ Gradle is used for development.
   - [Monotonic Queue](src/main/java/dataStructures/queue/monotonicQueue)
 - Segment Tree
 - [Stack](src/main/java/dataStructures/stack)
+- [Segment Tree](src/main/java/dataStructures/segmentTree)
 - [Trie](src/main/java/dataStructures/trie)
 
 ## Algorithms
@@ -86,6 +87,7 @@ Gradle is used for development.
     * [AVL-tree](src/main/java/dataStructures/avlTree)
     * [Trie](src/main/java/dataStructures/trie)
     * [B-Tree](src/main/java/dataStructures/bTree)
+    * [Segment Tree](src/main/java/dataStructures/segmentTree) (Not covered in CS2040s but useful!)
     * Red-Black Tree (Not covered in CS2040s but useful!)
     * Orthogonal Range Searching (**WIP**)
     * Interval Trees (**WIP**)
