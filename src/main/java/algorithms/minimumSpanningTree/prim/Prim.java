@@ -1,4 +1,4 @@
-package algorithms.minimumSpanningTree.prims;
+package algorithms.minimumSpanningTree.prim;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
@@ -19,11 +19,6 @@ public class Prim {
     public static int[][] getPrimsMST(Node[] nodes, int[][] adjacencyMatrix) {
         PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.getCurrMinWeight() - b.getCurrMinWeight());
         int[][] mstMatrix = new int[nodes.length][nodes.length]; // MST adjacency matrix
-
-        // Initialize mstMatrix with all edges set to Integer.MAX_VALUE
-        for (int[] row : mstMatrix) {
-            Arrays.fill(row, Integer.MAX_VALUE);
-        }
 
         int[] parent = new int[nodes.length]; // To track the parent node of each node in the MST
         Arrays.fill(parent, -1); // Initialize parent array with -1, indicating no parent

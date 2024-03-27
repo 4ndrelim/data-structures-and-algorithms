@@ -9,7 +9,7 @@ is a spanning tree with the minimum possible total edge weight.
 ## Prim's Algorithm
 
 We will discuss more implementation-specific details and complexity analysis in the respective folders. In short,
-1. [Prim's Algorithm](prims) is a greedy algorithm that finds the minimum spanning tree of a graph by starting from an
+1. [Prim's Algorithm](prim) is a greedy algorithm that finds the minimum spanning tree of a graph by starting from an
 arbitrary node (vertex) and adding the edge with the minimum weight that connects the current tree to a new node, adding
 the node to the current tree, until all nodes are included in the tree.
 
