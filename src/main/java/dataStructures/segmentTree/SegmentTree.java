@@ -95,6 +95,7 @@ public class SegmentTree {
         if (idx > array.length) {
             return;
         }
+        array[idx] = val;
         update(root, idx, val);
     }
 
