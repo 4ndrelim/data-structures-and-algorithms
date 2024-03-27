@@ -1,4 +1,4 @@
-package algorithms.minimumSpanningTree.prims;
+package algorithms.minimumSpanningTree.prim;
 
 /**
  * Node class to represent a node in the graph

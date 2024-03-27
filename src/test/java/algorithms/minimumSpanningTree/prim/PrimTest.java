@@ -1,10 +1,10 @@
-package algorithms.minimumSpanningTree.prims;
+package algorithms.minimumSpanningTree.prim;
 
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
-public class PrimsTest {
+public class PrimTest {
 
     @Test
     public void test_simpleGraph() {
