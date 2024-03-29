@@ -87,7 +87,7 @@ Gradle is used for development.
     * [Trie](src/main/java/dataStructures/trie)
     * [B-Tree](src/main/java/dataStructures/bTree)
     * Red-Black Tree (Not covered in CS2040s but useful!)
-    * Orthogonal Range Searching (**WIP**)
+    * [Orthogonal Range Searching](src/main/java/algorithms/orthogonalRangeSearching)
     * Interval Trees (**WIP**)
 5. [Binary Heap](src/main/java/dataStructures/heap) (Max heap)
 6. [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)
