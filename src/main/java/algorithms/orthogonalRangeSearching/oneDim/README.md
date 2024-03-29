@@ -4,9 +4,9 @@
 specified 1D range (interval) in a collection of 1D data (e.g. Find me everyone between ages 22 and 27). Additionally,
 we also want to support efficient insertions of new data points into the maintained set.
 
-One strategy is would be to sort all the data points in O(nlogn) time, then insertion would take O(n). We can binary 
-search the low and high of the specified range to return all data points within in O(logn) time. This would be a 
-reasonable approach if the no. of queries >> no. of insertions.
+One strategy would be to sort all the data points in O(nlogn) time, then insertion would take O(n). We can binary 
+search the low and high of the specified range to return the start and end indices of all the data points within 
+in O(logn) time. This would be a reasonable approach if the no. of queries >> no. of insertions.
 
 In cases where the no. of insertions >> no. of queries, we might want to further optimise the time complexity of
 insertions to O(logn) using a 1D range tree.

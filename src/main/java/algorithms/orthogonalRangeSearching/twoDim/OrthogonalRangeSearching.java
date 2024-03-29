@@ -1,11 +1,14 @@
 package algorithms.orthogonalRangeSearching.twoDim;
 
-import algorithms.orthogonalRangeSearching.RangeTreeNode;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import algorithms.orthogonalRangeSearching.RangeTreeNode;
+
+/**
+ * This class performs 2 dimensional orthogonal range searching.
+ */
 public class OrthogonalRangeSearching {
 
     /**
@@ -80,8 +83,8 @@ public class OrthogonalRangeSearching {
      * Finds the X-split node in the X-tree based on the specified X-coordinate range.
      *
      * @param root  The root node of the X-tree.
-     * @param xLow   The lower bound of the X-coordinate range.
-     * @param xHigh  The upper bound of the X-coordinate range.
+     * @param xLow  The lower bound of the X-coordinate range.
+     * @param xHigh The upper bound of the X-coordinate range.
      * @return The X-split node or null if not found.
      */
     public static RangeTreeNode<Integer[]> findXSplit(RangeTreeNode<Integer[]> root, int xLow, int xHigh) {
@@ -102,63 +105,66 @@ public class OrthogonalRangeSearching {
         }
         return v;
     }
+
     /**
      * Performs a left traversal of the X-tree to find points within the specified range.
      *
-     * @param v     The current node in the X-tree.
-     * @param xLow  The lower bound of the X-coordinate range.
-     * @param xHigh The upper bound of the X-coordinate range.
-     * @param yLow  The lower bound of the Y-coordinate range.
-     * @param yHigh The upper bound of the Y-coordinate range.
+     * @param v      The current node in the X-tree.
+     * @param xLow   The lower bound of the X-coordinate range.
+     * @param xHigh  The upper bound of the X-coordinate range.
+     * @param yLow   The lower bound of the Y-coordinate range.
+     * @param yHigh  The upper bound of the Y-coordinate range.
      * @param result A list to store the results.
      */
-    public static void XLeftTraversal(RangeTreeNode<Integer[]> v, int xLow, int xHigh, int yLow, int yHigh,
+    public static void xLeftTraversal(RangeTreeNode<Integer[]> v, int xLow, int xHigh, int yLow, int yHigh,
                                       ArrayList<Integer[]> result) {
         if (v != null) {
             if (isLeaf(v) && v.getVal()[0] >= xLow && v.getVal()[0] <= xHigh) { //leaf
-                YSearch(v, yLow, yHigh, result);
+                ySearch(v, yLow, yHigh, result);
             } else {
                 if (xLow <= v.getVal()[0]) {
-                    XLeftTraversal(v.getLeft(), xLow, xHigh, yLow, yHigh, result);
-                    YSearch(v.getRight(), yLow, yHigh, result);
+                    xLeftTraversal(v.getLeft(), xLow, xHigh, yLow, yHigh, result);
+                    ySearch(v.getRight(), yLow, yHigh, result);
                 } else {
-                    XLeftTraversal(v.getRight(), xLow, xHigh, yLow, yHigh, result);
+                    xLeftTraversal(v.getRight(), xLow, xHigh, yLow, yHigh, result);
                 }
             }
         }
     }
+
     /**
      * Performs a right traversal of the X-tree to find points within the specified range.
      *
-     * @param v     The current node in the X-tree.
-     * @param xLow  The lower bound of the X-coordinate range.
-     * @param xHigh The upper bound of the X-coordinate range.
-     * @param yLow  The lower bound of the Y-coordinate range.
-     * @param yHigh The upper bound of the Y-coordinate range.
+     * @param v      The current node in the X-tree.
+     * @param xLow   The lower bound of the X-coordinate range.
+     * @param xHigh  The upper bound of the X-coordinate range.
+     * @param yLow   The lower bound of the Y-coordinate range.
+     * @param yHigh  The upper bound of the Y-coordinate range.
      * @param result A list to store the results.
      */
-    public static void XRightTraversal(RangeTreeNode<Integer[]> v, int xLow, int xHigh, int yLow, int yHigh,
+    public static void xRightTraversal(RangeTreeNode<Integer[]> v, int xLow, int xHigh, int yLow, int yHigh,
                                        ArrayList<Integer[]> result) {
         if (v != null) {
             if (isLeaf(v) && v.getVal()[0] >= xLow && v.getVal()[0] <= xHigh) { //leaf
-                YSearch(v, yLow, yHigh, result);
+                ySearch(v, yLow, yHigh, result);
             } else {
                 if (xHigh >= v.getVal()[0]) {
-                    YSearch(v.getLeft(), yLow, yHigh, result);
-                    XRightTraversal(v.getRight(), xLow, xHigh, yLow, yHigh, result);
+                    ySearch(v.getLeft(), yLow, yHigh, result);
+                    xRightTraversal(v.getRight(), xLow, xHigh, yLow, yHigh, result);
                 } else {
-                    XRightTraversal(v.getLeft(), xLow, xHigh, yLow, yHigh, result);
+                    xRightTraversal(v.getLeft(), xLow, xHigh, yLow, yHigh, result);
                 }
             }
         }
     }
+
     /**
-     * Finds the Y-split node in the X-tree based on the specified X-coordinate range.
+     * Finds the Y-split node in the Y-tree based on the specified Y-coordinate range.
      *
-     * @param root  The root node of the X-tree.
-     * @param yLow   The lower bound of the X-coordinate range.
-     * @param yHigh  The upper bound of the X-coordinate range.
-     * @return The X-split node or null if not found.
+     * @param root  The root node of the Y-tree.
+     * @param yLow  The lower bound of the Y-coordinate range.
+     * @param yHigh The upper bound of the Y-coordinate range.
+     * @return The Y-split node or null if not found.
      */
     public static RangeTreeNode<Integer[]> findYSplit(RangeTreeNode<Integer[]> root, int yLow, int yHigh) {
         RangeTreeNode<Integer[]> v = root;
@@ -210,16 +216,16 @@ public class OrthogonalRangeSearching {
      * @param low    The lower bound of the Y-coordinate range.
      * @param result A list to store the results.
      */
-    public static void YLeftTraversal(RangeTreeNode<Integer[]> v, int low, List<Integer[]> result) {
+    public static void yLeftTraversal(RangeTreeNode<Integer[]> v, int low, List<Integer[]> result) {
         if (v != null) {
             if (isLeaf(v)) {
                 result.add(v.getVal());
             } else {
                 if (low <= v.getVal()[1]) {
-                    YLeftTraversal(v.getLeft(), low, result);
+                    yLeftTraversal(v.getLeft(), low, result);
                     allLeafTraversal(v.getRight(), result);
                 } else { // definitely a qualifying leaf has to exist
-                    YLeftTraversal(v.getRight(), low, result);
+                    yLeftTraversal(v.getRight(), low, result);
                 }
             }
         }
@@ -229,19 +235,19 @@ public class OrthogonalRangeSearching {
      * Performs a right traversal of the Y-tree to find points within the specified range.
      *
      * @param v      The current node in the Y-tree.
-     * @param high    The upper bound of the Y-coordinate range.
+     * @param high   The upper bound of the Y-coordinate range.
      * @param result A list to store the results.
      */
-    public static void YRightTraversal(RangeTreeNode<Integer[]> v, int high, List<Integer[]> result) {
+    public static void yRightTraversal(RangeTreeNode<Integer[]> v, int high, List<Integer[]> result) {
         if (v != null) {
             if (isLeaf(v) && v.getVal()[1] <= high) { // leaf, need extra check
                 result.add(v.getVal());
             } else {
                 if (high > v.getVal()[1]) {
                     allLeafTraversal(v.getLeft(), result);
-                    YRightTraversal(v.getRight(), high, result);
+                    yRightTraversal(v.getRight(), high, result);
                 } else { // a qualifying leaf might or might not exist, we are just exploring
-                    YRightTraversal(v.getLeft(), high, result);
+                    yRightTraversal(v.getLeft(), high, result);
                 }
             }
         }
@@ -255,7 +261,7 @@ public class OrthogonalRangeSearching {
      * @param yHigh  The upper bound of the Y-coordinate range.
      * @param result A list to store the results.
      */
-    public static void YSearch(RangeTreeNode<Integer[]> v, int yLow, int yHigh, ArrayList<Integer[]> result) {
+    public static void ySearch(RangeTreeNode<Integer[]> v, int yLow, int yHigh, ArrayList<Integer[]> result) {
         if (v != null) {
             RangeTreeNode<Integer[]> splitNodeY = findYSplit(v.getYTree(), yLow, yHigh);
             if (splitNodeY != null) {
@@ -263,8 +269,8 @@ public class OrthogonalRangeSearching {
                         && splitNodeY.getVal()[1] >= yLow && splitNodeY.getVal()[1] <= yHigh) { // if split node is leaf
                     result.add(splitNodeY.getVal());
                 }
-                YLeftTraversal(splitNodeY.getLeft(), yLow, result);
-                YRightTraversal(splitNodeY.getRight(), yHigh, result);
+                yLeftTraversal(splitNodeY.getLeft(), yLow, result);
+                yRightTraversal(splitNodeY.getRight(), yHigh, result);
             }
         }
     }
@@ -272,11 +278,11 @@ public class OrthogonalRangeSearching {
     /**
      * Searches for 2D points within the specified orthogonal range in the X-tree.
      *
-     * @param tree   The root node of the X-tree.
-     * @param xLow   The lower bound of the X-coordinate range.
-     * @param xHigh  The upper bound of the X-coordinate range.
-     * @param yLow   The lower bound of the Y-coordinate range.
-     * @param yHigh  The upper bound of the Y-coordinate range.
+     * @param tree  The root node of the X-tree.
+     * @param xLow  The lower bound of the X-coordinate range.
+     * @param xHigh The upper bound of the X-coordinate range.
+     * @param yLow  The lower bound of the Y-coordinate range.
+     * @param yHigh The upper bound of the Y-coordinate range.
      * @return A list of 2D points within the specified orthogonal range.
      */
     public static List<Integer[]> search(RangeTreeNode<Integer[]> tree, int xLow, int xHigh, int yLow, int yHigh) {
@@ -285,10 +291,10 @@ public class OrthogonalRangeSearching {
         if (splitNodeX != null) {
             if (isLeaf(splitNodeX)
                     && splitNodeX.getVal()[0] >= xLow && splitNodeX.getVal()[0] <= xHigh) { // if split node is leaf
-                YSearch(splitNodeX, yLow, yHigh, result);
+                ySearch(splitNodeX, yLow, yHigh, result);
             }
-            XLeftTraversal(splitNodeX.getLeft(), xLow, xHigh, yLow, yHigh, result);
-            XRightTraversal(splitNodeX.getRight(), xLow, xHigh, yLow, yHigh, result);
+            xLeftTraversal(splitNodeX.getLeft(), xLow, xHigh, yLow, yHigh, result);
+            xRightTraversal(splitNodeX.getRight(), xLow, xHigh, yLow, yHigh, result);
         }
         return result;
     }
