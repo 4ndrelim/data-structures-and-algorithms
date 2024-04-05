@@ -2,7 +2,7 @@
 
 | Name      | Description/About                                                 | Website (LinkedIn/GitHub/Personal)                                                                   | Contributions                                               |
 |-----------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| Andre     | Aspiring ML engineer. Developing this with wonderful ex-students. | You can find me [here](https://4ndrelim.github.io)!                                                  | Team lead                                                   |
+| Andre     | Aspiring ML engineer. Developing this with wonderful ex-students. | You can find me [here](https://4ndrelim.github.io)                                                   | Team lead                                                   |
 | Kai Ting  | Likes algorithms and a committed TA!                              | [Linkedin](https://www.linkedin.com/in/kai-ting-ho-425181268/)                                       | Cool sorting and obscure trees! B-Trees, ORS..              |
 | Changxian | DevOps is right up his alley!                                     | ...                                                                                                  | Hashing variants! BTS DevOps - configure Gradle & workflows |
 | Shu Heng  | Interested in ML, aspiring researcher.                            | No website but here's my [Linkedin](https://www.linkedin.com/in/yeoshuheng), please give me a job :< | CS Fundamentals! Stacks and queues! RB-tree.                |

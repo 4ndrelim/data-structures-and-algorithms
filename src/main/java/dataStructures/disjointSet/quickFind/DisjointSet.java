@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * Implementation of quick-find structure; Turns a list of objects into a data structure that supports union operations
+ * Note DS structure is not suited with duplicate elements!
  *
  * @param <T> generic type of object to be stored
  */
@@ -30,6 +31,19 @@ public class DisjointSet<T> {
         for (int i = 0; i < size; i++) {
             // internally, component identity is tracked with integers
             identifier.put(objects.get(i), identifier.size()); // each obj initialize with a unique identity using size;
+        }
+    }
+
+    /**
+     * Constructor to initialize Disjoint Set with a known array of objects.
+     * @param objects
+     */
+    public DisjointSet(T[] objects) {
+        identifier = new HashMap<>();
+        int size = objects.length;
+        for (int i = 0; i < size; i++) {
+            // internally, component identity is tracked with integers
+            identifier.put(objects[i], identifier.size()); // each obj initialize with a unique identity using size;
         }
     }
 
