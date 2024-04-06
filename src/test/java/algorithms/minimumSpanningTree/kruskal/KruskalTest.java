@@ -19,10 +19,10 @@ public class KruskalTest {
             {1, 1, 0}  // C: C-A, C-B
         };
 
-        Node[] nodes = {
-            new Node("A", 0),
-            new Node("B", 1),
-            new Node("C", 2)
+        Kruskal.Node[] nodes = {
+            new Kruskal.Node("A", 0),
+            new Kruskal.Node("B", 1),
+            new Kruskal.Node("C", 2)
         };
 
         // Run Kruskal's algorithm
@@ -59,11 +59,11 @@ public class KruskalTest {
                 {3, 3, 1, 0}  // D: D-A, D-B, D-C
         };
 
-        Node[] nodes = {
-            new Node("A", 0),
-            new Node("B", 1),
-            new Node("C", 2),
-            new Node("D", 3)
+        Kruskal.Node[] nodes = {
+            new Kruskal.Node("A", 0),
+            new Kruskal.Node("B", 1),
+            new Kruskal.Node("C", 2),
+            new Kruskal.Node("D", 3)
         };
 
         // Run Prim's algorithm

@@ -3,6 +3,8 @@ package algorithms.minimumSpanningTree.kruskal;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataStructures.disjointSet.weightedUnion.DisjointSet;
+
 /**
  * Implementation of Prim's Algorithm to find MSTs
  * Idea:
@@ -33,7 +35,7 @@ public class Kruskal {
         edges.sort(Edge::compareTo);
 
         // Initialize Disjoint Set for vertex tracking
-        DisjointSet ds = new DisjointSet(nodes);
+        DisjointSet<Node> ds = new DisjointSet<>(nodes);
 
         int[][] mstMatrix = new int[numOfNodes][numOfNodes];
 
