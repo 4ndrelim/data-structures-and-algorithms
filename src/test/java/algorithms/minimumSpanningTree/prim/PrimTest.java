@@ -20,10 +20,10 @@ public class PrimTest {
                 {1, 1, 0}  // C: C-A, C-B
         };
 
-        Node[] nodes = {
-            new Node("A", 0),
-            new Node("B", 1),
-            new Node("C", 2)
+        Prim.Node[] nodes = {
+            new Prim.Node("A", 0),
+            new Prim.Node("B", 1),
+            new Prim.Node("C", 2)
         };
 
         // Run Prim's algorithm
@@ -60,11 +60,11 @@ public class PrimTest {
             {3, 3, 1, 0}  // D: D-A, D-B, D-C
         };
 
-        Node[] nodes = {
-            new Node("A", 0),
-            new Node("B", 1),
-            new Node("C", 2),
-            new Node("D", 3)
+        Prim.Node[] nodes = {
+            new Prim.Node("A", 0),
+            new Prim.Node("B", 1),
+            new Prim.Node("C", 2),
+            new Prim.Node("D", 3)
         };
 
         // Run Prim's algorithm
