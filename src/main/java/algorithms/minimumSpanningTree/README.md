@@ -6,14 +6,25 @@ Minimum Spanning Tree (MST) algorithms are used to find the minimum spanning tre
 spanning tree of a graph is a connected, acyclic subgraph that includes all the vertices of the original graph. An MST 
 is a spanning tree with the minimum possible total edge weight.
 
-## Prim's Algorithm
+## Prim's Algorithm and Kruskal's Algorithm
 
 We will discuss more implementation-specific details and complexity analysis in the respective folders. In short,
 1. [Prim's Algorithm](prim) is a greedy algorithm that finds the minimum spanning tree of a graph by starting from an
 arbitrary node (vertex) and adding the edge with the minimum weight that connects the current tree to a new node, adding
 the node to the current tree, until all nodes are included in the tree.
+2. [Kruskal's Algorithm](kruskal) is a greedy algorithm that finds the minimum spanning tree of a graph by sorting the
+edges by weight and adding the edge with the minimum weight that does not form a cycle into the current tree.
 
 ## Notes
+
+### Difference in use of Priority Queue in Prim's and Kruskal's Algorithm
+Prim's Algorithm uses a priority queue to keep track of the minimum weight edge that connects the current tree to an
+unexplored node, which could possibly be updated each time a node is popped from the queue.
+
+Kruskal's Algorithm uses a priority queue to sort all the edges by weight and the elements will not be updated at any
+point in time.
+
+See the individual READMEs for more details.
 
 ### Difference between Minimum Spanning Tree and Shortest Path
 It is important to note that a Minimum Spanning Tree of a graph does not represent the shortest path between all the

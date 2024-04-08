@@ -6,16 +6,14 @@ import java.util.List;
 import dataStructures.disjointSet.weightedUnion.DisjointSet;
 
 /**
- * Implementation of Prim's Algorithm to find MSTs
+ * Implementation of Kruskal's Algorithm to find MSTs
  * Idea:
- *  Starting from any source (this will be the first node to be in the MST), pick the lightest outgoing edge, and
- *  include the node at the other end as part of a set of nodes S. Now repeatedly do the above by picking the lightest
- *  outgoing edge adjacent to any node in the MST (ensure the other end of the node is not already in the MST).
- *  Repeat until S contains all nodes in the graph. S is the MST.
+ *  Sort all edges by weight in non-decreasing order. Consider the edges in this order. If an edge does not form a cycle
+ *  with the edges already in the MST, add it to the MST. Repeat until all nodes are in the MST.
  * Actual implementation:
- *  No Edge class was implemented. Instead, the weights of the edges are stored in a 2D array adjacency matrix. An
- *  adjacency list may be used instead
- *  A Node class is implemented to encapsulate the current minimum weight to reach the node.
+ *  An Edge class is implemented for easier sorting of edges by weight and for identifying the source and destination.
+ *  A Node class is implemented for easier tracking of nodes in the graph for the disjoint set.
+ *  A DisjointSet class is used to track the nodes in the graph and to determine if adding an edge will form a cycle.
  */
 public class Kruskal {
     public static int[][] getKruskalMST(Node[] nodes, int[][] adjacencyMatrix) {
@@ -37,6 +35,7 @@ public class Kruskal {
         // Initialize Disjoint Set for vertex tracking
         DisjointSet<Node> ds = new DisjointSet<>(nodes);
 
+        // MST adjacency matrix to be returned
         int[][] mstMatrix = new int[numOfNodes][numOfNodes];
 
         // Initialize the MST matrix to represent no edges with Integer.MAX_VALUE and 0 for self loops
