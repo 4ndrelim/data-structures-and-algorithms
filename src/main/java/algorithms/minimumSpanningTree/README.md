@@ -12,6 +12,7 @@ We will discuss more implementation-specific details and complexity analysis in 
 1. [Prim's Algorithm](prim) is a greedy algorithm that finds the minimum spanning tree of a graph by starting from an
 arbitrary node (vertex) and adding the edge with the minimum weight that connects the current tree to a new node, adding
 the node to the current tree, until all nodes are included in the tree.
+<<<<<<< HEAD
 2. [Kruskal's Algorithm](kruskal) is a greedy algorithm that finds the minimum spanning tree of a graph by sorting the
 edges by weight and adding the edge with the minimum weight that does not form a cycle into the current tree.
 
