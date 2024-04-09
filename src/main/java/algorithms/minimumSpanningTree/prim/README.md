@@ -8,17 +8,21 @@ node, and the unexplored node to the current tree, until all nodes are included 
 
 ### Implementation Details
 
-A priority queue (binary heap) is utilised to keep track of the minimum weight edge that connects the current tree to an
-unexplored node. In an ideal scenario, the minimum weight edge to each node in the priority queue should be updated each
+A `PriorityQueue` (binary heap) is utilised to keep track of the minimum weight edge that connects the current tree to
+an unexplored node. In an ideal scenario, the minimum weight edge to each node in the priority queue should be updated each
 time a lighter edge is found to maintain a single unique node in the priority queue. This means that a decrease key
-operation is required. However, we know that the decrease key operation of a binary heap implementation of a priority
-queue will take O(V) time, which will result in a larger time complexity for the entire algorithm compared to using only
-O(log V) operations for each edge.
+operation is required. 
 
-Hence, in our implementation, to avoid the use of a decrease key operation, we will simply insert duplicate nodes with
+**Decrease Key Operation:** 
+
+However, we know that the decrease key operation of a binary heap implementation of a priority
+queue will take O(V) time, which will result in a larger time complexity for the entire algorithm compared to using only
+O(log V) operations for each edge. Hence, in our implementation, to avoid the use of a decrease key operation, we will simply insert duplicate nodes with
 their new minimum weight edge, which will take O(log E) = O(log V) given an upper bound of E = V^2, into the queue,
 while leaving the old node in the queue. Additionally, we will track if a node has already been added into the MST to
 avoid adding duplicate nodes.
+
+**Priority Queue Implementation:**
 
 Note that a priority queue is an abstract data type that can be implemented using different data structures. In this
 implementation, the default Java `PriorityQueue` is used, which is a binary heap. By implementing the priority queue

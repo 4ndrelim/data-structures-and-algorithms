@@ -6,6 +6,23 @@ Minimum Spanning Tree (MST) algorithms are used to find the minimum spanning tre
 spanning tree of a graph is a connected, acyclic subgraph that includes all the vertices of the original graph. An MST 
 is a spanning tree with the minimum possible total edge weight.
 
+### 4 Properties of MST
+1. An MST should not have any cycles
+2. If you cut an MST at any single edge, the two pieces will also be MSTs
+3. **Cycle Property:** For every cycle, the maximum weight edge is not in the MST
+
+![MST Property 3](../../../../../docs/assets/images/MSTProperty3.png)
+
+Image Source: CS2040S 22/23 Sem 2 Lecture Slides
+
+4. **Cut Property:** For every partition of the nodes, the minimum weight edge across the cut is in the MST
+
+![MST Property 4](../../../../../docs/assets/images/MSTProperty4.png)
+   
+Image Source: CS2040S 22/23 Sem 2 Lecture Slides
+
+Note that the other edges across the partition may or may not be in the MST.
+
 ## Prim's Algorithm and Kruskal's Algorithm
 
 We will discuss more implementation-specific details and complexity analysis in the respective folders. In short,
@@ -17,15 +34,6 @@ the node to the current tree, until all nodes are included in the tree.
 edges by weight and adding the edge with the minimum weight that does not form a cycle into the current tree.
 
 ## Notes
-
-### Difference in use of Priority Queue in Prim's and Kruskal's Algorithm
-Prim's Algorithm uses a priority queue to keep track of the minimum weight edge that connects the current tree to an
-unexplored node, which could possibly be updated each time a node is popped from the queue.
-
-Kruskal's Algorithm uses a priority queue to sort all the edges by weight and the elements will not be updated at any
-point in time.
-
-See the individual READMEs for more details.
 
 ### Difference between Minimum Spanning Tree and Shortest Path
 It is important to note that a Minimum Spanning Tree of a graph does not represent the shortest path between all the

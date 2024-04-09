@@ -7,13 +7,10 @@ to the MST, provided it does not form a cycle with the already included edges. T
 included in the MST.
 
 ## Implementation Details
-Similar to Prim's Algorithm, Kruskal's Algorithm uses a priority queue (binary heap). However, instead of comparing
-the minimum edge weight to each vertex, all the weights of the individual edges are compared instead. Note that we do
-not need any decrease key operations as all edges are considered independently and will not be updated at any point in
-time.
+Kruskal's Algorithm uses a simple `ArrayList` to sort the edges by weight. 
 
-A [disjoint set](/dataStructures/disjointSet/weightedUnion) data structure is used to keep track of the connectivity of
-vertices and detect cycles.
+A [`DisjointSet`](/dataStructures/disjointSet/weightedUnion) data structure is also used to keep track of the
+connectivity of vertices and detect cycles.
 
 ## Complexity Analysis
 
