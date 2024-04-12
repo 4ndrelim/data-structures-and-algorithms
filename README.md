@@ -107,9 +107,10 @@ Gradle is used for development.
       * Post-order DFS
       * Kahn's
     * Floyd Warshall 
-10. Minimum spanning tree (**WIP**)
-    * Prim's
-    * Kruskal's
+10. [Minimum spanning tree](src/main/java/algorithms/minimumSpanningTree)
+    * [Prim](src/main/java/algorithms/minimumSpanningTree/prim)
+    * [Kruskal](src/main/java/algorithms/minimumSpanningTree/kruskal)
+    * Boruvska (**WIP**)
 
 ## Set-up 
 If you are a CS2040s student, your IDEA configurations should already be compatible with this project structure. So, 
