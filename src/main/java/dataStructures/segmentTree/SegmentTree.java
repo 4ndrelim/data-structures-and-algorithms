@@ -66,7 +66,7 @@ public class SegmentTree {
     private int query(SegmentTreeNode node, int leftEnd, int rightEnd) {
         // this is the case when:
         //                start     end
-        // range query:   ^           ^  --> so simply capture the sum at this node!
+        // range query:  ^             ^  --> so simply capture the sum at this node!
         if (leftEnd <= node.start && node.end <= rightEnd) {
             return node.sum;
         }
@@ -101,7 +101,7 @@ public class SegmentTree {
 
     private void update(SegmentTreeNode node, int idx, int val) {
         if (node.start == node.end && node.start == idx) {
-            node.sum = val; // previously, node held a single value; now updated
+            node.sum = val; // node is holding a single value; now updated
             return;
         }
         int mid = node.start + (node.end - node.start) / 2;

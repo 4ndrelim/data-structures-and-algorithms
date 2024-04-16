@@ -54,7 +54,7 @@ public class SegmentTree {
     private int query(int nodeIdx, int startRange, int endRange, int leftEnd, int rightEnd) {
         // this is the case when:
         //                start     end
-        // range query:   ^           ^  --> so simply capture the sum at this node!
+        // range query:  ^             ^  --> so simply capture the sum at this node!
         if (leftEnd <= startRange && endRange <= rightEnd) {
             return tree[nodeIdx];
         }
