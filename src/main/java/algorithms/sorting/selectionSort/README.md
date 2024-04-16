@@ -34,3 +34,6 @@ time complexity of selectionSort is n + (n-1) + (n-2) + ... + 2 = O(n^2)
 **Space**: O(1) since sorting is done in-place
 
 Image Source: https://www.hackerearth.com/practice/algorithms/sorting/selection-sort/tutorial/
+
+## Notes
+The number of swaps made is always O(n) (careful not to confuse this with the number of comparisons).

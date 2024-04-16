@@ -25,6 +25,16 @@ public class DisjointSetTest {
     }
 
     @Test
+    public void construct_shouldCorrectlyInitializeNonEmptyArray() {
+        String[] lst = new String[] { "andre", "chang xian", "jun neng", "kai ting", "shu heng" };
+
+        DisjointSet<String> ds = new DisjointSet<>(lst);
+        Assert.assertEquals(ds.size(), 5);
+
+        Assert.assertFalse(ds.find("andre", "kai ting"));
+    }
+
+    @Test
     public void find_shouldCorrectlyFindItself() {
         List<String> lst = Arrays.asList("andre", "chang xian", "jun neng");
 

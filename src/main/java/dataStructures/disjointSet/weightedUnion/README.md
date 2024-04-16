@@ -9,6 +9,14 @@ The root node of each tree is used as the identity for all elements in the same 
 Note that the trees here are not necessarily binary trees. In fact, more often than not, we will have nodes
 with multiple children nodes.
 
+<div align="center">
+    <img src="../../../../../../docs/assets/images/QuickUnion1.png" width="40%">
+    LEADS TO ->
+    <img src="../../../../../../docs/assets/images/QuickUnion2.png" width="40%">
+    <br>
+    Credits: CS2040s Lecture Slides
+</div>
+
 ### Union
 Between the two components, decide on the component to represent the combined set as before.
 Now, union is simply assigning the root node of one tree to be the child of the root node of another. Hence, its name.
@@ -71,6 +79,15 @@ We can further improve on the time complexity of Weighted Union by introducing p
 the traversal of a node up to the root, we re-assign each node's parent to be the root (or as shown in CS2040s,
 assigning to its grandparent actually suffice and yield the same big-O upper-bound! This allows path compression to be
 done in a single pass.). By doing so, we greatly reduce the height of the trees formed.
+
+_Note: Below shows the 2-pass version of path compression, but what's implemented is the 1-pass version of assigning to 
+grandparents._
+
+<div align="center">
+    <img src="../../../../../../docs/assets/images/PathCompression.png" width="50%">
+    <br>
+    Credits: CS2040s Lecture Slides
+</div>
 
 The analysis with compression is a bit trickier here and talks about the inverse-Ackermann function. 
 Interested readers can find out more [here](https://dl.acm.org/doi/pdf/10.1145/321879.321884).

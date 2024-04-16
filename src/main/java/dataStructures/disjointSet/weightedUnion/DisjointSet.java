@@ -10,6 +10,7 @@ import java.util.Map;
  * Turns a list of objects into a data structure that supports union operations.
  * <p>
  * Note that implementation below includes path compression. Refer to README for more details
+ * Note DS structure is not suited with duplicate elements!
  *
  * @param <T> generic type of object to be stored
  */
@@ -34,6 +35,20 @@ public class DisjointSet<T> {
         size = new HashMap<>();
         for (int i = 0; i < objects.size(); i++) {
             T obj = objects.get(i);
+            parents.put(obj, obj); // initially, every object forms a tree, with itself as the root
+            size.put(obj, 1); // each tree has size 1 at the start
+        }
+    }
+
+    /**
+     * Constructor to initialize Disjoint Set structure with a known array of objects.
+     * @param objects
+     */
+    public DisjointSet(T[] objects) {
+        parents = new HashMap<>();
+        size = new HashMap<>();
+        for (int i = 0; i < objects.length; i++) {
+            T obj = objects[i];
             parents.put(obj, obj); // initially, every object forms a tree, with itself as the root
             size.put(obj, 1); // each tree has size 1 at the start
         }

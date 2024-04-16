@@ -89,7 +89,7 @@ Gradle is used for development.
     * [B-Tree](src/main/java/dataStructures/bTree)
     * [Segment Tree](src/main/java/dataStructures/segmentTree) (Not covered in CS2040s but useful!)
     * Red-Black Tree (Not covered in CS2040s but useful!)
-    * Orthogonal Range Searching (**WIP**)
+    * [Orthogonal Range Searching](src/main/java/algorithms/orthogonalRangeSearching)
     * Interval Trees (**WIP**)
 5. [Binary Heap](src/main/java/dataStructures/heap) (Max heap)
 6. [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)
@@ -109,9 +109,10 @@ Gradle is used for development.
       * Post-order DFS
       * Kahn's
     * Floyd Warshall 
-10. Minimum spanning tree (**WIP**)
-    * Prim's
-    * Kruskal's
+10. [Minimum spanning tree](src/main/java/algorithms/minimumSpanningTree)
+    * [Prim](src/main/java/algorithms/minimumSpanningTree/prim)
+    * [Kruskal](src/main/java/algorithms/minimumSpanningTree/kruskal)
+    * Boruvska (**WIP**)
 
 ## Set-up 
 If you are a CS2040s student, your IDEA configurations should already be compatible with this project structure. So, 
