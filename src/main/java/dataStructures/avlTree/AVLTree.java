@@ -226,7 +226,6 @@ public class AVLTree<T extends Comparable<T>> {
             node.setLeft(delete(node.getLeft(), key));
         } else {
             if (node.getLeft() == null || node.getRight() == null) { // case of 1 or 0 child
-                // node = node.left == null ? node.right : node.left;
                 if (node.getLeft() == null && node.getRight() == null) {
                     node = null; // 0-child case
                 } else if (node.getRight() == null) {
@@ -245,10 +244,10 @@ public class AVLTree<T extends Comparable<T>> {
             }
         }
 
-        if (node != null) { // make sure it isnt the 0-child case
-            rebalance(node);
+        if (node != null) { // make sure it isn't the 0-child case
+            return rebalance(node);
         }
-        return node;
+        return node; // null; case when nothing left
     }
 
     /**
