@@ -28,7 +28,7 @@ Gradle is used for development.
 - [Heap](src/main/java/dataStructures/heap)
     * Max heap implementation 
 - [Linked List](src/main/java/dataStructures/linkedList)
-- LRU Cache
+- [LRU Cache](src/main/java/dataStructures/lruCache)
 - Minimum Spanning Tree 
     * Kruskal
     * Prim's
