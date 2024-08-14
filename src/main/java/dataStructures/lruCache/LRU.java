@@ -1,138 +1,87 @@
 package dataStructures.lruCache;
 
 import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Implementation of Least Recently Used (LRU) Cache
- *
- * @param <K> generic type of key to be stored
- * @param <V> generic type of associated value corresponding to a given key
- *            Constructor:
- *            LRU(int capacity)
- *            Client methods:
- *            get(K key)
- *            put(K key, V value)
- *            Both methods above run in O(1) average time complexity
- */
-public class LRU<K, V> {
-    private final int cap;
-    private final Map<K, Node<K, V>> map;
-    private final Node<K, V> left;  // dummy left node to point to the left end
-    private final Node<K, V> right; // dummy right node to point to the right end
+public class doublyLinkedList {
+    int key;
+    int val;
+    doublyLinkedList next;
+    doublyLinkedList prev;
+}
 
-    /**
-     * Helper node class that encapsulates key-value pair and act as linked list to neighbour nodes.
-     */
-    private class Node<K, V> {
-        private final K key;
-        private V val;
-        private Node<K, V> next;
-        private Node<K, V> prev;
+class LRUCache {
+    doublyLinkedList dllHead;
+    doublyLinkedList dllTail;
+    HashMap<Integer, doublyLinkedList> keyToNode = new HashMap();
+    int capacity;
+    int lengthOfList = 0;
 
-        Node(K key, V value) {
-            this.key = key;
-            this.val = value;
-            this.next = null;
-            this.prev = null;
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+
+        dllHead = new doublyLinkedList();
+        dllHead.key = -1;
+        dllHead.val = -1;
+
+        dllTail = new doublyLinkedList();
+        dllTail.key = -1;
+        dllTail.val = -1;
+
+        dllHead.prev = null;
+        dllHead.next = dllTail;
+        dllTail.prev = dllHead;
+        dllTail.next = null;
+    }
+    
+    public int get(int key) {
+        if(!keyToNode.containsKey(key)) return -1;
+
+        doublyLinkedList temp = keyToNode.get(key);
+        temp.prev.next = temp.next;
+        temp.next.prev = temp.prev;
+
+        temp.next = dllHead.next;
+        dllHead.next.prev = temp;
+        temp.prev = dllHead;
+        dllHead.next = temp;
+
+        return keyToNode.get(key).val;
+    }
+    
+    public void put(int key, int value) {
+        boolean addingNewNode = true;
+
+        doublyLinkedList newlyCached;
+
+        if(!keyToNode.containsKey(key)) {
+            newlyCached = new doublyLinkedList();
+            newlyCached.key = key;
+            newlyCached.val = value;
+            keyToNode.put(key, newlyCached);
         }
-    }
+        else {
+            newlyCached = keyToNode.get(key);
+            newlyCached.val = value;
+            addingNewNode = false;
 
-    /**
-     * Constructs an instance of Least Recently Used Cache.
-     *
-     * @param capacity the maximum capacity of the cache.
-     */
-    public LRU(int capacity) {
-        this.cap = capacity;
-        this.map = new HashMap<>();
-        this.left = new Node<>(null, null);
-        this.right = new Node<>(null, null);
-        this.left.next = this.right;
-        this.right.prev = this.left;
-    }
-
-    /**
-     * Helper method to remove the specified node from the doubly linked list
-     *
-     * @param node to be removed from the linked list
-     */
-    private void remove(Node<K, V> node) {
-        Node<K, V> prev = node.prev;
-        Node<K, V> nxt = node.next;
-        prev.next = nxt;
-        nxt.prev = prev;
-    }
-
-    /**
-     * Helper method to insert a node to the right end of the double linked list (Most Recently Used)
-     *
-     * @param node to be inserted
-     */
-    private void insert(Node<K, V> node) {
-        Node<K, V> prev = this.right.prev;
-        prev.next = node;
-        node.prev = prev;
-        node.next = this.right;
-        this.right.prev = node;
-    }
-
-    /**
-     * return the value of the key if it exists; otherwise null
-     *
-     * @param key whose value, if exists, to be obtained
-     */
-    public V get(K key) {
-        if (this.map.containsKey(key)) {
-            Node<K, V> node = this.map.get(key);
-            this.remove(node);
-            this.insert(node);
-            return node.val;
-        }
-        return null;
-    }
-
-    /**
-     * Update the value of the key if the key exists.
-     * Otherwise, add the key-value pair to the cache.
-     * If the number of keys exceeds the capacity from this operation, evict the least recently used key
-     *
-     * @param key the key
-     * @param val the associated value
-     */
-    public void update(K key, V val) {
-        if (this.map.containsKey(key)) {
-            Node<K, V> node = this.map.get(key);
-            this.remove(node);
-            node.val = val;
-            this.insert(node); // make most recently used
-        } else {
-            Node<K, V> node = new Node<>(key, val);
-            this.map.put(node.key, node);
-            this.insert(node);
+            newlyCached.prev.next = newlyCached.next;
+            newlyCached.next.prev = newlyCached.prev;
         }
 
-        if (this.map.size() > this.cap) { // evict LRU since capacity exceeded
-            Node<K, V> toRemove = this.left.next;
-            this.map.remove(toRemove.key);
-            this.remove(toRemove);
-        }
-    }
+        newlyCached.next = dllHead.next;
+        dllHead.next.prev = newlyCached;
+        newlyCached.prev = dllHead;
+        dllHead.next = newlyCached;
 
-    /**
-     * Custom print for testing
-     * prints from LRU to MRU (Most recently used)
-     */
-    public void print() {
-        Node<K, V> trav = this.left.next;
-        System.out.print("Dummy");
-        while (trav != this.right) {
-            System.out.print(" ->");
-            System.out.print(trav.key);
-            System.out.print(",");
-            System.out.print(trav.val);
-            trav = trav.next;
+        if(addingNewNode) {
+            if(lengthOfList == capacity) {
+                keyToNode.remove(dllTail.prev.key);
+                dllTail.prev.prev.next = dllTail;
+                dllTail.prev = dllTail.prev.prev;
+            }
+            else {
+                lengthOfList++;
+            }
         }
-        System.out.println();
     }
 }
