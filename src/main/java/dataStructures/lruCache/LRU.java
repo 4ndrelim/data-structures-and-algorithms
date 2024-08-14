@@ -60,7 +60,7 @@ class LRU {
         if (!keyToNode.containsKey(key)) {
             return -1;
         }
-    
+
         doublyLinkedList temp = keyToNode.get(key);
         temp.prev.next = temp.next;
         temp.next.prev = temp.prev;
