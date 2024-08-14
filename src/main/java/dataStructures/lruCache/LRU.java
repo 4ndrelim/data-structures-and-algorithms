@@ -50,17 +50,17 @@ class LRU {
         dllTail.prev = dllHead;
         dllTail.next = null;
     }
-    
+
     /**
      * Return the value of the key if it exists or return null
      *
      * @param key key of the value to be obtained from LRU cache
      */
     public int get(int key) {
-        if(!keyToNode.containsKey(key)) {
+        if (!keyToNode.containsKey(key)) {
             return -1;
         }
-        
+    
         doublyLinkedList temp = keyToNode.get(key);
         temp.prev.next = temp.next;
         temp.next.prev = temp.prev;
@@ -72,7 +72,7 @@ class LRU {
 
         return keyToNode.get(key).val;
     }
-    
+
     /**
      * Insert key-value pair to LRU cache
      *
@@ -84,13 +84,12 @@ class LRU {
 
         doublyLinkedList newlyCached;
 
-        if(!keyToNode.containsKey(key)) {
+        if (!keyToNode.containsKey(key)) {
             newlyCached = new doublyLinkedList();
             newlyCached.key = key;
             newlyCached.val = value;
             keyToNode.put(key, newlyCached);
-        }
-        else {
+        } else {
             newlyCached = keyToNode.get(key);
             newlyCached.val = value;
             addingNewNode = false;
@@ -104,13 +103,12 @@ class LRU {
         newlyCached.prev = dllHead;
         dllHead.next = newlyCached;
 
-        if(addingNewNode) {
-            if(lengthOfList == capacity) {
+        if (addingNewNode) {
+            if (lengthOfList == capacity) {
                 keyToNode.remove(dllTail.prev.key);
                 dllTail.prev.prev.next = dllTail;
                 dllTail.prev = dllTail.prev.prev;
-            }
-            else {
+            } else {
                 lengthOfList++;
             }
         }
