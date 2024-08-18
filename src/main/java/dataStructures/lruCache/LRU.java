@@ -5,27 +5,29 @@ import java.util.HashMap;
 /**
  * Implementation of Least Recently Used (LRU) Cache
  *
+ * @param <K> generic type of key to be stored
+ * @param <V> generic type of associated value corresponding to a given key
  *            Constructor:
  *            LRU(int capacity)
  *            Client methods:
  *            get(K key)
  *            put(K key, V value)
- *            Both methods above run in O(1) average time complexity
+ *            Both methods above run in expected O(1) time complexity
  */
-class LRU {
+class LRU<K, V> {
     /**
      * Helper node class that implements doubly linked list
      */
-    private class doublyLinkedList {
-        private int key;
-        private int val;
-        private doublyLinkedList next;
-        private doublyLinkedList prev;
+    private class doublyLinkedListNode<K, V> {
+        private K key;
+        private V val;
+        private doublyLinkedListNode<K, V> next;
+        private doublyLinkedListNode<K, V> prev;
     }
 
-    private doublyLinkedList dllHead;
-    private doublyLinkedList dllTail;
-    private HashMap<Integer, doublyLinkedList> keyToNode = new HashMap();
+    private doublyLinkedListNode<K, V> dllHead;
+    private doublyLinkedListNode<K, V> dllTail;
+    private HashMap<K, doublyLinkedListNode<K, V>> keyToNode = new HashMap<>();
     private int capacity;
     private int lengthOfList = 0;
 
@@ -37,18 +39,10 @@ class LRU {
     public LRU(int capacity) {
         this.capacity = capacity;
 
-        dllHead = new doublyLinkedList();
-        dllHead.key = -1;
-        dllHead.val = -1;
-
-        dllTail = new doublyLinkedList();
-        dllTail.key = -1;
-        dllTail.val = -1;
-
-        dllHead.prev = null;
+        dllHead = new doublyLinkedListNode<>();
+        dllTail = new doublyLinkedListNode<>();
         dllHead.next = dllTail;
         dllTail.prev = dllHead;
-        dllTail.next = null;
     }
 
     /**
@@ -56,12 +50,12 @@ class LRU {
      *
      * @param key key of the value to be obtained from LRU cache
      */
-    public int get(int key) {
+    public V get(K key) {
         if (!keyToNode.containsKey(key)) {
-            return -1;
+            return null;
         }
 
-        doublyLinkedList temp = keyToNode.get(key);
+        doublyLinkedListNode<K, V> temp = keyToNode.get(key);
         temp.prev.next = temp.next;
         temp.next.prev = temp.prev;
 
@@ -79,13 +73,13 @@ class LRU {
      * @param key key of the value to be inserted to LRU cache
      * @param value value to be inserted to LRU cache
      */
-    public void put(int key, int value) {
+    public void put(K key, V value) {
         boolean addingNewNode = true;
 
-        doublyLinkedList newlyCached;
+        doublyLinkedListNode<K, V> newlyCached;
 
         if (!keyToNode.containsKey(key)) {
-            newlyCached = new doublyLinkedList();
+            newlyCached = new doublyLinkedListNode<>();
             newlyCached.key = key;
             newlyCached.val = value;
             keyToNode.put(key, newlyCached);
