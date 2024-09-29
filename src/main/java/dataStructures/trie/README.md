@@ -36,14 +36,31 @@ such as deletions or suffix trie constructions.
    - Our implementation features one such method where we prune the trie. But we used an array to track past nodes seen
    rather than rely on parent pointers.
 
-## Complexity Analysis
-Let the length of the longest word be _L_ and the number of words be _N_.
 
-**Time**: O(_L_)
+<details> <summary> <b>Interpretation of Trie and TrieNode</b> </summary>
+
+Several students have asked about the semantic interpretation of a Trie:
+*Do the edges or the nodes represent the characters?*
+
+Both interpretations are valid, and you can argue from either perspective.
+
+Personally, I tend to think of the nodes as representing the characters. 
+For example, retrieving a child node with the key 'b' would give you the 'b' node.
+The node itself may also contain additional fields, such as a flag 
+indicating whether the concatenation of characters up to the current node forms a valid word in the trie's vocabulary.
+
+Another view is that edges represent characters. In this interpretation, 
+traversing an edge labeled 'b' from one node to another means you're adding the character 'b' to the word being formed.
+</details>
+
+## Complexity Analysis
+Let the length of the longest word be `L` and the number of words be `N`.
+
+**Time**: O(`L`)
 An upper-bound. For typical trie operations like insert, delete, and search, 
 since it is likely that every char is iterated over.
 
-**Space**: O(_N*L_)
+**Space**: O(`N*L`)
 In the worst case, we can have minimal overlap between words and every character of every word needs to be captured
 with a node.
 

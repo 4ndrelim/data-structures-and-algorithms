@@ -13,7 +13,7 @@ following properties:
 This makes it a powerful data structure that provides efficient access to the highest (or lowest) priority element,
 making it suitable as an underlying implementation of the ADT, priority queue.
 
-![max heap](../../../../../docs/assets/images/max_heap.png)
+<img src="../../../../../docs/assets/images/max_heap.png" alt="max heap" width="60%">
 
 ### Array-based Heap
 
@@ -27,19 +27,22 @@ That said, in practice, the array-based implementation of a heap often provides 
 former, in cache efficiency and memory locality. This is due to its contiguous memory layout. As such,
 the implementation shown here is a 0-indexed array-based heap.
 
-#### Obtain index representing child nodes
-Suppose the parent node is captured at index *i* of the array (1-indexed).
-**1-indexed**: <br>
-Left Child: *i* x 2 <br>
-Right Child:  *i* x 2 + 1 <br>
+<details>
+<summary> <b>Index Calculation for Child Nodes</b> </summary>
 
-The 1-indexed calculation is intuitive. So, when dealing with 0-indexed representation (as in our implementation), 
+Suppose the parent node is captured at index `i` of the array (1-indexed).
+**1-indexed**: <br>
+Left Child: `i x 2` <br>
+Right Child:  `i x 2 + 1` <br>
+
+The 1-indexed calculation is intuitive. So, when dealing with 0-indexed representation (as in our implementation),
 one option is to convert 0-indexed to 1-indexed representation, do the above calculations, and revert. <br>
-(Note: Now, we assume parent node is captured at index *i* (0-indexed))
+(Note: Now, we assume parent node is captured at index `i` (0-indexed))
 
 **0-indexed**: <br>
-Left Child: (*i* + 1) x 2 - 1  = *i* x 2 + 1 <br>
-Right Child: (*i* + 1) x 2 + 1 - 1 = *i* x 2 + 2 <br>
+Left Child: `(i + 1) x 2 - 1`  = `i x 2 + 1` <br>
+Right Child: `(i + 1) x 2 + 1 - 1` = `i x 2 + 2` <br>
+</details>
 
 ### Relevance of increaseKey and decreaseKey operations
 
@@ -48,7 +51,8 @@ heaps in Python and Java is primarily due to design choices and considerations o
 Further, this operation, without augmentation, would take O(n) due to having to search for the object to begin with
 (see under Notes).
 
-One can circumvent the lack of such operations by simply removing and re-inserting (albeit, still O(n)).
+One can circumvent the lack of such operations by simply removing and re-inserting (albeit, still O(n) due to removing 
+of arbitrary node).
 
 **This is worth a mention:** <br>
 In cases like Dijkstra algorithm, there is no need to strictly maintain V nodes in the priority queue for O(nlogn).
@@ -57,6 +61,17 @@ After all, the log factor in the order of growth will turn log(E) = log(V^2) in 
 to 2log(V) = O(log(V)).
 
 ### Heapify - Choice between bubbleUp and bubbleDown
+Heapify is a process used to create a heap data structure from an unordered array. One can also call `offer()` or 
+some insertion equivalent starting from an empty array, but that would take O(nlogn).
+
+<details>
+<summary> <b>Loose Bound..?</b> </summary>
+
+The above mentioned that creating a heap through insertion of n elements would take O(nlogn). <br/>
+This is an upper-bound. Specifically, we have `n` insertions, and since we can have up to `n` elements in the heap,
+the insertion operation would at most take `log(n)`. Hence, `O(nlogn)`.
+
+</details>
 
 Heapify deals with bubbling down (for max heap) all elements starting from the back. <br>
 What about bubbling-up all elements starting from the front instead? <br>
@@ -70,7 +85,7 @@ bubbleDown.
 ## Complexity Analysis
 
 **Time**: O(log(n)) in general for most native operations,
-except heapify (building a heap from a sequence of elements) that takes o(n)
+except heapify (building a heap from a sequence of elements) that takes O(n)
 
 **Space**: O(n)
 
@@ -79,7 +94,7 @@ where n is the number of elements (whatever the structure, it must store at leas
 ## Notes
 
 1. Heaps are often presented as max-heaps (eg. in textbooks), hence the implementation follows a max-heap structure
-    - Still, it is not too difficult to convert a max heap to a min heap, simply negate the values of the nodes
+    - Still, it is not too difficult to convert a max heap to a min heap, simply negate the key value
 2. The heap implemented here is actually augmented with a Map data type. This allows identification of nodes by key.
     - Java's PriorityQueue and Python's heap actually support the removal of a node identified by its value / key.
       Note that this is not a typical operation introduced alongside the concept heap simply because the time complexity

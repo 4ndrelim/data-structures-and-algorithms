@@ -5,6 +5,9 @@ Segment Trees are primarily used to solve problems that require answers to queri
 with the possibility of modifying the array elements. 
 These queries could be finding the sum, minimum, or maximum in a subarray, or similar aggregated results.
 
+Segment Tree is a more flexible data structure compared to Fenwick Tree (AKA Binary-Indexed Tree, 
+as it can handle a wide variety of range queries (such as minimum, maximum, GCD, sum, etc.).
+
 ![Segment Tree](../../../../../docs/assets/images/SegmentTree.png)
 
 ### Structure 
@@ -61,29 +64,32 @@ This method utilizes a simple array where each element of the array corresponds 
 including both leaves and internal nodes.
 
 ### Why 4n space
-The size of the array needed to represent a Segment Tree for an array of size *n* is 2*2^ceil(log2(*n*)) - 1.
-We do 2^(ceil(log2(*n*))) because *n* might not be a perfect power of 2, 
+The size of the array needed to represent a Segment Tree for an array of size *n* is `2*2^ceil(log2(n)) - 1`.
+We do `2^(ceil(log2(n)))` because `n` might not be a perfect power of 2, 
 **so we expand the array size to the next power of 2**.
 This adjustment ensures that each level of the tree is fully filled except possibly for the last level, 
 which is filled from left to right.
 
-**BUT**, 2^(ceil(log2(*n*))) seems overly-complex. To ensure we have sufficient space, we can just consider 2*n
-because 2*n >= 2^(ceil(log2(*n*))).
+**BUT**, `2^(ceil(log2(n)))` seems overly-complex. To ensure we have sufficient space, we can just consider `2*n`
+because `2*n` >= `2^(ceil(log2(n)))`.
 Now, these 2n nodes can be thought of as the 'leaf' nodes (or more precisely, an upper-bound). To account for the 
 intermediate nodes, we use the property that for a complete binary that is fully filled, the number of leaf nodes 
-= number of intermediate nodes (recall: sum i -> 0 to n-1 of 2^i = 2^n). So we create an array of size 2n * 2 = 4n to 
-guarantee we can house the entire segment tree.
+= number of intermediate nodes (recall: sum i -> 0 to n-1 of `2^i` = `2^n`). 
+So we create an array of size `2n * 2` = `4n` to guarantee we can house the entire segment tree.
 
-### Obtain index representing child nodes
-Suppose the parent node is captured at index *i* of the array (1-indexed).
+<details>
+<summary> <b>Index Calculation for Child Nodes</b> </summary>
+
+Suppose the parent node is captured at index `i` of the array (1-indexed).
 **1-indexed**: <br>
-Left Child: *i* x 2 <br>
-Right Child:  *i* x 2 + 1 <br>
+Left Child: `i x 2` <br>
+Right Child:  `i x 2 + 1` <br>
 
 The 1-indexed calculation is intuitive. So, when dealing with 0-indexed representation (as in our implementation),
 one option is to convert 0-indexed to 1-indexed representation, do the above calculations, and revert. <br>
-(Note: Now, we assume parent node is captured at index *i* (0-indexed))
+(Note: Now, we assume parent node is captured at index `i` (0-indexed))
 
 **0-indexed**: <br>
-Left Child: (*i* + 1) x 2 - 1  = *i* x 2 + 1 <br>
-Right Child: (*i* + 1) x 2 + 1 - 1 = *i* x 2 + 2 <br>
+Left Child: `(i + 1) x 2 - 1`  = `i x 2 + 1` <br>
+Right Child: `(i + 1) x 2 + 1 - 1` = `i x 2 + 2` <br>
+</details>

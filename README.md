@@ -7,7 +7,7 @@ It is aligned with [CS2040s](https://nusmods.com/courses/CS2040S/data-structures
 
 The work here is continually being developed by CS2040s Teaching Assistants(TAs) and ex-2040s students, 
 under the guidance of Prof Seth.
-It is still in its infant stage, mostly covering lecture content and discussion notes.
+It mostly covers lecture content and discussion notes.
 Future plans include deeper discussion into the tougher parts of tutorials and even practice problems / puzzles related
 to DSA.
 
@@ -30,13 +30,13 @@ Gradle is used for development.
 - [Linked List](src/main/java/dataStructures/linkedList)
 - [LRU Cache](src/main/java/dataStructures/lruCache)
 - Minimum Spanning Tree 
-    * Kruskal
-    * Prim's
+    * [Kruskal](src/main/java/algorithms/minimumSpanningTree/kruskal)
+    * [Prim's](src/main/java/algorithms/minimumSpanningTree/prim)
     * Boruvska
 - [Queue](src/main/java/dataStructures/queue)
   - [Deque](src/main/java/dataStructures/queue/Deque)
   - [Monotonic Queue](src/main/java/dataStructures/queue/monotonicQueue)
-- Segment Tree
+- [Segment Tree](src/main/java/dataStructures/segmentTree)
 - [Stack](src/main/java/dataStructures/stack)
 - [Segment Tree](src/main/java/dataStructures/segmentTree)
 - [Trie](src/main/java/dataStructures/trie)
@@ -47,10 +47,10 @@ Gradle is used for development.
     * [Template](src/main/java/algorithms/binarySearch/binarySearchTemplated)
 - [Counting Sort](src/main/java/algorithms/sorting/countingSort)
 - [Cyclic Sort](src/main/java/algorithms/sorting/cyclicSort)
-    * [Special case](src/main/java/algorithms/sorting/cyclicSort/simple) of O(n) time complexity
-    * [Generalized case](src/main/java/algorithms/sorting/cyclicSort/generalised) of O(n^2) time complexity
+    * [Special case](src/main/java/algorithms/sorting/cyclicSort/simple)
+    * [Generalized case](src/main/java/algorithms/sorting/cyclicSort/generalised)
 - [Insertion Sort](src/main/java/algorithms/sorting/insertionSort)
-- [Knuth-Morris-Pratt](src/main/java/algorithms/patternFinding) aka KMP algorithm
+- [Knuth-Morris-Pratt](src/main/java/algorithms/patternFinding) (KMP algorithm)
 - [Merge Sort](src/main/java/algorithms/sorting/mergeSort)
     * [Recursive](src/main/java/algorithms/sorting/mergeSort/recursive)
     * [Bottom-up iterative](src/main/java/algorithms/sorting/mergeSort/iterative)
@@ -76,8 +76,8 @@ Gradle is used for development.
     * [Selection](src/main/java/algorithms/sorting/selectionSort)
     * [Merge](src/main/java/algorithms/sorting/mergeSort)
     * [Quick](src/main/java/algorithms/sorting/quickSort)
-      * [Hoare's](src/main/java/algorithms/sorting/quickSort/hoares)
-      * [Lomuto's](src/main/java/algorithms/sorting/quickSort/lomuto) (Not discussed in CS2040s)
+      * [Hoare's](src/main/java/algorithms/sorting/quickSort/hoares) (this version is the one shown in lecture!)
+      * [Lomuto's](src/main/java/algorithms/sorting/quickSort/lomuto)
       * [Paranoid](src/main/java/algorithms/sorting/quickSort/paranoid)
       * [3-way Partitioning](src/main/java/algorithms/sorting/quickSort/threeWayPartitioning)
     * [Counting Sort](src/main/java/algorithms/sorting/countingSort) (found in tutorial)
@@ -88,7 +88,7 @@ Gradle is used for development.
     * [Trie](src/main/java/dataStructures/trie)
     * [B-Tree](src/main/java/dataStructures/bTree)
     * [Segment Tree](src/main/java/dataStructures/segmentTree) (Not covered in CS2040s but useful!)
-    * Red-Black Tree (Not covered in CS2040s but useful!)
+    * Red-Black Tree (**WIP**)
     * [Orthogonal Range Searching](src/main/java/algorithms/orthogonalRangeSearching)
     * Interval Trees (**WIP**)
 5. [Binary Heap](src/main/java/dataStructures/heap) (Max heap)

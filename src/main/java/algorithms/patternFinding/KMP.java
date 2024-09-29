@@ -107,12 +107,6 @@ public class KMP {
                     pTrav += 1;
                     sTrav += 1;
                 }
-                // ALTERNATIVELY
-                // if pTrav == 0 i.e. nothing matched, move on
-                //    sTrav += 1
-                //    continue
-                //
-                // pTrav = prefixTable[pTrav]
             }
         }
         return indicesFound;

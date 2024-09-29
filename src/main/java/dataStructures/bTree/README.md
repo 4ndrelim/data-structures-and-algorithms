@@ -104,26 +104,97 @@ Image Source: https://www.geeksforgeeks.org/insert-operation-in-b-tree/
 The delete operation has a similar idea as the insert operation, but involves a lot more edge cases. If you are
 interested to learn about it, you can read more [here](https://www.geeksforgeeks.org/delete-operation-in-b-tree/).
 
-## Application
-There are many uses of B-Trees but the most common is their utility in database management systems in handling large 
-datasets by optimizing disk accesses.
+## Application: Index Structure
+B+ trees tend to be used in practice over vanilla B-trees. 
+The B+ tree is a specific variant of the B-tree that is optimized for efficient data retrieval from disk 
+and range queries.
 
-Large amounts of data have to be stored on the disk. But disk I/O operations are slow and not knowing where to look 
-for the data can drastically worsen search time. B-Tree is used as an index structure to efficiently locate the 
-desired data. Note, the B-Tree itself can be partially stored in RAM (higher levels) and partially on disk 
-(lower, less freq accessed levels).
+We will discuss two common applications of B+ trees: **database indexing** and **file system indexing**.
 
-Consider a database of all the CS modules offered in NUS. Suppose there is a column "Code" (module code) in the 
-"CS Modules" table. If the database has a B-Tree index on the "Code" column, the keys in the B-Tree would be the 
-module code of all CS modules offered.
+---
 
-Each key in the B-Tree is associated with a pointer, that points to the location on the disk where the corresponding 
-data can be found. For e.g., a key for "CS2040s" would have a pointer to the disk location(s) where the row(s) 
-(i.e. data) with "CS2040s" is stored. This efficient querying allows the database quickly navigate through the keys 
-and find the disk location of the desired data without having to scan the whole "CS Modules" table.
+### Indexing Structure
 
-The choice of t will impact the height of the tree, and hence how fast the query is. Trade-off would be space, as a 
-higher t means more keys in each node, and they would have to be (if not already) loaded to RAM.
+B+ trees are often used to efficiently manage large amounts of data stored on disk. 
+They do not store the actual data itself but instead store **pointers** (or references) 
+to where the data is located on the disk.
+
+#### Pointer / Reference
+A pointer in the context of a B+ tree refers to some piece of information that can be used to 
+retrieve actual data from the disk. Some common examples include:
+- **Disk address/block number**
+- **Filename with offset**
+- **Database page and record ID**
+- **Primary key ID**
+
+<details>
+<summary> <b>File System Indexing</b> </summary>
+
+### B+ Trees for File System Indexing
+
+File system indexing refers to the process by which an operating system organizes and manages files on 
+storage media (such as hard drives, SSDs) to enable efficient file retrieval, searching, and management. 
+It involves creating and maintaining indexes (similar to those in a database) that help quickly locate files, 
+directories, and their metadata (like file names, attributes, permissions, and timestamps).
+
+#### Workflow:
+- The **root node** of a B+ tree is typically stored in **RAM** to speed up access.
+- **Nodes** in the tree contain keys and child pointers to other nodes.
+- **Intermediate nodes** do not store actual data but guide the search process toward the leaf nodes.
+- **Leaf nodes** either contain the actual data or pointers to the data stored on disk. 
+This is where the data retrieval process ends.
+
+#### Optimized Disk I/O:
+B+ trees are optimized for disk I/O, especially for **range queries**. 
+The tree nodes are designed to fit into disk pages, meaning a single disk read operation can bring in multiple keys 
+and pointers. This reduces the overall number of disk accesses required and efficiently utilizes disk pages.
+
+#### Range Queries:
+B+ trees are particularly effective for **range queries**. Since the leaf nodes in a B+ tree are linked together 
+(typically via a **doubly linked list**), this makes sequential access for range queries efficient. 
+For example, in a file system, this allows fetching multiple adjacent keys (like file names in a directory) 
+without requiring additional disk I/O.
+
+</details>
+
+<details>
+<summary> <b>SQL Engines</b> </summary>
+
+### B+ Trees in SQL Engines
+
+In **MySQL**, B+ trees are extensively used in the **InnoDB** storage engine 
+(the default storage engine for MySQL databases).
+
+#### Primary Key Index (Clustered Index):
+In **InnoDB**, the primary key is always stored in a **clustered index**. 
+This means the leaf nodes of the B+ tree store the actual rows of the table. 
+In a clustered index, the rows are physically stored in the order of the primary key, 
+making retrieval by primary key highly efficient.
+
+#### Secondary Indexes:
+For secondary indexes in MySQL (specifically in InnoDB), 
+once the B+ tree for the secondary index is navigated to the leaf node, the following process occurs:
+
+1. **Secondary Index B+ Tree**: The leaf nodes store the indexed column value (e.g., `last_name`) 
+along with a reference to the primary key (e.g., `emp_id`).
+2. **Reference to Primary Key**: This reference (the primary key value) is used to look up the actual data 
+in the **clustered index** (which is also a B+ tree). The clustered index stores the entire row data in its leaf nodes.
+
+#### Detailed Process:
+- **Step 1**: MySQL navigates the secondary index tree based on the query condition (e.g. a range query on `last_name`)
+    - The internal nodes guide the search, and the leaf node contains the `last_name` 
+  value and the corresponding primary key (`emp_id`).
+
+- **Step 2**: Once MySQL reaches the leaf node of the secondary index B+ tree, it retrieves the primary key (`emp_id`).
+
+- **Step 3**: MySQL uses this primary key to directly access the **clustered index** (the B+ tree for the primary key).
+    - It navigates the primary key B+ tree to locate the row in its leaf nodes, where the full row data 
+  (e.g., `emp_id`, `last_name`, `first_name`, `salary`) is stored.
+
+> **Note**: If multiple results match a query on the secondary index, 
+the leaf nodes of the secondary index B+ tree will store multiple primary keys corresponding to the matching rows.
+
+</details>
 
 ## References
-This description heavily references CS2040S Recitation Sheet 4. 
+CS2040S Recitation Sheet 4. 

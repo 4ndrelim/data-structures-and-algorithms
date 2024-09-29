@@ -18,16 +18,16 @@ class LRU<K, V> {
     /**
      * Helper node class that implements doubly linked list
      */
-    private class doublyLinkedListNode<K, V> {
+    private class DoublyLinkedListNode<K, V> {
         private K key;
         private V val;
-        private doublyLinkedListNode<K, V> next;
-        private doublyLinkedListNode<K, V> prev;
+        private DoublyLinkedListNode<K, V> next;
+        private DoublyLinkedListNode<K, V> prev;
     }
 
-    private doublyLinkedListNode<K, V> dllHead;
-    private doublyLinkedListNode<K, V> dllTail;
-    private HashMap<K, doublyLinkedListNode<K, V>> keyToNode = new HashMap<>();
+    private DoublyLinkedListNode<K, V> dllHead;
+    private DoublyLinkedListNode<K, V> dllTail;
+    private HashMap<K, DoublyLinkedListNode<K, V>> keyToNode = new HashMap<>();
     private int capacity;
     private int lengthOfList = 0;
 
@@ -39,8 +39,8 @@ class LRU<K, V> {
     public LRU(int capacity) {
         this.capacity = capacity;
 
-        dllHead = new doublyLinkedListNode<>();
-        dllTail = new doublyLinkedListNode<>();
+        dllHead = new DoublyLinkedListNode<>();
+        dllTail = new DoublyLinkedListNode<>();
         dllHead.next = dllTail;
         dllTail.prev = dllHead;
     }
@@ -55,7 +55,7 @@ class LRU<K, V> {
             return null;
         }
 
-        doublyLinkedListNode<K, V> temp = keyToNode.get(key);
+        DoublyLinkedListNode<K, V> temp = keyToNode.get(key);
         temp.prev.next = temp.next;
         temp.next.prev = temp.prev;
 
@@ -76,10 +76,10 @@ class LRU<K, V> {
     public void put(K key, V value) {
         boolean addingNewNode = true;
 
-        doublyLinkedListNode<K, V> newlyCached;
+        DoublyLinkedListNode<K, V> newlyCached;
 
         if (!keyToNode.containsKey(key)) {
-            newlyCached = new doublyLinkedListNode<>();
+            newlyCached = new DoublyLinkedListNode<>();
             newlyCached.key = key;
             newlyCached.val = value;
             keyToNode.put(key, newlyCached);

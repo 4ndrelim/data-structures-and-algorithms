@@ -13,6 +13,19 @@ Here we discuss a type of self-balancing BST, known as the AVL tree, that avoids
 across the operations by ensuring careful updating of the tree's structure whenever there is a change 
 (e.g. insert or delete).
 
+<details>
+<summary> <b>Terminology</b> </summary>
+<li>
+Level: Refers to the number of edges from the root to that particular node. Root is at level 0.
+</li>
+<li>
+Depth: The depth of a node is the same as its level; i.e. how far a node is from the root of the tree.
+</li>
+<li>
+Height: The number of edges on the longest path from that node to a leaf. A leaf node has height 0.
+</li>
+</details>
+
 ### Definition of Balanced Trees
 Balanced trees are a special subset of trees with **height in the order of log(n)**, where n is the number of nodes. 
 This choice is not an arbitrary one. It can be mathematically shown that a binary tree of n nodes has height of at least
@@ -39,8 +52,11 @@ former.
 
 <details>
 <summary> <b>Ponder..</b> </summary>
-Consider any two nodes (need not have the same immediate parent node) in the tree. Is the difference in height 
-between the two nodes <= 1 too?
+Can a tree exists where there exists 2 leaf nodes whose depths differ by more than 1? What about 2? 10?
+<details>
+<summary> <b>Answer</b> </summary>
+Yes! In fact, you can always construct a large enough AVL tree where their difference in depth is > some arbitrary x!
+</details>
 </details>
 
 It can be mathematically shown that a **height-balanced tree with n nodes, has at most height <= 2log(n)** (
@@ -75,7 +91,7 @@ Hence, we need some re-balancing operations. To do so, tree rotation operations 
 
 Prof Seth explains it best! Go re-visit his slides (Lecture 10) for the operations :P <br>
 Here is a [link](https://www.youtube.com/watch?v=dS02_IuZPes&list=PLgpwqdiEMkHA0pU_uspC6N88RwMpt9rC8&index=9) 
-for prof's lecture on trees. <br>
+to prof's lecture on trees. <br>
 _We may add a summary in the near future._
 
 ## Application

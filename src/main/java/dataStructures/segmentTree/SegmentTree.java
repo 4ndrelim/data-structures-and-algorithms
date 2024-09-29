@@ -64,24 +64,28 @@ public class SegmentTree {
     }
 
     private int query(SegmentTreeNode node, int leftEnd, int rightEnd) {
-        // this is the case when:
-        //                start     end
-        // range query:  ^             ^  --> so simply capture the sum at this node!
+        // this is the case when node's range is completely within the query's range:
+        // Node's range:          <--start-----end-->
+        // range query :        ^                     ^  --> capture the sum at this node directly!
         if (leftEnd <= node.start && node.end <= rightEnd) {
             return node.sum;
         }
         int rangeSum = 0;
         int mid = node.start + (node.end - node.start) / 2;
-        // Consider the 3 possible kinds of range queries
-        //           start          mid          end
-        // poss 1:         ^      ^
-        // poss 2:             ^            ^
-        // poss 3:                       ^      ^
+        // Consider how range query interact with node's range
+
+        // Node's range                     :       <--start----------mid----------end-->
+        // leftEnd exists to the left of mid: Either  ^   Or    ^
+        // Range query INVOLVES interaction with left child node that spans from indices <start> to <mid>
         if (leftEnd <= mid) {
-            rangeSum += query(node.leftChild, leftEnd, Math.min(rightEnd, mid)); // poss1 or poss2
+            rangeSum += query(node.leftChild, leftEnd, Math.min(rightEnd, mid));
         }
+
+        // Node's range                     :       <--start----------mid----------end-->
+        // rightEnd exists to the right of mid:                      Either  ^   Or    ^
+        // Range query INVOLVES interaction with right child node that spans from indices <mid+1> to <end>
         if (mid + 1 <= rightEnd) {
-            rangeSum += query(node.rightChild, Math.max(leftEnd, mid + 1), rightEnd); // poss2 or poss3
+            rangeSum += query(node.rightChild, Math.max(leftEnd, mid + 1), rightEnd);
         }
         return rangeSum;
     }
@@ -110,6 +114,6 @@ public class SegmentTree {
         } else {
             update(node.rightChild, idx, val);
         }
-        node.sum = node.leftChild.sum + node.rightChild.sum; // propagate updates up
+        node.sum = node.leftChild.sum + node.rightChild.sum; // propagate update up
     }
 }

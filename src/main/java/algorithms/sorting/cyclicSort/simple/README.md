@@ -10,7 +10,31 @@ This is typically applicable when sorting a sequence of integers that are in a c
 or can be easily mapped to such a range. We illustrate the idea with n integers from 0 to n-1.
 
 In this implementation, the algorithm is **not comparison-based**! (unlike the general case).
-It makes use of the known inherent ordering of the numbers, bypassing the nlogn lower bound for most sorting algorithms.
+It makes use of the known inherent ordering of the numbers, 
+bypassing the `nlogn` lower bound for most sorting algorithms.
+
+<details>
+<summary> <b>Duplicates</b> </summary>
+Not designed to hande duplicates. When duplicates are present, the algorithm can run into issues, 
+such as overwriting elements or getting stuck in infinite loops, 
+because it assumes that each element has a unique position in the array.
+
+If you need to handle duplicates, modifications are required, 
+such as checking for duplicate values before placing elements, 
+which can impact the simplicity and efficiency (possibly degrade to `O(n^2)`) of the algorithm.
+</details>
+
+<details>
+<summary> <b>Inherent Ordering..?</b> </summary>
+This property allows the sorting algorithm to avoid comparing elements with each other 
+and instead directly place each element in its correct position. 
+
+For example, if sorting integers from 0 to n-1, the number 0 naturally belongs at index 0, 1 at index 1, and so on. 
+This inherent structure allows Cyclic Sort to achieve `O(n)` time complexity, 
+bypassing the typical `O(nlogn)` time bound of comparison-based sorting algorithms 
+([proof](https://tildesites.bowdoin.edu/~ltoma/teaching/cs231/fall07/Lectures/sortLB.pdf)) 
+by using the known order of elements rather than making comparisons to determine their positions.
+</details>
 
 ## Complexity Analysis
 
@@ -48,3 +72,4 @@ otherwise there would be a contradiction.
    and sorting needs to be done in O(1) auxiliary space.
 2. The implementation here uses integers from 0 to n-1. This can be easily modified for n contiguous integers starting
    at some arbitrary number (simply offset by this start number).
+3. This version of cyclic sort does not handle duplicates (at least, sorting might not be guaranteed to be in O(n))
