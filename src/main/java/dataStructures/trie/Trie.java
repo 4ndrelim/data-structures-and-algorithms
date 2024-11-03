@@ -100,26 +100,26 @@ public class Trie {
     public void deleteAndPrune(String word) {
         List<TrieNode> trackNodes = new ArrayList<>();
         TrieNode trav = root;
+        trackNodes.add(trav);
         char curr;
         for (int i = 0; i < word.length(); i++) {
             curr = word.charAt(i);
             if (!trav.children.containsKey(curr)) {
                 return; // word does not exist in trie
             }
-            trackNodes.add(trav);
             trav = trav.children.get(curr);
+            trackNodes.add(trav);
         }
         trav.isEnd = false;
 
         // now, we start pruning
         TrieNode currNode; // nodes representing chars, where chars will be iterated from the back
-        TrieNode nodeBeforeCurr;
         for (int i = word.length() - 1; i >= 0; i--) { // consider chars from back
             curr = word.charAt(i);
-            nodeBeforeCurr = trackNodes.get(i);
-            currNode = nodeBeforeCurr.children.get(curr);
+            currNode = trackNodes.get(i + 1);
+            TrieNode beforeCurrNode = trackNodes.get(i);
             if (!currNode.isEnd && currNode.children.size() == 0) { // node essentially doesn't track anything, remove
-                nodeBeforeCurr.children.remove(curr);
+                beforeCurrNode.children.remove(curr);
             } else { // children.size() > 0; i.e. this node is still useful; no need to further prune upwards
                 break;
             }
