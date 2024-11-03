@@ -38,7 +38,6 @@ Gradle is used for development.
   - [Monotonic Queue](src/main/java/dataStructures/queue/monotonicQueue)
 - [Segment Tree](src/main/java/dataStructures/segmentTree)
 - [Stack](src/main/java/dataStructures/stack)
-- [Segment Tree](src/main/java/dataStructures/segmentTree)
 - [Trie](src/main/java/dataStructures/trie)
 
 ## Algorithms

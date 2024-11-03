@@ -28,7 +28,8 @@ a balanced tree and hence complexity does not necessarily improve
    - Note, this is not implemented but details can be found under weighted union folder.
 
 3. **Weighted Union** - Same idea of using a tree, but constructed in a way that the tree is balanced, leading to 
-4. improved complexities. Can be further augmented with path compression.
+improved complexities. 
+   - Can be further augmented with path compression.
 
 ## Applications
 Because of its efficiency and simplicity in implementing, Disjoint Set structures are widely used in practice:
@@ -38,6 +39,7 @@ Because of its efficiency and simplicity in implementing, Disjoint Set structure
    - Or even analyse social networks, finding communities and determining if two users are connected through a chain
 3. Can be part of clustering algorithms to group data points based on similarity - useful for ML
 4. It can be used to detect cycles in dependency graphs, e.g, software dependency management systems
+   1. Static analysis tools like `mypy` use this to identify circular dependencies!
 5. It can be used for image processing, in labelling different connected components of an image
 
 ## Notes

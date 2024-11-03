@@ -1,13 +1,17 @@
 # AVL Trees
 
 ## Background
-Is the fastest way to search for data to store them in an array, sort them and perform binary search? No. This will
-incur minimally O(nlogn) sorting cost, and O(n) cost per insertion to maintain sorted order.
+Say you want to search of a data in an array. If the array were sorted, lucky you! You can do it with binary search in 
+`O(logn)` time. But if the array weren't sorted, you can't avoid that `O(n)` linear search loop. Now, one idea is to 
+first sort the array, and incur a 1-time cost of `O(n)` and subsequent search operations can enjoy that `O(logn)` query 
+cost. This is all gucci, but it assumes that there will be no additional data streaming in. If incoming data is not 
+infrequent, you'll have to incur `O(n)` insertion cost each time to maintain sorted order, and this can undermine 
+performance as a whole. If only there were some structure that allows us to enjoy `O(logn)` operations across..
 
 We have seen binary search trees (BSTs), which always maintains data in sorted order. This allows us to avoid the
 overhead of sorting before we search. However, we also learnt that unbalanced BSTs can be incredibly inefficient for
-insertion, deletion and search operations, which are O(h) in time complexity (in the case of degenerate trees,
-operations can go up to O(n)).
+insertion, deletion and search operations, which are O(height) in time complexity (in the case of degenerate trees, 
+think of a linked list, operations can go up to O(n)).
 
 Here we discuss a type of self-balancing BST, known as the AVL tree, that avoids the worst case O(n) performance 
 across the operations by ensuring careful updating of the tree's structure whenever there is a change 

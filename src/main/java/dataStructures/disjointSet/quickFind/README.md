@@ -23,7 +23,9 @@ and check if they are equal. This is why this implementation is known as "Quick 
 ## Complexity Analysis
 Let n be the number of elements in consideration.
 
-**Time**: O(n) for Union and O(1) for Find operations
+**Time**: 
+    - Union: O(n)
+    - Find: O(1)
 
 **Space**: O(n) auxiliary space for the component identifier
 
