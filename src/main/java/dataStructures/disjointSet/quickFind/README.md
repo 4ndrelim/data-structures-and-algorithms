@@ -21,12 +21,18 @@ Simply use the component identifier array to query for the component identity of
 and check if they are equal. This is why this implementation is known as "Quick Find".
 
 ## Complexity Analysis
-Let n be the number of elements in consideration.
 
-**Time**: 
-    - Union: O(n)
-    - Find: O(1)
+| Operation | Time | Notes |
+|-----------|------|-------|
+| Find | `O(1)` | Direct lookup in map |
+| Union | `O(n)` | Must scan all elements to update identifiers |
 
-**Space**: O(n) auxiliary space for the component identifier
+**Space**: `O(n)` for the component identifier map
 
 ## Notes
+
+1. **When to use**: Quick Find is suitable when finds vastly outnumber unions. If you have many union operations, consider Weighted Union instead.
+
+2. **HashMap vs Array**: Our implementation uses `HashMap<T, Integer>` to support arbitrary object types. If elements are integers `0` to `n-1`, a simple array suffices and is faster.
+
+3. **Union cost adds up**: Performing `n` union operations costs `O(n²)` total, which becomes prohibitive for large datasets. This is the main limitation of Quick Find.
