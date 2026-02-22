@@ -14,9 +14,10 @@ import java.util.Map;
  * offer(T item)        - O(log(n))
  * poll()               - O(log(n)); Often named as extractMax(), poll is the corresponding counterpart in PriorityQueue
  * remove(T obj)        - O(log(n))
+ * updateKey(T obj)     - O(log(n))
  * decreaseKey(T obj)   - O(log(n))
  * increaseKey(T obj)   - O(log(n))
- * heapify(List lst) - O(n)
+ * heapify(List lst)    - O(n)
  * heapify(T ...seq)    - O(n)
  * toString()
  *
@@ -66,17 +67,17 @@ public class MaxHeap<T extends Comparable<T>> {
 
     /**
      * Inserts item into heap.
+     * Note: Duplicates are not supported due to the Map augmentation.
      *
      * @param item item to be inserted
      */
     public void offer(T item) {
-        // shouldn't happen as mentioned in README; do nothing, though should customize behaviour in practice
         if (indexOf.containsKey(item)) {
-
+            return; // duplicates not supported
         }
 
         heap.add(item); // add to the end of the arraylist
-        indexOf.put(item, size() - 1); // add item into index map; here becomes problematic if there are duplicates
+        indexOf.put(item, size() - 1); // add item into index map
         bubbleUp(size() - 1); // bubbleUp to rightful place
     }
 
@@ -86,8 +87,8 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param obj object to be removed
      */
     public void remove(T obj) {
-        if (!indexOf.containsKey(obj)) { // do nothing
-
+        if (!indexOf.containsKey(obj)) {
+            return; // object not in heap
         }
         remove(indexOf.get(obj));
     }
@@ -99,11 +100,13 @@ public class MaxHeap<T extends Comparable<T>> {
      * @return deleted element
      */
     private T remove(int i) {
-        T item = get(i); // remember element to be removed
+        T item = get(i);
         swap(i, size() - 1); // O(1) swap with last element in the heap
-        heap.remove(size() - 1); // O(1)
-        indexOf.remove(item); // remove from index map
-        bubbleDown(i); // O(log n)
+        heap.remove(size() - 1);
+        indexOf.remove(item);
+        if (i < size()) { // only bubbleDown if not removing the last element
+            bubbleDown(i);
+        }
         return item;
     }
 
@@ -111,17 +114,16 @@ public class MaxHeap<T extends Comparable<T>> {
      * Decrease the corresponding value of the object.
      *
      * @param obj        old object
-     * @param updatedObj updated object
+     * @param updatedObj updated object with smaller value
      */
     public void decreaseKey(T obj, T updatedObj) {
-        // shouldn't happen; do nothing, though should customize behaviour in practice
-        if (updatedObj.compareTo(obj) > 0) {
-
+        if (!indexOf.containsKey(obj) || updatedObj.compareTo(obj) > 0) {
+            return; // object not found or updatedObj is not smaller
         }
 
-        int idx = indexOf.get(obj); // get the index of the object in the array implementation
-        heap.set(idx, updatedObj); // simply replace
-        indexOf.remove(obj); // no longer exists
+        int idx = indexOf.get(obj);
+        heap.set(idx, updatedObj);
+        indexOf.remove(obj);
         indexOf.put(updatedObj, idx);
         bubbleDown(idx);
     }
@@ -130,19 +132,39 @@ public class MaxHeap<T extends Comparable<T>> {
      * Increase the corresponding value of the object.
      *
      * @param obj        old object
-     * @param updatedObj updated object
+     * @param updatedObj updated object with larger value
      */
     public void increaseKey(T obj, T updatedObj) {
-        // shouldn't happen; do nothing, though should customize behaviour in practice
-        if (updatedObj.compareTo(obj) < 0) {
-            return;
+        if (!indexOf.containsKey(obj) || updatedObj.compareTo(obj) < 0) {
+            return; // object not found or updatedObj is not larger
         }
 
-        int idx = indexOf.get(obj); // get the index of the object in the array implementation
-        heap.set(idx, updatedObj); // simply replace
-        indexOf.remove(obj); // no longer exists
+        int idx = indexOf.get(obj);
+        heap.set(idx, updatedObj);
+        indexOf.remove(obj);
         indexOf.put(updatedObj, idx);
         bubbleUp(idx);
+    }
+
+    /**
+     * Update the value of an object in the heap.
+     * Delegates to increaseKey or decreaseKey based on the comparison.
+     * In practice, this unified method is often sufficient.
+     *
+     * @param obj        old object
+     * @param updatedObj updated object
+     */
+    public void updateKey(T obj, T updatedObj) {
+        if (!indexOf.containsKey(obj)) {
+            return;
+        }
+        int cmp = updatedObj.compareTo(obj);
+        if (cmp > 0) {
+            increaseKey(obj, updatedObj);
+        } else if (cmp < 0) {
+            decreaseKey(obj, updatedObj);
+        }
+        // if equal, no change needed
     }
 
     /**
@@ -183,6 +205,9 @@ public class MaxHeap<T extends Comparable<T>> {
      */
     @Override
     public String toString() {
+        if (size() == 0) {
+            return "[]";
+        }
         StringBuilder ret = new StringBuilder("[");
         for (int i = 0; i < size(); i++) {
             ret.append(heap.get(i));
@@ -284,7 +309,8 @@ public class MaxHeap<T extends Comparable<T>> {
      * @return boolean value that determines is leaf or not
      */
     private boolean isLeaf(int i) {
-        // actually, suffice to compare index of left child of a node and size of heap
+        // check if node does not have a left child and does not have a right child
+        // actually, suffice to check if left child index is out of bound, as right child index is always greater than left child index
         return getRightIndex(i) >= size() && getLeftIndex(i) >= size();
     }
 
@@ -296,25 +322,26 @@ public class MaxHeap<T extends Comparable<T>> {
      */
     private void bubbleDown(int i) {
         while (!isLeaf(i)) {
-            T maxItem = get(i);
-            int maxIndex = i; // index of max item
+            T biggestItem = get(i);
+            int biggestItemIndex = i; // index of max item
 
             // check if left child is greater in priority, if left exists
-            if (getLeftIndex(i) < size() && maxItem.compareTo(getLeft(i)) < 0) {
-                maxItem = getLeft(i);
-                maxIndex = getLeftIndex(i);
+            if (getLeftIndex(i) < size() && biggestItem.compareTo(getLeft(i)) < 0) {
+                biggestItem = getLeft(i);
+                biggestItemIndex = getLeftIndex(i);
             }
             // check if right child is greater in priority, if right exists
-            if (getRightIndex(i) < size() && maxItem.compareTo(getRight(i)) < 0) {
-                maxIndex = getRightIndex(i);
+            if (getRightIndex(i) < size() && biggestItem.compareTo(getRight(i)) < 0) {
+                biggestItem = getRight(i);
+                biggestItemIndex = getRightIndex(i);
             }
 
-            if (maxIndex != i) {
-                swap(i, maxIndex);
-                i = maxIndex;
-            } else {
-                break;
+            if (biggestItemIndex == i) {
+                break; // heap property is achieved
             }
+            
+            swap(i, biggestItemIndex);
+            i = biggestItemIndex;
         }
     }
 }
