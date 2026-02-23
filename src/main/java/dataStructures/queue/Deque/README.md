@@ -1,21 +1,68 @@
-# Double Ended Queue (Deque)
+# Double-Ended Queue (Deque)
 
-![Deque](https://media.geeksforgeeks.org/wp-content/uploads/anod.png)
+## Background
 
-*Source: GeeksForGeeks*
+A deque (pronounced "deck") is a queue that supports insertion and removal at **both ends**. It generalizes both stacks and queues - you can use it as either.
 
-Deque is a variant of queue where elements can be removed or added from the head and tail of the queue.
-Deque could come in handy when trying to solve sliding window problems. This means it neither follows a fixed FIFO
-or LIFO order but rather can utilise either orders flexibly.
+<div align="center">
+    <img src="https://media.geeksforgeeks.org/wp-content/uploads/anod.png" alt="Deque" width="60%"/>
+    <br/>
+    <em>Source: GeeksForGeeks</em>
+</div>
 
-A deque can be implemented in multiple ways, using doubly linked lists, arrays or two stacks.
+### Core Operations
+| Front | Back |
+|-------|------|
+| `addFirst()` | `addElement()` (addLast) |
+| `pollFirst()` | `pollLast()` |
+| `peekFirst()` | `peekLast()` |
 
-## Analysis
+## Complexity Analysis
 
-Much like a queue, deque operations involves the head / tail, resulting in *O(1)* complexity for most operations.
+| Operation | Time | Notes |
+|-----------|------|-------|
+| `addFirst()` / `addElement()` | `O(1)` | Insert at either end |
+| `pollFirst()` / `pollLast()` | `O(1)` | Remove from either end |
+| `peekFirst()` / `peekLast()` | `O(1)` | Access either end |
+
+**Space**: `O(n)` for n elements
 
 ## Notes
 
-Just like a queue, a monotonic deque could also be created to solve more specific sliding window problems.
+1. **Implementation**: Our implementation uses a doubly-linked list. Alternatives include circular arrays (Java's `ArrayDeque`) or two stacks.
 
+2. **Versatility**: A deque can simulate:
+   - **Queue**: `addElement()` + `pollFirst()` (FIFO)
+   - **Stack**: `addFirst()` + `pollFirst()` (LIFO)
 
+3. **Java's ArrayDeque**: Preferred over `LinkedList` for most use cases - faster due to cache locality and no node allocation overhead.
+
+**Interview tip:** When asked to implement a queue using stacks (or vice versa), a deque provides both interfaces naturally. Understanding deque operations helps with these classic interview questions.
+
+## Applications
+
+| Use Case | Why Deque? |
+|----------|-----------|
+| Sliding window maximum/minimum | Remove expired elements from front, maintain order from back |
+| Palindrome checking | Compare characters from both ends simultaneously |
+| Work stealing (parallel computing) | Threads steal from opposite end to reduce contention |
+| Undo/Redo with bounded history | Remove oldest when limit reached, add new at one end |
+| Browser history | Back/forward navigation from current position |
+
+### Sliding Window Pattern
+
+Deques are essential for the **sliding window maximum/minimum** pattern:
+
+```
+Window slides right →
+[1, 3, -1, -3, 5, 3, 6, 7], k=3
+
+Window [1,3,-1]   → max = 3
+Window [3,-1,-3]  → max = 3
+Window [-1,-3,5]  → max = 5
+...
+```
+
+A [Monotonic Queue](../monotonicQueue) (built on a deque) solves this in `O(n)` instead of `O(n*k)`.
+
+**Interview tip:** When you see "sliding window" + "maximum/minimum", think deque. The key insight: elements that can never be the answer can be discarded early.

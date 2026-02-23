@@ -1,42 +1,53 @@
 # Queue
 
 ## Background
-A queue is a linear data structure that restricts the order in which operations can be performed on its elements.
 
-### Operation Orders
+A queue is a linear data structure that follows **FIFO** (First In, First Out) order - the earliest element added is the first one removed.
 
-![Queue](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20221213113312/Queue-Data-Structures.png)
+<div align="center">
+    <img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20221213113312/Queue-Data-Structures.png" alt="Queue" width="60%"/>
+    <br/>
+    <em>Source: GeeksForGeeks</em>
+</div>
 
-*Source: GeeksForGeeks*
+### Core Operations
+- **enqueue** (offer/add): Add element to the back
+- **dequeue** (poll/remove): Remove element from the front
+- **peek**: View front element without removing
 
-Queue follows a FIFO, first in first out order.
-This means the earliest element
-added to the stack is the one operations are conducted on first.
+## Complexity Analysis
 
-A [stack](../stack/README.md) is a queue with operations conducted in an opposite manner.
+| Operation | Time | Notes |
+|-----------|------|-------|
+| `enqueue()` | `O(1)` | Add to back |
+| `dequeue()` | `O(1)` | Remove from front |
+| `peek()` | `O(1)` | Access front |
+| `isEmpty()` | `O(1)` | Check size |
 
-## Analysis
-
-As a queue only interacts with either the first or last element regardless during its operations,
-it only needs to keep the pointers of the two element at hand, which is constantly updated as more
-elements are removed / added. This allows queue operations to only incur a *O(1)* time complexity.
+**Space**: `O(n)` for n elements
 
 ## Notes
 
-### Stack vs Queues
+1. **Array vs Linked List**: Our implementation uses a linked list, allowing unbounded growth. Array-based queues are faster (cache-friendly) but need resizing or circular buffer logic.
 
-Stack and queues only differ in terms of operation order, you should aim to use a stack when
-you want the most recent elements to be operated on.
-Some situations where a stack would work well include build redo / undo systems and backtracking problems.
+2. **Java equivalents**: `enqueue()` → `offer()`/`add()`, `dequeue()` → `poll()`/`remove()`
 
-On the other hand, a queue allows you to operate on elements that enter first. Some situations where
-this would be useful include Breadth First Search algorithms and task / resource allocation systems.
+3. **Queue vs Stack**:
+   - Queue (FIFO): Process in arrival order → BFS, task scheduling, buffering
+   - [Stack](../stack) (LIFO): Process most recent first → DFS, undo/redo, parsing
 
-### Arrays vs Linked List
+## Applications
 
-It is worth noting that queues can be implemented with either a array or with a [linked list](../linkedList/README.md).
-In the context of ordered operations, the lookup is only restricted to the first element.
+| Use Case | Why Queue? |
+|----------|-----------|
+| BFS traversal | Process nodes level by level |
+| Task scheduling | First-come-first-served processing |
+| Buffering | Handle producer-consumer speed mismatch |
+| Print spooling | Documents printed in submission order |
 
-Hence, there is not much advantage in using a array, which only has a better lookup speed (*O(1)* time complexity)
-to implement a queue. Especially when using a linked list to construct your queue
-would allow you to grow or shrink the queue as you wish.
+## Variants
+
+- [**Deque**](./Deque) - Double-ended queue, add/remove from both ends
+- [**Monotonic Queue**](./monotonicQueue) - Maintains sorted order, useful for sliding window problems
+- **Priority Queue** - Elements ordered by priority, not arrival time (see [Heap](../heap))
+- **Circular Queue** - Fixed-size array with wrap-around, efficient for bounded buffers

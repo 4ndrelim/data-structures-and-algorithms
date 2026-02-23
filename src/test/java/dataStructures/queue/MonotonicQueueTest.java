@@ -1,5 +1,6 @@
 package dataStructures.queue;
 
+import dataStructures.queue.monotonicQueue.MonotonicQueue;
 import org.junit.Assert;
 import org.junit.Test;
 
