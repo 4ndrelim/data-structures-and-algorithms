@@ -28,11 +28,11 @@ For each of the node, we traverse up the tree from the current node until the ro
 two roots are the same
 
 ## Complexity Analysis
-**Time**: O(n) for Union and Find operations. While union-ing is indeed quick, it is possibly undermined
+**Time**: `O(n)` for Union and Find operations. While union-ing is indeed quick, it is possibly undermined
 by O(n) traversal in the case of a degenerate tree. Note that at this stage, there is nothing to ensure the trees
 are balanced.
 
-**Space**: O(n), implementation still involves wrapping the n elements with some structure / wrapper (e.g. Node class).
+**Space**: `O(n)`; still involves wrapping the n elements with some structure / wrapper (e.g. Node class).
 
 # Weighted Union
 
