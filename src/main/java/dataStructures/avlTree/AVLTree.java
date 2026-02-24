@@ -62,7 +62,7 @@ public class AVLTree<T extends Comparable<T>> {
     private void updateHeight(Node<T> n) {
         n.setHeight(
             1 + Math.max(
-                height(n.getLeft()), 
+                height(n.getLeft()),
                 height(n.getRight())
             )
         );

@@ -310,7 +310,7 @@ public class MaxHeap<T extends Comparable<T>> {
      */
     private boolean isLeaf(int i) {
         // check if node does not have a left child and does not have a right child
-        // actually, suffice to check if left child index is out of bound, as right child index is always greater than left child index
+        // actually, suffice to check if left child index is out of bound, as right child index > left child index
         return getRightIndex(i) >= size() && getLeftIndex(i) >= size();
     }
 
@@ -339,7 +339,6 @@ public class MaxHeap<T extends Comparable<T>> {
             if (biggestItemIndex == i) {
                 break; // heap property is achieved
             }
-            
             swap(i, biggestItemIndex);
             i = biggestItemIndex;
         }

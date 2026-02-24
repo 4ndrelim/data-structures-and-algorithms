@@ -1,8 +1,9 @@
 package dataStructures.queue;
 
-import dataStructures.queue.monotonicQueue.MonotonicQueue;
 import org.junit.Assert;
 import org.junit.Test;
+
+import dataStructures.queue.monotonicQueue.MonotonicQueue;
 
 /**
  * This class implements tests for the monotonic queue.
