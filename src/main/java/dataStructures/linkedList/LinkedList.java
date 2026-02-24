@@ -351,6 +351,15 @@ public class LinkedList<T extends Comparable<T>> {
             this.val = val;
         }
 
+        /**
+         * Returns the value stored in this node.
+         *
+         * @return the value stored in this node
+         */
+        public T getValue() {
+            return this.val;
+        }
+
         @Override
         public String toString() {
             return this.val.toString();

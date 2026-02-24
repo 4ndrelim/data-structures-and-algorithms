@@ -1,127 +1,120 @@
-# HashSet (Open-addressing)
+# HashSet (Open Addressing)
 
 ## Background
 
-Open-addressing is another approach to resolving collisions in hash tables.
+**Open addressing** stores all elements directly in the hash table array. When a collision occurs, we **probe** for the next available slot.
 
-A hash collision is resolved by **probing** - searching through alternative locations in
-the array (the probe sequence) until either the target element is found, or an unused array slot is found,
-which indicates that there is no such key in the table.
+```
+hash(key) → index → if occupied, probe next slot
 
-## Implementation Invariant
+[Alice] [_] [Bob] [Carol] [Dave] [_] [Eve] [_]
+                    ↑
+          collision → probed here
+```
 
-Note that the buckets are 1-indexed in the following explanation.
+See [parent README](../README.md) for comparison with chaining.
 
-Invariant: ***Probe sequence is unbroken.***
+## How It Works
 
-That is to say, given an element that is initially hashed to
-bucket 1 (arbitrary), the probe sequence {1, 2, ..., m} generated when attempting to `add`/`remove`/`find`
-the element will ***never*** contain null.
+### Probe Sequence
 
-This invariant is used to help us ensure the correctness and efficiency of `add`/`remove`/`contains`.
-With the above example of an element generating a probe sequence {1, 2, ...}, `add` will check each bucket
-sequentially, attempting to add the element, treating buckets containing `Tombstones` (to be explained later) and
-`nulls` as **empty** buckets available for insertion.
+The hash function for open addressing takes an additional parameter - the number of collisions (probe attempts):
 
-As a result, if the bucket is inserted in bucket `m`, such that the probe sequence {1, 2, ..., m} is
-generated, then there must have been elements occupying buckets {1, 2, ..., m - 1}, resulting in collisions.
+`h(k, i) = (h'(k) + f(i)) mod m`
 
-`remove` maintains this invariant with the help of a `Tombstone` class. As explained in the CS2040S lecture notes,
-simply replacing the element to be removed with `null` will cause `contains` to **fail** to find an element, even if it
-was present.
+Where `h'(k)` is the base hash and `f(i)` varies by probing strategy.
 
-`Tombstones` allow us to mark the bucket as deleted, which allows `contains` to know that there is a
-possibility that the targeted element can be found later in the probe sequence, returning false immediately upon
-encountering `null`.
+### The Tombstone Problem
 
-We could simply look into every bucket in the sequence, but that will result in `remove` and `contains` having an O(n)
-runtime complexity, defeating the purpose of hashing.
+**Invariant**: The probe sequence for any element must be unbroken.
 
-TLDR: There is a need to differentiate between deleted elements, and `nulls` to ensure operations on the Set have an
-O(1) time complexity.
+Consider inserting A, B, C that all hash to slot 0:
+
+```
+Insert A, B, C: [A] [B] [C] [_] ...     (B, C probed to slots 1, 2)
+```
+
+Now remove B:
+
+```
+WRONG:   [A] [null] [C] [_] ...   contains(C) stops at null → returns false!
+CORRECT: [A] [TOMB] [C] [_] ...   tombstone signals "keep probing"
+```
+
+**Why tombstones?** If we set deleted slots to `null`, we break the probe sequence. Elements inserted via probing become unreachable. Tombstones mark "deleted but continue probing".
+
+| Operation | `null` slot | Tombstone | Matching element |
+|-----------|-------------|-----------|------------------|
+| `add()` | Insert here | Insert here | Duplicate, skip |
+| `contains()` | Return false | Keep probing | Return true |
+| `remove()` | Return false | Keep probing | Replace with tombstone |
 
 ## Probing Strategies
 
-For Open-Addressing, the hash function differs from that of Chaining, in that the number of collisions encountered
-when inserting the key into the Hash Set is taken into account into determining the hash value.
-
-In the following probe strategies, the hash function typically looks like a variation of:
-<div style="text-align: center;"><code>h(k, i) = (h'(k) + i) mod m</code></div>
-
-`h'(k)` would be the equivalent of a typical hash function used in a HashSet that resolves collisions by Chaining,
-while an additional parameter `i` indicates the number of collisions so far.
-
-Take Linear Probing with a step size of 1 as an example.
-Given an element `k` hashed to bucket 1 initially, such that:
-<div style="text-align: center;"><code>h(k, 0) = 1</code></div>
-
-then, if there was already an element in bucket 1 resulting in a collision, then the next bucket index is determined by:
-<div style="text-align: center;"><code>h(k, 1) = 1 + 1 = 2</code></div>
-
-### Linear Probing
-
-The probing strategy used in our implementation.
-
-Simplest form of probing and involves linearly searching the hash table for an empty spot upon collision.
-
-However, this method of probing can result in a phenomenon called (primary) clustering where a large run of
-occupied slots builds up, which can drastically degrade the performance of add, remove and contains operations.
+### Linear Probing (Our Implementation)
 
 `h(k, i) = (h'(k) + i) mod m`
-where `h'(k)` is an ordinary hash function, and `i` is the number of collisions so far.
+
+Step size is always 1. Simple and cache-friendly.
+
+**Problem: Primary clustering** - long runs of occupied slots build up, degrading performance.
+
+```
+[X] [X] [X] [X] [X] [_] [_]    ← cluster slows insertions
+```
 
 ### Quadratic Probing
 
-This method of probing involves taking the original hash index, and adding successive values of an arbitrary quadratic
-polynomial until an open slot is found.
+`h(k, i) = (h'(k) + c₁*i + c₂*i²) mod m`
 
-This helps to avoid primary clustering of entries (like in Linear Probing), but might still result in secondary
-clustering where keys that hash to the same value probe the same alternative cells when a collision occurs.
+Step size grows quadratically, reducing primary clustering.
 
-`h(k, i) = (h'(k) + c1 * i + c2 * (i^2)) mod m` where `c1` and `c2` are arbitrary constants
+**Problem: Secondary clustering** - keys with same initial hash follow same probe sequence.
 
 ### Double Hashing
 
-This is a method of probing where a secondary hash function is used for probing whenever a collision occurs.
+`h(k, i) = (h₁(k) + i * h₂(k)) mod m`
 
-If `h2(k)` is relatively prime to `m` for all `k`, Uniform Hashing Assumption can hold true, as all permutations of
-probe sequences occur in equal probability.
+Second hash function determines step size. Approaches Uniform Hashing Assumption (UHA).
 
-`h(k, i) = (h1(k) + i * h2(k)) mod m` where `h1(k)` and `h2(k)` are two ordinary hash functions
-
-*Source: https://courses.csail.mit.edu/6.006/fall11/lectures/lecture10.pdf*
+**Requirement**: `h₂(k)` must be relatively prime to `m` to ensure all slots are probed.
 
 ## Complexity Analysis
 
-let `α = n / m` where `α` is the load factor of the table
+| Operation | Expected | Worst |
+|-----------|----------|-------|
+| `add()` | `O(1)` | `O(n)` |
+| `contains()` | `O(1)` | `O(n)` |
+| `remove()` | `O(1)` | `O(n)` |
 
-For `n` items, in a table of size `m`, assuming uniform hashing, the expected cost of an operation is:
+Expected probes under uniform hashing: `1/(1-α)` where `α = n/m`.
 
-<div style="text-align: center;"><code>1/1-α</code></div>
+| Load Factor α | Expected Probes |
+|---------------|-----------------|
+| 50% | 2 |
+| 75% | 4 |
+| 90% | 10 |
+| 99% | 100 |
 
-e.g. if `α` = 90%, then `E[#probes]` = 10;
+**This is why resizing is mandatory** - as `α → 1`, performance degrades sharply.
 
 ## Notes
 
-### Properties of Good Hash Functions
+1. **Two properties of good hash functions**:
+   - **Coverage**: `h(key, i)` must enumerate all buckets (be a permutation of {0..m-1})
+   - **Uniform Hashing Assumption (UHA)**: Every probe sequence permutation equally likely
 
-There are two properties to measure the "goodness" of a Hash Function
+   Linear probing satisfies coverage but NOT UHA. Double hashing approaches UHA.
 
-1. `h(key, i)` enumerates all possible buckets.
-    - For every bucket `j`, there is some `i` such that: `h(key, i) = j`
-    - The hash function is a permutation of {1..m}.
+2. **Resizing**: Our implementation resizes up at 75% load, down at 25% load. Rehashing eliminates tombstones as a side benefit.
 
-Linear probing satisfies the first property, because it will probe all possible buckets in the Set. I.e. if an element
-is initially hashed to bucket 1, in a Set with capacity n, linear probing generates a sequence of {1, 2, ..., n - 1, n},
-enumerating every single bucket.
+3. **Cache efficiency**: Sequential probing is cache-friendly - better practical performance than chaining for small/medium tables.
 
-2. Uniform Hashing Assumption (NOT SUHA)
-    - Every key is equally likely to be mapped to every ***permutation***, independent of every other key.
-    - Under this assumption, the probe sequence should be randomly, and uniformly distributed among all possible
-      permutations, implying `n!` permutations for a probe sequence of size `n`.
-    - Linear Probing does ***NOT*** fulfil UHA. In linear probing, when a collision occurs, the HashSet handles it by
-      checking the next bucket, linearly until an empty bucket is found. The next slot is always determined in a fixed
-      linear manner.
-    - In practicality, achieving UHA is difficult. Double hashing can come close to achieving UHA, by using another
-      hash function to vary the step size (unlike linear probe where the step size is constant), resulting in a more
-      uniform distribution of keys and better performance for the hash table.
+4. **When to prefer open addressing**:
+   - Memory-constrained (no pointer overhead)
+   - Small to medium datasets
+   - Cache efficiency matters
+
+**Interview tip:** The tombstone mechanism is the trickiest part. Be ready to explain why simply setting deleted slots to `null` breaks `contains()`. Draw out an example with colliding elements.
+
+*Reference: [MIT 6.006 Lecture Notes](https://courses.csail.mit.edu/6.006/fall11/lectures/lecture10.pdf)*

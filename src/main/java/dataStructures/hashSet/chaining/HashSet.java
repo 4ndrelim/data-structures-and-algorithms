@@ -88,7 +88,9 @@ public class HashSet<T extends Comparable<T>> {
      * @return the bucket to add the element to.
      */
     private int hashFunction(T element) {
-        return Math.abs(element.hashCode() % NUMBER_OF_BUCKETS);
+        // Use bitwise AND with 0x7FFFFFFF to clear sign bit instead of Math.abs()
+        // Math.abs(Integer.MIN_VALUE) returns Integer.MIN_VALUE (negative)
+        return (element.hashCode() & 0x7FFFFFFF) % NUMBER_OF_BUCKETS;
     }
 
     /**
@@ -155,8 +157,8 @@ public class HashSet<T extends Comparable<T>> {
     public List<T> toList() {
         List<T> outputList = new ArrayList<>();
         for (LinkedList<T> bucket : buckets) {
-            while (bucket.size() != 0) {
-                outputList.add(bucket.pop());
+            for (int i = 0; i < bucket.size(); i++) {
+                outputList.add(bucket.get(i).getValue());
             }
         }
         return outputList;
