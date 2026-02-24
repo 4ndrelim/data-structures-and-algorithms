@@ -54,19 +54,27 @@ traversing an edge labeled 'b' from one node to another means you're adding the 
 </details>
 
 ## Complexity Analysis
-Let the length of the longest word be `L` and the number of words be `N`.
+Let `L` be the length of the word (or longest word), and `N` be the number of words.
 
-**Time**: O(`L`)
-An upper-bound. For typical trie operations like insert, delete, and search, 
-since it is likely that every char is iterated over.
+| Operation | Time | Notes |
+|-----------|------|-------|
+| `insert()` | `O(L)` | Traverse/create nodes for each character |
+| `search()` | `O(L)` | Traverse nodes for each character |
+| `delete()` | `O(L)` | Traverse and unmark end flag |
+| `deleteAndPrune()` | `O(L)` | Traverse twice (down then up for pruning) |
+| `wordsWithPrefix()` | `O(L + M)` | `L` to reach prefix, `M` = total chars in matching words |
 
-**Space**: O(`N*L`)
-In the worst case, we can have minimal overlap between words and every character of every word needs to be captured
-with a node.
+**Space**: `O(N * L)` in the worst case, when words have minimal overlap and every character needs its own node.
 
-A trie can be space-intensive. For a very large corpus of words, with the naive assumption of characters being 
-likely to occur in any position, another naive estimation on the size of the tree is O(_26^l_) where _l_ here is 
-the average length of a word. Note, 26 is used since are only 26 alphabets.
+<details><summary><b>Space usage in practice</b></summary>
+
+The `O(N * L)` bound assumes each word contributes all its characters as separate nodes. In practice, shared prefixes reduce this (e.g., "app", "apple", "application" share the "app" path).
+
+A theoretical maximum for a trie structure is `O(26^L)` - this would occur if the trie stored *every possible string* of length up to `L` (all combinations of 26 letters). This is only relevant for complete/exhaustive tries, not for storing a specific vocabulary of `N` words.
+
+Using a HashMap for children (as in our implementation) only allocates space for existing children, avoiding the cost of 26-element arrays at each node.
+
+</details>
 
 ## Operations 
 Here we briefly discuss the typical operations supported by a trie. 
@@ -101,8 +109,20 @@ to quickly find out how many complete words stored in a trie have a given prefix
 descendant nodes whose boolean flag is set to true at each node.
 
 ## Notes
-### Applications
-- [auto-completion](https://medium.com/geekculture/how-to-effortlessly-implement-an-autocomplete-data-structure-in-javascript-using-a-trie-ea87a7d5a804)
-- [spell-checker](https://medium.com/@vithusha.ravirajan/enhancing-spell-checking-with-trie-data-structure-eb649ee0b1b5)
-- [prefix matching](https://medium.com/@shenchenlei/how-to-implement-a-prefix-matcher-using-trie-tree-1aea9a01013)
-- sorting large datasets of textual data
+
+1. **Case sensitivity**: Our implementation converts all words to lowercase. To support case-sensitive storage, remove the `toLowerCase()` calls.
+
+2. **HashMap vs Array**: We use `HashMap<Character, TrieNode>` for children, which supports arbitrary characters (Unicode, spaces, etc.). An alternative is a fixed-size array (e.g., `TrieNode[26]` for lowercase letters), which is faster but wastes space when nodes have few children.
+
+3. **Pruning**: The basic `delete()` only unmarks the end flag - the nodes remain. For long-running applications, use `deleteAndPrune()` to reclaim memory.
+
+4. **Trie vs HashMap**: For simple word lookup, a `HashSet<String>` is `O(L)` time and simpler. Tries shine when you need prefix operations (autocomplete, prefix counting) or lexicographic ordering.
+
+**Interview tip:** When asked "why use a trie instead of a hash table?", emphasize prefix operations. A HashSet can check if "apple" exists, but cannot efficiently find all words starting with "app".
+
+## Applications
+- [Auto-completion](https://medium.com/geekculture/how-to-effortlessly-implement-an-autocomplete-data-structure-in-javascript-using-a-trie-ea87a7d5a804) - find all words with a given prefix
+- [Spell-checker](https://medium.com/@vithusha.ravirajan/enhancing-spell-checking-with-trie-data-structure-eb649ee0b1b5) - suggest corrections by finding similar words
+- [Prefix matching](https://medium.com/@shenchenlei/how-to-implement-a-prefix-matcher-using-trie-tree-1aea9a01013) - IP routing, longest prefix match
+- Lexicographic sorting - in-order traversal yields sorted words
+- Word games - Boggle solvers, Scrabble word validators

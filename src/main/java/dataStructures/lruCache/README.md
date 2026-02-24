@@ -2,49 +2,74 @@
 
 ## Background
 
-Assuming that software engineers develop their applications using well-structured design patterns, programs tend to reuse data and instructions they've recently accessed (temporal locality) or access data elements that are close together in memory (spatial locality).
+An **LRU (Least Recently Used) Cache** is a fixed-size cache that evicts the least recently accessed item when full. It exploits **temporal locality** - the principle that recently accessed data is likely to be accessed again soon.
 
-### Temporal Locality
+### How It Works
 
-The Least Recently Used (LRU) Cache operates on the principle that the data most recently accessed is likely to be accessed again in the near future (temporal locality). By evicting the least recently accessed items first, LRU cache ensures that the most relevant data remains available in the cache.
-
-### Applications
-
-<ol>
-	<li>Operating systems: Operating systems use LRU cache for memory management in page replacement algorithms. When a program requires more memory pages than are available in physical memory, the operating system decides which pages to evict to disc based on LRU caching, ensuring that the most recently accessed pages remain in memory.</li>
-	<li>Web browsers: Web browsers use LRU cache to store frequently accessed web pages. This allows users to quickly revisit pages without the need to fetch the entire content from the server.</li>
-	<li>Databases: Databases use LRU cache to store frequent query results. This reduces the need to access the underlying storage system for repeated queries.</li>
-</ol>
+The cache maintains items ordered by recency of access:
+- **On access (`get`)**: Move item to front (most recent)
+- **On insert (`put`)**: Add to front; if full, evict from back (least recent)
+- **On update (`put` existing key)**: Update value and move to front
 
 ### Data Structures
 
-Implementing an LRU cache typically involves using a combination of data structures. A common approach is to use a doubly-linked list to maintain the order of items based on access recency and a hash map to achieve constant-time access to any item in the cache. This combination effectively creates a data structure that supports the operations required for LRU cache. As nodes are connected in a doubly-linked list fashion, updating neighbours when rearranging recently cached items is as simple as redirecting the next and previous pointers of affected nodes.
+LRU cache combines two structures for `O(1)` operations:
 
-<img src = "https://cdn.hashnode.com/res/hashnode/image/upload/v1655812960691/pqAZ20NyS.png?auto=compress,format&format=webp" alt = "Hash Map">
+| Structure | Purpose |
+|-----------|---------|
+| **HashMap** | `O(1)` lookup by key |
+| **Doubly-linked list** | `O(1)` insertion/removal, maintains recency order |
 
-### Cache Key
+```
+Most Recent                                  Least Recent
+    ↓                                             ↓
+[HEAD] ⟷ [Node A] ⟷ [Node B] ⟷ [Node C] ⟷ [TAIL]
+                                    ↑
+                            Evict this on overflow
+```
 
-The hash map values are accessed through cache keys, which are unique references to the cached items in a LRU cache. Moreover, storing key-value pairs of hash keys and their corresponding nodes, which encapsulate cached items in a hash map and allows us to avoid O(n) sequential access of cached items.
+The HashMap stores `key → node` mappings, allowing direct access to any node. The doubly-linked list allows `O(1)` move-to-front and removal without traversal.
 
-### Eviction
-
-When the cache is full and a new item needs to be added, the eviction process is triggered. The item at the back of the list, which represents the least recently used data, is removed from both the list and the hash map. The new item is then added to the front of the list, and the cache key is stored in the hash map along with its corresponding cache value. 
-
-However, if a cached item is accessed through a read-only operation, we still move the cached item to the front of the list without any eviction. Therefore, any form of interaction with a key will move its corresponding node to the front of the doubly-linked list without evection being triggered. Eviction is only applicable to write operations when a cache is considered full.
+**Implementation detail**: Our implementation uses **sentinel nodes** (dummy head and tail), which eliminates null checks when inserting/removing at boundaries.
 
 ## Complexity Analysis
 
-**Time**: **expected** O(1) complexity
+| Operation | Time | Notes |
+|-----------|------|-------|
+| `get(key)` | `O(1)` expected | HashMap lookup + move to front |
+| `put(key, value)` | `O(1)` expected | HashMap insert + list manipulation |
 
-As we rely on basic hash map operations to insert, access, and delete cache nodes, the get and put operations supported by LRU cache are influenced by the time complexity of these hash map operations. Insertion, lookup, and deletion operations in a well-designed hash map take O(1) time on average. Therefore, the hash map provides expected O(1) time on operations, and the doubly-linked list provides insertion and removal of nodes in O(1) time.
+**Space**: `O(capacity)` - stores at most `capacity` items
 
-**Space**: O(cache capacity)
+**Interview tip:** LRU Cache (LeetCode 146) is a classic design question. The key insight is combining HashMap + doubly-linked list. Know how to implement the move-to-front operation cleanly.
 
 ## Notes
 
-<ol>
-	<li>Cache hit/miss ratio: A simple metric for measuring the effectiveness of the cache is the cache hit ratio. It is represented by the percentage of requests that are served from the cache without needing to access the original data store. Generally speaking, for most applications, a hit ratio of 95 - 99% is ideal.</li>
-	<li>Outdated cached data: A cached item that is constantly accessed and remains in cache for too long may become outdated.</li>
-	<li>Thread safety: When working with parallel computation, careful considerations have to be made when multiple threads try to access the cache at the same time. Thread-safe caching mechanisms may involve the proper use of mutex locks.</li>
-	<li>Other caching algorithms: First-In-First-Out (FIFO) cache, Least Frequently Used (LFU) cache, Most Recently Used (MRU) cache, and Random Replacement (RR) cache. The performance of different caching algorithms depends entirely on the application. LRU caching provides a good balance between performance and memory usage, making it suitable for a wide range of applications as most applications obey recency of data access (we often do reuse the same data in many applications). However, in the event that access patterns are random or even anti-recent, random replacement may perform better as it has less overhead when compared to LRU due to lack of bookkeeping.</li>
-</ol>
+1. **Why doubly-linked?** When removing a node, we need to update its predecessor's `next` pointer. With a singly-linked list, finding the predecessor requires `O(n)` traversal.
+
+2. **Cache hit ratio**: A good cache achieves 95-99% hit ratio. If hits are rare, caching overhead may not be worthwhile.
+
+3. **Stale data**: Frequently accessed items may stay cached indefinitely, becoming outdated. Consider TTL (time-to-live) for data that changes.
+
+4. **Thread safety**: For concurrent access, synchronization is needed (e.g., locks, concurrent data structures). Our implementation is not thread-safe.
+
+## Applications
+
+| Use Case | Example |
+|----------|---------|
+| OS page replacement | Keep recently used memory pages in RAM |
+| Web browsers | Cache recently visited pages |
+| Database query cache | Cache frequent query results |
+| CDN edge caching | Cache popular content at edge servers |
+
+## Other Caching Strategies
+
+| Strategy | Eviction Rule | Best For |
+|----------|---------------|----------|
+| **LRU** | Least recently used | General purpose, temporal locality |
+| **LFU** | Least frequently used | Popularity-based access patterns |
+| **FIFO** | First in, first out | Simple, predictable eviction |
+| **MRU** | Most recently used | Stack-like access (e.g., file scans) |
+| **Random** | Random eviction | Low overhead, unpredictable access |
+
+**Interview tip:** Be ready to discuss trade-offs. LRU has more bookkeeping overhead than FIFO/Random but performs better when access patterns show temporal locality.

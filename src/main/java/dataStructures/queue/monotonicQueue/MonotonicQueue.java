@@ -44,7 +44,6 @@ public class MonotonicQueue<T extends Comparable<T>> {
      * @param obj to be inserted.
      */
     public void push(T obj) {
-        Integer count = 0;
         while (!dq.isEmpty() && obj.compareTo(dq.peekLast()) > 0) {
             dq.pollLast(); // Removes elements that do not conform the non-increasing sequence.
         }

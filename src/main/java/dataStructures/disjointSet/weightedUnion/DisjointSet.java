@@ -92,9 +92,12 @@ public class DisjointSet<T> {
      * Checks if object a and object b are in the same component.
      * @param a
      * @param b
-     * @return
+     * @return true if in same component, false otherwise or if either key doesn't exist
      */
     public boolean find(T a, T b) {
+        if (!parents.containsKey(a) || !parents.containsKey(b)) {
+            return false;
+        }
         T rootOfA = findRoot(a);
         T rootOfB = findRoot(b);
         return rootOfA.equals(rootOfB);
@@ -106,17 +109,26 @@ public class DisjointSet<T> {
      * @param b
      */
     public void union(T a, T b) {
+        if (!parents.containsKey(a) || !parents.containsKey(b)) {
+            return; // key(s) does not exist; do nothing
+        }
+
         T rootOfA = findRoot(a);
         T rootOfB = findRoot(b);
+
+        if (rootOfA.equals(rootOfB)) {
+            return; // already in same component
+        }
+
         int sizeA = size.get(rootOfA);
         int sizeB = size.get(rootOfB);
 
         if (sizeA < sizeB) {
-            parents.put(rootOfA, rootOfB); // update root A to be child of root B
-            size.put(rootOfB, size.get(rootOfB) + size.get(rootOfA)); // update size of bigger tree
+            parents.put(rootOfA, rootOfB);
+            size.put(rootOfB, sizeA + sizeB);
         } else {
-            parents.put(rootOfB, rootOfA); // update root B to be child of root A
-            size.put(rootOfA, size.get(rootOfA) + size.get(rootOfB)); // update size of bigger tree
+            parents.put(rootOfB, rootOfA);
+            size.put(rootOfA, sizeA + sizeB);
         }
     }
 

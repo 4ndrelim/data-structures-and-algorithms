@@ -61,47 +61,84 @@ After all, the log factor in the order of growth will turn log(E) = log(V^2) in 
 to 2log(V) = O(log(V)).
 
 ### Heapify - Choice between bubbleUp and bubbleDown
-Heapify is a process used to create a heap data structure from an unordered array. One can also call `offer()` or 
-some insertion equivalent starting from an empty array, but that would take O(nlogn).
+Heapify converts an unordered array into a heap. Two approaches exist:
+
+1. **Naive approach**: Insert elements one by one using `offer()` → `O(n log n)`
+2. **Efficient approach**: BubbleDown from back to front → `O(n)`
+
+Both are **correct**, but bubbleDown is more efficient. Here's why:
 
 <details>
-<summary> <b>Loose Bound..?</b> </summary>
+<summary><b>Why bubbleDown gives O(n) but bubbleUp gives O(n log n)</b></summary>
 
-The above mentioned that creating a heap through insertion of n elements would take O(nlogn). <br/>
-This is an upper-bound. Specifically, we have `n` insertions, and since we can have up to `n` elements in the heap,
-the insertion operation would at most take `log(n)`. Hence, `O(nlogn)`.
+The key insight is the **distribution of nodes by level** in a complete binary tree:
+- ~`n/2` nodes are at the bottom level (leaves)
+- ~`n/4` nodes are one level up
+- ~`n/8` nodes are two levels up
+- ... and so on
+- 1 node at the root
+
+**BubbleUp from front** (like repeated insertions):
+- Level 0: 1 node, travels 0 levels
+- Level 1: 2 nodes, each travels up to 1 level
+- Level 2: 4 nodes, each travels up to 2 levels
+- ...
+- Level `log(n)`: **`n/2` nodes, each travels up to `log(n)` levels**
+
+The bottom half alone contributes `(n/2) * log(n)` = **O(n log n)**
+
+**BubbleDown from back**:
+- Level `log(n)` (leaves): **`n/2` nodes, travel 0 levels** (already valid)
+- Level `log(n)-1`: `n/4` nodes, each travels at most 1 level
+- ...
+- Level 0 (root): 1 node, travels at most `log(n)` levels
+
+Total: `Σ (n/2^(k+1)) * k` for k from 0 to log(n) → converges to **O(n)**
+
+The difference: bubbleDown makes the **many** leaf nodes do **zero** work, while bubbleUp makes them do the **most** work.
 
 </details>
 
-Heapify deals with bubbling down (for max heap) all elements starting from the back. <br>
-What about bubbling-up all elements starting from the front instead? <br>
-**No issue with correctness, problem lies with efficiency of operation.**
-
-The number of operations required for bubbleUp and bubbleDown (to maintain heap property), is proportional to the
-distance the node have to move. bubbleDown starts from the bottom level whereas bubbleUp starts from the top level.
-Only 1 node is at the top whereas (approx) half the nodes is at the bottom level. It therefore makes sense to use
-bubbleDown.
+**Interview tip:** "Why is heapify O(n)?" → Most nodes are near the bottom and do little or no work with bubbleDown. The sum converges to O(n), not O(n log n).
 
 ## Complexity Analysis
 
-**Time**: O(log(n)) in general for most native operations,
-except heapify (building a heap from a sequence of elements) that takes O(n)
+**Time:**
+| Operation | Complexity | Notes |
+|-----------|------------|-------|
+| `peek()` | `O(1)` | Access root |
+| `offer()` | `O(log n)` | Insert + bubbleUp |
+| `poll()` | `O(log n)` | Remove root + bubbleDown |
+| `remove(obj)` | `O(log n)` | With Map augmentation (otherwise `O(n)`) |
+| `updateKey()` | `O(log n)` | With Map augmentation |
+| `heapify()` (bubbleDown) | `O(n)` | Efficient approach |
+| `heapify()` (bubbleUp) | `O(n log n)` | Naive approach |
 
-**Space**: O(n)
-
-where n is the number of elements (whatever the structure, it must store at least n nodes)
+**Space**: `O(n)` where n is the number of elements (whatever the structure, it must store at least `n` nodes)
 
 ## Notes
 
-1. Heaps are often presented as max-heaps (eg. in textbooks), hence the implementation follows a max-heap structure
-    - Still, it is not too difficult to convert a max heap to a min heap, simply negate the key value
-2. The heap implemented here is actually augmented with a Map data type. This allows identification of nodes by key.
-    - Java's PriorityQueue and Python's heap actually support the removal of a node identified by its value / key.
-      Note that this is not a typical operation introduced alongside the concept heap simply because the time complexity
-      would now be O(n), no longer log(n). And indeed, both Java's and Python's version have time complexities
-      of O(n) for this remove operation since their underlying implementation is not augmented.
-    - The trade-off would be that the heap does not support insertion of duplicate objects else the Map would not work
-      as intended.
-3. Rather than using Java arrays, where size must be declared upon initializing, we use list here in the implementation.
-4. [Good read](https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity?) on the
-   time complexity of heapify and making the correct choice between bubbleUp and bubbleDown.
+1. **Max vs Min heap**: This implementation is a max-heap. To convert to min-heap, simply negate the key values or reverse the comparator.
+
+2. **Map augmentation**: The implementation uses a `Map<T, Integer>` to track element positions, enabling `O(log n)` removal and key updates. Standard library heaps (Java's `PriorityQueue`, Python's `heapq`) lack this - their `remove()` is `O(n)` due to linear search.
+   - **Trade-off**: Duplicate elements are not supported since the Map requires unique keys.
+
+3. **updateKey in practice**: The implementation provides `increaseKey()` and `decreaseKey()` separately for educational purposes (they bubble in opposite directions). In practice, a unified `updateKey()` that determines the direction automatically is often sufficient.
+
+4. **ArrayList vs array**: We use `ArrayList` for dynamic resizing. A fixed-size array would require manual resizing logic.
+
+5. **Further reading**: [Why is building a heap O(n)?](https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity) - good explanation of the heapify complexity analysis.
+
+## Applications
+
+Heaps are the underlying data structure for **priority queues**, enabling efficient access to the highest (or lowest) priority element.
+
+| Use Case | Why Heap? |
+|----------|-----------|
+| Dijkstra's shortest path | Extract min-distance vertex in `O(log V)` |
+| Huffman encoding | Build optimal prefix codes by repeatedly merging smallest frequencies |
+| K largest/smallest elements | Maintain a heap of size k while streaming |
+| Median maintenance | Use two heaps (max-heap for lower half, min-heap for upper half) |
+| Task scheduling | Priority-based job scheduling |
+
+**Interview tip:** For "find k largest elements in a stream", use a **min-heap** of size k. When a new element arrives, if it's larger than the heap's min, replace the min. The heap always contains the k largest seen so far.

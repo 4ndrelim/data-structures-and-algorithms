@@ -60,7 +60,12 @@ public class AVLTree<T extends Comparable<T>> {
      * @param n node whose height is to be updated
      */
     private void updateHeight(Node<T> n) {
-        n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
+        n.setHeight(
+            1 + Math.max(
+                height(n.getLeft()),
+                height(n.getRight())
+            )
+        );
     }
 
     /**
@@ -87,12 +92,13 @@ public class AVLTree<T extends Comparable<T>> {
      */
     private Node<T> rotateRight(Node<T> n) {
         Node<T> newRoot = n.getLeft();
+        // this will become the left child of n after rotation
         Node<T> newLeftSub = newRoot.getRight();
+
         newRoot.setRight(n);
         n.setLeft(newLeftSub);
 
         newRoot.setParent(n.getParent());
-        n.setParent(newRoot);
 
         updateHeight(n);
         updateHeight(newRoot);
@@ -110,12 +116,13 @@ public class AVLTree<T extends Comparable<T>> {
      */
     private Node<T> rotateLeft(Node<T> n) {
         Node<T> newRoot = n.getRight();
+        // this will become the right child of n after rotation
         Node<T> newRightSub = newRoot.getLeft();
+
         newRoot.setLeft(n);
         n.setRight(newRightSub);
 
         newRoot.setParent(n.getParent());
-        n.setParent(newRoot);
 
         updateHeight(n);
         updateHeight(newRoot);
@@ -132,13 +139,19 @@ public class AVLTree<T extends Comparable<T>> {
         updateHeight(n);
         int balance = getBalance(n);
         if (balance < -1) { // right-heavy case
-            if (height(n.getRight().getLeft()) > height(n.getRight().getRight())) {
-                n.setRight(rotateRight(n.getRight()));
+            Node<T> rightChild = n.getRight();
+            Node<T> leftSubChild = rightChild.getLeft();
+            Node<T> rightSubChild = rightChild.getRight();
+            if (height(leftSubChild) > height(rightSubChild)) {
+                n.setRight(rotateRight(rightChild));
             }
             n = rotateLeft(n);
         } else if (balance > 1) { // left-heavy case
-            if (height(n.getLeft().getRight()) > height(n.getLeft().getLeft())) {
-                n.setLeft(rotateLeft(n.getLeft()));
+            Node<T> leftChild = n.getLeft();
+            Node<T> leftSubChild = leftChild.getLeft();
+            Node<T> rightSubChild = leftChild.getRight();
+            if (height(rightSubChild) > height(leftSubChild)) {
+                n.setLeft(rotateLeft(leftChild));
             }
             n = rotateRight(n);
         }
@@ -159,6 +172,12 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * Find the right-most child of the (sub)tree rooted at a specified node
+     *
+     * @param n tree is rooted at this node
+     * @return right-most node
+     */
     private Node<T> getMostRight(Node<T> n) {
         if (n.getRight() == null) {
             return n;
@@ -189,11 +208,9 @@ public class AVLTree<T extends Comparable<T>> {
             return new Node<>(key);
         } else if (node.getKey().compareTo(key) < 0) {
             node.setRight(insert(node.getRight(), key));
-            node.getRight().setParent(node);
             // note that insufficient to update parent in rotateLeft & rotateRight if still considered balanced
         } else if (node.getKey().compareTo(key) > 0) {
             node.setLeft(insert(node.getLeft(), key));
-            node.getLeft().setParent(node);
         } else {
             throw new RuntimeException("Duplicate key not supported!");
         }
@@ -226,20 +243,22 @@ public class AVLTree<T extends Comparable<T>> {
             node.setLeft(delete(node.getLeft(), key));
         } else {
             if (node.getLeft() == null || node.getRight() == null) { // case of 1 or 0 child
-                if (node.getLeft() == null && node.getRight() == null) {
-                    node = null; // 0-child case
+                if (node.getLeft() == null && node.getRight() == null) { // 0-child case; just delete
+                    node = null;
                 } else if (node.getRight() == null) {
-                    node.getLeft().setParent(node.getParent());
+                    Node<T> parentNode = node.getParent();
+                    node.getLeft().setParent(parentNode);
                     node = node.getLeft();
                 } else {
-                    node.getRight().setParent(node.getParent());
+                    Node<T> parentNode = node.getParent();
+                    node.getRight().setParent(parentNode);
                     node = node.getRight();
                 }
-            } else { // 2-children case
+            } else { // 2-children case; successor replacement
                 Node<T> successor = getMostLeft(node.getRight());
                 node.setKey(successor.getKey());
                 // since this is a 2-children case, successor of deleted node have
-                // at most one child; right-child (else it would continue going left)
+                // at most one child; right-child (else, it would continue going left)
                 node.setRight(delete(node.getRight(), successor.getKey()));
             }
         }
@@ -274,10 +293,13 @@ public class AVLTree<T extends Comparable<T>> {
      * Search for the predecessor of a given key.
      *
      * @param key find predecessor of this key
-     * @return generic type value; null if key has no predecessor
+     * @return generic type value; null if key has no predecessor or tree is empty
      */
     public T predecessor(T key) {
         Node<T> curr = root;
+        if (curr == null) {
+            return null;
+        }
         while (curr != null) {
             if (curr.getKey().compareTo(key) == 0) {
                 break;
@@ -325,10 +347,13 @@ public class AVLTree<T extends Comparable<T>> {
      * Search for the successor of a given key.
      *
      * @param key find successor of this key
-     * @return generic type value; null if key has no successor
+     * @return generic type value; null if key has no successor or tree is empty
      */
     public T successor(T key) {
         Node<T> curr = root;
+        if (curr == null) {
+            return null;
+        }
         while (curr != null) {
             if (curr.getKey().compareTo(key) == 0) {
                 break;

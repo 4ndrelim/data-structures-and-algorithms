@@ -114,6 +114,8 @@ public class Deque<T> {
         Node<T> newFirstNode = this.first.next;
         if (newFirstNode != null) {
             newFirstNode.prev = null;
+        } else {
+            this.last = null; // removed the only element
         }
         this.first = newFirstNode;
         firstNode.next = null;
@@ -134,6 +136,8 @@ public class Deque<T> {
         Node<T> newLastNode = lastNode.prev;
         if (newLastNode != null) {
             newLastNode.next = null;
+        } else {
+            this.first = null; // removed the only element
         }
         lastNode.prev = null;
         this.last = newLastNode;

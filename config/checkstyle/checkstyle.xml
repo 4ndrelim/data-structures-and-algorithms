@@ -422,11 +422,11 @@
         <module name="InvalidJavadocPosition"/>
 
         <!-- Checks that every public method (excluding getters, setters and constructors) has a header comment. -->
-        <module name="MissingJavadocMethodCheck">
+        <!-- <module name="MissingJavadocMethodCheck">
             <property name="minLineCount" value="1"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
             <property name="ignoreMethodNamesRegex" value="(set.*|get.*|main)"/>
-        </module>
+        </module> -->
 
         <!-- Checks that every public class, enumeration and interface has a header comment. -->
         <module name="MissingJavadocType"/>

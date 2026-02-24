@@ -27,9 +27,22 @@ Querying for connectivity and updating usually tracked with an internal array.
 a balanced tree and hence complexity does not necessarily improve
    - Note, this is not implemented but details can be found under weighted union folder.
 
-3. **Weighted Union** - Same idea of using a tree, but constructed in a way that the tree is balanced, leading to 
-improved complexities. 
+3. **Weighted Union** - Same idea of using a tree, but constructed in a way that the tree is balanced, leading to
+improved complexities.
    - Can be further augmented with path compression.
+
+## Complexity Analysis
+
+| Implementation | Union | Find | Space |
+|----------------|-------|------|-------|
+| Quick Find | `O(n)` | `O(1)` | `O(n)` |
+| Quick Union | `O(n)` | `O(n)` | `O(n)` |
+| Weighted Union | `O(log n)` | `O(log n)` | `O(n)` |
+| Weighted Union + Path Compression | `O(α(n))`* | `O(α(n))`* | `O(n)` |
+
+*`α(n)` is the inverse Ackermann function, which grows so slowly that it's effectively constant (`≤ 4`) for all practical input sizes.
+
+**Interview tip:** When asked about Union-Find complexity with path compression, say "amortized nearly constant time" or "O(α(n)) where α is the inverse Ackermann function, practically constant."
 
 ## Applications
 Because of its efficiency and simplicity in implementing, Disjoint Set structures are widely used in practice:

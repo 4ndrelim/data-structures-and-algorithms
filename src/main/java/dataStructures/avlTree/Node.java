@@ -22,6 +22,7 @@ public class Node<T extends Comparable<T>> {
 
     public Node(T key) {
         this.key = key;
+        this.height = 0; // height of a new node is 0 (leaf)
     }
 
     public boolean isLeaf() {
@@ -40,16 +41,22 @@ public class Node<T extends Comparable<T>> {
         return left;
     }
 
-    public void setLeft(Node<T> left) {
-        this.left = left;
+    public void setLeft(Node<T> node) {
+        this.left = node;
+        if (node != null) {
+            node.parent = this;
+        }
     }
 
     public Node<T> getRight() {
         return right;
     }
 
-    public void setRight(Node<T> right) {
-        this.right = right;
+    public void setRight(Node<T> node) {
+        this.right = node;
+        if (node != null) {
+            node.parent = this;
+        }
     }
 
     public Node<T> getParent() {

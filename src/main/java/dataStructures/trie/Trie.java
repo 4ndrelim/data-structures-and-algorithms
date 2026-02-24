@@ -41,7 +41,7 @@ public class Trie {
         for (int i = 0; i < word.length(); i++) {
             curr = word.charAt(i);
             if (!trav.children.containsKey(curr)) {
-                trav.children.put(curr, new TrieNode()); // recall: new char is represented by this child node
+                trav.children.put(curr, new TrieNode()); // new char is represented by this child node
             }
             trav = trav.children.get(curr);
         }
@@ -98,6 +98,7 @@ public class Trie {
      * @param word
      */
     public void deleteAndPrune(String word) {
+        word = word.toLowerCase();
         List<TrieNode> trackNodes = new ArrayList<>();
         TrieNode trav = root;
         trackNodes.add(trav);
@@ -132,6 +133,7 @@ public class Trie {
      * @return a list of words.
      */
     public List<String> wordsWithPrefix(String prefix) {
+        prefix = prefix.toLowerCase();
         List<String> ret = new ArrayList<>();
         TrieNode trav = root;
         for (int i = 0; i < prefix.length(); i++) {

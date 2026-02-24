@@ -28,11 +28,11 @@ For each of the node, we traverse up the tree from the current node until the ro
 two roots are the same
 
 ## Complexity Analysis
-**Time**: O(n) for Union and Find operations. While union-ing is indeed quick, it is possibly undermined
+**Time**: `O(n)` for Union and Find operations. While union-ing is indeed quick, it is possibly undermined
 by O(n) traversal in the case of a degenerate tree. Note that at this stage, there is nothing to ensure the trees
 are balanced.
 
-**Space**: O(n), implementation still involves wrapping the n elements with some structure / wrapper (e.g. Node class).
+**Space**: `O(n)`; still involves wrapping the n elements with some structure / wrapper (e.g. Node class).
 
 # Weighted Union
 
@@ -70,9 +70,13 @@ In other words, using internal arrays or hash maps to track is sufficient to sim
 Our implementation uses hash map to account for arbitrary object type.
 
 ## Complexity Analysis
-**Time**: O(log(n)) for Union and Find operations.
 
-**Space**: Remains at O(n)
+| Operation | Time | Notes |
+|-----------|------|-------|
+| Find | `O(log n)` | Height bounded by `log(n)` |
+| Union | `O(log n)` | Dominated by two find operations |
+
+**Space**: `O(n)` for parent and size tracking
 
 ### Path Compression
 We can further improve on the time complexity of Weighted Union by introducing path compression. Specifically, during
@@ -89,12 +93,20 @@ grandparents._
     Credits: CS2040s Lecture Slides
 </div>
 
-The analysis with compression is a bit trickier here and talks about the inverse-Ackermann function. 
-Interested readers can find out more [here](https://dl.acm.org/doi/pdf/10.1145/321879.321884).
+The analysis with compression is trickier and involves the **inverse Ackermann function** `α(n)`.
 
-**Time**: O(alpha)
+| Operation | Amortized Time |
+|-----------|----------------|
+| Find | `O(α(n))` |
+| Union | `O(α(n))` |
 
-**Space**: O(n)
+**What is `α(n)`?** The inverse Ackermann function grows *incredibly* slowly - for all practical values of `n` (up to ~10^80, more than atoms in the universe), `α(n) ≤ 4`. For all practical purposes, it's constant time.
+
+**Interview tip:** "With weighted union and path compression, union-find operations are amortized O(α(n)), which is effectively constant time for any realistic input size."
+
+For the formal analysis, see [Tarjan's original paper](https://dl.acm.org/doi/pdf/10.1145/321879.321884).
+
+**Space**: `O(n)`
 
 ## Notes
 ### Sample Demo - LeetCode 684: Redundant Connections

@@ -38,13 +38,17 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     private void insert(Node<T, V> node, T key, V value) {
         if (node.getKey().compareTo(key) < 0) {
             if (node.getRight() == null) {
-                node.setRight(new Node<>(key, value));
+                Node<T, V> newNode = new Node<>(key, value);
+                newNode.setParent(node);
+                node.setRight(newNode);
             } else {
                 insert(node.getRight(), key, value);
             }
         } else if (node.getKey().compareTo(key) > 0) {
             if (node.getLeft() == null) {
-                node.setLeft(new Node<>(key, value));
+                Node<T, V> newNode = new Node<>(key, value);
+                newNode.setParent(node);
+                node.setLeft(newNode);
             } else {
                 insert(node.getLeft(), key, value);
             }
@@ -116,11 +120,15 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
-     * Removes a key from the tree, if it exists
+     * Removes a key from the tree, if it exists.
      *
      * @param key to be removed
+     * @throws RuntimeException if key does not exist
      */
     public void delete(T key) {
+        if (root == null) {
+            throw new RuntimeException("Key does not exist!");
+        }
         root = delete(root, key);
     }
 
@@ -206,10 +214,13 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
      * Search for the predecessor of a given key.
      *
      * @param key find predecessor of this key
-     * @return generic type value; null if key has no predecessor
+     * @return generic type value; null if key has no predecessor or key not found
      */
     public T predecessor(T key) {
         Node<T, V> curr = root;
+        if (curr == null) {
+            return null;
+        }
         while (curr != null) {
             if (curr.getKey().compareTo(key) == 0) {
                 break;
@@ -219,7 +230,9 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
                 curr = curr.getLeft();
             }
         }
-
+        if (curr == null) {
+            return null; // key not found
+        }
         return predecessor(curr);
     }
 
@@ -249,10 +262,13 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
      * Search for the successor of a given key.
      *
      * @param key find successor of this key
-     * @return generic type value; null if key has no successor
+     * @return generic type value; null if key has no successor or key not found
      */
     public T successor(T key) {
         Node<T, V> curr = root;
+        if (curr == null) {
+            return null;
+        }
         while (curr != null) {
             if (curr.getKey().compareTo(key) == 0) {
                 break;
@@ -262,7 +278,9 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
                 curr = curr.getLeft();
             }
         }
-
+        if (curr == null) {
+            return null; // key not found
+        }
         return successor(curr);
     }
 
@@ -294,7 +312,7 @@ public class BinarySearchTree<T extends Comparable<T>, V> {
     }
 
     /**
-     * Stores in-order traversal of tree rooted at node into a list
+     * Stores pre-order traversal of tree rooted at node into a list
      *
      * @param node node which the tree is rooted at
      */
