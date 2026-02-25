@@ -17,7 +17,14 @@ public class SegmentTree {
         private int end; // end idx of range captured
         private int sum; // sum of all elements between start and end index inclusive
 
-        // Constructor
+        /**
+         * Constructor.
+         * @param leftChild
+         * @param rightChild
+         * @param start
+         * @param end
+         * @param sum
+         */
         public SegmentTreeNode(SegmentTreeNode leftChild, SegmentTreeNode rightChild, int start, int end, int sum) {
             this.leftChild = leftChild;
             this.rightChild = rightChild;
@@ -29,6 +36,7 @@ public class SegmentTree {
 
     /**
      * Constructor.
+     * @param nums
      */
     public SegmentTree(int[] nums) {
         root = buildTree(nums, 0, nums.length - 1);
