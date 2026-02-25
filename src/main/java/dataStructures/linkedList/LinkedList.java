@@ -87,7 +87,7 @@ public class LinkedList<T extends Comparable<T>> {
      * @return boolean representing whether insertion was successful
      */
     public boolean insert(T object, int idx) {
-        if (idx > size) {
+        if (idx < 0 || idx > size) {
             System.out.println("Index out of bounds.");
             return false;
         }
@@ -145,7 +145,7 @@ public class LinkedList<T extends Comparable<T>> {
      * @return node's value
      */
     public T remove(int idx) {
-        if (idx >= size) {
+        if (idx < 0 || idx >= size) {
             System.out.println("Index out of bounds.");
             return null;
         }
@@ -233,7 +233,7 @@ public class LinkedList<T extends Comparable<T>> {
      */
     public Node<T> get(int idx) {
         Node<T> trav = head;
-        if (idx < this.size && trav != null) { // Check: idx is valid & linked list not empty.
+        if (idx >= 0 && idx < this.size && trav != null) { // Check: idx is valid & linked list not empty.
             for (int i = 0; i < idx; i++) {
                 trav = trav.next;
             }
@@ -282,6 +282,7 @@ public class LinkedList<T extends Comparable<T>> {
             return;
         }
         int mid = (this.size - 1) / 2;
+        int originalSize = this.size;
         Node<T> middle = this.get(mid);
         Node<T> nextHead = middle.next;
         LinkedList<T> next = new LinkedList<>(nextHead, this.size - 1 - mid); // Split the list into 2.
@@ -291,6 +292,7 @@ public class LinkedList<T extends Comparable<T>> {
         next.sort(); // Recursively sort the list.
         this.sort();
         head = merge(this, next);
+        this.size = originalSize; // restore correct size after merge
     }
 
     /**
