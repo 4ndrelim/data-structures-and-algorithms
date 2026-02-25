@@ -1,95 +1,172 @@
 # Segment Tree
 
 ## Background
-Segment Trees are primarily used to solve problems that require answers to queries on intervals of an array 
-with the possibility of modifying the array elements. 
-These queries could be finding the sum, minimum, or maximum in a subarray, or similar aggregated results.
 
-Segment Tree is a more flexible data structure compared to Fenwick Tree (AKA Binary-Indexed Tree, 
-as it can handle a wide variety of range queries (such as minimum, maximum, GCD, sum, etc.).
+A **Segment Tree** is a binary tree used for answering **range queries** on an array while supporting **point updates**. Queries can compute sum, minimum, maximum, GCD, or any associative operation over a contiguous subarray.
 
 ![Segment Tree](../../../../../docs/assets/images/SegmentTree.png)
 
-### Structure 
-(Note: See below for a brief description of the array-based implementation of a segment tree)
+### Structure
 
-A Segment Tree for an array of size *n* is a binary tree that stores information about segments of the array.
-Each node in the tree represents an interval of the array, with the root representing the entire array. 
-The structure satisfies the following properties:
-1. Leaf Nodes: Each leaf node represents a single element of the array.
-2. Internal Nodes: Each internal node represents the sum of the values of its children 
-(which captures the segment of the array). Summing up, this node captures the whole segment.
-3. Height: The height of the Segment Tree is O(log *n*), making queries and updates efficient.
+For an array of size n:
+- **Leaf nodes**: Each represents a single array element (n leaves)
+- **Internal nodes**: Each stores the aggregate (e.g., sum) of its children's range
+- **Root**: Represents the entire array `[0, n-1]`
+- **Height**: `O(log n)`
+
+```
+Array: [2, 5, 1, 4, 9, 3]
+
+                [24]              ← sum of [0,5]
+              /      \
+          [8]          [16]       ← sum of [0,2], [3,5]
+         /   \        /    \
+       [7]   [1]    [13]   [3]    ← sum of [0,1], [2,2], [3,4], [5,5]
+       / \          /  \
+     [2] [5]      [4]  [9]        ← individual elements
+```
+
+### Segment Tree vs Fenwick Tree (BIT)
+
+Segment Tree is more general than [Fenwick Tree](https://en.wikipedia.org/wiki/Fenwick_tree) (Binary Indexed Tree). Both support `O(log n)` point updates, but:
+
+| Feature | Segment Tree | Fenwick Tree |
+|---------|--------------|--------------|
+| Range queries | Any associative operation (sum, min, max, GCD) | Primarily prefix sums |
+| Point updates | `O(log n)` | `O(log n)` |
+| Range updates | Supported (with lazy propagation) | Limited |
+| Space | `O(n)` | `O(n)` |
+| Implementation | More complex | Simpler |
+
+**When to use which**: If you only need prefix sums or point updates on cumulative data, Fenwick Tree is simpler and has lower constant factors. For range min/max, GCD, or range updates, use Segment Tree.
 
 ## Complexity Analysis
-**Time**: O(log(n)) in general for query and update operations,
-except construction which takes O(nlogn)
 
-**Space**: O(n), note for an array-based implementation, the array created should have size 4n (explained later)
+| Operation | Time | Notes |
+|-----------|------|-------|
+| Build | `O(n)` | Visit each node once |
+| Query | `O(log n)` | At most 2 nodes per level |
+| Update | `O(log n)` | Path from leaf to root |
 
-where n is the number of elements in the array.
+**Space**: `O(n)` - but array implementation uses `4n` slots (explained below)
 
 ## Operations
+
 ### Construction
-The construction of a Segment Tree starts with the root node representing the entire array and 
-recursively dividing the array into two halves until each segment is reduced to a single element. 
-This process is a divide-and-conquer strategy:
-1. Base Case: If the current segment of the array is reduced to a single element, create a leaf node.
-2. Recursive Case: Otherwise, split the array segment into two halves, construct the left and right children, 
-and then merge their results to build the parent node.
 
-This takes O(nlogn). logn in depth, and will visit each leaf node (number of leaf nodes could be roughly 2n) once.
+Build recursively using divide-and-conquer:
+1. **Base case**: Single element → create leaf node with that element's value
+2. **Recursive case**: Split range in half, build left and right children subtrees, then set current node's (aka parent) value as `left.sum + right.sum`
 
-### Querying
-To query an interval, say to find the sum of elements in the interval (L, R), 
-the tree is traversed starting from the root:
-1. If the current node's segment is completely within (L, R), its value is part of the answer.
-2. If the current node's segment is completely outside (L, R), it is ignored.
-3. If the current node's segment partially overlaps with (L, R), the query is recursively applied to its children.
+### Query (Range Sum)
 
-This approach ensures that each level of the tree is visited only once, time complexity of O(logn).
+To query sum of `[L, R]`, starting from root:
+1. If node's range is **completely inside** `[L, R]` → return this node's sum directly
+2. If node's range is **completely outside** `[L, R]` → return 0 (doesn't contribute)
+3. If **partial overlap** → recurse on both children and sum their results
 
-### Updating
-Updating an element involves changing the value of a leaf node and then propagating this change up to the root 
-to ensure the tree reflects the updated array. 
-This is done by traversing the path from the leaf node to the root 
-and updating each node along this path (update parent to the sum of its children). 
+### Update (Point Update)
 
-This can be done in O(logn).
+To update index `i` to value `v`:
+1. Traverse down to the leaf representing index `i`
+2. Update the leaf's value to `v`
+3. Backtrack up, updating each ancestor: `parent.sum = left.sum + right.sum`
 
-## Array-based Segment Tree
-The array-based implementation of a Segment Tree is an efficient way to represent the tree in memory, especially 
-since a Segment Tree is a complete binary tree. 
-This method utilizes a simple array where each element of the array corresponds to a node in the tree, 
-including both leaves and internal nodes.
+## Array-based Implementation
 
-### Why 4n space
-The size of the array needed to represent a Segment Tree for an array of size *n* is `2*2^ceil(log2(n)) - 1`.
-We do `2^(ceil(log2(n)))` because `n` might not be a perfect power of 2, 
-**so we expand the array size to the next power of 2**.
-This adjustment ensures that each level of the tree is fully filled except possibly for the last level, 
-which is filled from left to right.
+Instead of explicit nodes with pointers, store the tree in an array using heap-like indexing.
 
-**BUT**, `2^(ceil(log2(n)))` seems overly-complex. To ensure we have sufficient space, we can just consider `2*n`
-because `2*n` >= `2^(ceil(log2(n)))`.
-Now, these 2n nodes can be thought of as the 'leaf' nodes (or more precisely, an upper-bound). To account for the 
-intermediate nodes, we use the property that for a complete binary that is fully filled, the number of leaf nodes 
-= number of intermediate nodes (recall: sum i -> 0 to n-1 of `2^i` = `2^n`). 
-So we create an array of size `2n * 2` = `4n` to guarantee we can house the entire segment tree.
+### Why 4n Space?
+
+The key insight is that we need `n` leaf nodes (one per array element), but to capture tree structure in array representation may require more space.
+
+**Step 1: Leaf nodes need a power of 2**
+
+With array-based indexing, we don't know exactly where the n leaves will land, we must allocate enough space for the **worst case**: the last level being completely full.
+
+A full last level requires the number of leaves to be a power of 2. To use simple indexing, we conceptually round n up to the next power of 2:
+
+```
+n = 6 elements → need 8 leaf slots (next power of 2)
+n = 5 elements → need 8 leaf slots
+n = 8 elements → need 8 leaf slots (already power of 2)
+```
+
+**Step 2: Upper bound on leaf slots**
+
+The next power of 2 after n is at most `2n`:
+```
+2^ceil(log₂(n)) ≤ 2n
+```
+
+**Step 3: Why multiply by 2 again for internal nodes?**
+
+For a complete binary tree, the number of internal nodes equals the number of leaves minus 1. This follows from the geometric series:
+
+```
+Level 0 (root):     1 node
+Level 1:            2 nodes
+Level 2:            4 nodes
+...
+Level h-1:          2^(h-1) nodes  (last internal level)
+Level h:            2^h leaves
+
+Internal nodes = 1 + 2 + 4 + ... + 2^(h-1) = 2^h - 1
+
+Since 2^h = number of leaves:
+Internal nodes = leaves - 1
+```
+
+So total nodes = `leaves + (leaves - 1)` = `2 × leaves - 1`.
+
+**Step 4: Total bound**
+
+With at most `2n` leaves:
+```
+Total nodes ≤ 2(2n) - 1 = 4n - 1 < 4n
+```
+
+So `4n` is a safe upper bound.
+
+### Gaps in the Array
+
+Unlike a [heap](../heap/) which is a **complete binary tree** (all levels filled left-to-right), a segment tree may have **gaps** in its array representation when n is not a power of 2. Some array indices will be unused. The tree for `Array: [2, 5, 1, 4, 9, 3]` shown above is an example.
+
+This is why we can't assume compact heap-like storage.
 
 <details>
-<summary> <b>Index Calculation for Child Nodes</b> </summary>
+<summary><b>Index Calculation for Child Nodes</b></summary>
 
-Suppose the parent node is captured at index `i` of the array (1-indexed).
-**1-indexed**: <br>
-Left Child: `i x 2` <br>
-Right Child:  `i x 2 + 1` <br>
+For 0-indexed array (our implementation):
+- **Left child**: `2*i + 1`
+- **Right child**: `2*i + 2`
+- **Parent**: `(i - 1) / 2`
 
-The 1-indexed calculation is intuitive. So, when dealing with 0-indexed representation (as in our implementation),
-one option is to convert 0-indexed to 1-indexed representation, do the above calculations, and revert. <br>
-(Note: Now, we assume parent node is captured at index `i` (0-indexed))
+Derivation from 1-indexed (more intuitive):
+- 1-indexed: left = `2i`, right = `2i + 1`
+- Convert: 0-indexed `i` → 1-indexed `i + 1`
+- Left: `2(i+1) - 1 = 2i + 1`
+- Right: `2(i+1) = 2i + 2`
 
-**0-indexed**: <br>
-Left Child: `(i + 1) x 2 - 1`  = `i x 2 + 1` <br>
-Right Child: `(i + 1) x 2 + 1 - 1` = `i x 2 + 2` <br>
 </details>
+
+## Notes
+
+1. **Lazy Propagation**: For range updates (update all elements in `[L, R]`), use lazy propagation to achieve `O(log n)` per update instead of `O(n)`.
+
+2. **Persistent Segment Tree**: Create new nodes on update instead of modifying in-place. Enables queries on any historical version of the array.
+
+3. **2D Segment Tree**: Nest segment trees for 2D range queries on matrices.
+
+## Applications
+
+| Use Case | Query Type |
+|----------|------------|
+| Range sum queries | Sum of elements in `[L, R]` |
+| Range min/max queries | Minimum/maximum in `[L, R]` |
+| Count of elements in range | With coordinate compression |
+| Rectangle area union | 2D segment tree |
+| Interval scheduling | Find overlapping intervals |
+
+**Interview tip:** When you see "range query + point update" with `O(log n)` requirement, think segment tree. For simpler prefix-sum queries, consider Fenwick Tree first. For range updates (updating a range of values at once), add lazy propagation to your segment tree.
+
