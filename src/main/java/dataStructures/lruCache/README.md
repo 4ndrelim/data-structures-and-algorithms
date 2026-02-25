@@ -21,8 +21,8 @@ LRU cache combines two structures for `O(1)` operations:
 | **Doubly-linked list** | `O(1)` insertion/removal, maintains recency order |
 
 ```
-Most Recent                                  Least Recent
-    ↓                                             ↓
+Most Recent                                Least Recent
+    ↓                                           ↓
 [HEAD] ⟷ [Node A] ⟷ [Node B] ⟷ [Node C] ⟷ [TAIL]
                                     ↑
                             Evict this on overflow
