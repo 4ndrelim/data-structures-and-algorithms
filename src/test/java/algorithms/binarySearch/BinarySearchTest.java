@@ -43,11 +43,11 @@ public class BinarySearchTest {
 
         // Test 4: target not in array but could exist on the right of search space
         int[] fourthArray = {1, 5, 10, 11, 12};
-        int fourthResult = BinarySearchTemplated.search(thirdArray, 13);
+        int fourthResult = BinarySearchTemplated.search(fourthArray, 13);
 
-        // Test 3: target not in array but could exist on the left of search space
+        // Test 5: target not in array but could exist on the left of search space
         int[] fifthArray = {1, 5, 10, 11, 12};
-        int fifthResult = BinarySearchTemplated.search(thirdArray, 0);
+        int fifthResult = BinarySearchTemplated.search(fifthArray, 0);
 
         assertEquals(0, firstResult);
         assertEquals(3, secondResult);

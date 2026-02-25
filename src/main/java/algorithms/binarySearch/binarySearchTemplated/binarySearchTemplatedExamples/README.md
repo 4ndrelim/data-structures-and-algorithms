@@ -56,11 +56,11 @@ Then 4 is the first bad version.
 
 <b> Search Space </b>
 
-The search space includes all possible values.
+The search space includes all possible versions. Note that versions are 1-indexed (1 to n).
 
 ```java
-high = n - 1;
-low = 0;
+int high = n;
+int low = 1;
 ```
 
 <b> Condition </b>
@@ -78,8 +78,8 @@ Since we want to return the first bad version, we will return low.
 
 ```java
 public int firstBadVersion(int n) {
-    int high = n - 1; // max index for n elements
-    int low = 0;
+    int high = n;   // versions are 1-indexed
+    int low = 1;
     while (low < high) {
         int mid = low + (high - low) / 2;
         if (isBadVersion(mid)) { // condition is isBadVersion
@@ -88,7 +88,7 @@ public int firstBadVersion(int n) {
             low = mid + 1;
         }
     }
-    
+
     return low; // return first "pass"
 }
 ```
@@ -133,17 +133,17 @@ capacity greater than `m`, such as `m + 1`.
 
 <b> Search Space </b>
 
-The search space is the range of least weight capacity we should search. The minimum least weight capacity that must be
-required is the heaviest package as we cannot split the heaviest package. The maximum least weight capacity that is
-necessary is the sum of all weights - i.e. we have to ship all packages within `1` day.
+The search space is the range of possible capacities. The minimum capacity must be at least the heaviest package (we cannot split packages). The maximum capacity is the sum of all weights (ship everything in 1 day).
 
 ```java
 int sum = 0;
-for (i = 0; i < weights.length; i++) {
+int maxWeight = 0;
+for (int i = 0; i < weights.length; i++) {
     sum += weights[i];
+    maxWeight = Math.max(maxWeight, weights[i]);
 }
-high = sum;
-low = weights[weights.length - 1];
+int high = sum;
+int low = maxWeight;
 ```
 
 <b> Condition </b>
@@ -173,28 +173,31 @@ Since we want to return the minimum least weight capacity where we can deliver i
 <b> Full Solution: </b>
 
 ```java
-public int shipWithinDays(int[] weights, int days) {
-    public boolean isFeasible(int[] weights, int days, int capacity) {
-        int daysNeeded = 1;
-        int currentWeight = 0;
-        for (int i = 0; i < weights.length; i++) {
-            if (currentWeight + weights[i] > capacity) {
-                daysNeeded++;
-                currentWeight = 0; // Reset current weight as we are starting a new day
-            }
-            currentWeight += weights[i];
+// Helper method to check if we can ship with given capacity
+private boolean isFeasible(int[] weights, int days, int capacity) {
+    int daysNeeded = 1;
+    int currentWeight = 0;
+    for (int i = 0; i < weights.length; i++) {
+        if (currentWeight + weights[i] > capacity) {
+            daysNeeded++;
+            currentWeight = 0; // Start a new day
         }
-        return daysNeeded <= days;
+        currentWeight += weights[i];
     }
-    
+    return daysNeeded <= days;
+}
+
+public int shipWithinDays(int[] weights, int days) {
     int sum = 0;
-    for (i = 0; i < weights.length; i++) {
+    int maxWeight = 0;
+    for (int i = 0; i < weights.length; i++) {
         sum += weights[i];
+        maxWeight = Math.max(maxWeight, weights[i]);
     }
-    
-    high = sum;
-    low = weights[weights.length - 1];
-    
+
+    int high = sum;
+    int low = maxWeight;
+
     while (low < high) {
         int mid = low + (high - low) / 2;
         if (isFeasible(weights, days, mid)) { // condition is isFeasible
@@ -203,7 +206,7 @@ public int shipWithinDays(int[] weights, int days) {
             low = mid + 1;
         }
     }
-    
+
     return low; // return first "pass"
 }
 ```
