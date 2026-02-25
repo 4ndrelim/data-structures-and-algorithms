@@ -1,146 +1,102 @@
 # Data Structures & Algorithms
 
-This repository contains implementation and discussion notes (intuition, applications, analysis) 
-of some fundamental data structures and algorithms in Computer Science. <br>
-It is aligned with [CS2040s](https://nusmods.com/courses/CS2040S/data-structures-and-algorithms) syllabus taught by 
-[Prof Seth](https://www.comp.nus.edu.sg/cs/people/gilbert/) at NUS. 
+A complementary resource for learning fundamental data structures and algorithms. Aligned with [CS2040S](https://nusmods.com/courses/CS2040S/data-structures-and-algorithms) taught by [Prof Seth Gilbert](https://www.comp.nus.edu.sg/cs/people/gilbert/) at NUS.
 
-The work here is continually being developed by CS2040s Teaching Assistants(TAs) and ex-2040s students, 
-under the guidance of Prof Seth.
-It mostly covers lecture content and discussion notes.
-Future plans include deeper discussion into the tougher parts of tutorials and even practice problems / puzzles related
-to DSA.
+Each topic includes implementation, intuition, complexity analysis, and practical considerations. Useful for:
+- **CS2040S students** - Supplement lecture content with working implementations
+- **Interview prep** - Review fundamental DSA topics with clear explanations
+- **CS students** - Quick refresher on core concepts
 
-The project's structure is optimised for IntelliJ IDEA as per the course's preferred IDE. 
-Gradle is used for development.
+Developed by CS2040S Teaching Assistants and alumni under Prof Seth's guidance.
 
-## Full List (in alphabetical order):
+---
 
 ## Data Structures
-- [Adelson-Velskii and Landis (AVL) Binary Search Tree](src/main/java/dataStructures/avlTree)
-- [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)
-    * [Quick Find](src/main/java/dataStructures/disjointSet/quickFind)
-    * [Weighted Union](src/main/java/dataStructures/disjointSet/weightedUnion)
-      * Path compression
-- [Hashing](src/main/java/dataStructures/hashSet)
-    * [Chaining](src/main/java/dataStructures/hashSet/chaining)
-    * [Open Addressing](src/main/java/dataStructures/hashSet/openAddressing)
-- [Heap](src/main/java/dataStructures/heap)
-    * Max heap implementation 
-- [Linked List](src/main/java/dataStructures/linkedList)
-- [LRU Cache](src/main/java/dataStructures/lruCache)
-- Minimum Spanning Tree 
-    * [Kruskal](src/main/java/algorithms/minimumSpanningTree/kruskal)
-    * [Prim's](src/main/java/algorithms/minimumSpanningTree/prim)
-    * Boruvska
-- [Queue](src/main/java/dataStructures/queue)
-  - [Deque](src/main/java/dataStructures/queue/Deque)
-  - [Monotonic Queue](src/main/java/dataStructures/queue/monotonicQueue)
-- [Segment Tree](src/main/java/dataStructures/segmentTree)
-- [Stack](src/main/java/dataStructures/stack)
-- [Trie](src/main/java/dataStructures/trie)
+
+| Structure | Description |
+|-----------|-------------|
+| [AVL Tree](src/main/java/dataStructures/avlTree) | Self-balancing BST with height-balance property |
+| [B-Tree](src/main/java/dataStructures/bTree) | Self-balancing tree optimized for disk access |
+| [Binary Search Tree](src/main/java/dataStructures/binarySearchTree) | Ordered tree structure |
+| [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet) | [Quick Find](src/main/java/dataStructures/disjointSet/quickFind), [Weighted Union](src/main/java/dataStructures/disjointSet/weightedUnion) with path compression |
+| [Hash Set](src/main/java/dataStructures/hashSet) | [Chaining](src/main/java/dataStructures/hashSet/chaining), [Open Addressing](src/main/java/dataStructures/hashSet/openAddressing) |
+| [Heap](src/main/java/dataStructures/heap) | Binary max heap |
+| [Linked List](src/main/java/dataStructures/linkedList) | Singly linked list with sorting |
+| [LRU Cache](src/main/java/dataStructures/lruCache) | Hash map + doubly linked list |
+| [Queue](src/main/java/dataStructures/queue) | [Deque](src/main/java/dataStructures/queue/Deque), [Monotonic Queue](src/main/java/dataStructures/queue/monotonicQueue) |
+| [Red-Black Tree](src/main/java/dataStructures/rbTree) | Self-balancing BST with color invariants |
+| [Segment Tree](src/main/java/dataStructures/segmentTree) | Range queries with point updates |
+| [Stack](src/main/java/dataStructures/stack) | LIFO with monotonic stack discussion |
+| [Trie](src/main/java/dataStructures/trie) | Prefix tree for string operations |
 
 ## Algorithms
-- [Bubble Sort](src/main/java/algorithms/sorting/bubbleSort)
-- [Binary Search](src/main/java/algorithms/binarySearch)
-    * [Template](src/main/java/algorithms/binarySearch/binarySearchTemplated)
-- [Counting Sort](src/main/java/algorithms/sorting/countingSort)
-- [Cyclic Sort](src/main/java/algorithms/sorting/cyclicSort)
-    * [Special case](src/main/java/algorithms/sorting/cyclicSort/simple)
-    * [Generalized case](src/main/java/algorithms/sorting/cyclicSort/generalised)
-- [Insertion Sort](src/main/java/algorithms/sorting/insertionSort)
-- [Knuth-Morris-Pratt](src/main/java/algorithms/patternFinding) (KMP algorithm)
-- [Merge Sort](src/main/java/algorithms/sorting/mergeSort)
-    * [Recursive](src/main/java/algorithms/sorting/mergeSort/recursive)
-    * [Bottom-up iterative](src/main/java/algorithms/sorting/mergeSort/iterative)
-- [Quick Sort](src/main/java/algorithms/sorting/quickSort/)
-    * [Hoare's](src/main/java/algorithms/sorting/quickSort/hoares)
-    * [Lomuto's](src/main/java/algorithms/sorting/quickSort/lomuto)
-    * [Paranoid](src/main/java/algorithms/sorting/quickSort/paranoid)
-    * [3-way Partitioning](src/main/java/algorithms/sorting/quickSort/threeWayPartitioning)
-- [Radix Sort](src/main/java/algorithms/sorting/radixSort)
-- [Selection Sort](src/main/java/algorithms/sorting/selectionSort)
 
-## CS2040S Syllabus (in rough order)
-1. Basic structures
-    * [Linked List](src/main/java/dataStructures/linkedList)
-    * [Stack](src/main/java/dataStructures/stack)
-    * [Queue](src/main/java/dataStructures/queue)
-2. [Binary Search](src/main/java/algorithms/binarySearch)
-    * Peak Finding
-    * [Template](src/main/java/algorithms/binarySearch/binarySearchTemplated)
-3. Sorting
-    * [Bubble](src/main/java/algorithms/sorting/bubbleSort)
-    * [Insertion](src/main/java/algorithms/sorting/insertionSort)
-    * [Selection](src/main/java/algorithms/sorting/selectionSort)
-    * [Merge](src/main/java/algorithms/sorting/mergeSort)
-    * [Quick](src/main/java/algorithms/sorting/quickSort)
-      * [Hoare's](src/main/java/algorithms/sorting/quickSort/hoares) (this version is the one shown in lecture!)
-      * [Lomuto's](src/main/java/algorithms/sorting/quickSort/lomuto)
-      * [Paranoid](src/main/java/algorithms/sorting/quickSort/paranoid)
-      * [3-way Partitioning](src/main/java/algorithms/sorting/quickSort/threeWayPartitioning)
-    * [Counting Sort](src/main/java/algorithms/sorting/countingSort) (found in tutorial)
-    * [Radix Sort](src/main/java/algorithms/sorting/radixSort) (found in tutorial)
-4. Trees
-    * [Binary search tree](src/main/java/dataStructures/binarySearchTree)
-    * [AVL-tree](src/main/java/dataStructures/avlTree)
-    * [Trie](src/main/java/dataStructures/trie)
-    * [B-Tree](src/main/java/dataStructures/bTree)
-    * [Segment Tree](src/main/java/dataStructures/segmentTree) (Not covered in CS2040s but useful!)
-    * Red-Black Tree (**WIP**)
-    * [Orthogonal Range Searching](src/main/java/algorithms/orthogonalRangeSearching)
-    * Interval Trees (**WIP**)
-5. [Binary Heap](src/main/java/dataStructures/heap) (Max heap)
-6. [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)
-    * [Quick Find](src/main/java/dataStructures/disjointSet/quickFind)
-    * [Weighted Union](src/main/java/dataStructures/disjointSet/weightedUnion) (with path compression)
-7. [Hashing](src/main/java/dataStructures/hashSet)
-    * [Chaining](src/main/java/dataStructures/hashSet/chaining)
-    * [Open Addressing](src/main/java/dataStructures/hashSet/openAddressing)
-    * Bloom filter (**WIP**)
-8. Basic graphs (**WIP**)
-    * Depth-first search
-    * Breadth-first search
-9. Graphs (**WIP**)
-    * Bellman-ford
-    * Dijkstra
-    * Directed acyclic graphs algorithms 
-      * Post-order DFS
-      * Kahn's
-    * Floyd Warshall 
-10. [Minimum spanning tree](src/main/java/algorithms/minimumSpanningTree)
-    * [Prim](src/main/java/algorithms/minimumSpanningTree/prim)
-    * [Kruskal](src/main/java/algorithms/minimumSpanningTree/kruskal)
-    * Boruvska (**WIP**)
+### Sorting
 
-## Set-up 
-If you are a CS2040s student, your IDEA configurations should already be compatible with this project structure. So, 
-feel free to clone and use it as you see fit. Note, below configuration is as per CS2040s PS1 set-up guide.
+| Algorithm | Variants |
+|-----------|----------|
+| [Bubble Sort](src/main/java/algorithms/sorting/bubbleSort) | Basic comparison sort |
+| [Insertion Sort](src/main/java/algorithms/sorting/insertionSort) | Efficient for small/nearly sorted arrays |
+| [Selection Sort](src/main/java/algorithms/sorting/selectionSort) | Simple O(n²) sort |
+| [Merge Sort](src/main/java/algorithms/sorting/mergeSort) | [Recursive](src/main/java/algorithms/sorting/mergeSort/recursive), [Iterative](src/main/java/algorithms/sorting/mergeSort/iterative) |
+| [Quick Sort](src/main/java/algorithms/sorting/quickSort) | [Hoare's](src/main/java/algorithms/sorting/quickSort/hoares), [Lomuto's](src/main/java/algorithms/sorting/quickSort/lomuto), [Paranoid](src/main/java/algorithms/sorting/quickSort/paranoid), [3-way](src/main/java/algorithms/sorting/quickSort/threeWayPartitioning) |
+| [Counting Sort](src/main/java/algorithms/sorting/countingSort) | Integer sorting in O(n + k) |
+| [Radix Sort](src/main/java/algorithms/sorting/radixSort) | Digit-by-digit sorting |
+| [Cyclic Sort](src/main/java/algorithms/sorting/cyclicSort) | [Simple](src/main/java/algorithms/sorting/cyclicSort/simple), [Generalized](src/main/java/algorithms/sorting/cyclicSort/generalised) |
 
-1. Choose Java Version 11.0.XX for Project SDK. You can download it [here](https://www.oracle.com/java/technologies/downloads/#java11)
-   - Create account and login if necessary
-   - Make sure to download the correct one compatible with your hardware
-2. Download IntelliJ (Community Edition) [here](https://www.jetbrains.com/idea/download/?section=mac) if you do not have it.
-3. Fork the repo and clone it on your local device
-4. Launch IntelliJ on your device and under the `Projects` tab, and click `open`. Navigate to where the local repo is 
-cloned 
-   1. Configure to Java SDK (if not done) by first heading to `File` on the top-left panel,
-   2. Click on `Project Structure...`
-   3. Apply the desired Java SDK in the `SDK:` dropdown. Remember to click `Apply`.
-5. You can test if everything is properly set-up with the command: <br/>
-`./gradlew clean test` <br/>
-All files should be compiled and all testcases should pass.
+### Searching & Graphs
+
+| Algorithm | Description |
+|-----------|-------------|
+| [Binary Search](src/main/java/algorithms/binarySearch) | Standard and [templated](src/main/java/algorithms/binarySearch/binarySearchTemplated) versions |
+| [Minimum Spanning Tree](src/main/java/algorithms/minimumSpanningTree) | [Prim's](src/main/java/algorithms/minimumSpanningTree/prim), [Kruskal's](src/main/java/algorithms/minimumSpanningTree/kruskal) |
+| [Orthogonal Range Searching](src/main/java/algorithms/orthogonalRangeSearching) | Range trees for multi-dimensional queries |
+
+### String Algorithms
+
+| Algorithm | Description |
+|-----------|-------------|
+| [KMP](src/main/java/algorithms/patternFinding) | Knuth-Morris-Pratt pattern matching |
+
+---
+
+## CS2040S Syllabus Reference
+
+<details>
+<summary>Click to expand syllabus mapping</summary>
+
+1. **Basic Structures**: [Linked List](src/main/java/dataStructures/linkedList), [Stack](src/main/java/dataStructures/stack), [Queue](src/main/java/dataStructures/queue)
+2. **[Binary Search](src/main/java/algorithms/binarySearch)**: Peak finding, [templated search](src/main/java/algorithms/binarySearch/binarySearchTemplated)
+3. **Sorting**: [Bubble](src/main/java/algorithms/sorting/bubbleSort), [Insertion](src/main/java/algorithms/sorting/insertionSort), [Selection](src/main/java/algorithms/sorting/selectionSort), [Merge](src/main/java/algorithms/sorting/mergeSort), [Quick](src/main/java/algorithms/sorting/quickSort), [Counting](src/main/java/algorithms/sorting/countingSort), [Radix](src/main/java/algorithms/sorting/radixSort)
+4. **Trees**: [BST](src/main/java/dataStructures/binarySearchTree), [AVL](src/main/java/dataStructures/avlTree), [Trie](src/main/java/dataStructures/trie), [B-Tree](src/main/java/dataStructures/bTree), [Segment Tree](src/main/java/dataStructures/segmentTree), [Red-Black Tree](src/main/java/dataStructures/rbTree), [Orthogonal Range Searching](src/main/java/algorithms/orthogonalRangeSearching)
+5. **[Binary Heap](src/main/java/dataStructures/heap)**
+6. **[Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)**
+7. **[Hashing](src/main/java/dataStructures/hashSet)**
+8. **Graphs**: BFS, DFS, Bellman-Ford, Dijkstra, Topological Sort *(coming soon)*
+9. **[Minimum Spanning Tree](src/main/java/algorithms/minimumSpanningTree)**: [Prim](src/main/java/algorithms/minimumSpanningTree/prim), [Kruskal](src/main/java/algorithms/minimumSpanningTree/kruskal)
+
+</details>
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/4ndrelim/data-structures-and-algorithms.git
+cd data-structures-and-algorithms
+./gradlew clean test
+```
+
+For detailed setup with IntelliJ IDEA and Java SDK configuration, see the [Developer Guide](docs/DEVELOPER.md).
 
 ## Usage
-The resources here can be directly viewed from GitHub interface, but it is advisable for you to fork and clone 
-it to your local desktop, especially if you wish to tweak or play with custom inputs. There is a folder where you can 
-import and run the algorithms/structures here for your own input. See [here](scripts/README.md).
+
+Browse implementations directly on GitHub, or clone locally to experiment. See the [scripts folder](scripts/README.md) for running algorithms with custom inputs.
 
 ## Disclaimer
-While our team of TAs and students have diligently verified the correctness of our code, there might still be
-some discrepancies or deviation from lecture content (perhaps due to new changes). 
-In which case, **you are strongly advised to raise it up to us or consult your TA** regarding any suspicions 
-on the use of the information shared here.
+
+While we have verified correctness, there may be discrepancies with current lecture content. Please raise issues or consult your TA if you spot any concerns.
 
 ## Contributors
+
 See the [team](docs/team/profiles.md)!
