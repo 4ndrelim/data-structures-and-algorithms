@@ -65,4 +65,31 @@ public class KmpTest {
         List<Integer> expected = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
         Assert.assertEquals(expected, indices);
     }
+
+    @Test
+    public void testEmptyPattern_shouldReturnEmpty() {
+        String seq = "abcabc";
+        String pattern = "";
+
+        List<Integer> indices = KMP.findOccurrences(seq, pattern);
+        Assert.assertEquals(new ArrayList<>(), indices);
+    }
+
+    @Test
+    public void testPatternLongerThanSequence_shouldReturnEmpty() {
+        String seq = "abc";
+        String pattern = "abcdef";
+
+        List<Integer> indices = KMP.findOccurrences(seq, pattern);
+        Assert.assertEquals(new ArrayList<>(), indices);
+    }
+
+    @Test
+    public void testPatternEqualsSequence_shouldReturnZero() {
+        String seq = "exactmatch";
+        String pattern = "exactmatch";
+
+        List<Integer> indices = KMP.findOccurrences(seq, pattern);
+        Assert.assertEquals(Arrays.asList(0), indices);
+    }
 }

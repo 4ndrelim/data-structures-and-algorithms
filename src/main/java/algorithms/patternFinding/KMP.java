@@ -78,16 +78,22 @@ public class KMP {
 
     /**
      * Main logic of KMP. Iterate the sequence, looking for patterns. If a mismatch is found, resume matching from
-     * a previously identified sub-pattern, if possible. Here we assume length of pattern is at least one.
+     * a previously identified sub-pattern, if possible.
      * @param sequence to search against
      * @param pattern  to search for
      * @return start indices of all occurrences of pattern found
      */
     public static List<Integer> findOccurrences(String sequence, String pattern) {
+        List<Integer> indicesFound = new ArrayList<>();
         int sLen = sequence.length();
         int pLen = pattern.length();
+
+        // Edge cases: empty pattern or pattern longer than sequence
+        if (pLen == 0 || pLen > sLen) {
+            return indicesFound;
+        }
+
         int[] prefixTable = getPrefixTable(pattern);
-        List<Integer> indicesFound = new ArrayList<>();
 
         int sTrav = 0;
         int pTrav = 0;

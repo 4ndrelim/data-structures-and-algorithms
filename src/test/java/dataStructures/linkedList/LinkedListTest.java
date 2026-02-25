@@ -105,5 +105,47 @@ public class LinkedListTest {
         ll.sort();
 
         Assert.assertEquals("2 3 3 4 5 7 ", ll.toString());
+        Assert.assertEquals(6, ll.size()); // verify size is correct after sort
+    }
+
+    @Test
+    public void testEmptyListOperations() {
+        LinkedList<Integer> ll = new LinkedList<>();
+
+        // Operations on empty list should not throw exceptions
+        Assert.assertNull(ll.pop());
+        Assert.assertNull(ll.poll());
+        Assert.assertNull(ll.get(0));
+        Assert.assertNull(ll.remove(0));
+        Assert.assertEquals(-1, ll.search(1));
+        Assert.assertFalse(ll.delete(1));
+        Assert.assertEquals(0, ll.size());
+    }
+
+    @Test
+    public void testNegativeIndex() {
+        LinkedList<Integer> ll = new LinkedList<>();
+        ll.insertEnd(1);
+        ll.insertEnd(2);
+        ll.insertEnd(3);
+
+        // Negative indices should return null or false, not throw exceptions
+        Assert.assertNull(ll.get(-1));
+        Assert.assertNull(ll.remove(-1));
+        Assert.assertFalse(ll.insert(99, -1));
+        Assert.assertEquals(3, ll.size()); // size unchanged
+        Assert.assertEquals("1 2 3 ", ll.toString()); // list unchanged
+    }
+
+    @Test
+    public void testOutOfBoundsIndex() {
+        LinkedList<Integer> ll = new LinkedList<>();
+        ll.insertEnd(1);
+        ll.insertEnd(2);
+
+        Assert.assertNull(ll.get(5));
+        Assert.assertNull(ll.remove(5));
+        Assert.assertFalse(ll.insert(99, 5));
+        Assert.assertEquals(2, ll.size());
     }
 }

@@ -3,6 +3,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import dataStructures.segmentTree.arrayImplementation.SegmentTree;
+
 /**
  * This file is essentially duplicated from the parent.
  */
@@ -21,14 +23,14 @@ public class SegmentTreeTest {
 
 
         int[] arr2 = new int[] {7, -77, 37, 67, -33, 0, 73, -13, 2, -7, 17, 0, -87, 53, 0}; // some negatives and 0s
-        SegmentTree tree2 = new SegmentTree(arr1);
-        assertEquals(arr1[1] + arr1[2] + arr1[3], tree2.query(1, 3));
-        assertEquals(arr1[4] + arr1[5] + arr1[6] + arr1[7], tree2.query(4, 7));
+        SegmentTree tree2 = new SegmentTree(arr2);
+        assertEquals(arr2[1] + arr2[2] + arr2[3], tree2.query(1, 3));
+        assertEquals(arr2[4] + arr2[5] + arr2[6] + arr2[7], tree2.query(4, 7));
         int sum2 = 0;
-        for (int i = 0; i < arr1.length; i++) {
-            sum2 += arr1[i];
+        for (int i = 0; i < arr2.length; i++) {
+            sum2 += arr2[i];
         }
-        assertEquals(sum2, tree2.query(0, arr1.length - 1));
+        assertEquals(sum2, tree2.query(0, arr2.length - 1));
     }
 
     @Test

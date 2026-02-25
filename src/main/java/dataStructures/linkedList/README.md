@@ -1,57 +1,64 @@
-# Linked Lists
+# Linked List
 
 ## Background
-Linked lists are a linear structure used to store data elements.
-It consists of a collection of objects, used to store our data elements, known as nodes.
+
+A **linked list** is a linear data structure where elements (nodes) are connected via pointers rather than stored contiguously in memory.
 
 ![Linked list image](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230726162542/Linked-List-Data-Structure.png)
 
 *Source: GeeksForGeeks*
 
-### Linked Lists vs Arrays
+Each node contains:
+- **Data**: The value stored
+- **Next pointer**: Reference to the next node (and optionally **prev** for doubly-linked)
 
-Linked lists are similar to arrays in
-terms of used and purpose, but there are considerations when deciding which structure to use.
+### Linked List vs Array
 
-Unlike arrays, which are stored in contiguous locations in memory,
-linked lists are stored across memory and are connected to each other via pointers.
+| Aspect | Array | Linked List |
+|--------|-------|-------------|
+| Memory layout | Contiguous | Scattered (pointer-connected) |
+| Size | Fixed at creation | Dynamic |
+| Random access | `O(1)` | `O(n)` |
+| Insert/delete at ends | `O(n)` or `O(1)` amortized | `O(1)` with tail pointer |
+| Insert/delete middle | `O(n)` | `O(1)` if node reference known |
+| Memory overhead | None | Pointer(s) per node |
+| Cache performance | Excellent | Poor (pointer chasing) |
 
 ![Array image](https://beginnersbook.com/wp-content/uploads/2018/10/array.jpg)
 
 *Source: BeginnersBook*
 
-## Analysis
+## Complexity Analysis
 
-**Time Complexity**: Depends on operations, O(n) in general for most operations.
+| Operation | Time | Notes |
+|-----------|------|-------|
+| `insertFront()` | `O(1)` | Update head |
+| `insertEnd()` | `O(n)` | Must traverse (or `O(1)` with tail pointer) |
+| `insert(idx)` | `O(n)` | Traverse to position |
+| `remove(idx)` | `O(n)` | Traverse to position |
+| `get(idx)` | `O(n)` | Traverse to position |
+| `search(val)` | `O(n)` | Linear search |
+| `reverse()` | `O(n)` | Single pass |
+| `sort()` | `O(n log n)` | Merge sort |
 
-Most operations require iterating the linked list. For instance,
-searching for an element in a linked list requires iterating from the head to the tail, incurring O(n)
-time complexity in the worst and average case. The best case would be O(1), for instance, when the head is the desired
-element.
+**Space**: `O(n)` for n elements, plus pointer overhead
 
-**Space Complexity**: O(n) where n is the size of the linked list.
+**Interview tip:** Know why merge sort is preferred for linked lists - random access is `O(n)`, so quicksort's partition and heapsort's heapify become `O(n²)`.
 
 ## Notes
 
-### Memory Requirements & Flexibility
+1. **Our implementation**: Singly-linked with head pointer only. Adding a tail pointer would make `insertEnd()` `O(1)`.
 
-As a contiguous block of memory must be allocated for an array, its size is fixed.
-If we declare a array of size *n*, but only allocate *x* elements, where *x < n*,
-we will be left with unused, wasted memory.
+2. **Sorting linked lists**: Merge sort is ideal because it:
+   - Only needs sequential access (no random access)
+   - Merging is `O(1)` extra space (just pointer manipulation)
+   - Maintains `O(n log n)` time
 
-This waste does not occur with linked lists, which only take up memory as new elements are added.
-However, additional space will be used to store the pointers.
+3. **Reversing in-place**: Classic interview question. Iterate once, reversing pointers as you go.
 
-As the declared size of our array is static (done at compile time), we are also given less flexibility if
-we end up needing to store more elements at run time.
+4. **Used in hash tables**: Linked lists are the classic data structure for [hash table chaining](../hashSet/chaining/) - each bucket stores a linked list of elements that hash to that index.
 
-However, linked list gives us the option of adding new nodes at run time based on our requirements,
-allowing us to allocate memory to store items dynamically, giving us more flexibility.
-
-## Linked List Variants
-
-The lookup time within a linked list is its biggest issue.
-However, there are variants of linked lists designed to speed up lookup time.
+## Variants
 
 ### Doubly Linked List
 
@@ -59,34 +66,41 @@ However, there are variants of linked lists designed to speed up lookup time.
 
 *Source: GeeksForGeeks*
 
-This is a variant of the linked list with each node containing the pointer to not just the next note, but also the
-previous node.
+Each node has **prev** and **next** pointers, enabling:
+- `O(1)` delete when given node reference (no need to find predecessor)
+- Bidirectional traversal
+- Clean implementation of [LRU Cache](../lruCache/) and [Deque](../queue/Deque/)
 
-Unlike the standard linked list, this allows us to traverse the list in the backwards direction too, this makes it a
-good data structure to use when implementing undo / redo functions. However, when implementing a doubly linked list, it
-is vital to ensure that you consider and maintain **both** pointers.
+**Trade-off**: Extra pointer per node.
 
-It is also worth noting that insertion from the front and back of the linked list is a O(1) operation. (Since we now
-only need to change the pointers in the node.)
-
-### Skip list
+### Skip List
 
 ![Skip List](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Skip_list.svg/800px-Skip_list.svg.png)
 
 *Source: Brilliant*
 
-This is a variant of a linked list with additional pointer paths that does not lead to the next node
-but allow you to skip through nodes in a "express pointer path" which can be user configured.
-If we know which nodes each express pointer path stops at, we would be able to conduct faster lookup.
+A probabilistic data structure with multiple levels of "express lanes" that skip over nodes. Achieves `O(log n)` search, insert, and delete on average.
 
-This would also be ideal in situations where we want to store a large amount
-of data which we do not need to access regularly that we are not willing to delete.
+Used as an alternative to balanced BSTs (simpler to implement, similar performance).
 
-### Unrolled Linked Lists
+### Unrolled Linked List
 
 ![Unrolled Linked List](https://ds055uzetaobb.cloudfront.net/brioche/uploads/5LFjevVjNy-ull-new-page.png?width=2400)
 
 *Source: Brilliant*
 
-Unrolled linked lists stores multiple consecutive elements into a single bucket node.
-This allows us to avoid constantly travelling down nodes to get to the element we need.
+Each node stores an array of elements instead of a single element. Combines linked list flexibility with array cache efficiency.
+
+**Trade-off**: More complex insertion/deletion logic.
+
+## Applications
+
+| Use Case | Why Linked List? |
+|----------|------------------|
+| Hash table chaining | Dynamic bucket sizes, `O(1)` insert at front |
+| LRU Cache | `O(1)` move-to-front with doubly-linked |
+| Undo/Redo stacks | Dynamic size, only access ends |
+| Memory allocators | Free lists track available blocks |
+| Polynomial arithmetic | Sparse representation, easy term insertion |
+
+**Interview tip:** When choosing between array and linked list, consider: Do you need random access? Is size fixed? Are insertions/deletions frequent and at known positions? Arrays win on cache performance; linked lists win on dynamic insert/delete.

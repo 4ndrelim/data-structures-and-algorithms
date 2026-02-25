@@ -1,4 +1,4 @@
-# Knuth-Moris-Pratt Algorithm
+# Knuth-Morris-Pratt (KMP) Algorithm
 
 ## Background
 KMP match is a type of pattern-searching algorithm that improves the efficiency of naive search by avoiding unnecessary
@@ -6,7 +6,7 @@ comparisons. It is most notable when the pattern has repeating sub-patterns.
 <br>
 Pattern-searching problems is prevalent across many fields of CS, for instance,
 in text editors when searching for a pattern, in computational biology sequence matching problems,
-in NLP problems, and even for looking for file patterns for effective file management.
+in NLP problems, and even in looking for file patterns for effective file management.
 It is hence crucial that we develop an efficient algorithm.
 
 Typically, the algorithm returns a list of indices that denote the start of each occurrence of the pattern string.

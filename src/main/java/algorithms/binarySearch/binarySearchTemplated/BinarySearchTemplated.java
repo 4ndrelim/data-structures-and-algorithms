@@ -29,7 +29,7 @@ public class BinarySearchTemplated {
      *
      * @param value  The current value from the array.
      * @param target The value being searched for.
-     * @return true if the current value is less than the target, otherwise false.
+     * @return true if the current value is greater than or equal to the target, otherwise false.
      */
     // The condition should be changed accordingly
     public static boolean condition(int value, int target) {
