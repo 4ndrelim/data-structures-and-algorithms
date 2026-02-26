@@ -2,39 +2,56 @@
 
 ## Background
 
-Cyclic sort is a comparison-based, in-place algorithm that performs sorting (generally) in O(n^2) time.
-Under some special conditions (discussed later), the algorithm is non-comparison based and 
-the best case could be done in O(n) time. This is the version that tends to be used in practice.
+Cyclic sort is an in-place sorting algorithm with two variants: a **simple `O(n)` case** for contiguous
+integer ranges, and a **generalized `O(n²)` case** for arbitrary inputs.
+
+The simple case is non-comparison based and achieves `O(n)` by exploiting direct index mapping — each
+element's value determines its target position. This is the version used in practice.
 
 ### Implementation Invariant
 
-**At the end of the kth iteration, the smallest (largest) i items are correctly sorted 
-in the first (last) i positions of the array**.
+**At the end of the kth iteration, the smallest k items are correctly sorted in the first k positions
+of the array**.
 
 ### Comparison to Selection Sort
 
-Its invariant is quite similar as selection sort's. But they differ in maintaining this invariant.
-The algorithm for cyclic sort does a bit more than selection sort's.
-In the process of trying to find the correct element for the ith position, any element that was
-encountered will be correctly placed in their positions as well.
+The invariant is similar to selection sort's, but cyclic sort does more work (more swaps) per iteration. While finding
+the correct element for position i, any element encountered is also placed in its correct position.
 
-This allows cyclic sort to have a time complexity of O(n) for certain inputs.
-(where the relative ordering of the elements is already known). This is discussed in the [**simple**](./simple) case.
+For the simple case (contiguous integers), this allows `O(n)` time since each element is moved at most once.
 
-## Simple and Generalised Case
+## Complexity Analysis
 
-We discuss more implementation-specific details and complexity analysis in the respective folders. In short,
+| Variant | Time | Space | Comparison-based? |
+|---------|------|-------|-------------------|
+| [Simple](./simple) (contiguous integers) | `O(n)` | `O(1)` | No |
+| [Generalized](./generalised) (any integers) | `O(n²)` | `O(1)` | Yes |
 
-1. The [**simple**](./simple) case discusses the **non-comparison based** implementation of cyclic sort under
-   certain conditions. This allows the best case to be better than O(n^2).
-2. The [**generalised**](./generalised) case discusses cyclic sort for general inputs. This is comparison-based and is
-   typically implemented in O(n^2).
+## Simple vs Generalized Case
 
-Note that, in practice, the generalised case is hardly used. There are more efficient algorithms to use for sorting,
-e.g. merge and quick sort. If the concern is the number of swaps, generalized cyclic sort does indeed require fewer 
-swaps, but likely won't lower than selection sort's.
+1. The [**simple**](./simple) case is **non-comparison based** and requires contiguous integers (e.g., 0 to n-1).
+   Each element maps directly to its index, enabling `O(n)` sorting.
 
-In other words, **cyclic sort is specially designed for situations where the elements to be sorted are 
-known to fall within a specific, continuous range, such as integers from 1 to n, without any gaps or duplicates.**
+2. The [**generalised**](./generalised) case handles arbitrary integers with duplicates. It requires `O(n)`
+   comparisons per element to find correct positions, resulting in `O(n²)` overall.
+
+In practice, **the generalized case is rarely used**, merge sort and quicksort are more efficient for
+general sorting. However, the simple case has unique applications.
+
+**Key insight:** Cyclic sort is specially designed for situations where elements fall within a specific,
+continuous range (e.g., integers from 1 to n) without gaps or duplicates.
+
+## Applications
+
+| Use Case | Why Cyclic Sort? |
+|----------|------------------|
+| Find missing number in range [0, n] | `O(n)` time, `O(1)` space |
+| Find duplicate in range [1, n] | In-place detection without extra space |
+| Find all missing/duplicate numbers | Single pass after sorting |
+| Sorting known contiguous range | `O(n)` beats comparison-based `O(n log n)` |
+
+**Interview tip:** Cyclic sort is the go-to technique for problems involving "find missing/duplicate in
+range [0/1, n]". The key insight is: if values are in range [0, n-1], each value `v` belongs at index `v`.
+This enables `O(n)` time with `O(1)` space — better than hash set approaches that need `O(n)` space.
 
 

@@ -38,13 +38,13 @@ by using the known order of elements rather than making comparisons to determine
 
 ## Complexity Analysis
 
-**Time**:
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time | `O(n)` | Each element is moved at most once to its correct position |
+| Space | `O(1)` | In-place algorithm, no auxiliary space needed |
 
-- Best: O(n) since the array has to be traversed
-- Worst: O(n) since each element is at most seen twice
-- Average: O(n), it's bounded by the above two
-
-**Space**: O(1) auxiliary space, this is an in-place algorithm
+Unlike comparison-based sorts bounded by `O(n log n)`, cyclic sort achieves `O(n)` by using the
+element's value as its target index - no comparisons needed.
 
 ## Case Study: Find First Missing Non-negative Integer
 
@@ -67,9 +67,25 @@ otherwise there would be a contradiction.
 
 ## Notes
 
-1. It may seem quite trivial to sort integers from 0 to n-1 when one could simply generate such a sequence.
-   But this algorithm is useful in cases where the integers to be sorted are keys to associated values (or some mapping)
-   and sorting needs to be done in O(1) auxiliary space.
-2. The implementation here uses integers from 0 to n-1. This can be easily modified for n contiguous integers starting
-   at some arbitrary number (simply offset by this start number).
-3. This version of cyclic sort does not handle duplicates (at least, sorting might not be guaranteed to be in O(n))
+1. It may seem trivial to sort integers from 0 to n-1 when one could simply generate such a sequence.
+   But this algorithm is useful when integers are keys to associated values and sorting must be done
+   in `O(1)` auxiliary space.
+
+2. The implementation uses integers from 0 to n-1. This can be modified for any contiguous range by
+   offsetting by the start number.
+
+3. This version does not handle duplicates - duplicates can cause infinite loops or incorrect results.
+
+## Applications
+
+| Use Case | Why Cyclic Sort? |
+|----------|------------------|
+| Find first missing non-negative integer | `O(n)` time, `O(1)` space (see case study above) |
+| Find duplicate in [1, n] | Place elements, detect collision |
+| Find all missing numbers in [1, n] | After sorting, scan for mismatches |
+| Sort array where values equal indices | Direct `O(n)` sorting |
+
+**Interview tip:** When you see "find missing/duplicate number in range [0, n] or [1, n]", think cyclic
+sort. The pattern is: try to place each value `v` at index `v` (or `v-1` for 1-indexed). After one pass,
+any position where `arr[i] != i` reveals a missing or duplicate number. This beats hash-based solutions
+by using `O(1)` space instead of `O(n)`.
