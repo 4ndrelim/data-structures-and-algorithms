@@ -5,25 +5,29 @@ Paranoid Quicksort is the naive quicksort with that allow additional attempts to
 
 ![ParanoidQuickSort](../../../../../../../docs/assets/images/ParanoidQuickSort.jpeg)
 
-## Complexity Analysis:
-Time: (this analysis assumes the absence of many duplicates in our array)
-- Expected worst case: O(nlogn)
-- Expected average case: O(nlogn)
-- Expected best case: O(nlogn)
+## Complexity Analysis
 
-The additional check to guarantee a good pivot guards against the worst case scenario where the chosen pivot results
-in an extremely imbalanced partitioning. Since the chosen pivot has to at least partition the array into a
-1/10, 9/10 split, the recurrence relation will be: T(n) = T(n/10) + T(9n/10) + n(# iterations of pivot selection).
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time (all cases)* | `O(n log n)` | Good pivot guarantee ensures balanced partitions |
+| Space | `O(log n)` | Call stack; partitioning is in-place |
 
-The number of iterations of pivot selection is expected to be <2 (more precisely, 1.25). This is because
-P(good pivot) = 8/10. Expected number of tries to get a good pivot = 1 / P(good pivot) = 10/8 = 1.25.
+*Assumes absence of many duplicates (see edge case below).
 
-Therefore, the expected time-complexity is: T(n) = T(n/10) + T(9n/10) + 1.25n => O(nlogn).
+The good pivot check guards against worst-case imbalanced partitioning. Since the pivot must create at
+least a 1/10-9/10 split, the recurrence relation is: `T(n) = T(n/10) + T(9n/10) + n × (# pivot attempts)`.
 
-- Edge case: does not terminate
-The presence of this additional check and repeating pivot selection means that if we have an array of
-length n >= 10 containing all/many duplicates of the same number, any pivot we pick will be a bad pivot and we will
-enter an infinite loop of repeating pivot selection.
+The expected number of pivot selection attempts is ~1.25:
+- `P(good pivot) = 8/10` (middle 80% of elements are good pivots)
+- Expected tries = `1 / P(good pivot) = 10/8 = 1.25`
 
-Space:
-- O(1) excluding memory allocated to the call stack, since partitioning is done in-place
+Therefore: `T(n) = T(n/10) + T(9n/10) + 1.25n` => `O(n log n)`.
+
+## Notes
+
+1. **Edge case - infinite loop**: For arrays of length n >= 10 containing all/many duplicates of the same
+   number, any pivot will be a "bad" pivot (fails the 1/10-9/10 check), causing an infinite loop. This is
+   solved by [Three-Way Partitioning](../threeWayPartitioning).
+
+2. **Why 1/10-9/10?**: This threshold ensures `O(n log n)` while having high probability (80%) of success
+   per attempt. Stricter thresholds would require more re-partitioning attempts.

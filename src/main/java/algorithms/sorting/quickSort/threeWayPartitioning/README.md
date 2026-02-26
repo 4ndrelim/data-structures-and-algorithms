@@ -14,16 +14,35 @@ that haven't yet been placed in the right section (see below).
 
 ![ThreeWayPartitioning](../../../../../../../docs/assets/images/ThreeWayPartitioning.jpeg)
 
-## Implementation Invariant:
-The pivot and any element numerically equal to the pivot will be in the correct positions in the array. Elements
-to their left are < them and elements to their right are > than them.
+## Implementation Invariant
 
-## Complexity Analysis:
-Time:
-- Worst case: O(nlogn)
-- Average case: O(nlogn)
-- Best case: O(nlogn)
+The pivot and any element numerically equal to the pivot will be in their correct positions in the array.
+Elements to their left are `<` them and elements to their right are `>` them.
 
-Space:
-- O(1) excluding memory allocated to the call stack, since partitioning is done in-place
+## Complexity Analysis
+
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time (all cases) | `O(n log n)` | Duplicates are excluded from recursion |
+| Space | `O(log n)` | Call stack; partitioning is in-place |
+
+Unlike standard partitioning, three-way partitioning excludes all elements equal to the pivot from further
+recursion. This means:
+- For arrays with many duplicates, recursion depth is reduced significantly
+- An all-duplicates array is sorted in `O(n)` (single partition, no recursion needed)
+- The good pivot check now ignores the `= pivot` segment, avoiding infinite loops
+
+## Notes
+
+1. **Dutch National Flag Problem**: Three-way partitioning is also known as the Dutch National Flag
+   algorithm, named after Dijkstra's formulation of the problem.
+
+2. **Four regions during partitioning**: The algorithm maintains four regions: `< pivot`, `= pivot`,
+   `in-progress` (unprocessed), and `> pivot`. The in-progress region shrinks to zero upon completion.
+
+3. **Best for duplicate-heavy data**: When many elements are equal, three-way partitioning significantly
+   outperforms standard two-way partitioning.
+
+4. **Combined with Paranoid**: Our implementation combines three-way partitioning with paranoid pivot
+   selection for guaranteed `O(n log n)` performance without the infinite loop issue.
 

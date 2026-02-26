@@ -22,27 +22,22 @@ then swap the pivot back to its correct position. Below is an illustration:
 ## Implementation Invariant
 The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
 
-## Complexity Analysis:
-* The complexity analysis for Lomuto's quicksort is the same as that of Hoare's quicksort.
-  Time:
-- Expected worst case (poor choice of pivot): O(n^2)
-- Expected average case: O(nlogn)
-- Expected best case (balanced pivot): O(nlogn)
+## Complexity Analysis
 
-In the best case of a balanced pivot, the partitioning process divides the array in half, which leads to log n
-levels of recursion. Given a sub-array of length m, the time complexity of the partition subroutine is O(m) as we
-need to iterate through every element in the sub-array once.
-Therefore, the recurrence relation is: T(n) = 2T(n/2) + O(n) => O(nlogn).
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time (Best/Average) | `O(n log n)` | `T(n) = 2T(n/2) + O(n)` with balanced pivot |
+| Time (Worst) | `O(n²)` | Poor pivot choices or many duplicates |
+| Space | `O(log n)` | Call stack; partitioning is in-place |
 
-Even in the average case where the chosen pivot partitions the array by a fraction, there will still be log n levels
-of recursion. (e.g. T(n) = T(n/10) + T(9n/10) + O(n) => O(nlogn))
+In the best case of a balanced pivot, the partitioning process divides the array in half, leading to `log n`
+levels of recursion. Given a sub-array of length m, the partition subroutine takes `O(m)` time.
 
-However, if there are many duplicates in the array, e.g. {1, 1, 1, 1}, the 1st pivot will be placed in the 3rd idx,
-and 2nd pivot in 2nd idx, 3rd pivot in the 1st idx and 4th pivot in the 0th idx. As we observe, the presence of many
-duplicates in the array leads to extremely unbalanced partitioning, leading to a O(n^2) time complexity.
+Even in the average case where the pivot partitions the array by a fraction, there will still be `log n`
+levels of recursion (e.g., `T(n) = T(n/10) + T(9n/10) + O(n)` => `O(n log n)`).
 
-Space:
-- O(1) excluding memory allocated to the call stack, since partitioning is done in-place
+However, with many duplicates (e.g., `{1, 1, 1, 1}`), the 1st pivot lands at index 3, 2nd at index 2, etc.
+This causes extremely unbalanced partitioning, leading to `O(n²)` time complexity.
 
 ## Notes
 ### Lomuto's vs Hoare's QuickSort
