@@ -51,7 +51,7 @@ public class QuickSort {
 
         swap(arr, start, pIdx); // swap the pivot to the start of the array
 
-        int idx = start + 1; // interpret: at the end, all elements at indices less than this var is <= pivot
+        int idx = start + 1; // at the end, all elements at indices less than idx are <= pivot
 
         for (int i = start + 1; i <= end; i++) {
             if (arr[i] <= pivot) {

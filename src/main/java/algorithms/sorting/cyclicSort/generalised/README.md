@@ -28,13 +28,21 @@ Read: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 ## Complexity Analysis
 
-**Time**:
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time (all cases) | `O(n²)` | `O(n)` to find/validate each element's position × n elements |
+| Space | `O(1)` | In-place algorithm |
 
-- Best: O(n^2) even if the ith element is encountered in the ith position, a O(n) traversal validation check is needed
-- Worst: O(n^2) since we need O(n) time to find / validate the correct position of an element and
-  the total number of O(n) traversals is bounded by O(n).
-- Average: O(n^2), it's bounded by the above two
-
-**Space**: O(1) auxiliary space, this is an in-place algorithm
+Even when an element is already in its correct position, an `O(n)` traversal is needed to verify this,
+hence the best case is still `O(n²)`.
 
 ## Notes
+
+1. **Rarely used in practice**: Merge sort and quicksort outperform generalized cyclic sort. The `O(n²)`
+   complexity makes it impractical for general sorting, and mostly for educational purposes.
+
+2. **Minimal swaps**: Each element is swapped at most once to its final position, giving `O(n)` swaps
+   in the worst case, comparable to selection sort.
+
+3. **Handles duplicates**: Unlike the simple case, this version correctly handles duplicate values by
+   finding the next available position when the target index is occupied by an equal element.

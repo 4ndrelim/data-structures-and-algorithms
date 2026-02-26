@@ -8,8 +8,11 @@ package algorithms.sorting.countingSort;
 public class CountingSort {
     /**
      * Sorts the given array.
+     * <p>
+     * Precondition: All elements in arr must be non-negative integers.
+     * Negative values will cause ArrayIndexOutOfBoundsException.
      *
-     * @param arr array to be sorted.
+     * @param arr array of non-negative integers to be sorted.
      * @return new array that is sorted.
      */
     public static int[] sort(int[] arr) {

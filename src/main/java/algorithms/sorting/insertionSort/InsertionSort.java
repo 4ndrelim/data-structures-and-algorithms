@@ -6,7 +6,7 @@ package algorithms.sorting.insertionSort;
  * <p>
  * Note:
  * 1. the loop invariant here slightly differs from the lecture slides as we are using 0-based indexing
- * 2. Insertion into the sorted portion is done byb 'bubbling' elements as in bubble sort
+ * 2. Insertion into the sorted portion is done by 'bubbling' elements as in bubble sort
  */
 
 public class InsertionSort {

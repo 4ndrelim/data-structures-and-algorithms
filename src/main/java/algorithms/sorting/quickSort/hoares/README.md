@@ -3,7 +3,7 @@
 Our description, analysis and implementation of Hoare's Quicksort here will follow that of lecture implementation.
 Note that the usual Hoare's QuickSort differs slightly from lecture implementation, see more under Notes.
 
-This version of QuickSort assumes the **absence of duplicates** in our array.
+This implementation handles duplicates by packing them to the left of the pivot (`<=`). However, many duplicates cause unbalanced partitions and `O(n²)` performance. For duplicate-heavy arrays, consider [Three-Way Partitioning QuickSort](../threeWayPartitioning) instead.
 
 ## Background
 
@@ -20,40 +20,30 @@ The pivot is in the correct position, with elements to its left being < it, and 
 Example Credits: Prof Seth/Lecture Slides
 
 ## Complexity Analysis
-* This analysis is based on fixed index pivot selection.
-* The complexity analysis for Hoare's quicksort is the same as that of Lomuto's quicksort. 
 
-Time:
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time (Best/Average) | `O(n log n)` | `T(n) = 2T(n/2) + O(n)` with balanced pivot |
+| Time (Worst) | `O(n²)` | Fixed pivot on sorted array, or many duplicates |
+| Space | `O(log n)` | Call stack; partitioning is in-place |
 
-- Expected worst case (poor choice of pivot): O(n^2)
-- Expected average case: O(nlogn)
-- Expected best case (balanced pivot): O(nlogn)
+*This analysis is based on fixed index pivot selection. Complexity is the same as Lomuto's.*
 
-In the best case of a balanced pivot, the partitioning process divides the array in half, which leads to log n
-levels of recursion. Given a sub-array of length m, the time complexity of the partition subroutine is O(m) as we
-need to iterate through every element in the sub-array once.
-Therefore, the recurrence relation is: T(n) = 2T(n/2) + O(n) => O(nlogn).
+In the best case of a balanced pivot, the array is divided in half at each level, giving `log n` levels of
+recursion. Each partition subroutine takes `O(m)` for a sub-array of length m.
 
-Even in the average case where the chosen pivot partitions the array by a fraction, there will still be log n levels
-of recursion. (e.g. T(n) = T(n/10) + T(9n/10) + O(n) => O(nlogn))
+Even fractional splits give `O(n log n)`: e.g., `T(n) = T(n/10) + T(9n/10) + O(n)`.
 
-However, using a fixed pivot, such as always choosing the first element as the pivot, can lead to worst-case behavior,
-especially when the array is already sorted or has a specific pattern. This is because in such cases, the partitioning
-might create highly unbalanced sub-arrays, causing the algorithm to degrade to O(n^2) time complexity.
-
-Space:
-
-- O(1) excluding memory allocated to the call stack, since partitioning is done in-place
+Using a fixed pivot (e.g., first element) leads to worst-case `O(n²)` when the array is already sorted or
+has a specific pattern that causes highly unbalanced partitions.
 
 ## Notes
 
 ### Presence of Duplicates
 
-The above analysis assumes the absence of duplicates in our array. We can change the implementation slightly to keep
-all elements = pivot to the left of the pivot element. In this case, if there are many duplicates in the array,
-e.g. {1, 1, 1, 1}, the 1st pivot will be placed in the 3rd idx, and 2nd pivot in 2nd idx, 3rd pivot in the 1st idx and
-4th pivot in the 0th idx. As we observe, the presence of many duplicates in the array leads to extremely unbalanced
-partitioning, leading to a O(n^2) time complexity.
+Our implementation packs all elements equal to the pivot to the left (using `<=` in the partition condition).
+For example, with array `{1, 1, 1, 1}`, the 1st pivot ends up at index 3, the 2nd at index 2, and so on.
+This causes extremely unbalanced partitions, degrading to `O(n²)` time complexity with many duplicates.
 
 ### Usual Implementation of Hoare's QuickSort
 
