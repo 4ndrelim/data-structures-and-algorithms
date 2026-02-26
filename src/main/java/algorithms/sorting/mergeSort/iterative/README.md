@@ -1,6 +1,7 @@
-# Merge Sort
+# Merge Sort (Iterative)
 
-### Background
+## Background
+
 The iterative implementation of MergeSort takes a bottom-up approach, where the sorting process starts by merging
 intervals of size 1. Intervals of size 1 are trivially in sorted order. The algorithm then proceeds to merge
 adjacent sorted intervals, doubling the interval size with each merge step, until the entire array is fully sorted.
@@ -10,29 +11,54 @@ adjacent sorted intervals, doubling the interval size with each merge step, unti
 Image Source: https://www.chelponline.com/iterative-merge-sort-12243
 
 ### Implementation Invariant
+
 At each iteration of the merging process, the main array is divided into sub-arrays of a certain interval
-size (interval). Each of these sub-arrays is sorted within itself. The last sub-array may not be of size
-interval, but it is still sorted since its size is necessarily less than interval.
+size. Each of these sub-arrays is sorted within itself. The last sub-array may not be of full interval size,
+but it is still sorted since its size is necessarily less than the interval.
 
-### Complexity Analysis
-Time:
-- Worst case: O(nlogn)
-- Average case: O(nlogn)
-- Best case: O(nlogn)
+## Complexity Analysis
 
-Given two sorted arrays of size p and q, we need O(p + q) time to merge the two arrays into one sorted array, since
-we have to iterate through every element in both arrays once.
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time (all cases) | `O(n log n)` | `log n` levels, each level does `O(n)` work |
+| Space | `O(n)` | Temporary array for merging (no recursion stack) |
 
-- At the 1st level of the merge process, our merging subroutine involves n sub-arrays of size 1, taking O(n) time.
-- At the 2nd level of the merge process, our merging subroutine involves (n/2) sub-arrays of size 2, taking O(n) time.
-- At the kth level of the merge process, our merging subroutine involves (n/(2^(k-1))) sub-arrays of size (2^(k-1)),
-taking O(n) time.
+<details>
+<summary><b>Detailed Analysis</b></summary>
 
-Since interval doubles at every iteration of the merge process, there are logn such levels. Every level takes
-O(n) time, hence overall time complexity is n * logn = O(nlogn)
+Given two sorted arrays of size p and q, merging takes `O(p + q)` time.
 
-Regardless of how sorted the input array is, MergeSort carries out the partitioning and merging process, so the
-time complexity of MergeSort is O(nlogn) for all cases.
+- At level 1: n sub-arrays of size 1 --> `O(n)` total merge work
+- At level 2: n/2 sub-arrays of size 2 --> `O(n)` total merge work
+- At level k: n/2^(k-1) sub-arrays of size 2^(k-1) --> `O(n)` total merge work
 
-Space:
-- O(n) since we require a temporary array to temporarily store the merged elements in sorted order
+Since the interval doubles each iteration, there are `log n` levels. Each level takes `O(n)` time,
+giving `O(n log n)` overall.
+</details>
+
+## Notes
+
+1. **No recursion stack**: Unlike the recursive version, iterative merge sort uses `O(n)` space
+   total (just the temp array), avoiding the `O(log n)` call stack overhead.
+
+2. **Better cache locality**: Bottom-up merging accesses memory more sequentially, which can
+   improve cache performance compared to the top-down recursive approach.
+
+3. **Same stability**: Like recursive merge sort, the iterative version is stable when using
+   `<=` in comparisons to prefer elements from the left sub-array.
+
+4. **Identical time complexity**: Both recursive and iterative versions have the same `O(n log n)`
+   time complexity - the difference is only in constant factors and space usage.
+
+## Applications
+
+| Use Case | Why Iterative Merge Sort? |
+|----------|---------------------------|
+| Memory-constrained systems | Avoids recursion stack overhead |
+| Cache-sensitive applications | Better memory access patterns |
+| Embedded systems | No risk of stack overflow |
+| External sorting | Naturally fits bottom-up file merging |
+
+**Interview tip:** Know the difference between top-down (recursive) and bottom-up (iterative) merge sort.
+Both are `O(n log n)` time and `O(n)` space for the temp array, but iterative avoids recursion overhead
+and has better cache locality. In practice, the performance difference is usually minimal.
