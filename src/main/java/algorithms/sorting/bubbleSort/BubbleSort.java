@@ -22,8 +22,7 @@ public class BubbleSort {
      */
     public static int[] sort(int[] arr) {
         int n = arr.length;
-        boolean swapped; // tracks of the presence of swaps within one iteration of the outer loop to
-        // facilitate early termination
+        boolean swapped; // tracks whether any swaps occurred in the current pass (enables early termination)
         for (int i = 0; i < n - 1; i++) { // outer loop which supports the invariant; n-1 suffice
             swapped = false;
             for (int j = 0; j < n - 1 - i; j++) { // inner loop that does the adjacent comparisons
