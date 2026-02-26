@@ -22,18 +22,21 @@ public class RadixSort {
     }
 
     /**
-     * Radix sorts a given input array and updates the output array in-place.
+     * Radix sorts a given input array. Uses O(n) auxiliary space.
      *
-     * @param arr    original input array.
-     * @param sorted output array.
+     * @param arr original input array (will contain sorted result).
+     * @param tmp temporary buffer array.
      */
-    private static void radixSort(int[] arr, int[] sorted) {
+    private static void radixSort(int[] arr, int[] tmp) {
+        int[] input = arr;
+        int[] output = tmp;
+
         // Code in the loop is essentially counting sort; sort the N numbers by segments, starting from right-most
         for (int i = 0; i < NUM_SEGMENTS; i++) {
             int[] freqMap = new int[1 << NUM_BITS]; // at most this number of elements
 
             // count each element
-            for (int num : arr) {
+            for (int num : input) {
                 freqMap[getSegmentMasked(num, i)]++;
             }
             // get prefix sum
@@ -41,32 +44,35 @@ public class RadixSort {
                 freqMap[j] += freqMap[j - 1];
             }
             // place each number in its correct sorted position up until the given segment
-            for (int k = arr.length - 1; k >= 0; k--) {
-                int curr = arr[k];
+            for (int k = input.length - 1; k >= 0; k--) {
+                int curr = input[k];
                 int id = getSegmentMasked(curr, i);
-                sorted[freqMap[id] - 1] = curr;
+                output[freqMap[id] - 1] = curr;
                 freqMap[id]--;
             }
-            // We do a swap so that our results above for this segment is
-            // saved and passed as input to the next segment.
-            // By doing this we no longer need to create a new array
-            // every time we shift to a new segment to sort.
-            // We can constantly reuse the array, allowing us to only use O(n) space.
-            int[] tmp = arr;
-            arr = sorted;
-            sorted = tmp;
+            // swap input and output so results from this segment become input for next segment.
+            // reuses arrays instead of allocating new ones, keeping space at O(n).
+            int[] swap = input;
+            input = output;
+            output = swap;
         }
-        sorted = arr;
+
+        // NOTE: this is necessary if NUM_SEGMENTS is odd, result is in tmp, so copy is required.
+        // If NUM_SEGMENTS is even, result is already in arr, copy has no effect.
+        System.arraycopy(input, 0, arr, 0, arr.length);
     }
 
     /**
-     * Calls radix sort inplace on a given array.
+     * Sorts the given array using radix sort. Time: O(n), Space: O(n).
+     * Only works for non-negative integers.
      *
-     * @param arr The array to be sorted.
+     * @param arr The array to be sorted (modified with sorted result).
      */
     public static void radixSort(int[] arr) {
-        int[] sorted = new int[arr.length];
-        radixSort(arr, sorted);
-        arr = sorted; // swap back lol
+        if (arr.length == 0) {
+            return;
+        }
+        int[] tmp = new int[arr.length];
+        radixSort(arr, tmp);
     }
 }
