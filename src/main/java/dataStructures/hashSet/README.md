@@ -52,6 +52,8 @@ All elements stored directly in the array. On collision, probe for next availabl
 **Pros**: Cache-friendly, no extra pointers
 **Cons**: Clustering, must resize when full, deletion is tricky (tombstones)
 
+**Interview tip:** Favor **chaining** when load factor is unpredictable or high (chains grow linearly; OA probe sequences explode), deletions are frequent (no tombstone pollution), hash function quality is uncertain, or you need worst-case guarantees (treeification). Favor **open addressing** when you want to minimize per-element memory (no pointers/node wrappers), cache performance matters, or the load factor stays low (short probe sequences).
+
 ## Complexity Analysis
 
 | Operation | Expected | Worst (Chaining) | Worst (OA) |
@@ -106,6 +108,12 @@ This achieves better distribution than linear/quadratic probing while maintainin
 |----------|----------|---------------------|-------------|
 | **Java** | Chaining | LinkedList → RB-Tree | 0.75 |
 | **Python** | Open Addressing | Perturbed probing | 0.67 |
+
+### Why Different Choices?
+
+**Java chose chaining**: Java is already fast (JIT-compiled), so it can **afford chaining's overhead**. This lets it prioritize **security** - treeification guarantees `O(log n)` worst-case, protecting against hash-flooding DoS attacks that matter for enterprise/server systems. (Hash-flooding: attacker crafts keys that all hash to the same bucket, turning `O(1)` into `O(n)` per lookup. Treeification bounds damage to `O(log n)`.)
+
+**Python chose open addressing**: Python is already slow (interpreted), so it **can't afford extra overhead**. Dicts power everything (`obj.attr`, namespaces, function calls), so cache-efficient OA compounds into significant real-world speedups. Unlike Java, dicts are the language engine - called millions of times per second just to run basic code.
 
 ## HashMap vs HashSet
 
