@@ -132,6 +132,6 @@ Expected probes under uniform hashing: `1/(1-α)` where `α = n/m`.
    - Small to medium datasets
    - Cache efficiency matters
 
-**Interview tip:** The tombstone mechanism is the trickiest part. Be ready to explain why simply setting deleted slots to `null` breaks `contains()`. Draw out an example with colliding elements.
+**Interview tip:** The tombstone mechanism is one of the more trickier parts. Be ready to explain why simply setting deleted slots to `null` breaks `contains()`. Draw out an example with colliding elements.
 
 *Reference: [MIT 6.006 Lecture Notes](https://courses.csail.mit.edu/6.006/fall11/lectures/lecture10.pdf)*
