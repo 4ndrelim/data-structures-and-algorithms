@@ -66,7 +66,7 @@ Heapify converts an unordered array into a heap. Two approaches exist:
 1. **Naive approach**: Insert elements one by one using `offer()` → `O(n log n)`
 2. **Efficient approach**: BubbleDown from back to front → `O(n)`
 
-Both are **correct**, but bubbleDown is more efficient. Here's why:
+The efficient approach is implemented with bubbleDown from the back fo the array. You could also implement with bubbleUp from the front of the array. No issue with the resulting heap structure. The issue lies with efficiency. Here's why:
 
 <details>
 <summary><b>Why bubbleDown gives O(n) but bubbleUp gives O(n log n)</b></summary>

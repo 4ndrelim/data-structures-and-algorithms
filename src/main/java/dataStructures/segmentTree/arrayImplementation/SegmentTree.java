@@ -64,23 +64,23 @@ public class SegmentTree {
      * Same logic as node-based version, but we pass the node's range explicitly
      * since there's no node object to store [start, end].
      */
-    private int query(int nodeIdx, int startRange, int endRange, int leftEnd, int rightEnd) {
+    private int query(int nodeIdx, int nodeStartRange, int nodeEndRange, int leftEnd, int rightEnd) {
         // Case 1: Node's range completely inside query range → return this node's sum
-        if (leftEnd <= startRange && endRange <= rightEnd) {
+        if (leftEnd <= nodeStartRange && nodeEndRange <= rightEnd) {
             return tree[nodeIdx];
         }
 
         int rangeSum = 0;
-        int mid = startRange + (endRange - startRange) / 2;
+        int mid = nodeStartRange + (nodeEndRange - nodeStartRange) / 2;
 
         // Case 2: Query overlaps left child's range [startRange, mid]
         if (leftEnd <= mid) {
-            rangeSum += query(2 * nodeIdx + 1, startRange, mid, leftEnd, rightEnd);
+            rangeSum += query(2 * nodeIdx + 1, nodeStartRange, mid, leftEnd, rightEnd);
         }
 
         // Case 3: Query overlaps right child's range [mid+1, endRange]
         if (mid + 1 <= rightEnd) {
-            rangeSum += query(2 * nodeIdx + 2, mid + 1, endRange, leftEnd, rightEnd);
+            rangeSum += query(2 * nodeIdx + 2, mid + 1, nodeEndRange, leftEnd, rightEnd);
         }
 
         return rangeSum;
