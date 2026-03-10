@@ -66,7 +66,7 @@ In practice, the difference is marginal for most applications - both are `O(log 
 <summary><b>Why does RB-tree have bounded rotations?</b></summary>
 
 The key insight is how fix-up cases work:
-- **Recoloring** (e.g., Case 1 in insertion) can propagate up the tree, but it's just flipping colors - O(1) and no structural change
+- **Recoloring** (e.g., Case 1 in insertion) can propagate up the tree, but it's just flipping colors - `O(1)` per node, no structural change. But this recolouring can propagate up `O(logn)` levels (i.e. pushing red-red violation potentially all the way to root)
 - **Rotations** (Cases 2/3 for insert, Cases 3/4 for delete) **terminate the fix-up immediately** because they restore the local balance without affecting ancestors
 
 In AVL, a rotation changes the _height_ of a subtree. This height change can unbalance the parent node, requiring another rotation, which can cascade all the way to the root. RB-tree's color-based invariants avoid this cascade.
@@ -143,7 +143,7 @@ After inserting node `z` (red), if `z`'s parent is also red, we have a red-red v
      z(R)            P(R)
 ```
 - Rotate `z`'s parent in opposite direction
-- This transforms into Case 3
+- Note: This transforms into Case 3
 
 **Case 3: Uncle is BLACK, z is "outer" child** (e.g., z is left child of left parent)
 ```
@@ -218,15 +218,15 @@ The key decision is understanding what you're optimizing for:
 
 | If you need... | Use | Why |
 |----------------|-----|-----|
-| Sorted data + frequent updates | **RB-tree** | At most 2-3 rotations per operation |
+| Sorted data + frequent updates | **RB-tree** | Fix-up is mostly cheap recoloring (); rotations bounded to 2-3 |
 | Sorted data + mostly reads | AVL tree | Tighter height bound (~1.44 log n vs ~2 log n) |
 | Fast lookup only, no ordering | Hash table | `O(1)` average, but no ordering |
 | Disk-based sorted data | B-tree | Minimizes disk I/O (wide nodes) |
 | Simple implementation | Skip list | Probabilistic, easier to code |
 
-**The real insight:** RB-trees are the "default choice" for in-memory sorted containers because they provide **consistent, predictable performance** on mixed workloads. They're not the absolute best at anything - AVL is faster for reads, hash tables faster for lookups - but they're **good enough at everything** while being especially efficient for writes. This is why production systems (Java, C++, Linux kernel) standardized on RB-trees.
+**The real insight:** RB-trees are the "default choice" for in-memory sorted containers because they provide **consistent, predictable performance** on mixed workloads. Note they are not the absolute best at anything. For example, AVL is faster for reads, hash tables faster for lookups. But they're **good enough at everything** while being especially efficient for writes. This is why production systems (Java, C++, Linux kernel) standardized on RB-trees.
 
 **When NOT to use RB-trees:**
-- Read-heavy with rare updates → AVL tree (faster lookups due to shorter height)
+- Read-heavy (with alot of data) with rare updates → AVL tree (faster lookups due to shorter height)
 - Disk-based storage → B-tree (optimized for block I/O, minimizes seeks)
 - Only need insert/lookup/delete without ordering → Hash table (`O(1)` average)
