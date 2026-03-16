@@ -34,9 +34,9 @@ public class FenwickTree {
      */
     public FenwickTree(int[] nums) {
         this.n = nums.length;
-        this.tree = new int[n+1];
+        this.tree = new int[n + 1];
         for (int i = 1; i < n + 1; i++) {
-            tree[i] = nums[i-1];
+            tree[i] = nums[i - 1];
         }
         for (int i = 1; i < n + 1; i++) {
             int p = i + (i & -i);
@@ -90,6 +90,6 @@ public class FenwickTree {
      * @return sum of elements from index left to right
      */
     public int rangeQuery(int left, int right) {
-        return prefixQuery(right) - prefixQuery(left-1);
+        return prefixQuery(right) - prefixQuery(left - 1);
     }
 }
