@@ -1,84 +1,205 @@
 package algorithms.minimumSpanningTree.kruskal;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public class KruskalTest {
+
+    // ==================== Basic MST tests ====================
+
     @Test
-    public void test_simpleGraph() {
-        // Graph setup (Adjacency Matrix)
-        //     B
+    public void test_simpleTriangle() {
+        // Graph:
+        //     0
         //    / \
         //   1   1
         //  /     \
-        // A - 1 - C
-        int[][] adjacencyMatrix = {
-            {0, 1, 1}, // A: A-B, A-C
-            {1, 0, 1}, // B: B-A, B-C
-            {1, 1, 0}  // C: C-A, C-B
+        // 1 --1-- 2
+        int[][] edges = {
+            {0, 1, 1},
+            {0, 2, 1},
+            {1, 2, 1}
         };
 
-        Kruskal.Node[] nodes = {
-            new Kruskal.Node("A", 0),
-            new Kruskal.Node("B", 1),
-            new Kruskal.Node("C", 2)
-        };
+        Kruskal.Result result = Kruskal.mst(3, edges);
 
-        // Run Kruskal's algorithm
-        int[][] actualMST = Kruskal.getKruskalMST(nodes, adjacencyMatrix);
-
-        // Expected MST
-        // A -1- B -1- C
-        int[][] expectedMST = {
-            {0, 1, 1}, // A: A-B, A-C
-            {1, 0, Integer.MAX_VALUE}, // B: B-A
-            {1, Integer.MAX_VALUE, 0}  // C: C-A
-        };
-
-        // Assertion
-        assertArrayEquals(expectedMST, actualMST);
+        assertEquals(2, result.totalWeight); // Any 2 edges of weight 1
+        assertEquals(2, result.mstEdges.size()); // V-1 edges
     }
 
     @Test
     public void test_complexGraph() {
-        // Graph setup
-        //    A
+        // Graph:
+        //    0
         //  / | \
         // 1  4  3
-        ///   |   \
-        //B --3-- D
-        // \  |  /
-        //  2 4 1
-        //   \|/
-        //    C
-        int[][] adjacencyMatrix = {
-                {0, 1, 4, 3}, // A: A-B, A-C, A-D
-                {1, 0, 2, 3}, // B: B-A, B-C, B-D
-                {4, 2, 0, 1}, // C: C-A, C-B, C-D
-                {3, 3, 1, 0}  // D: D-A, D-B, D-C
+        // |  |  |
+        // 1--3--3
+        // |     |
+        // 2     1
+        // |     |
+        // 2-----+
+        //
+        // Edges: (0,1,1), (0,2,4), (0,3,3), (1,2,2), (1,3,3), (2,3,1)
+        int[][] edges = {
+            {0, 1, 1},
+            {0, 2, 4},
+            {0, 3, 3},
+            {1, 2, 2},
+            {1, 3, 3},
+            {2, 3, 1}
         };
 
-        Kruskal.Node[] nodes = {
-            new Kruskal.Node("A", 0),
-            new Kruskal.Node("B", 1),
-            new Kruskal.Node("C", 2),
-            new Kruskal.Node("D", 3)
+        Kruskal.Result result = Kruskal.mst(4, edges);
+
+        // MST: (0,1,1), (2,3,1), (1,2,2) = total 4
+        assertEquals(4, result.totalWeight);
+        assertEquals(3, result.mstEdges.size()); // V-1 edges
+    }
+
+    @Test
+    public void test_linearChain() {
+        // Graph: 0 --1-- 1 --2-- 2 --3-- 3
+        int[][] edges = {
+            {0, 1, 1},
+            {1, 2, 2},
+            {2, 3, 3}
         };
 
-        // Run Prim's algorithm
-        int[][] actualMST = Kruskal.getKruskalMST(nodes, adjacencyMatrix);
+        Kruskal.Result result = Kruskal.mst(4, edges);
 
-        // Expected MST
-        // Based on the graph, assuming the MST is correctly computed
-        int[][] expectedMST = {
-            {0, 1, Integer.MAX_VALUE, Integer.MAX_VALUE}, // A: A-B
-            {1, 0, 2, Integer.MAX_VALUE}, // B: B-A, B-C
-            {Integer.MAX_VALUE, 2, 0, 1}, // C: C-B, C-D
-            {Integer.MAX_VALUE, Integer.MAX_VALUE, 1, 0}  // D: D-C
+        assertEquals(6, result.totalWeight); // 1 + 2 + 3
+        assertEquals(3, result.mstEdges.size());
+    }
+
+    @Test
+    public void test_parallelEdges() {
+        // Multiple edges between same vertices
+        // 0 --5-- 1
+        // 0 --3-- 1 (shorter)
+        int[][] edges = {
+            {0, 1, 5},
+            {0, 1, 3}
         };
 
-        // Assertion
-        assertArrayEquals(expectedMST, actualMST);
+        Kruskal.Result result = Kruskal.mst(2, edges);
+
+        assertEquals(3, result.totalWeight); // Takes shorter edge
+        assertEquals(1, result.mstEdges.size());
+    }
+
+    // ==================== Edge cases ====================
+
+    @Test
+    public void test_singleVertex() {
+        int[][] edges = {};
+
+        Kruskal.Result result = Kruskal.mst(1, edges);
+
+        assertEquals(0, result.totalWeight);
+        assertEquals(0, result.mstEdges.size()); // No edges needed
+    }
+
+    @Test
+    public void test_twoVertices() {
+        int[][] edges = {{0, 1, 5}};
+
+        Kruskal.Result result = Kruskal.mst(2, edges);
+
+        assertEquals(5, result.totalWeight);
+        assertEquals(1, result.mstEdges.size());
+    }
+
+    @Test
+    public void test_emptyGraph() {
+        int[][] edges = {};
+
+        Kruskal.Result result = Kruskal.mst(0, edges);
+
+        assertEquals(0, result.totalWeight);
+        assertTrue(result.mstEdges.isEmpty());
+    }
+
+    @Test
+    public void test_disconnectedGraph() {
+        // 0 -- 1    2 -- 3 (two components)
+        int[][] edges = {
+            {0, 1, 1},
+            {2, 3, 2}
+        };
+
+        int weight = Kruskal.mstWeight(4, edges);
+
+        assertEquals(-1, weight); // Cannot form spanning tree
+    }
+
+    // ==================== mstWeight tests ====================
+
+    @Test
+    public void test_mstWeight() {
+        int[][] edges = {
+            {0, 1, 4},
+            {0, 2, 2},
+            {1, 2, 1},
+            {1, 3, 5},
+            {2, 3, 3}
+        };
+
+        int weight = Kruskal.mstWeight(4, edges);
+
+        assertEquals(6, weight); // 2 + 1 + 3
+    }
+
+    // ==================== matrixToEdges tests ====================
+
+    @Test
+    public void test_matrixToEdges() {
+        int[][] matrix = {
+            {0, 1, 3},
+            {1, 0, 2},
+            {3, 2, 0}
+        };
+
+        int[][] edges = Kruskal.matrixToEdges(matrix);
+
+        assertEquals(3, edges.length); // 3 edges in upper triangle
+    }
+
+    @Test
+    public void test_fromAdjacencyMatrix() {
+        // Same as test_simpleTriangle but from matrix
+        int[][] matrix = {
+            {0, 1, 1},
+            {1, 0, 1},
+            {1, 1, 0}
+        };
+
+        int[][] edges = Kruskal.matrixToEdges(matrix);
+        Kruskal.Result result = Kruskal.mst(3, edges);
+
+        assertEquals(2, result.totalWeight);
+        assertEquals(2, result.mstEdges.size());
+    }
+
+    // ==================== Larger graph tests ====================
+
+    @Test
+    public void test_sixVertexGraph() {
+        // Graph from README walkthrough
+        int[][] edges = {
+            {0, 1, 1},
+            {1, 2, 2},
+            {0, 2, 3},
+            {2, 3, 4},
+            {1, 3, 5}
+        };
+
+        Kruskal.Result result = Kruskal.mst(4, edges);
+
+        // MST: (0,1,1), (1,2,2), (2,3,4) = 7
+        assertEquals(7, result.totalWeight);
+        assertEquals(3, result.mstEdges.size());
     }
 }

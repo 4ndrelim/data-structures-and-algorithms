@@ -45,13 +45,23 @@ Developed by CS2040S Teaching Assistants and alumni under Prof Seth's guidance.
 | [Radix Sort](src/main/java/algorithms/sorting/radixSort) | Digit-by-digit sorting |
 | [Cyclic Sort](src/main/java/algorithms/sorting/cyclicSort) | [Simple](src/main/java/algorithms/sorting/cyclicSort/simple), [Generalized](src/main/java/algorithms/sorting/cyclicSort/generalised) |
 
-### Searching & Graphs
+### Searching
 
 | Algorithm | Description |
 |-----------|-------------|
 | [Binary Search](src/main/java/algorithms/binarySearch) | Standard and [templated](src/main/java/algorithms/binarySearch/binarySearchTemplated) versions |
-| [Minimum Spanning Tree](src/main/java/algorithms/minimumSpanningTree) | [Prim's](src/main/java/algorithms/minimumSpanningTree/prim), [Kruskal's](src/main/java/algorithms/minimumSpanningTree/kruskal) |
 | [Orthogonal Range Searching](src/main/java/algorithms/orthogonalRangeSearching) | Range trees for multi-dimensional queries |
+
+### Graph Algorithms
+
+| Algorithm | Description |
+|-----------|-------------|
+| [Graph Traversals](src/main/java/algorithms/graph) | [BFS](src/main/java/algorithms/graph/bfs), [DFS](src/main/java/algorithms/graph/dfs) (recursive & iterative) |
+| [Dijkstra](src/main/java/algorithms/graph/dijkstra) | Single-source shortest path (non-negative weights) |
+| [Bellman-Ford](src/main/java/algorithms/graph/bellmanFord) | Single-source shortest path (handles negative weights) |
+| [Floyd-Warshall](src/main/java/algorithms/graph/floydWarshall) | All-pairs shortest path |
+| [Topological Sort](src/main/java/algorithms/graph/topologicalSort) | Linear ordering of DAG vertices (Kahn's algorithm) |
+| [Minimum Spanning Tree](src/main/java/algorithms/minimumSpanningTree) | [Prim's](src/main/java/algorithms/minimumSpanningTree/prim), [Kruskal's](src/main/java/algorithms/minimumSpanningTree/kruskal) |
 
 ### String Algorithms
 
@@ -73,7 +83,7 @@ Developed by CS2040S Teaching Assistants and alumni under Prof Seth's guidance.
 5. **[Binary Heap](src/main/java/dataStructures/heap)**
 6. **[Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet)**
 7. **[Hashing](src/main/java/dataStructures/hashSet)**
-8. **Graphs**: BFS, DFS, Bellman-Ford, Dijkstra, Topological Sort *(coming soon)*
+8. **[Graphs](src/main/java/algorithms/graph)**: [BFS](src/main/java/algorithms/graph/bfs), [DFS](src/main/java/algorithms/graph/dfs), [Dijkstra](src/main/java/algorithms/graph/dijkstra), [Bellman-Ford](src/main/java/algorithms/graph/bellmanFord), [Floyd-Warshall](src/main/java/algorithms/graph/floydWarshall), [Topological Sort](src/main/java/algorithms/graph/topologicalSort)
 9. **[Minimum Spanning Tree](src/main/java/algorithms/minimumSpanningTree)**: [Prim](src/main/java/algorithms/minimumSpanningTree/prim), [Kruskal](src/main/java/algorithms/minimumSpanningTree/kruskal)
 
 </details>

@@ -1,135 +1,170 @@
 package algorithms.minimumSpanningTree.prim;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- * Implementation of Prim's Algorithm to find MSTs
+ * Prim's Algorithm for Minimum Spanning Tree.
+ *
  * Idea:
- *  Starting from any source (this will be the first node to be in the MST), pick the lightest outgoing edge, and
- *  include the node at the other end as part of a set of nodes S. Now repeatedly do the above by picking the lightest
- *  outgoing edge adjacent to any node in the MST (ensure the other end of the node is not already in the MST).
- *  Repeat until S contains all nodes in the graph. S is the MST.
- * Actual implementation:
- *  No Edge class was implemented. Instead, the weights of the edges are stored in a 2D array adjacency matrix. An
- *  adjacency list may be used instead
- *  A Node class is implemented to encapsulate the current minimum weight to reach the node.
+ *   - Start from any vertex and grow the MST one edge at a time
+ *   - Always add the lightest edge that connects the tree to a new vertex
+ *   - Use a priority queue to efficiently find the minimum crossing edge
+ *
+ * Key insight:
+ *   - Uses the cut property: minimum weight edge crossing any cut is in MST
+ *   - The "cut" is between vertices in MST and vertices not yet in MST
+ *
+ * Complexity:
+ *   - Time: O(E log V) with binary heap
+ *   - Space: O(V + E)
  */
 public class Prim {
-    public static int[][] getPrimsMST(Node[] nodes, int[][] adjacencyMatrix) {
-        // Recall that PriorityQueue is a min heap by default
-        PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.getCurrMinWeight() - b.getCurrMinWeight());
-        int[][] mstMatrix = new int[nodes.length][nodes.length]; // MST adjacency matrix
 
-        int[] parent = new int[nodes.length]; // To track the parent node of each node in the MST
-        Arrays.fill(parent, -1); // Initialize parent array with -1, indicating no parent
+    /**
+     * Represents a weighted edge in the adjacency list.
+     */
+    public static class Edge {
+        public final int to;
+        public final int weight;
 
-        boolean[] visited = new boolean[nodes.length]; // To track visited nodes
-        Arrays.fill(visited, false); // Initialize visited array with false, indicating not visited
+        public Edge(int to, int weight) {
+            this.to = to;
+            this.weight = weight;
+        }
+    }
 
-        // Initialize the MST matrix to represent no edges with Integer.MAX_VALUE and 0 for self loops
-        for (int i = 0; i < nodes.length; i++) {
-            for (int j = 0; j < nodes.length; j++) {
-                mstMatrix[i][j] = (i == j) ? 0 : Integer.MAX_VALUE;
-            }
+    /**
+     * Represents an edge in the MST result.
+     */
+    public static class MSTEdge {
+        public final int from;
+        public final int to;
+        public final int weight;
+
+        public MSTEdge(int from, int to, int weight) {
+            this.from = from;
+            this.to = to;
+            this.weight = weight;
+        }
+    }
+
+    /**
+     * Result of Prim's algorithm.
+     */
+    public static class Result {
+        /** Edges in the MST */
+        public final List<MSTEdge> mstEdges;
+        /** Total weight of the MST */
+        public final int totalWeight;
+
+        public Result(List<MSTEdge> mstEdges, int totalWeight) {
+            this.mstEdges = mstEdges;
+            this.totalWeight = totalWeight;
+        }
+    }
+
+    /**
+     * Computes MST using Prim's algorithm starting from vertex 0.
+     *
+     * @param numVertices number of vertices (0 to numVertices-1)
+     * @param graph adjacency list where graph.get(u) contains edges from u
+     * @return Result containing MST edges and total weight
+     */
+    public static Result mst(int numVertices, List<List<Edge>> graph) {
+        if (numVertices == 0) {
+            return new Result(new ArrayList<>(), 0);
         }
 
-        // Add all nodes to the priority queue, with each node's curr min weight already set to Integer.MAX_VALUE
-        pq.addAll(Arrays.asList(nodes));
+        // Track minimum edge weight to reach each vertex
+        int[] minWeight = new int[numVertices];
+        Arrays.fill(minWeight, Integer.MAX_VALUE);
+
+        // Track which vertex connects to each vertex in MST
+        int[] parent = new int[numVertices];
+        Arrays.fill(parent, -1);
+
+        // Track vertices already in MST
+        boolean[] inMST = new boolean[numVertices];
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(a[1], b[1]));
+        minWeight[0] = 0;
+        pq.offer(new int[]{0, 0});
+
+        List<MSTEdge> mstEdges = new ArrayList<>();
+        int totalWeight = 0;
 
         while (!pq.isEmpty()) {
-            Node current = pq.poll();
+            int[] curr = pq.poll();
+            int u = curr[0];
+            int weight = curr[1];
 
-            int currentIndex = current.getIndex();
-
-            if (visited[currentIndex]) { // Skip if node is already visited
+            if (inMST[u]) {
                 continue;
             }
 
-            visited[currentIndex] = true;
+            inMST[u] = true;
+            totalWeight += weight;
 
-            for (int i = 0; i < nodes.length; i++) {
-                if (adjacencyMatrix[currentIndex][i] != Integer.MAX_VALUE && !visited[nodes[i].getIndex()]) {
-                    int weight = adjacencyMatrix[currentIndex][i];
+            // add edge to MST (except for starting vertex)
+            if (parent[u] != -1) {
+                mstEdges.add(new MSTEdge(parent[u], u, weight));
+            }
 
-                    if (weight < nodes[i].getCurrMinWeight()) {
-                        Node newNode = new Node(nodes[i].getIdentifier(), nodes[i].getIndex(), weight);
-                        parent[i] = currentIndex; // Set current node as parent of adjacent node
-                        pq.add(newNode);
-                    }
+            for (Edge edge : graph.get(u)) {
+                int v = edge.to;
+                int edgeWeight = edge.weight;
+
+                // If v not in MST and this edge is lighter than current best
+                if (!inMST[v] && edgeWeight < minWeight[v]) {
+                    minWeight[v] = edgeWeight;
+                    parent[v] = u;
+                    pq.offer(new int[]{v, edgeWeight});
                 }
             }
         }
 
-        // Build MST matrix based on parent array
-        for (int i = 1; i < nodes.length; i++) {
-            int p = parent[i];
-            if (p != -1) {
-                int weight = adjacencyMatrix[p][i];
-                mstMatrix[p][i] = weight;
-                mstMatrix[i][p] = weight; // For undirected graphs
-            }
-        }
-
-        return mstMatrix;
+        return new Result(mstEdges, totalWeight);
     }
 
     /**
-     * Node class to represent a node in the graph
-     * Note: In our Node class, we do not allow the currMinWeight to be updated after initialization to prevent any
-     * reference issues in the PriorityQueue.
+     * Computes only the total weight of the MST.
+     *
+     * @param numVertices number of vertices
+     * @param graph adjacency list
+     * @return total weight of MST, or -1 if graph is not connected
      */
-    static class Node {
-        private final int currMinWeight; // Current minimum weight to get to this node
-        private int index; // Index of this node in the adjacency matrix
-        private final String identifier;
-
-        /**
-         * Constructor for Node
-         * @param identifier
-         * @param index
-         * @param currMinWeight
-         */
-        public Node(String identifier, int index, int currMinWeight) {
-            this.identifier = identifier;
-            this.index = index;
-            this.currMinWeight = currMinWeight;
+    public static int mstWeight(int numVertices, List<List<Edge>> graph) {
+        Result result = mst(numVertices, graph);
+        // Check if MST spans all vertices (V-1 edges for V vertices)
+        if (numVertices > 1 && result.mstEdges.size() < numVertices - 1) {
+            return -1; // Graph is not connected
         }
+        return result.totalWeight;
+    }
 
-        /**
-         * Constructor for Node with default currMinWeight
-         * @param identifier
-         * @param index
-         */
-        public Node(String identifier, int index) {
-            this.identifier = identifier;
-            this.index = index;
-            this.currMinWeight = Integer.MAX_VALUE;
+    /**
+     * Builds adjacency list from edge array.
+     * Treats edges as undirected (adds both directions).
+     *
+     * @param numVertices number of vertices
+     * @param edges array of [from, to, weight] triples
+     * @return adjacency list suitable for Prim
+     */
+    public static List<List<Edge>> buildGraph(int numVertices, int[][] edges) {
+        List<List<Edge>> graph = new ArrayList<>();
+        for (int i = 0; i < numVertices; i++) {
+            graph.add(new ArrayList<>());
         }
-
-        /**
-         * Getter and setter for currMinWeight
-         */
-        public int getCurrMinWeight() {
-            return currMinWeight;
+        for (int[] edge : edges) {
+            int from = edge[0];
+            int to = edge[1];
+            int weight = edge[2];
+            graph.get(from).add(new Edge(to, weight));
+            graph.get(to).add(new Edge(from, weight)); // Undirected
         }
-
-        /**
-         * Getter for identifier
-         * @return identifier
-         */
-        public String getIdentifier() {
-            return identifier;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" + "identifier='" + identifier + '\'' + ", index=" + index + '}';
-        }
+        return graph;
     }
 }
-
