@@ -85,7 +85,7 @@ All leaf nodes must be at the same depth from root. This property forces the tre
 
 | Operation | Time | Notes |
 |-----------|------|-------|
-| Search | `O(b · log_a(n))` = `O(log n)` | At most `log_a(n)` levels, `b` comparisons per node |
+| Search | `O(b·log_a(n))` = `O(log n)` | At most `log_a(n)` levels, `b` comparisons per node |
 | Insert | `O(log n)` | May require splits up the tree |
 | Delete | `O(log n)` | May require merges/borrows |
 
@@ -275,33 +275,38 @@ Clustered Index on emp_id:
 
 ### Secondary Index (Non-Clustered)
 
-A **secondary index** is built on non-primary-key columns.
+**Why secondary indexes?** The clustered index only supports efficient lookups by primary key. But applications often need to search by other columns:
 
-| Property | Description |
-|----------|-------------|
-| Data location | Leaf nodes store the **indexed column + pointer** |
-| Pointer | Usually the primary key value |
-| Lookup | **Double lookup**: secondary index → get PK → clustered index |
+```sql
+SELECT * FROM employees WHERE last_name = 'Garcia';   -- Can't use emp_id index
+```
+
+Without an index on `last_name`, these queries require a **full table scan** — reading every row. A **secondary index** provides an efficient lookup path for non-primary-key columns.
+
+| Step | Action |
+|------|--------|
+| 1 | Traverse secondary index → find matching primary key(s) |
+| 2 | Use primary key to traverse clustered index → get full row |
 
 **Example**:
 ```sql
 CREATE INDEX idx_lastname ON employees(last_name);
 ```
 
-Secondary index structure:
 ```
-       [Garcia, Smith]
-      /       |       \
-  [Adams,PK=5] [Garcia,PK=12] [Smith,PK=3]
-                    ↑
-         stores (last_name, primary_key)
+Secondary Index (last_name):              Clustered Index (emp_id):
+              [Garcia, Smith]                    [500, 1000]
+             /       |       \                  /     |     \
+  [Adams,PK=5] [Garcia,PK=12] [Smith,PK=3]  [row1] [row501] [row1001]
+        ↑                                              ↑
+  stores (last_name, emp_id)                 stores actual row data
 ```
 
-To find `WHERE last_name = 'Garcia'`:
-1. Traverse secondary index → find `PK=12`
-2. Traverse clustered index with `PK=12` → get full row
+Query: `WHERE last_name = 'Garcia'`
+1. Secondary index lookup → `emp_id = 12`
+2. Clustered index lookup with `emp_id = 12` → full row
 
-This **double lookup** is why secondary index queries are slower than primary key queries.
+This double lookup is why secondary index queries are slower than primary key queries.
 
 ### Covering Index
 
