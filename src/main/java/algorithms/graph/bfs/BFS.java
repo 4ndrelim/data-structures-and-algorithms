@@ -26,7 +26,7 @@ public class BFS {
      */
     public static List<Integer> traverse(List<List<Integer>> graph, int start) {
         // TODO: Implement using Queue
-        // we can use linkedlist as queue as described in the readme 
+        // we can use linkedlist as queue as described in the readme
         // but here we will show how to implement a queue using arraylist
         List<Integer> traverseOrder = new ArrayList<>();
         List<Integer> queue = new ArrayList<>();

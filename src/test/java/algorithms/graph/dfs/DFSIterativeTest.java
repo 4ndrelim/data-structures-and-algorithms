@@ -1,14 +1,13 @@
 package algorithms.graph.dfs;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class DFSIterativeTest {
 
@@ -39,7 +38,7 @@ public class DFSIterativeTest {
 
         List<Integer> result = DFSIterative.traverse(graph, 0);
 
-        assertEquals(Arrays.asList(0, 1, 2, 3), result);
+        Assert.assertEquals(Arrays.asList(0, 1, 2, 3), result);
     }
 
     @Test
@@ -55,15 +54,15 @@ public class DFSIterativeTest {
         List<Integer> result = DFSIterative.traverse(graph, 0);
 
         // Verify all nodes visited exactly once
-        assertEquals(5, result.size());
-        assertEquals(Integer.valueOf(0), result.get(0));
-        assertEquals(Set.of(0, 1, 2, 3, 4), new HashSet<>(result));
+        Assert.assertEquals(5, result.size());
+        Assert.assertEquals(Integer.valueOf(0), result.get(0));
+        Assert.assertEquals(Set.of(0, 1, 2, 3, 4), new HashSet<>(result));
 
         // Verify DFS property: parent visited before children
-        assertTrue(result.indexOf(1) < result.indexOf(3));
-        assertTrue(result.indexOf(1) < result.indexOf(4));
-        assertTrue(result.indexOf(0) < result.indexOf(1));
-        assertTrue(result.indexOf(0) < result.indexOf(2));
+        Assert.assertTrue(result.indexOf(1) < result.indexOf(3));
+        Assert.assertTrue(result.indexOf(1) < result.indexOf(4));
+        Assert.assertTrue(result.indexOf(0) < result.indexOf(1));
+        Assert.assertTrue(result.indexOf(0) < result.indexOf(2));
     }
 
     @Test
@@ -77,9 +76,9 @@ public class DFSIterativeTest {
         List<Integer> result = DFSIterative.traverse(graph, 0);
 
         // Should visit all 4 nodes exactly once
-        assertEquals(4, result.size());
-        assertEquals(Integer.valueOf(0), result.get(0));
-        assertEquals(Set.of(0, 1, 2, 3), new HashSet<>(result));
+        Assert.assertEquals(4, result.size());
+        Assert.assertEquals(Integer.valueOf(0), result.get(0));
+        Assert.assertEquals(Set.of(0, 1, 2, 3), new HashSet<>(result));
     }
 
     @Test
@@ -88,7 +87,7 @@ public class DFSIterativeTest {
 
         List<Integer> result = DFSIterative.traverse(graph, 0);
 
-        assertEquals(Arrays.asList(0), result);
+        Assert.assertEquals(Arrays.asList(0), result);
     }
 
     @Test
@@ -100,7 +99,7 @@ public class DFSIterativeTest {
         List<Integer> result = DFSIterative.traverse(graph, 0);
 
         // DFS from 0 should only reach 0 and 1
-        assertEquals(Set.of(0, 1), new HashSet<>(result));
+        Assert.assertEquals(Set.of(0, 1), new HashSet<>(result));
     }
 
     @Test
@@ -110,7 +109,7 @@ public class DFSIterativeTest {
 
         List<Integer> result = DFSIterative.traverse(graph, 2);
 
-        assertEquals(Arrays.asList(2), result);
+        Assert.assertEquals(Arrays.asList(2), result);
     }
 
     @Test
@@ -122,8 +121,8 @@ public class DFSIterativeTest {
 
         List<Integer> result = DFSIterative.traverse(graph, 0);
 
-        assertEquals(2, result.size());
-        assertEquals(Set.of(0, 1), new HashSet<>(result));
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(Set.of(0, 1), new HashSet<>(result));
     }
 
     @Test
@@ -135,7 +134,7 @@ public class DFSIterativeTest {
 
         List<Integer> result = DFSIterative.traverse(graph, 0);
 
-        assertEquals(Arrays.asList(0, 1, 2, 3, 4), result);
+        Assert.assertEquals(Arrays.asList(0, 1, 2, 3, 4), result);
     }
 
     // ==================== hasPath() tests ====================
@@ -145,9 +144,9 @@ public class DFSIterativeTest {
         List<List<Integer>> graph = buildGraph(4,
                 new int[][]{{0, 1}, {1, 2}, {2, 3}}, true);
 
-        assertTrue(DFSIterative.hasPath(graph, 0, 3));
-        assertTrue(DFSIterative.hasPath(graph, 0, 1));
-        assertTrue(DFSIterative.hasPath(graph, 1, 3));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 0, 3));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 0, 1));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 1, 3));
     }
 
     @Test
@@ -156,8 +155,8 @@ public class DFSIterativeTest {
         List<List<Integer>> graph = buildGraph(4,
                 new int[][]{{0, 1}, {2, 3}}, false);
 
-        assertFalse(DFSIterative.hasPath(graph, 0, 2));
-        assertFalse(DFSIterative.hasPath(graph, 0, 3));
+        Assert.assertFalse(DFSIterative.hasPath(graph, 0, 2));
+        Assert.assertFalse(DFSIterative.hasPath(graph, 0, 3));
     }
 
     @Test
@@ -165,7 +164,7 @@ public class DFSIterativeTest {
         List<List<Integer>> graph = buildGraph(3,
                 new int[][]{{0, 1}, {1, 2}}, true);
 
-        assertTrue(DFSIterative.hasPath(graph, 0, 0));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 0, 0));
     }
 
     @Test
@@ -173,8 +172,8 @@ public class DFSIterativeTest {
         List<List<Integer>> graph = buildGraph(3,
                 new int[][]{{0, 1}, {1, 2}, {2, 0}}, true);
 
-        assertTrue(DFSIterative.hasPath(graph, 0, 2));
-        assertTrue(DFSIterative.hasPath(graph, 2, 1));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 0, 2));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 2, 1));
     }
 
     @Test
@@ -183,8 +182,8 @@ public class DFSIterativeTest {
         List<List<Integer>> graph = buildGraph(3,
                 new int[][]{{0, 1}, {1, 2}}, true);
 
-        assertTrue(DFSIterative.hasPath(graph, 0, 2));
-        assertFalse(DFSIterative.hasPath(graph, 2, 0));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 0, 2));
+        Assert.assertFalse(DFSIterative.hasPath(graph, 2, 0));
     }
 
     @Test
@@ -194,6 +193,6 @@ public class DFSIterativeTest {
         List<List<Integer>> graph = buildGraph(4,
                 new int[][]{{0, 1}, {0, 2}, {1, 3}, {2, 3}}, true);
 
-        assertTrue(DFSIterative.hasPath(graph, 0, 3));
+        Assert.assertTrue(DFSIterative.hasPath(graph, 0, 3));
     }
 }

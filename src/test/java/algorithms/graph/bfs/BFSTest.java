@@ -1,14 +1,13 @@
 package algorithms.graph.bfs;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class BFSTest {
 
@@ -42,7 +41,7 @@ public class BFSTest {
 
         List<Integer> result = BFS.traverse(graph, 0);
 
-        assertEquals(Arrays.asList(0, 1, 2, 3), result);
+        Assert.assertEquals(Arrays.asList(0, 1, 2, 3), result);
     }
 
     @Test
@@ -60,16 +59,16 @@ public class BFSTest {
 
         // Verify level-order property: all nodes at level n visited before level n+1
         // Level 0: {0}, Level 1: {1,2}, Level 2: {3,4}
-        assertEquals(5, result.size());
-        assertEquals(Integer.valueOf(0), result.get(0)); // Level 0
+        Assert.assertEquals(5, result.size());
+        Assert.assertEquals(Integer.valueOf(0), result.get(0)); // Level 0
 
         // Level 1: indices 1-2 should contain {1, 2} in some order
         Set<Integer> level1 = new HashSet<>(result.subList(1, 3));
-        assertEquals(Set.of(1, 2), level1);
+        Assert.assertEquals(Set.of(1, 2), level1);
 
         // Level 2: indices 3-4 should contain {3, 4} in some order
         Set<Integer> level2 = new HashSet<>(result.subList(3, 5));
-        assertEquals(Set.of(3, 4), level2);
+        Assert.assertEquals(Set.of(3, 4), level2);
     }
 
     @Test
@@ -83,9 +82,9 @@ public class BFSTest {
         List<Integer> result = BFS.traverse(graph, 0);
 
         // Should visit all 4 nodes exactly once
-        assertEquals(4, result.size());
-        assertEquals(Integer.valueOf(0), result.get(0));
-        assertEquals(Set.of(0, 1, 2, 3), new HashSet<>(result));
+        Assert.assertEquals(4, result.size());
+        Assert.assertEquals(Integer.valueOf(0), result.get(0));
+        Assert.assertEquals(Set.of(0, 1, 2, 3), new HashSet<>(result));
     }
 
     @Test
@@ -94,7 +93,7 @@ public class BFSTest {
 
         List<Integer> result = BFS.traverse(graph, 0);
 
-        assertEquals(Arrays.asList(0), result);
+        Assert.assertEquals(Arrays.asList(0), result);
     }
 
     @Test
@@ -106,7 +105,7 @@ public class BFSTest {
         List<Integer> result = BFS.traverse(graph, 0);
 
         // BFS from 0 should only reach 0 and 1
-        assertEquals(Set.of(0, 1), new HashSet<>(result));
+        Assert.assertEquals(Set.of(0, 1), new HashSet<>(result));
     }
 
     @Test
@@ -118,7 +117,7 @@ public class BFSTest {
         // Start from isolated node 2
         List<Integer> result = BFS.traverse(graph, 2);
 
-        assertEquals(Arrays.asList(2), result);
+        Assert.assertEquals(Arrays.asList(2), result);
     }
 
     @Test
@@ -134,10 +133,10 @@ public class BFSTest {
 
         List<Integer> result = BFS.traverse(graph, 0);
 
-        assertEquals(4, result.size());
-        assertEquals(Integer.valueOf(0), result.get(0));
+        Assert.assertEquals(4, result.size());
+        Assert.assertEquals(Integer.valueOf(0), result.get(0));
         // All other nodes at level 1
-        assertEquals(Set.of(1, 2, 3), new HashSet<>(result.subList(1, 4)));
+        Assert.assertEquals(Set.of(1, 2, 3), new HashSet<>(result.subList(1, 4)));
     }
 
     @Test
@@ -150,8 +149,8 @@ public class BFSTest {
         List<Integer> result = BFS.traverse(graph, 0);
 
         // Self-loop should not cause infinite loop or duplicate
-        assertEquals(2, result.size());
-        assertEquals(Set.of(0, 1), new HashSet<>(result));
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(Set.of(0, 1), new HashSet<>(result));
     }
 
     // ==================== hasPath() tests ====================
@@ -161,9 +160,9 @@ public class BFSTest {
         List<List<Integer>> graph = buildGraph(4,
                 new int[][]{{0, 1}, {1, 2}, {2, 3}}, true);
 
-        assertTrue(BFS.hasPath(graph, 0, 3));
-        assertTrue(BFS.hasPath(graph, 0, 1));
-        assertTrue(BFS.hasPath(graph, 1, 3));
+        Assert.assertTrue(BFS.hasPath(graph, 0, 3));
+        Assert.assertTrue(BFS.hasPath(graph, 0, 1));
+        Assert.assertTrue(BFS.hasPath(graph, 1, 3));
     }
 
     @Test
@@ -172,9 +171,9 @@ public class BFSTest {
         List<List<Integer>> graph = buildGraph(4,
                 new int[][]{{0, 1}, {2, 3}}, false);
 
-        assertFalse(BFS.hasPath(graph, 0, 2));
-        assertFalse(BFS.hasPath(graph, 0, 3));
-        assertFalse(BFS.hasPath(graph, 1, 2));
+        Assert.assertFalse(BFS.hasPath(graph, 0, 2));
+        Assert.assertFalse(BFS.hasPath(graph, 0, 3));
+        Assert.assertFalse(BFS.hasPath(graph, 1, 2));
     }
 
     @Test
@@ -182,8 +181,8 @@ public class BFSTest {
         List<List<Integer>> graph = buildGraph(3,
                 new int[][]{{0, 1}, {1, 2}}, true);
 
-        assertTrue(BFS.hasPath(graph, 0, 0));
-        assertTrue(BFS.hasPath(graph, 2, 2));
+        Assert.assertTrue(BFS.hasPath(graph, 0, 0));
+        Assert.assertTrue(BFS.hasPath(graph, 2, 2));
     }
 
     @Test
@@ -192,8 +191,8 @@ public class BFSTest {
         List<List<Integer>> graph = buildGraph(3,
                 new int[][]{{0, 1}, {1, 2}, {2, 0}}, true);
 
-        assertTrue(BFS.hasPath(graph, 0, 2));
-        assertTrue(BFS.hasPath(graph, 2, 1));
+        Assert.assertTrue(BFS.hasPath(graph, 0, 2));
+        Assert.assertTrue(BFS.hasPath(graph, 2, 1));
     }
 
     @Test
@@ -202,9 +201,9 @@ public class BFSTest {
         List<List<Integer>> graph = buildGraph(3,
                 new int[][]{{0, 1}, {1, 2}}, true);
 
-        assertTrue(BFS.hasPath(graph, 0, 2));
-        assertFalse(BFS.hasPath(graph, 2, 0));
-        assertFalse(BFS.hasPath(graph, 1, 0));
+        Assert.assertTrue(BFS.hasPath(graph, 0, 2));
+        Assert.assertFalse(BFS.hasPath(graph, 2, 0));
+        Assert.assertFalse(BFS.hasPath(graph, 1, 0));
     }
 
     @Test
@@ -213,7 +212,7 @@ public class BFSTest {
         List<List<Integer>> graph = buildGraph(6,
                 new int[][]{{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}}, true);
 
-        assertTrue(BFS.hasPath(graph, 0, 5));
-        assertFalse(BFS.hasPath(graph, 5, 0));
+        Assert.assertTrue(BFS.hasPath(graph, 0, 5));
+        Assert.assertFalse(BFS.hasPath(graph, 5, 0));
     }
 }
