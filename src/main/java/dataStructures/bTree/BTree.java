@@ -103,20 +103,33 @@ public class BTree {
         BTreeNode y = x.children[i];
         BTreeNode z = new BTreeNode(t, y.leaf);
 
-        for (int j = x.keyCount; j >= i; j--) {
-            x.children[j + 1] = x.children[j];
-        }
-
-        x.children[i + 1] = z;
-        x.keys[i] = y.keys[t - 1]; // promote middle key to parent
-        x.keyCount++;
-
+        // Copy the last (t-1) keys from y to z
         for (int j = 0; j < t - 1; j++) {
             z.keys[j] = y.keys[j + t];
         }
 
-        y.keyCount = t - 1;
+        // If y is not a leaf, copy the last t children from y to z
+        if (!y.leaf) {
+            for (int j = 0; j < t; j++) {
+                z.children[j] = y.children[j + t];
+            }
+        }
+
         z.keyCount = t - 1;
+        y.keyCount = t - 1;
+
+        // Shift children in x to make room for z
+        for (int j = x.keyCount; j >= i + 1; j--) {
+            x.children[j + 1] = x.children[j];
+        }
+        x.children[i + 1] = z;
+
+        // Shift keys in x to make room for the promoted key
+        for (int j = x.keyCount - 1; j >= i; j--) {
+            x.keys[j + 1] = x.keys[j];
+        }
+        x.keys[i] = y.keys[t - 1]; // promote middle key to parent
+        x.keyCount++;
     }
 
     /**
@@ -167,7 +180,8 @@ public class BTree {
 
         if (i < x.keyCount && key == x.keys[i]) {
             if (x.leaf) { // Case 1: key in node x and x is a leaf
-                for (int curr = i; curr < x.keyCount; curr++) {
+                // Shift keys left to fill the gap (loop up to keyCount - 1 to avoid out of bounds)
+                for (int curr = i; curr < x.keyCount - 1; curr++) {
                     x.keys[curr] = x.keys[curr + 1];
                 }
                 x.keyCount -= 1;
@@ -192,7 +206,7 @@ public class BTree {
                 System.out.println("Key " + key + " does not exist in the B-tree.");
             } else {
                 if (x.children[i].keyCount < this.t) {
-                    fixChild(x, i);
+                    i = fixChild(x, i); // Get adjusted index after potential merge
                 }
                 deleteRecursive(x.children[i], key);
             }
@@ -205,8 +219,9 @@ public class BTree {
      * @return The predecessor key.
      */
     private int getPredecessor(BTreeNode x) {
+        // Navigate to the rightmost leaf to find the predecessor (largest key in subtree)
         while (!x.leaf) {
-            x = x.children[x.keyCount - 1];
+            x = x.children[x.keyCount]; // rightmost child
         }
         return x.keys[x.keyCount - 1];
     }
@@ -239,7 +254,10 @@ public class BTree {
 
         // Copy the keys and children of the right child to the left child
         System.arraycopy(z.keys, 0, y.keys, y.keyCount, z.keyCount);
-        System.arraycopy(z.children, 0, y.children, y.keyCount, z.keyCount);
+        if (!y.leaf) {
+            // Copy z.keyCount + 1 children (one more child than keys)
+            System.arraycopy(z.children, 0, y.children, y.keyCount, z.keyCount + 1);
+        }
 
         // Adjust the key count of the left child
         y.keyCount += z.keyCount;
@@ -263,18 +281,24 @@ public class BTree {
      *
      * @param x The parent node.
      * @param i The index of the child node to be fixed.
+     * @return The adjusted index of the child to descend into after fixing.
      */
-    private void fixChild(BTreeNode x, int i) {
+    private int fixChild(BTreeNode x, int i) {
         if (i > 0 && x.children[i - 1].keyCount >= t) {
             borrowFromLeft(x, i);
-        } else if (i < x.children.length - 1 && x.children[i + 1].keyCount >= t) {
+            return i;
+        } else if (i < x.keyCount && x.children[i + 1] != null && x.children[i + 1].keyCount >= t) {
             borrowFromRight(x, i);
+            return i;
         } else {
             if (i > 0) {
+                // Merge with left sibling - key moves to children[i-1]
                 mergeNodes(x, i - 1, x.children[i - 1], x.children[i]);
-                i--; // Adjust i after merging
+                return i - 1;
             } else {
+                // Merge with right sibling - key stays in children[i]
                 mergeNodes(x, i, x.children[i], x.children[i + 1]);
+                return i;
             }
         }
     }
