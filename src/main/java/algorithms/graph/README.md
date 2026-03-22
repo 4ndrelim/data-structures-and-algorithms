@@ -75,6 +75,7 @@ DFS from 0: [0, 1, 3, 4, 2]  (deep first, then backtrack)
 | Algorithm | Description |
 |-----------|-------------|
 | [./bellmanFord](./bellmanFord) | Single-source shortest path with negative weights, cycle detection |
+| [./floydWarshall](./floydWarshall) | All-pairs shortest path, O(V³) DP approach |
 
 ### Ordering
 
