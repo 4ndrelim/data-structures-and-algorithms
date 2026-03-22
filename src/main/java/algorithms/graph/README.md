@@ -1,6 +1,10 @@
-# Graph Traversals
+# Graph Algorithms
 
 ## Background
+
+This module contains fundamental graph algorithms including traversals and shortest path algorithms.
+
+### Graph Traversals
 
 Graph traversal algorithms systematically visit all vertices in a graph. The two fundamental approaches are **Breadth-First Search (BFS)** and **Depth-First Search (DFS)**, each with distinct traversal patterns and use cases.
 
@@ -59,10 +63,18 @@ DFS from 0: [0, 1, 3, 4, 2]  (deep first, then backtrack)
 
 ## Implementations
 
+### Traversals
+
 | Algorithm | Description |
 |-----------|-------------|
 | [./bfs](./bfs) | Queue-based Breadth-First Search |
 | [./dfs](./dfs) | Depth-First Search (recursive and iterative) |
+
+### Shortest Path
+
+| Algorithm | Description |
+|-----------|-------------|
+| [./bellmanFord](./bellmanFord) | Single-source shortest path with negative weights, cycle detection |
 
 ## Notes
 
