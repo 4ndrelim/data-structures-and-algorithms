@@ -19,6 +19,7 @@ Developed by CS2040S Teaching Assistants and alumni under Prof Seth's guidance.
 | [B-Tree](src/main/java/dataStructures/bTree) | Self-balancing tree optimized for disk access |
 | [Binary Search Tree](src/main/java/dataStructures/binarySearchTree) | Ordered tree structure |
 | [Disjoint Set / Union Find](src/main/java/dataStructures/disjointSet) | [Quick Find](src/main/java/dataStructures/disjointSet/quickFind), [Weighted Union](src/main/java/dataStructures/disjointSet/weightedUnion) with path compression |
+| [Fenwick-Tree](src/main/java/dataStructures/fenwickTree) | AKA Binary Indexed Tree for prefix sum queries |
 | [Hash Set](src/main/java/dataStructures/hashSet) | [Chaining](src/main/java/dataStructures/hashSet/chaining), [Open Addressing](src/main/java/dataStructures/hashSet/openAddressing) |
 | [Heap](src/main/java/dataStructures/heap) | Binary max heap |
 | [Linked List](src/main/java/dataStructures/linkedList) | Singly linked list with sorting |
