@@ -53,6 +53,8 @@ DFS from 0: [0, 1, 3, 4, 2]  (deep first, then backtrack)
 | Use Case | Algorithm | Why |
 |----------|-----------|-----|
 | Shortest path (unweighted) | BFS | Guarantees minimum edges |
+| Shortest path (weighted, non-negative) | Dijkstra | Greedy + heap, O((V+E) log V) |
+| Shortest path (negative weights) | Bellman-Ford | Handles negative, detects cycles |
 | Level-order traversal | BFS | Naturally visits by distance |
 | Cycle detection | DFS | Easier with recursion stack |
 | Topological sort | DFS or Kahn's | DFS post-order or BFS with in-degree |
@@ -74,6 +76,7 @@ DFS from 0: [0, 1, 3, 4, 2]  (deep first, then backtrack)
 
 | Algorithm | Description |
 |-----------|-------------|
+| [./dijkstra](./dijkstra) | Single-source shortest path, greedy with priority queue |
 | [./bellmanFord](./bellmanFord) | Single-source shortest path with negative weights, cycle detection |
 | [./floydWarshall](./floydWarshall) | All-pairs shortest path, O(V³) DP approach |
 
