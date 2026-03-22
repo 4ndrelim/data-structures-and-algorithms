@@ -2,49 +2,213 @@
 
 ## Background
 
-Prim's Algorithm is a greedy algorithm that finds the minimum spanning tree of a graph by starting from an
-arbitrary node (vertex) and adding the edge, with the minimum weight that connects the current tree to an unexplored
-node, and the unexplored node to the current tree, until all nodes are included in the tree.
+Prim's algorithm finds the Minimum Spanning Tree by growing a tree from a starting vertex, always adding the lightest edge that connects the tree to a new vertex.
 
-### Implementation Details
+**Intuition:** Start with any vertex. Repeatedly add the cheapest edge that connects the current tree to a vertex not yet in the tree. This works because of the **cut property**: the minimum weight edge crossing any cut must be in the MST.
 
-A `PriorityQueue` (binary heap) is utilised to keep track of the minimum weight edge that connects the current tree to
-an unexplored node. In an ideal scenario, the minimum weight edge to each node in the priority queue should be updated each
-time a lighter edge is found to maintain a single unique node in the priority queue. This means that a decrease key
-operation is required. 
+## Algorithm
 
-**Decrease Key Operation:** 
+```
+Prim(graph, start):
+    minWeight[v] = infinity for all v
+    minWeight[start] = 0
+    parent[v] = -1 for all v
+    pq = min-heap with (start, 0)
 
-However, we know that the decrease key operation of a binary heap implementation of a priority
-queue will take O(V) time, which will result in a larger time complexity for the entire algorithm compared to using only
-O(log V) operations for each edge. Hence, in our implementation, to avoid the use of a decrease key operation, we will simply insert duplicate nodes with
-their new minimum weight edge, which will take O(log E) = O(log V) given an upper bound of E = V^2, into the queue,
-while leaving the old node in the queue. Additionally, we will track if a node has already been added into the MST to
-avoid adding duplicate nodes.
+    while pq not empty:
+        (u, weight) = pq.poll()  // Get minimum weight vertex
 
-**Priority Queue Implementation:**
+        if u already in MST:
+            continue  // Lazy deletion
 
-Note that a priority queue is an abstract data type that can be implemented using different data structures. In this
-implementation, the default Java `PriorityQueue` is used, which is a binary heap. By implementing the priority queue
-with an AVL tree, a decrease key operation that has a time complexity of O(log V) can also be achieved.
+        add u to MST
+        totalWeight += weight
+        if parent[u] != -1:
+            add edge (parent[u], u, weight) to MST
+
+        for each edge (u, v, edgeWeight):
+            if v not in MST and edgeWeight < minWeight[v]:
+                minWeight[v] = edgeWeight
+                parent[v] = u
+                pq.add((v, edgeWeight))
+
+    return MST edges, totalWeight
+```
+
+### Similarity to Dijkstra
+
+Prim's and Dijkstra's algorithms have nearly identical structure:
+
+| Aspect | Prim's | Dijkstra's |
+|--------|--------|------------|
+| Priority | Edge weight to vertex | Total distance from source |
+| Comparison | `edgeWeight < minWeight[v]` | `dist[u] + weight < dist[v]` |
+| Goal | Minimum total edge weight | Minimum path distances |
+
+**Interview tip:** "Prim's is Dijkstra with edge weight instead of path distance."
+
+## Visual Walkthrough
+
+```
+Graph (adjacency list):
+  0: [(1,4), (2,2)]
+  1: [(0,4), (2,1), (3,5)]
+  2: [(0,2), (1,1), (3,3)]
+  3: [(1,5), (2,3)]
+
+     0
+    /|\
+   4 | 2
+  /  |  \
+ 1---1---2
+  \     /
+   5   3
+    \ /
+     3
+
+Start from vertex 0:
+
+Step 1: Process (0, 0)
+  - Add 0 to MST
+  - Update: minWeight[1]=4, minWeight[2]=2
+  - PQ: [(2,2), (1,4)]
+
+Step 2: Process (2, 2)
+  - Add 2 to MST, add edge (0,2,2)
+  - Update: minWeight[1]=min(4,1)=1, minWeight[3]=3
+  - PQ: [(1,1), (1,4), (3,3)]
+
+Step 3: Process (1, 1)
+  - Add 1 to MST, add edge (2,1,1)
+  - 3 already has minWeight=3, edge weight 5 > 3, no update
+  - PQ: [(3,3), (1,4)]
+
+Step 4: Process (3, 3)
+  - Add 3 to MST, add edge (2,3,3)
+  - PQ: [(1,4)]
+
+Step 5: Process (1, 4)
+  - 1 already in MST → SKIP (lazy deletion)
+
+Done! MST edges: (0,2,2), (2,1,1), (2,3,3)
+Total weight: 6
+
+Final MST:
+     0
+      \
+       2
+      /|
+     1 |
+       3
+       |
+       2
+```
 
 ## Complexity Analysis
 
-**Time Complexity:**
-- O(V^2 log V) for the basic version with an adjacency matrix, where V is the number of vertices.
-- O(E log V) with a binary heap and adjacency list, where V and E is the number of vertices and edges
-respectively.
+| Implementation | Time | Space |
+|----------------|------|-------|
+| Binary Heap + Adjacency List | `O(E log V)` | `O(V + E)` |
+| Binary Heap + Adjacency Matrix | `O(V² log V)` | `O(V²)` |
+| Array (no heap) + Matrix | `O(V²)` | `O(V²)` |
 
-**Space Complexity:**
-- O(V^2) for the adjacency matrix representation.
-- O(V + E) for the adjacency list representation.
+### Lazy Deletion
 
-## Notes
+Like Dijkstra, we use **lazy deletion** instead of decrease-key:
+- When a lighter edge is found, add a new entry to the PQ
+- Skip vertices already in MST when polling
+- Complexity unaffected: `O(E log V)` since `log(E) = O(log V)`
 
-### Difference between Prim's Algorithm and Dijkstra's Algorithm
+## Prim vs Kruskal
 
-|                                     | Prim's Algorithm                                                                | Dijkstra's Algorithm                                     |
-|-------------------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------|
-| Purpose                             | Finds MST - minimum sum of edge weights that includes all vertices in the graph | Finds shortest path from a single source to all vertices |
-| Property Compared in Priority Queue | Minimum weight of incoming edge to a vertex                                     | Minimum distance from source vertex to current vertex    |
+| Aspect | Prim | Kruskal |
+|--------|------|---------|
+| Strategy | Grow tree from start | Process edges globally |
+| Data Structure | Priority Queue | Disjoint Set |
+| Best for input | Adjacency list/matrix | Edge list |
+| Best for graph | Dense (E ≈ V²) | Sparse (E ≈ V) |
+| Property used | Cut property | Cycle property |
 
+**Interview tip:** For dense graphs or when starting vertex matters, use Prim. For sparse graphs with edge list input, use Kruskal.
+
+## Prim vs Dijkstra
+
+| Aspect | Prim's | Dijkstra's |
+|--------|--------|------------|
+| Goal | Minimum Spanning Tree | Single-source shortest paths |
+| Priority | Edge weight | Total path distance |
+| Output | Tree with min total weight | Shortest distances from source |
+| Negative weights | Works (no path concept) | Fails (greedy assumption) |
+
+```java
+// Prim: priority = edge weight
+if (edgeWeight < minWeight[v]) {
+    minWeight[v] = edgeWeight;  // Just the edge
+}
+
+// Dijkstra: priority = path distance
+if (dist[u] + weight < dist[v]) {
+    dist[v] = dist[u] + weight;  // Cumulative
+}
+```
+
+## Implementation Notes
+
+### Adjacency List Format
+
+```java
+// Build graph from edges
+int[][] edges = {
+    {0, 1, 4},
+    {0, 2, 2},
+    {1, 2, 1}
+};
+List<List<Prim.Edge>> graph = Prim.buildGraph(3, edges);
+
+// Run Prim's
+Prim.Result result = Prim.mst(3, graph);
+// result.mstEdges = edges in MST
+// result.totalWeight = sum of weights
+```
+
+## Common Pitfalls
+
+### 1. Not Using Lazy Deletion
+```java
+// WRONG: No skip check
+int[] curr = pq.poll();
+// process...
+
+// CORRECT: Skip if already in MST
+int[] curr = pq.poll();
+if (inMST[curr[0]]) continue;
+// process...
+```
+
+### 2. Updating Instead of Adding
+```java
+// Java's PriorityQueue doesn't support efficient decrease-key
+// WRONG: Try to update priority
+pq.remove(oldEntry);  // O(V) operation!
+pq.add(newEntry);
+
+// CORRECT: Just add new entry, skip stale ones later
+pq.add(newEntry);
+```
+
+## Applications
+
+| Application | Why Prim? |
+|-------------|-----------|
+| Network design | Connect all nodes with minimum cable |
+| Circuit design | Minimum wire length |
+| Real-time MST | Can grow incrementally from any start |
+
+## LeetCode Problems
+
+| Problem | Description |
+|---------|-------------|
+| [1584. Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/) | MST on point coordinates |
+| [1135. Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/) | Direct Prim application |
+| [1168. Optimize Water Distribution](https://leetcode.com/problems/optimize-water-distribution-in-a-village/) | MST with virtual node |
+| [778. Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water/) | Modified Prim (minimax path) |
