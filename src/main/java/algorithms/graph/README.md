@@ -55,7 +55,7 @@ DFS from 0: [0, 1, 3, 4, 2]  (deep first, then backtrack)
 | Shortest path (unweighted) | BFS | Guarantees minimum edges |
 | Level-order traversal | BFS | Naturally visits by distance |
 | Cycle detection | DFS | Easier with recursion stack |
-| Topological sort | DFS | Post-order gives reverse topo order |
+| Topological sort | DFS or Kahn's | DFS post-order or BFS with in-degree |
 | Connected components | Either | Both work equally well |
 | Path existence | Either | Both work equally well |
 | Maze solving (any path) | DFS | Uses less memory |
@@ -75,6 +75,12 @@ DFS from 0: [0, 1, 3, 4, 2]  (deep first, then backtrack)
 | Algorithm | Description |
 |-----------|-------------|
 | [./bellmanFord](./bellmanFord) | Single-source shortest path with negative weights, cycle detection |
+
+### Ordering
+
+| Algorithm | Description |
+|-----------|-------------|
+| [./topologicalSort](./topologicalSort) | Linear ordering of DAG vertices using Kahn's algorithm |
 
 ## Notes
 
