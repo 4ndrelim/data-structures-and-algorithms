@@ -145,6 +145,7 @@ Final: dist = [0, 4, 2, 5, 5]
 |--------|----------|--------------|----------------|-----|
 | Problem | Single-source | Single-source | All-pairs | Single-source |
 | Weights | Non-negative only | Any (detects neg cycles) | Any (detects neg cycles) | Unweighted only |
+| Negative cycles | Cannot detect | Detects them | Detects them | Cannot detect |
 | Time | `O((V+E) log V)` | `O(V·E)` | `O(V³)` | `O(V+E)` |
 | Approach | Greedy | Relax V-1 times | DP on intermediates | Level-order |
 
@@ -160,25 +161,7 @@ Final: dist = [0, 4, 2, 5, 5]
 - You need **all-pairs** shortest paths → Use Floyd-Warshall (small V) or V × Dijkstra (sparse)
 - Graph is **unweighted** → Use BFS (simpler, same complexity)
 
-### Dijkstra vs BFS
-
-| Aspect | Dijkstra | BFS |
-|--------|----------|-----|
-| Edge weights | Weighted (non-negative) | Unweighted (or all weight = 1) |
-| Data structure | Priority Queue | Queue |
-| Time | `O((V+E) log V)` | `O(V+E)` |
-| When to use | Weighted graphs | Unweighted graphs |
-
 **Interview tip:** If all edges have the same weight, BFS is simpler and faster than Dijkstra.
-
-### Dijkstra vs Bellman-Ford
-
-| Aspect | Dijkstra | Bellman-Ford |
-|--------|----------|--------------|
-| Negative weights | No | Yes |
-| Negative cycles | Cannot detect | Detects them |
-| Time | `O((V+E)log V)` | `O(V·E)` |
-| Approach | Greedy | Relaxation |
 
 **Interview tip:** "When would you use Bellman-Ford over Dijkstra?" → When edges can be negative, or when you need to detect negative cycles.
 

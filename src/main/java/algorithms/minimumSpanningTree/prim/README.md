@@ -35,18 +35,6 @@ Prim(graph, start):
     return MST edges, totalWeight
 ```
 
-### Similarity to Dijkstra
-
-Prim's and Dijkstra's algorithms have nearly identical structure:
-
-| Aspect | Prim's | Dijkstra's |
-|--------|--------|------------|
-| Priority | Edge weight to vertex | Total distance from source |
-| Comparison | `edgeWeight < minWeight[v]` | `dist[u] + weight < dist[v]` |
-| Goal | Minimum total edge weight | Minimum path distances |
-
-**Interview tip:** "Prim's is Dijkstra with edge weight instead of path distance."
-
 ## Visual Walkthrough
 
 ```
@@ -131,12 +119,17 @@ Like Dijkstra, we use **lazy deletion** instead of decrease-key:
 
 **Interview tip:** For dense graphs or when starting vertex matters, use Prim. For sparse graphs with edge list input, use Kruskal.
 
-## Prim vs Dijkstra
+## Prim vs Dijkstra (Common Confusion)
+
+**Reminder:** Prim's is Dijkstra with edge weight instead of path distance.
+
+Prim's and Dijkstra's algorithms have nearly identical structure:
 
 | Aspect | Prim's | Dijkstra's |
 |--------|--------|------------|
 | Goal | Minimum Spanning Tree | Single-source shortest paths |
-| Priority | Edge weight | Total path distance |
+| Priority | Edge weight to vertex | Total distance from source |
+| Comparison | `edgeWeight < minWeight[v]` | `dist[u] + weight < dist[v]` |
 | Output | Tree with min total weight | Shortest distances from source |
 | Negative weights | Works (no path concept) | Fails (greedy assumption) |
 

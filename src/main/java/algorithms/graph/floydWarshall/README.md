@@ -6,16 +6,6 @@ Floyd-Warshall computes **shortest paths between all pairs** of vertices in a we
 
 **Intuition:** For each possible intermediate vertex `k`, ask: "Can I get from `i` to `j` faster by going through `k`?"
 
-### When to Use Floyd-Warshall
-
-| Use Case | Why Floyd-Warshall |
-|----------|-------------------|
-| All-pairs shortest paths | Designed for this exact problem |
-| Dense graphs | O(V³) is competitive with V × Dijkstra on dense graphs |
-| Small graphs (V ≤ 400) | Simple implementation, O(V³) is acceptable |
-| Negative edge weights | Handles them correctly (unlike Dijkstra) |
-| Transitive closure | Minor modification computes reachability |
-
 ## Core Idea
 
 The algorithm uses **dynamic programming** with a clever insight:
@@ -32,7 +22,7 @@ dist[k][i][j] = min(
 
 **Space optimization:** Since `dist[k]` only depends on `dist[k-1]`, we can use a single 2D array and update in-place.
 
-### The Key Question
+### The Key Insight
 
 For each triple `(i, k, j)`, ask:
 
@@ -133,8 +123,8 @@ Shortest path 0→2: 0 → 1 → 3 → 2 with distance 1 (not direct edge 8!)
 | Approach | Time | Best For |
 |----------|------|----------|
 | Floyd-Warshall | `O(V³)` | Dense graphs, small V |
-| V × Dijkstra | `O(V · (V + E) log V)` | Sparse graphs, non-negative weights |
-| V × Bellman-Ford | `O(V² · E)` | Negative weights, sparse graphs |
+| V × Dijkstra | `O(V·(V + E) log V)` | Sparse graphs, non-negative weights |
+| V × Bellman-Ford | `O(V²·E)` | Negative weights, sparse graphs |
 
 **Interview tip:** For sparse graphs with non-negative weights, running Dijkstra V times is often faster than Floyd-Warshall.
 
@@ -143,7 +133,7 @@ Shortest path 0→2: 0 → 1 → 3 → 2 with distance 1 (not direct edge 8!)
 | Aspect | Floyd-Warshall | Dijkstra |
 |--------|----------------|----------|
 | Problem | All-pairs shortest path | Single-source shortest path |
-| Time (all-pairs) | `O(V³)` | `O(V · (V + E) log V)` with heap |
+| Time (clique; all-pairs) | `O(V³)` | `O(V·(V + E) log V)` with heap |
 | Negative weights | Yes | No (greedy fails) |
 | Negative cycles | Detects them | Cannot handle |
 | Graph representation | Adjacency matrix | Adjacency list preferred |
@@ -153,10 +143,10 @@ Shortest path 0→2: 0 → 1 → 3 → 2 with distance 1 (not direct edge 8!)
 ### When to Choose Which
 
 **Use Floyd-Warshall when:**
-- You need **all-pairs** shortest paths
-- Graph is **dense** (E ≈ V²)
-- Graph has **negative edge weights** (but no negative cycles)
-- V is small (≤ 400-500)
+- You need **all-pairs** shortest paths (designed for this exact problem!)
+- Graph is **dense** (E ≈ V²) (O(V³) is competitive with V × Dijkstra on dense graphs)
+- Graph has **negative edge weights** (but no negative cycles; Dijkstra cannot deal with negative weights)
+- V is small (≤ 400-500) (O(V³) is acceptable)
 
 **Use Dijkstra (V times) when:**
 - You need **all-pairs** but graph is **sparse** (E << V²)
@@ -166,7 +156,7 @@ Shortest path 0→2: 0 → 1 → 3 → 2 with distance 1 (not direct edge 8!)
 **Use single Dijkstra when:**
 - You only need paths from **one source**
 
-### Complexity Crossover
+### **[IMPORTANT]** Complexity Crossover
 
 For all-pairs shortest paths:
 - Floyd-Warshall: `O(V³)`
@@ -178,7 +168,8 @@ On a **sparse graph** (E = O(V)):
 On a **dense graph** (E = O(V²)):
 - V × Dijkstra ≈ `O(V³ log V)` — slower than `O(V³)`
 
-**Interview tip:** When asked "Dijkstra vs Floyd-Warshall?", clarify: (1) single-source or all-pairs? (2) negative weights? (3) dense or sparse?
+**Interview tip:** When asked "Dijkstra vs Floyd-Warshall?", clarify: <br/>
+(1) single-source or all-pairs? (2) negative weights? (3) dense or sparse?
 
 ## Negative Cycle Detection
 
@@ -195,6 +186,8 @@ for (int i = 0; i < n; i++) {
 **Why?** If `dist[i][i] < 0`, there's a path from `i` back to `i` with negative weight—a negative cycle.
 
 ## Path Reconstruction
+
+<details>
 
 To reconstruct paths, maintain a `next[][]` matrix:
 - `next[i][j]` = next vertex after `i` on the shortest path to `j`
@@ -216,7 +209,11 @@ while u != v:
     path.append(u)
 ```
 
+</details>
+
 ## Variants
+
+<details>
 
 ### Transitive Closure (Warshall's Algorithm)
 
@@ -237,6 +234,8 @@ Find path where the **maximum edge weight is minimized** (useful for capacity pr
 ```java
 dist[i][j] = min(dist[i][j], max(dist[i][k], dist[k][j]));
 ```
+
+</details>
 
 ## Applications
 

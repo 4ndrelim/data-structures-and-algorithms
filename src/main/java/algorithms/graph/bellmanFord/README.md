@@ -200,6 +200,8 @@ Yen's improvement (Jin Y. Yen, 1970) optimizes Bellman-Ford by ordering edge rel
 
 Bellman-Ford is the theoretical foundation for **Distance-Vector Routing Protocols** used in computer networks, such as **RIP (Routing Information Protocol)**.
 
+<details>
+
 ### How It Works in Networks
 
 Each router maintains a **distance vector** (table of shortest distances to all destinations):
@@ -242,8 +244,9 @@ Link B-C fails:
 | **Maximum Hop Count** | Define infinity as a small number (RIP uses 16) |
 
 **Interview tip:** If asked about Bellman-Ford in networking context, mention RIP, distance-vector routing, and the count-to-infinity problem.
+</details>
 
-## Applications
+## More Applications
 
 | Application | Why Bellman-Ford? |
 |-------------|-------------------|

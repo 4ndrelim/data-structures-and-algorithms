@@ -90,6 +90,7 @@ public class BellmanFord {
         }
 
         // check for negative cycles
+        // essentially running for 1 more iteration, same as above, but split for clarity
         boolean hasNegativeCycle = false;
         for (Edge edge : edges) {
             if (dist[edge.from] != Integer.MAX_VALUE
