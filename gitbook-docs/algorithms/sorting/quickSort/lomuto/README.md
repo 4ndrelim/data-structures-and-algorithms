@@ -1,0 +1,53 @@
+# Lomuto's QuickSort
+
+## Background
+QuickSort is a divide-and-conquer sorting algorithm. The basic idea behind Quicksort is to choose a pivot element,
+places it in its correct position in the sorted array, and then recursively sorts the sub-arrays on either side of
+the pivot. When we introduce randomization in pivot selection, every element has equal probability of being
+selected as the pivot. This means the chance of an extreme element getting chosen as the pivot is decreased, so we
+reduce the probability of encountering the worst-case scenario of imbalanced partitioning.
+
+This is how QuickSort works if we always pick the first element as the pivot with Lomuto's partitioning.
+
+<div align="center">
+    <img src="../../../../.gitbook/assets/QuickSortFirstPivot.png" alt="QuickSort with first element as pivot" width="65%"/>
+    <br/>
+    <em>Source: <a href="https://www.geeksforgeeks.org/implement-quicksort-with-first-element-as-pivot/">GeeksforGeeks</a></em>
+</div>
+
+If we use randomised pivot selection, the idea is very similar to the above implementation. All we
+need to do is to swap the random pivot to the first element in the array, then partition as per usual,
+then swap the pivot back to its correct position. Below is an illustration:
+
+<div align="center">
+    <img src="../../../../.gitbook/assets/Lomutos.jpeg" alt="Lomuto's QuickSort with random pivot" width="65%"/>
+    <br/>
+    <em>Lomuto's partition scheme with randomized pivot</em>
+</div>
+
+## Implementation Invariant
+The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
+
+## Complexity Analysis
+
+| Metric | Complexity | Notes |
+|--------|------------|-------|
+| Time (Best/Average) | `O(n log n)` | `T(n) = 2T(n/2) + O(n)` with balanced pivot |
+| Time (Worst) | `O(n²)` | Poor pivot choices or many duplicates |
+| Space | `O(log n)` | Call stack; partitioning is in-place |
+
+In the best case of a balanced pivot, the partitioning process divides the array in half, leading to `log n`
+levels of recursion. Given a sub-array of length m, the partition subroutine takes `O(m)` time.
+
+Even in the average case where the pivot partitions the array by a fraction, there will still be `log n`
+levels of recursion (e.g., `T(n) = T(n/10) + T(9n/10) + O(n)` => `O(n log n)`).
+
+However, with many duplicates (e.g., `{1, 1, 1, 1}`), the 1st pivot lands at index 3, 2nd at index 2, etc.
+This causes extremely unbalanced partitioning, leading to `O(n²)` time complexity.
+
+## Notes
+### Lomuto's vs Hoare's QuickSort
+
+Lomuto's partition scheme is in contrast to Hoare's partition scheme. Hoare's uses two pointers, while Lomuto's uses
+one. Hoare's partition scheme is generally more efficient as it requires less swaps. See more at
+https://www.geeksforgeeks.org/hoares-vs-lomuto-partition-scheme-quicksort/.
