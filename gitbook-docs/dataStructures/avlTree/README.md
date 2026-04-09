@@ -32,9 +32,9 @@ Balanced trees are a special subset of trees with **height in the order of `log(
 This choice is not an arbitrary one. It can be mathematically shown that a binary tree of `n` nodes has height of at least `log(n)` (in the case of a complete binary tree). So, it makes intuitive sense to give trees whose heights are roughly in the order of `log(n)` the desirable 'balanced' label.
 
 <div align="center">
-    <img src="../../.gitbook/assets/BalancedProof.png" width="40%">
-    <br>
-    Credits: CS2040s Lecture 9
+    <img src="../../.gitbook/assets/BalancedProof.png" alt="Balanced tree height proof" width="50%"/>
+    <br/>
+    <em>Source: CS2040S Lecture 9</em>
 </div>
 
 ### Height-Balanced Property of AVL Trees
@@ -62,9 +62,9 @@ in fact, using the golden ratio, we can achieve a tighter bound of ~`1.44log(n)`
 Therefore, following the definition of a balanced tree, AVL trees are balanced.
 
 <div align="center">
-    <img src="../../.gitbook/assets/AvlTree.png" width="40%">
-    <br>
-    Credits: CS2040s Lecture 9
+    <img src="../../.gitbook/assets/AvlTree.png" alt="AVL tree" width="50%"/>
+    <br/>
+    <em>Source: CS2040S Lecture 9</em>
 </div>
 
 ### Balance Factor
@@ -98,9 +98,9 @@ An AVL tree supports the standard **insert**, **delete**, and **search** operati
 Insertions and deletions can violate the height-balanced property. To restore it, we use **rotations**.
 
 <div align="center">
-    <img src="../../.gitbook/assets/TreeRotation.png" width="40%">
-    <br>
-    Credits: CS2040s Lecture 10
+    <img src="../../.gitbook/assets/TreeRotation.png" alt="Tree rotation" width="50%"/>
+    <br/>
+    <em>Source: CS2040S Lecture 10</em>
 </div>
 
 ### The 4 Rotation Cases

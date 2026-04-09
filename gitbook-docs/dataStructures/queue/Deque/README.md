@@ -5,7 +5,7 @@
 A deque (pronounced "deck") is a queue that supports insertion and removal at **both ends**. It generalizes both stacks and queues - you can use it as either.
 
 <div align="center">
-    <img src="https://media.geeksforgeeks.org/wp-content/uploads/anod.png" alt="Deque" width="60%"/>
+    <img src="../../../.gitbook/assets/deque.png" alt="Deque" width="60%"/>
     <br/>
     <em>Source: GeeksForGeeks</em>
 </div>

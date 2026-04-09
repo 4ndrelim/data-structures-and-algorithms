@@ -6,9 +6,11 @@ The iterative implementation of MergeSort takes a bottom-up approach, where the 
 intervals of size 1. Intervals of size 1 are trivially in sorted order. The algorithm then proceeds to merge
 adjacent sorted intervals, doubling the interval size with each merge step, until the entire array is fully sorted.
 
-![MergeSort Iterative](../../../../.gitbook/assets/MergeSortIterative.jpg)
-
-Image Source: https://www.chelponline.com/iterative-merge-sort-12243
+<div align="center">
+    <img src="../../../../.gitbook/assets/MergeSortIterative.jpg" alt="Iterative merge sort" width="65%"/>
+    <br/>
+    <em>Source: <a href="https://www.chelponline.com/iterative-merge-sort-12243">CHelpOnline</a></em>
+</div>
 
 ### Implementation Invariant
 

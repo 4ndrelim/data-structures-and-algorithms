@@ -6,9 +6,11 @@ See [parent README](../README.md) for detailed tips, tricks, and complexity anal
 
 ## Illustration
 
-![binary search img](../../../.gitbook/assets/BinarySearch.png)
-
-*Source: GeeksforGeeks*
+<div align="center">
+    <img src="../../../.gitbook/assets/BinarySearch.png" alt="Binary search" width="65%"/>
+    <br/>
+    <em>Source: GeeksforGeeks</em>
+</div>
 
 After `mid` points to index 4, the `low` pointer moves to index 5 (`mid + 1`) when narrowing the search. When `mid` points to index 7, the `high` pointer shifts to index 6 (`mid - 1`). Both pointers always exclude `mid` because we've already checked it isn't the target.
 

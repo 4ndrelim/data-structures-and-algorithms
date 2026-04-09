@@ -3,7 +3,11 @@
 ## Background 
 Paranoid Quicksort is the naive quicksort with that allow additional attempts to guarantee a good pivot selection.
 
-![ParanoidQuickSort](../../../../.gitbook/assets/ParanoidQuickSort.jpeg)
+<div align="center">
+    <img src="../../../../.gitbook/assets/ParanoidQuickSort.jpeg" alt="Paranoid QuickSort" width="65%"/>
+    <br/>
+    <em>Paranoid QuickSort: re-pick the pivot until it produces a balanced split</em>
+</div>
 
 ## Complexity Analysis
 

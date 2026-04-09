@@ -4,7 +4,11 @@
 
 A **Segment Tree** is a binary tree used for answering **range queries** on an array while supporting **point updates**. Queries can compute sum, minimum, maximum, GCD, or any associative operation over a contiguous subarray.
 
-![Segment Tree](../../.gitbook/assets/SegmentTree.png)
+<div align="center">
+    <img src="../../.gitbook/assets/SegmentTree.png" alt="Segment tree" width="65%"/>
+    <br/>
+    <em>Source: GeeksforGeeks</em>
+</div>
 
 ### Structure
 

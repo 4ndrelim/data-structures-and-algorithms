@@ -11,9 +11,9 @@ Consider sorting integers by their decimal digits. We sort all numbers by their 
 first (ones place), then by the next digit (tens place), and so on. Each digit position is a "segment".
 
 <div align="center">
-    <img src="../../../.gitbook/assets/RadixSort.png" width="65%">
-    <br>
-    Credits: Level Up Coding
+    <img src="../../../.gitbook/assets/RadixSort.png" alt="Radix sort" width="65%"/>
+    <br/>
+    <em>Source: Level Up Coding</em>
 </div>
 
 The key insight: a **stable** counting sort must be used as the subroutine. If the sort isn't stable,

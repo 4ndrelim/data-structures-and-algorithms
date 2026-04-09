@@ -6,7 +6,9 @@ Bubble sort is one of the more intuitive comparison-based sorting algorithms.
 It makes repeated comparisons between neighbouring elements, 'bubbling' (side-by-side swaps)
 the largest (or smallest) element in the unsorted region to the sorted region.
 
-![bubble sort img](../../../.gitbook/assets/BubbleSort.jpeg)
+<div align="center">
+    <img src="../../../.gitbook/assets/BubbleSort.jpeg" alt="Bubble sort" width="65%"/>
+</div>
 
 ### Implementation Invariant
 

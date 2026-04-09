@@ -4,9 +4,11 @@
 
 A **stack** is a linear data structure that follows **LIFO (Last In, First Out)** order - the most recently added element is the first to be removed.
 
-![Stack data structure](https://cdn.programiz.com/sites/tutorial2program/files/stack.png)
-
-*Source: Programiz*
+<div align="center">
+    <img src="../../.gitbook/assets/stack.png" alt="Stack" width="50%"/>
+    <br/>
+    <em>Source: Programiz</em>
+</div>
 
 ### Core Operations
 

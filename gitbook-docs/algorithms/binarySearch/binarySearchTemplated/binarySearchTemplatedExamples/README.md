@@ -72,7 +72,9 @@ right of those that fail! Since "all the versions after a bad version are also b
 
 Since we want to return the first bad version, we will return low.
 
-![first bad version img](../../../../.gitbook/assets/firstBadVersion.jpeg)
+<div align="center">
+    <img src="../../../../.gitbook/assets/firstBadVersion.jpeg" alt="First bad version" width="65%"/>
+</div>
 
 <b> Full Solution: </b>
 

@@ -25,18 +25,22 @@ If all edge weights are distinct, the MST is unique. If some weights are equal, 
 ### 3. Cycle Property
 For any cycle in the graph, the maximum weight edge in that cycle is **NOT in the MST**.
 
-![MST Property 3](../../.gitbook/assets/MSTProperty3.png)
-
-Image Source: CS2040S 22/23 Sem 2 Lecture Slides
+<div align="center">
+    <img src="../../.gitbook/assets/MSTProperty3.png" alt="MST cycle property" width="60%"/>
+    <br/>
+    <em>Source: CS2040S 22/23 Sem 2 Lecture Slides</em>
+</div>
 
 **Why?** If we include the max-weight edge, we can remove it and still stay connected via the other cycle edges, reducing total weight.
 
 ### 4. Cut Property
 For any partition of vertices into two sets, the minimum weight edge crossing the cut **must be in the MST**.
 
-![MST Property 4](../../.gitbook/assets/MSTProperty4.png)
-
-Image Source: CS2040S 22/23 Sem 2 Lecture Slides
+<div align="center">
+    <img src="../../.gitbook/assets/MSTProperty4.png" alt="MST cut property" width="60%"/>
+    <br/>
+    <em>Source: CS2040S 22/23 Sem 2 Lecture Slides</em>
+</div>
 
 **Why?** If we don't include the minimum crossing edge, we must include some heavier edge to connect the two sets. Swapping would give a lighter tree.
 

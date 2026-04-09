@@ -10,13 +10,17 @@ Strategy
 - Each node in the x-tree has a set of points in its subtree
 - Store a y-tree at each x-node containing all the points in the x-subtree
 
-![2DORS](../../../.gitbook/assets/2DORS.jpg)
+<div align="center">
+    <img src="../../../.gitbook/assets/2DORS.jpg" alt="2D Orthogonal Range Searching" width="65%"/>
+</div>
 
 1. Build an x-tree using only x-coordinates. 
    - This should be done in the exact same way as you would for a 1D range tree. 
 2. For every node in the x-tree, build a y-tree out of nodes in the x-subtree using only y-coordinates. 
 
-![2DORSTrees](../../../.gitbook/assets/2DORSTrees.jpg)
+<div align="center">
+    <img src="../../../.gitbook/assets/2DORSTrees.jpg" alt="2D ORS nested trees" width="65%"/>
+</div>
 
 Given the 2D range tree, we now want to query the points in a given rectangle 
 i.e. search(tree, xLow, xHigh, yLow, yHigh). 
@@ -37,8 +41,11 @@ in 1D ORS.
 
 A similar symmetric logic applies in exploring our x-right subtree.
 
-![2DORSQuery](../../../.gitbook/assets/2DORSQuery.jpg)
-Image Source: https://www.cse.wustl.edu/~taoju/cse546/lectures/Lecture21_rangequery_2d.pdf
+<div align="center">
+    <img src="../../../.gitbook/assets/2DORSQuery.jpg" alt="2D ORS query" width="65%"/>
+    <br/>
+    <em>Source: <a href="https://www.cse.wustl.edu/~taoju/cse546/lectures/Lecture21_rangequery_2d.pdf">WashU CSE 546 Lecture 21</a></em>
+</div>
 
 ## Complexity Analysis
 **Time**:

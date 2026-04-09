@@ -14,7 +14,7 @@ To distinguish complete words from prefixes within the trie, nodes are often imp
 This flag is set to true for nodes that correspond to the final character of a complete word and false otherwise.
 
 <div align="center">
-    <img src="../../.gitbook/assets/Trie.png" alt="Trie" style="width:80%"/>
+    <img src="../../.gitbook/assets/Trie.png" alt="Trie" width="70%"/>
     <br/>
     <em>Source: <a href="https://java2blog.com/trie-data-structure-in-java/">Java2Blog</a></em>
 </div>

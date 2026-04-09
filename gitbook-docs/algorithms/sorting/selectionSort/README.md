@@ -6,7 +6,11 @@ Selection sort is an intuitive comparison-based sorting algorithm. Like bubble a
 maintains a sorted and unsorted region. It repeatedly finds the smallest (or largest) element in the
 unsorted region and places it in its correct *final* position.
 
-![SelectionSort](../../../.gitbook/assets/SelectionSort.png)
+<div align="center">
+    <img src="../../../.gitbook/assets/SelectionSort.png" alt="Selection sort" width="65%"/>
+    <br/>
+    <em>Source: HackerEarth</em>
+</div>
 
 ### Implementation Invariant
 
@@ -44,8 +48,11 @@ Finding the minimum in an array of length m takes `O(m)` time. Total: `n + (n-1)
    - Result: 5a and 5b swapped relative order (was 5a before 5b, now 5b before 5a)
    </details>
 
-2. **Minimal swaps**: Selection sort performs exactly `O(n)` swaps (at most n-1 swaps). This is optimal
-   among comparison sorts and useful when writes are expensive (e.g., flash memory).
+2. **Minimal swaps — the one reason to ever pick selection sort**: It does `O(n²)` *comparisons* like
+   the other simple sorts, but only `O(n)` *swaps* (at most `n-1`). Every other `O(n²)` sort does up to
+   `O(n²)` swaps. So if writes are dramatically more expensive than reads — flash memory, EEPROM, any
+   medium where each write degrades the cell — selection sort is the right call. Outside of that niche,
+   insertion sort wins on virtually every dimension.
 
 3. **Not adaptive**: Performance is the same regardless of input order - no benefit from partially
    sorted data.
@@ -66,5 +73,3 @@ sort's `O(n)` best case would be better).
 **Interview tip:** Selection sort's main advantage is its `O(n)` swaps. If asked "which sort minimizes
 writes?", selection sort is the answer among simple `O(n²)` sorts. However, for most practical purposes,
 insertion sort is preferred due to its adaptive behavior.
-
-Image Source: https://www.hackerearth.com/practice/algorithms/sorting/selection-sort/tutorial/

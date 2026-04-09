@@ -32,7 +32,9 @@ if (condition(x)) {
 requires elements that "fail" the condition to be on the left of the elements that "pass" the condition, see below, in a
 sorted array due to the way the high and low pointers are reassigned.
 
-![binary search templated 1 img](../../../.gitbook/assets/BinarySearchTemplated1.jpeg)
+<div align="center">
+    <img src="../../../.gitbook/assets/BinarySearchTemplated1.jpeg" alt="Binary search templated — fail/pass partition" width="65%"/>
+</div>
 
 Hence, we will need to implement a condition method that is able to discern between arrays that "pass" and "fail"
 accurately and also place them in the correct relative positions i.e. "fail" on the left of "pass". Suppose we change
@@ -63,7 +65,9 @@ public static boolean condition(int value, int target) {
     return value >= target;
 }
 ```
-![binary search templated 2 img](../../../.gitbook/assets/BinarySearchTemplated2.jpeg)
+<div align="center">
+    <img src="../../../.gitbook/assets/BinarySearchTemplated2.jpeg" alt="Binary search templated — return value" width="65%"/>
+</div>
 
 However, if we want to return the last "fail" in the array, we will `return low - 1`.
 
@@ -83,7 +87,9 @@ Due to the nature of floor division in Java's \ operator, if there are two mid-v
 when the number of elements is even, the first mid-value will be selected. Suppose we do not increment the low pointer
 during reassignment, `low = mid`, let us take a look at the following example:
 
-![binary search templated 1 img](../../../.gitbook/assets/BinarySearchTemplated3.jpeg)
+<div align="center">
+    <img src="../../../.gitbook/assets/BinarySearchTemplated3.jpeg" alt="Binary search templated — search space adjustment" width="65%"/>
+</div>
 
 The search space has been narrowed down to the range of index 1 (low) to 2 (high). The mid-value is calculated,
 `mid = (1 + 2) / 2`, to be 1 due to floor division. Since `2 < 5`, we enter the else block where there is reassignment

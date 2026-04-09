@@ -6,9 +6,11 @@ MergeSort is a divide-and-conquer sorting algorithm. The recursive implementatio
 recursively dividing the array into two halves, sorting each half separately, and then merging the sorted halves
 to produce the final sorted output.
 
-![MergeSort Recursive](../../../../.gitbook/assets/MergeSortRecursive.png)
-
-Image Source: https://www.101computing.net/merge-sort-algorithm/
+<div align="center">
+    <img src="../../../../.gitbook/assets/MergeSortRecursive.png" alt="Recursive merge sort" width="65%"/>
+    <br/>
+    <em>Source: <a href="https://www.101computing.net/merge-sort-algorithm/">101 Computing</a></em>
+</div>
 
 ### Implementation Invariant (for the merging subroutine)
 

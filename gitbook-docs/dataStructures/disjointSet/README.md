@@ -44,6 +44,28 @@ improved complexities.
 
 **Interview tip:** When asked about Union-Find complexity with path compression, say "amortized nearly constant time" or "O(α(n)) where α is the inverse Ackermann function, practically constant."
 
+## Operations
+
+All Disjoint Set variants share the same two core operations. The differences lie in how each variant **represents components internally** and how that representation affects cost.
+
+### `find(x)`
+
+Return a **canonical identifier** for the component containing `x`. Two elements `x` and `y` belong to the same component if and only if `find(x) == find(y)`.
+
+- **Quick Find**: the identifier is stored directly in an array slot for `x` → `O(1)`.
+- **Quick Union / Weighted Union**: the identifier is the root of the tree containing `x`, found by walking parent pointers until reaching a node whose parent is itself.
+- **With path compression**: while walking up to the root, re-point each visited node directly at the root, so future `find` calls on those nodes are nearly free.
+
+### `union(x, y)`
+
+Merge the components of `x` and `y` into a single component. If they are already in the same component, do nothing.
+
+- **Quick Find**: rewrite every element's identifier from one of the two component IDs to the other → `O(n)`.
+- **Quick Union**: make one root the parent of the other → cost dominated by the two `find` calls.
+- **Weighted Union**: always attach the **smaller** tree under the **larger** root, which keeps tree height bounded by `O(log n)`. This is what makes both operations `O(log n)` (and `O(α(n))` amortized when combined with path compression).
+
+For variant-specific implementation details, walk-throughs, and trade-offs, see [quickFind/](./quickFind/) and [weightedUnion/](./weightedUnion/).
+
 ## Applications
 Because of its efficiency and simplicity in implementing, Disjoint Set structures are widely used in practice:
 1. As mentioned, it is often used as a helper structure for Kruskal's MST algorithm

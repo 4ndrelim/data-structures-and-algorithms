@@ -8,7 +8,9 @@ enhancement.
 QuickSort is a divide-and-conquer sorting algorithm that works by selecting a pivot element and partitioning
 the array around it. It's one of the most widely used sorting algorithms in practice.
 
-![QuickSort Overview](../../../.gitbook/assets/QuickSortOverview.jpeg)
+<div align="center">
+    <img src="../../../.gitbook/assets/QuickSortOverview.jpeg" alt="QuickSort overview" width="65%"/>
+</div>
 
 ## Variants Summary
 

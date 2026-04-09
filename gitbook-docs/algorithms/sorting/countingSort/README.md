@@ -12,9 +12,11 @@ The algorithm works in three steps:
 3. **Place**: Iterate through the original array (backwards for stability), placing each element in its
    correct position using the prefix sum array
 
-![counting sort img](../../../.gitbook/assets/CountingSort.png)
-
-Image Source: https://www.oreilly.com/library/view/mastering-algorithms-with/1565924533/ch12s13.html
+<div align="center">
+    <img src="../../../.gitbook/assets/CountingSort.png" alt="Counting sort" width="65%"/>
+    <br/>
+    <em>Source: <a href="https://www.oreilly.com/library/view/mastering-algorithms-with/1565924533/ch12s13.html">O'Reilly — Mastering Algorithms with C</a></em>
+</div>
 
 _To align with our implementation: data → arr, counts → freq, temp → sorted._
 
