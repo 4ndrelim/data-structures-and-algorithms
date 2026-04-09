@@ -5,7 +5,7 @@
 A queue is a linear data structure that follows **FIFO** (First In, First Out) order - the earliest element added is the first one removed.
 
 <div align="center">
-    <img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20221213113312/Queue-Data-Structures.png" alt="Queue" width="60%"/>
+    <img src="../../../../../docs/assets/images/queue.png" alt="Queue" width="60%"/>
     <br/>
     <em>Source: GeeksForGeeks</em>
 </div>

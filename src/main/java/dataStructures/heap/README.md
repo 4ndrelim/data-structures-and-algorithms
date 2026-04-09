@@ -13,7 +13,9 @@ following properties:
 This makes it a powerful data structure that provides efficient access to the highest (or lowest) priority element,
 making it suitable as an underlying implementation of the ADT, priority queue.
 
-<img src="../../../../../docs/assets/images/max_heap.png" alt="max heap" width="60%">
+<div align="center">
+    <img src="../../../../../docs/assets/images/max_heap.png" alt="Max heap" width="55%"/>
+</div>
 
 ### Array-based Heap
 

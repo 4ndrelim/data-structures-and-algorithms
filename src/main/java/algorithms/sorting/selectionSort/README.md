@@ -6,7 +6,9 @@ Selection sort is an intuitive comparison-based sorting algorithm. Like bubble a
 maintains a sorted and unsorted region. It repeatedly finds the smallest (or largest) element in the
 unsorted region and places it in its correct *final* position.
 
-![SelectionSort](../../../../../../docs/assets/images/SelectionSort.png)
+<div align="center">
+    <img src="../../../../../../docs/assets/images/SelectionSort.png" alt="Selection sort" width="65%"/>
+</div>
 
 ### Implementation Invariant
 

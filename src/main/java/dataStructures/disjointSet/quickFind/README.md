@@ -6,9 +6,9 @@ an underlying array or hash map that tracks the component identity of each objec
 Our implementation uses a hash map (to easily handle the case when objects aren't integers).
 
 <div align="center">
-    <img src="../../../../../../docs/assets/images/QuickFind.png" width="50%">
-    <br>
-    Credits: CS2040s Lecture Slides
+    <img src="../../../../../../docs/assets/images/QuickFind.png" alt="Quick Find" width="55%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
 </div>
 
 ### Union

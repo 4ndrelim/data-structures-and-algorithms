@@ -16,7 +16,9 @@ Strategy:
 2. Store all points in the leaves of the tree (internal nodes only store copies)
 3. Each internal node v stores the MAX of any leaf in the left sub-tree (**range tree property**)
 
-![1DORS](../../../../../../docs/assets/images/1DORS.jpg)
+<div align="center">
+    <img src="../../../../../../docs/assets/images/1DORS.jpg" alt="1D Orthogonal Range Searching tree" width="65%"/>
+</div>
 
 Say we want to find all the nodes between 10 and 50 i.e. query(10, 50). We would want to:
 1. Find split node: highest node where search includes both left & right subtrees
@@ -25,8 +27,11 @@ Say we want to find all the nodes between 10 and 50 i.e. query(10, 50). We would
 - Left traversal covers the range within [low, splitNode]
 - Right traversal covers the range within (splitNode, high]
 
-![1DORSQuery](../../../../../../docs/assets/images/1DORSQuery.jpeg)
-Image Source: Lecture Slides
+<div align="center">
+    <img src="../../../../../../docs/assets/images/1DORSQuery.jpeg" alt="1D ORS query traversal" width="65%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
+</div>
 
 ## Complexity Analysis
 **Time**:
@@ -53,7 +58,9 @@ as a leaf node, and we still need to adhere to the range tree property.
 Note how the ORS tree property enables efficient dynamic updating of the tree, as the value of the nodes do not need 
 to change after rotation. 
 
-![1DORSDynamicUpdates](../../../../../../docs/assets/images/1DORSDynamicUpdates.jpg)
+<div align="center">
+    <img src="../../../../../../docs/assets/images/1DORSDynamicUpdates.jpg" alt="1D ORS dynamic updates" width="65%"/>
+</div>
 
 For more implementation details, refer to the code below "// Functions from here onwards are designed to support 
 dynamic updates."

@@ -4,9 +4,11 @@
 
 A **linked list** is a linear data structure where elements (nodes) are connected via pointers rather than stored contiguously in memory.
 
-![Linked list image](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230726162542/Linked-List-Data-Structure.png)
-
-*Source: GeeksForGeeks*
+<div align="center">
+    <img src="../../../../../docs/assets/images/llist.png" alt="Linked list" width="70%"/>
+    <br/>
+    <em>Source: GeeksForGeeks</em>
+</div>
 
 Each node contains:
 - **Data**: The value stored
@@ -24,9 +26,11 @@ Each node contains:
 | Memory overhead | None | Pointer(s) per node |
 | Cache performance | Excellent | Poor (pointer chasing) |
 
-![Array image](https://beginnersbook.com/wp-content/uploads/2018/10/array.jpg)
-
-*Source: BeginnersBook*
+<div align="center">
+    <img src="../../../../../docs/assets/images/array_compare_llist.jpg" alt="Array vs linked list memory layout" width="60%"/>
+    <br/>
+    <em>Source: BeginnersBook</em>
+</div>
 
 ## Complexity Analysis
 
@@ -62,9 +66,11 @@ Each node contains:
 
 ### Doubly Linked List
 
-![Doubly Linked List](https://media.geeksforgeeks.org/wp-content/cdn-uploads/gq/2014/03/DLL1.png)
-
-*Source: GeeksForGeeks*
+<div align="center">
+    <img src="../../../../../docs/assets/images/double_llist.png" alt="Doubly linked list" width="70%"/>
+    <br/>
+    <em>Source: GeeksForGeeks</em>
+</div>
 
 Each node has **prev** and **next** pointers, enabling:
 - `O(1)` delete when given node reference (no need to find predecessor)
@@ -75,9 +81,9 @@ Each node has **prev** and **next** pointers, enabling:
 
 ### Skip List
 
-![Skip List](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Skip_list.svg/800px-Skip_list.svg.png)
-
-*Source: Brilliant*
+<div align="center">
+    <img src="../../../../../docs/assets/images/skip_list.png" alt="Skip list" width="70%"/>
+</div>
 
 A probabilistic data structure with multiple levels of "express lanes" that skip over nodes. Achieves `O(log n)` search, insert, and delete on average.
 
@@ -85,9 +91,10 @@ Used as an alternative to balanced BSTs (simpler to implement, similar performan
 
 ### Unrolled Linked List
 
-![Unrolled Linked List](https://ds055uzetaobb.cloudfront.net/brioche/uploads/5LFjevVjNy-ull-new-page.png?width=2400)
-
-*Source: Brilliant*
+<div align="center">
+    <img src="../../../../../docs/assets/images/unrolled_llist.png" alt="Unrolled linked list" width="70%"/>
+    <br/>
+</div>
 
 Each node stores an array of elements instead of a single element. Combines linked list flexibility with array cache efficiency.
 

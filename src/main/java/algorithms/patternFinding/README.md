@@ -11,8 +11,11 @@ It is hence crucial that we develop an efficient algorithm.
 
 Typically, the algorithm returns a list of indices that denote the start of each occurrence of the pattern string.
 
-![KMP](../../../../../docs/assets/images/kmp.png)
-Image Source: GeeksforGeeks
+<div align="center">
+    <img src="../../../../../docs/assets/images/kmp.png" alt="KMP pattern matching" width="65%"/>
+    <br/>
+    <em>Source: GeeksforGeeks</em>
+</div>
 
 ### Intuition
 It's efficient because it utilizes the information gained from previous character comparisons. When a mismatch occurs, 

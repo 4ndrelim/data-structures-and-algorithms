@@ -10,7 +10,9 @@ elements may displace previously inserted elements. What matters is the sorted r
 More succinctly, at the kth iteration, we take `arr[k]` and insert it into `arr[0..k-1]` following
 sorted order, giving us `arr[0..k]` in sorted order.
 
-![InsertionSort](../../../../../../docs/assets/images/InsertionSort.png)
+<div align="center">
+    <img src="../../../../../../docs/assets/images/InsertionSort.png" alt="Insertion sort" width="65%"/>
+</div>
 
 ### Implementation Invariant
 
