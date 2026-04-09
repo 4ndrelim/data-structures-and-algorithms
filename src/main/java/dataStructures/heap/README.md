@@ -13,12 +13,13 @@ following properties:
 This makes it a powerful data structure that provides efficient access to the highest (or lowest) priority element,
 making it suitable as an underlying implementation of the ADT, priority queue.
 
-<img src="../../../../../docs/assets/images/max_heap.png" alt="max heap" width="60%">
+<div align="center">
+    <img src="../../../../../docs/assets/images/max_heap.png" alt="Max heap" width="55%"/>
+</div>
 
 ### Array-based Heap
 
-The complete binary tree property actually allows the heap to be implemented as a contiguous array (since no gaps!).
-The parent-child relationships are derived based on the indices of the elements.
+The complete binary tree property is what makes an array implementation possible. Because every level (except possibly the last) is completely filled left-to-right, so no gaps! And once the layout is regular, the parent-child relationships fall out as simple index arithmetic instead of needing pointers.
 
 Theoretically, there isn't any fundamental difference in order of growth for either implementation.
 Both implementation provide the same asymptotic time complexity, and supports most operations in O(log(n)).

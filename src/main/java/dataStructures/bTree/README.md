@@ -53,14 +53,23 @@ Before we talk about B-trees, we first introduce its family (generalized form) -
 
 Unlike binary trees, each node can have more than 2 children and store multiple keys.
 
-![(2,4) tree](../../../../../docs/assets/images/(2,4)tree.jpg)
+<div align="center">
+    <img src="../../../../../docs/assets/images/(2,4)tree.jpg" alt="(2,4) tree" width="65%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
+</div>
 
 ### Implementation Invariants
 
 **Rule #1: (a,b)-child Policy**
 
 The min and max of keys and children each node can have are bounded as follows:
-![(a,b) child policy](../../../../../docs/assets/images/(a,b)childpolicy.jpg)
+
+<div align="center">
+    <img src="../../../../../docs/assets/images/(a,b)childpolicy.jpg" alt="(a,b) child policy" width="60%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
+</div>
 
 Note: The number of children is always one more than the number of keys (except for leaves).
 
@@ -123,8 +132,11 @@ See [GeeksforGeeks: B-Tree Insertion](https://www.geeksforgeeks.org/insert-opera
 
 ### Split Child Method
 
-![split child](../../../../../docs/assets/images/btreesplitchild.jpeg)
-<sub>Image Source: GeeksforGeeks</sub>
+<div align="center">
+    <img src="../../../../../docs/assets/images/btreesplitchild.jpeg" alt="B-tree split child" width="65%"/>
+    <br/>
+    <em>Source: GeeksforGeeks</em>
+</div>
 
 ### Delete Operation
 
@@ -267,8 +279,8 @@ A **clustered index** is a B+ tree where the **leaf nodes store the actual row d
 ```
 Clustered Index on emp_id:
 
-       [500, 1000]
-      /     |     \
+                   [500, 1000]
+                /       |        \
   [emp_id=1,...] [emp_id=501,...] [emp_id=1001,...]
    ↑ actual row data stored here
 ```

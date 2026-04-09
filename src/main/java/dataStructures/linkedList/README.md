@@ -4,9 +4,11 @@
 
 A **linked list** is a linear data structure where elements (nodes) are connected via pointers rather than stored contiguously in memory.
 
-![Linked list image](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230726162542/Linked-List-Data-Structure.png)
-
-*Source: GeeksForGeeks*
+<div align="center">
+    <img src="../../../../../docs/assets/images/llist.png" alt="Linked list" width="70%"/>
+    <br/>
+    <em>Source: GeeksForGeeks</em>
+</div>
 
 Each node contains:
 - **Data**: The value stored
@@ -24,9 +26,11 @@ Each node contains:
 | Memory overhead | None | Pointer(s) per node |
 | Cache performance | Excellent | Poor (pointer chasing) |
 
-![Array image](https://beginnersbook.com/wp-content/uploads/2018/10/array.jpg)
-
-*Source: BeginnersBook*
+<div align="center">
+    <img src="../../../../../docs/assets/images/array_compare_llist.jpg" alt="Array vs linked list memory layout" width="60%"/>
+    <br/>
+    <em>Source: BeginnersBook</em>
+</div>
 
 ## Complexity Analysis
 
@@ -62,9 +66,11 @@ Each node contains:
 
 ### Doubly Linked List
 
-![Doubly Linked List](https://media.geeksforgeeks.org/wp-content/cdn-uploads/gq/2014/03/DLL1.png)
-
-*Source: GeeksForGeeks*
+<div align="center">
+    <img src="../../../../../docs/assets/images/double_llist.png" alt="Doubly linked list" width="70%"/>
+    <br/>
+    <em>Source: GeeksForGeeks</em>
+</div>
 
 Each node has **prev** and **next** pointers, enabling:
 - `O(1)` delete when given node reference (no need to find predecessor)
@@ -75,23 +81,43 @@ Each node has **prev** and **next** pointers, enabling:
 
 ### Skip List
 
-![Skip List](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Skip_list.svg/800px-Skip_list.svg.png)
+<div align="center">
+    <img src="../../../../../docs/assets/images/skip_list.png" alt="Skip list" width="70%"/>
+</div>
 
-*Source: Brilliant*
+A **skip list** is a sorted linked list augmented with several layers of "express lanes" stacked above the base list. The bottom layer (level 0) contains every element. Each higher layer contains a sparse subset of the layer below it, so a level-`k` node can "skip" over many level-`k-1` nodes in a single hop.
 
-A probabilistic data structure with multiple levels of "express lanes" that skip over nodes. Achieves `O(log n)` search, insert, and delete on average.
+**The intuition**: walking a sorted linked list to find a value is `O(n)` because every step advances by one. If we add a second list that contains every other node, each hop on that list covers two base nodes — search becomes `O(n/2)`. Add another layer that keeps every fourth node and we get `O(n/4)`, and so on. With `log n` such layers, search collapses to `O(log n)`. A skip list is the same idea, but the layering is decided **probabilistically** instead of by a fixed stride, which removes the need to rebalance on every insert.
 
-Used as an alternative to balanced BSTs (simpler to implement, similar performance).
+**Level assignment (the "skip" part)**: when a new node is inserted, we flip a fair coin until it comes up tails. The number of heads is the node's level. So roughly:
+- 1/2 of nodes live only on level 0
+- 1/4 reach level 1
+- 1/8 reach level 2
+- ...
+
+The expected number of levels for `n` nodes is `O(log n)`, and the expected number of nodes at each level halves as you go up — exactly the geometric thinning the express-lane intuition needs.
+
+**Search**: start at the top-left. At each node, look right; if the next node's key is `<= target`, hop right, otherwise drop down a level. Repeat until you bottom out at level 0. Each step either moves right past `O(1)` expected nodes or drops a level, so search is `O(log n)` expected.
+
+**Insert/delete**: search for the position (recording the "drop-down" point at every level along the way), flip coins to pick the new node's level, then splice it into every level up to that height. Both are `O(log n)` expected.
+
+Skip lists are popular as a simpler alternative to balanced BSTs (AVL, Red-Black) — no rotations, no rebalancing logic, easy to make concurrent — at the cost of probabilistic (rather than worst-case) guarantees. Used in Redis sorted sets and LevelDB's memtable.
 
 ### Unrolled Linked List
 
-![Unrolled Linked List](https://ds055uzetaobb.cloudfront.net/brioche/uploads/5LFjevVjNy-ull-new-page.png?width=2400)
+<div align="center">
+    <img src="../../../../../docs/assets/images/unrolled_llist.png" alt="Unrolled linked list" width="70%"/>
+    <br/>
+    <em>Source: Brilliant</em>
+</div>
 
-*Source: Brilliant*
+Each node stores a small **array of elements** (a "chunk") instead of a single element. A chunk is typically sized to fit in a cache line, so iterating through the elements of one node is essentially a contiguous-array walk before jumping to the next pointer.
 
-Each node stores an array of elements instead of a single element. Combines linked list flexibility with array cache efficiency.
+**Why it helps**: a regular linked list pays a cache miss on almost every step because consecutive elements live in arbitrary memory locations. By packing many elements per node, an unrolled list amortizes that cache miss across an entire chunk, recovering most of the array's locality benefit while still allowing `O(1)` splice-style insertion at known positions.
 
-**Trade-off**: More complex insertion/deletion logic.
+**Trade-offs**: insertion and deletion need to handle chunks that overflow (split into two) or underflow (merge with a neighbor or rebalance), so the bookkeeping is more involved than a vanilla linked list. In return you get materially faster traversal on modern hardware and lower per-element pointer overhead.
+
+**Where you see it**: used in rope data structures (gap buffers in text editors), some implementations of `std::deque`, and various STL-like sequence containers where iteration speed matters.
 
 ## Applications
 

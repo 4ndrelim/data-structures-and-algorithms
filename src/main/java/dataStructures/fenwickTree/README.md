@@ -4,8 +4,11 @@
 
 A **Fenwick Tree** (also called **Binary Indexed Tree** or **BIT**) is a data structure that efficiently supports **prefix sum queries** and **point updates** in `O(log n)` time. It was invented by Peter Fenwick in 1994.
 
-![Fenwick Tree](../../../../../docs/assets/images/fenwick.png)
-<sub>Image credit: [OI Wiki](https://en.oi-wiki.org/ds/fenwick/)</sub>
+<div align="center">
+    <img src="../../../../../docs/assets/images/fenwick.png" alt="Fenwick tree" width="65%"/>
+    <br/>
+    <em>Source: <a href="https://en.oi-wiki.org/ds/fenwick/">OI Wiki</a></em>
+</div>
 
 The diagram shows a Fenwick Tree for an array of size 8. Each node represents a 1-indexed position in the BIT array. Notice:
 - **Nodes at powers of 2** (1, 2, 4, 8) lie on the leftmost path

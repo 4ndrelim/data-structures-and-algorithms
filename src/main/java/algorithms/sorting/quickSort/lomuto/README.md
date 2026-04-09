@@ -9,15 +9,21 @@ reduce the probability of encountering the worst-case scenario of imbalanced par
 
 This is how QuickSort works if we always pick the first element as the pivot with Lomuto's partitioning.
 
-![QuickSort with first element as pivot](../../../../../../../docs/assets/images/QuickSortFirstPivot.png)
-
-Image Source: https://www.geeksforgeeks.org/implement-quicksort-with-first-element-as-pivot/
+<div align="center">
+    <img src="../../../../../../../docs/assets/images/QuickSortFirstPivot.png" alt="QuickSort with first element as pivot" width="65%"/>
+    <br/>
+    <em>Source: <a href="https://www.geeksforgeeks.org/implement-quicksort-with-first-element-as-pivot/">GeeksforGeeks</a></em>
+</div>
 
 If we use randomised pivot selection, the idea is very similar to the above implementation. All we
 need to do is to swap the random pivot to the first element in the array, then partition as per usual,
 then swap the pivot back to its correct position. Below is an illustration:
 
-![Lomuto's QuickSort with random pivot](../../../../../../../docs/assets/images/Lomutos.jpeg)
+<div align="center">
+    <img src="../../../../../../../docs/assets/images/Lomutos.jpeg" alt="Lomuto's QuickSort with random pivot" width="65%"/>
+    <br/>
+    <em>Lomuto's partition scheme with randomized pivot</em>
+</div>
 
 ## Implementation Invariant
 The pivot is in the correct position, with elements to its left being <= it, and elements to its right being > it.
