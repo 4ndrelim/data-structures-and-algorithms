@@ -12,7 +12,9 @@ and swaps with duplicate elements, making the sorting process more efficient.
 Note that during the partitioning process, there would be a 4th region - 'In Progress' region that will hold elements
 that haven't yet been placed in the right section (see below).
 
-![ThreeWayPartitioning](../../../../../../../docs/assets/images/ThreeWayPartitioning.jpeg)
+<div align="center">
+    <img src="../../../../../../../docs/assets/images/ThreeWayPartitioning.jpeg" alt="Three-way partitioning" width="65%"/>
+</div>
 
 ## Implementation Invariant
 

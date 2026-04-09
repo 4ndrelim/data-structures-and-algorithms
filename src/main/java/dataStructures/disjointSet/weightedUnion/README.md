@@ -10,11 +10,13 @@ Note that the trees here are not necessarily binary trees. In fact, more often t
 with multiple children nodes.
 
 <div align="center">
-    <img src="../../../../../../docs/assets/images/QuickUnion1.png" width="40%">
-    LEADS TO ->
-    <img src="../../../../../../docs/assets/images/QuickUnion2.png" width="40%">
-    <br>
-    Credits: CS2040s Lecture Slides
+    <img src="../../../../../../docs/assets/images/QuickUnion1.png" alt="Quick Union before" width="45%"/>
+    <br/>
+    <em>↓ leads to ↓</em>
+    <br/>
+    <img src="../../../../../../docs/assets/images/QuickUnion2.png" alt="Quick Union after" width="45%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
 </div>
 
 ### Union
@@ -45,9 +47,9 @@ tree becomes a child of the larger tree.**
 It can be mathematically shown the height of the tree is bounded by O(log(n)).
 
 <div align="center">
-    <img src="../../../../../../docs/assets/images/WeightedUnion.png" width="50%">
-    <br>
-    Credits: CS2040s Lecture Slides
+    <img src="../../../../../../docs/assets/images/WeightedUnion.png" alt="Weighted Union" width="55%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
 </div>
 
 ### Intuition - Why It Works
@@ -88,9 +90,9 @@ _Note: Below shows the 2-pass version of path compression, but what's implemente
 grandparents._
 
 <div align="center">
-    <img src="../../../../../../docs/assets/images/PathCompression.png" width="50%">
-    <br>
-    Credits: CS2040s Lecture Slides
+    <img src="../../../../../../docs/assets/images/PathCompression.png" alt="Path Compression" width="55%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
 </div>
 
 The analysis with compression is trickier and involves the **inverse Ackermann function** `α(n)`.
@@ -113,5 +115,9 @@ For the formal analysis, see [Tarjan's original paper](https://dl.acm.org/doi/pd
 The 'objects' in the question are given to be integers. Using int arrays instead of HashMap mapping in our 
 implementation would suffice. But below uses the code exactly from our implementation to show its versatility.
 
-<img src="../../../../../../docs/assets/images/WeightedUnionLeetCode.png">
+<div align="center">
+    <img src="../../../../../../docs/assets/images/WeightedUnionLeetCode.png" alt="Weighted Union LeetCode demo" width="70%"/>
+    <br/>
+    <em>LeetCode 684 walkthrough using our Weighted Union implementation</em>
+</div>
 
