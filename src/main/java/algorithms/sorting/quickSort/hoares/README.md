@@ -69,6 +69,8 @@ continue moving towards each other.
 
 <div align="center">
     <img src="../../../../../../../docs/assets/images/UsualHoares.jpeg" alt="Usual Hoare's QuickSort with random pivot" width="65%"/>
+    <br/>
+    <em>Standard Hoare's two-pointer partition scheme</em>
 </div>
 
 Implementation Invariant:

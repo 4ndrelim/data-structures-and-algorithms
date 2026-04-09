@@ -51,15 +51,19 @@ Querying: O(k + logn)
 
 ## Notes
 ### Dynamic Updates
-If we need to dynamically update the tree, insertion and deletion is done in a manner similar to AVL trees 
-(insert/delete and rotate to maintain height balance), except now we need to ensure that we are adding the new node
-as a leaf node, and we still need to adhere to the range tree property. 
 
-Note how the ORS tree property enables efficient dynamic updating of the tree, as the value of the nodes do not need 
-to change after rotation. 
+**Why we even need a tree here**: If queries vastly outnumber inserts, sorting once and binary searching is fine — but every insert into a sorted array costs `O(n)` to shift elements. As soon as inserts become frequent, that `O(n)` per insert dominates and the sorted-array approach falls apart. A balanced BST gives us `O(log n)` insert *and* `O(log n + k)` range queries, which is the sweet spot the 1D range tree targets.
+
+**How updates work**: Insertion and deletion mirror AVL trees (insert/delete and rotate to maintain height balance), with two extra constraints specific to a range tree:
+1. New points must be added as **leaf nodes** (internal nodes only hold copies as routing keys).
+2. Each internal node must keep storing the **max of its left subtree** (the range tree property).
+
+The neat thing is that the range tree property is **rotation-friendly**: when an AVL rotation rearranges nodes, the leaves underneath each subtree don't change, so the "max of left subtree" value at each rotated node can be recomputed locally from its children in `O(1)`. We don't need to walk the whole subtree to fix things up.
 
 <div align="center">
     <img src="../../../../../../docs/assets/images/1DORSDynamicUpdates.jpg" alt="1D ORS dynamic updates" width="65%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
 </div>
 
 For more implementation details, refer to the code below "// Functions from here onwards are designed to support 

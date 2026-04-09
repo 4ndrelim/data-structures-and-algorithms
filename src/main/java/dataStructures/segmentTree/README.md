@@ -6,6 +6,8 @@ A **Segment Tree** is a binary tree used for answering **range queries** on an a
 
 <div align="center">
     <img src="../../../../../docs/assets/images/SegmentTree.png" alt="Segment tree" width="65%"/>
+    <br/>
+    <em>Source: GeeksforGeeks</em>
 </div>
 
 ### Structure

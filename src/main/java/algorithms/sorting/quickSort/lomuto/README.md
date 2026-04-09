@@ -21,6 +21,8 @@ then swap the pivot back to its correct position. Below is an illustration:
 
 <div align="center">
     <img src="../../../../../../../docs/assets/images/Lomutos.jpeg" alt="Lomuto's QuickSort with random pivot" width="65%"/>
+    <br/>
+    <em>Lomuto's partition scheme with randomized pivot</em>
 </div>
 
 ## Implementation Invariant

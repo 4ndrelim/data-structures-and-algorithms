@@ -117,5 +117,7 @@ implementation would suffice. But below uses the code exactly from our implement
 
 <div align="center">
     <img src="../../../../../../docs/assets/images/WeightedUnionLeetCode.png" alt="Weighted Union LeetCode demo" width="70%"/>
+    <br/>
+    <em>LeetCode 684 walkthrough using our Weighted Union implementation</em>
 </div>
 

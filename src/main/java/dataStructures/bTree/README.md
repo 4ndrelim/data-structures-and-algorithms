@@ -55,6 +55,8 @@ Unlike binary trees, each node can have more than 2 children and store multiple 
 
 <div align="center">
     <img src="../../../../../docs/assets/images/(2,4)tree.jpg" alt="(2,4) tree" width="65%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
 </div>
 
 ### Implementation Invariants
@@ -65,6 +67,8 @@ The min and max of keys and children each node can have are bounded as follows:
 
 <div align="center">
     <img src="../../../../../docs/assets/images/(a,b)childpolicy.jpg" alt="(a,b) child policy" width="60%"/>
+    <br/>
+    <em>Source: CS2040S Lecture Slides</em>
 </div>
 
 Note: The number of children is always one more than the number of keys (except for leaves).
@@ -275,8 +279,8 @@ A **clustered index** is a B+ tree where the **leaf nodes store the actual row d
 ```
 Clustered Index on emp_id:
 
-       [500, 1000]
-      /     |     \
+                   [500, 1000]
+                /       |        \
   [emp_id=1,...] [emp_id=501,...] [emp_id=1001,...]
    ↑ actual row data stored here
 ```

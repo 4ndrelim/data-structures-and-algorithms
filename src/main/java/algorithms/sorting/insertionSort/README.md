@@ -12,6 +12,8 @@ sorted order, giving us `arr[0..k]` in sorted order.
 
 <div align="center">
     <img src="../../../../../../docs/assets/images/InsertionSort.png" alt="Insertion sort" width="65%"/>
+    <br/>
+    <em>Source: HackerRank</em>
 </div>
 
 ### Implementation Invariant
@@ -70,5 +72,3 @@ that are already in position.
 **Interview tip:** Insertion sort is the preferred "simple" `O(n²)` sort. It outperforms bubble and
 selection sort on average, and its `O(n)` best case makes it excellent for nearly-sorted data.
 Many production sorting algorithms (like Timsort) use insertion sort for small subarrays.
-
-Image Source: https://www.hackerrank.com/challenges/correctness-invariant/problem
