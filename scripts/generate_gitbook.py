@@ -121,6 +121,9 @@ def rewrite_images(content: str, src_file: Path, dst_file: Path) -> str:
 
 # ---------- link rewriting for the special files ----------
 
+GITBOOK_SITE_URL = "https://andreas-3.gitbook.io/data-structures-and-algorithms"
+
+
 def strip_root_readme_meta(content: str) -> str:
     """Drop trailing meta sections from the root README.
 
@@ -133,6 +136,12 @@ def strip_root_readme_meta(content: str) -> str:
     if marker:
         content = content[:marker.start()].rstrip() + "\n"
     return content
+
+
+def strip_gitbook_selfref(content: str) -> str:
+    """Remove the 'also available on GitBook' line — redundant when already on GitBook."""
+    lines = content.splitlines(keepends=True)
+    return "".join(line for line in lines if GITBOOK_SITE_URL not in line)
 
 
 def rewrite_root_readme_links(content: str) -> str:
@@ -271,6 +280,7 @@ def main() -> None:
         if src == REPO_ROOT / "README.md":
             content = strip_root_readme_meta(content)
             content = rewrite_root_readme_links(content)
+            content = strip_gitbook_selfref(content)
         dst.write_text(content, encoding="utf-8")
 
     print("Generating SUMMARY.md...")

@@ -9,6 +9,10 @@ Each topic includes implementation, intuition, complexity analysis, and practica
 
 Developed by CS2040S Teaching Assistants and alumni under Prof Seth's guidance.
 
+📖 Also available as a [GitBook](https://andreas-3.gitbook.io/data-structures-and-algorithms) for a cleaner reading experience.
+
+If you find this resource helpful, consider giving the [GitHub repo](https://github.com/4ndrelim/data-structures-and-algorithms) a ⭐ — it helps others discover it!
+
 ---
 
 ## Data Structures
